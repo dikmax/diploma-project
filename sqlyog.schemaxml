@@ -6,7 +6,7 @@
 <canvas zoom="100">
 <tables>
 <table name="lib_author" view="colnames">
-<left>279</left>
+<left>275</left>
 <top>64</top>
 <width>184</width>
 <height>162</height>
@@ -40,8 +40,8 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Author different names names'</sql_create_table>
 </table>
 <table name="lib_text" view="colnames">
-<left>17</left>
-<top>391</top>
+<left>618</left>
+<top>267</top>
 <width>149</width>
 <height>112</height>
 <sql_create_table>CREATE TABLE `lib_text` (
@@ -87,8 +87,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data'</sql_create_table>
 </table>
 <table name="lib_user" view="colnames">
-<left>661</left>
-<top>569</top>
+<left>624</left>
+<top>635</top>
 <width>145</width>
 <height>178</height>
 <sql_create_table>CREATE TABLE `lib_user` (
@@ -106,8 +106,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='User accounts'</sql_create_table>
 </table>
 <table name="lib_user_data" view="colnames">
-<left>918</left>
-<top>434</top>
+<left>900</left>
+<top>466</top>
 <width>132</width>
 <height>128</height>
 <sql_create_table>CREATE TABLE `lib_user_data` (
@@ -121,8 +121,8 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Additional data for user profiles (reserved for future usage'</sql_create_table>
 </table>
 <table name="lib_channel" view="colnames">
-<left>640</left>
-<top>330</top>
+<left>1107</left>
+<top>300</top>
 <width>119</width>
 <height>112</height>
 <sql_create_table>CREATE TABLE `lib_channel` (
@@ -133,8 +133,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Different channels (eg. news or blog)'</sql_create_table>
 </table>
 <table name="lib_tag" view="colnames">
-<left>924</left>
-<top>210</top>
+<left>1382</left>
+<top>202</top>
 <width>112</width>
 <height>96</height>
 <sql_create_table>CREATE TABLE `lib_tag` (
@@ -144,8 +144,8 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Tags'</sql_create_table>
 </table>
 <table name="lib_channel_item_has_tag" view="colnames">
-<left>612</left>
-<top>168</top>
+<left>1097</left>
+<top>192</top>
 <width>151</width>
 <height>96</height>
 <sql_create_table>CREATE TABLE `lib_channel_item_has_tag` (
@@ -158,8 +158,8 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="lib_channel_item" view="colnames">
-<left>324</left>
-<top>335</top>
+<left>875</left>
+<top>263</top>
 <width>151</width>
 <height>160</height>
 <sql_create_table>CREATE TABLE `lib_channel_item` (
@@ -179,8 +179,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Channel items'</sql_create_table>
 </table>
 <table name="lib_writeboard_message" view="colnames">
-<left>1135</left>
-<top>578</top>
+<left>1160</left>
+<top>615</top>
 <width>194</width>
 <height>149</height>
 <sql_create_table>CREATE TABLE `lib_writeboard_message` (
@@ -194,7 +194,7 @@
   KEY `FK_lib_writeboard_message_writeboard_id` (`lib_writeboard_id`),
   CONSTRAINT `FK_lib_writeboard_message_writeboard_id` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`),
   CONSTRAINT `FK_lib_writeboard_writer` FOREIGN KEY (`writeboard_writer`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="lib_writeboard" view="colnames">
 <left>908</left>
@@ -205,7 +205,7 @@
   `lib_writeboard_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `owner_description` varchar(50) NOT NULL COMMENT 'String with data to whom writeboard belongs',
   PRIMARY KEY  (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="lib_author_image" view="colnames">
 <left>39</left>
@@ -221,6 +221,39 @@
   KEY `FK_lib_author_image_author` (`lib_author_id`),
   CONSTRAINT `FK_lib_author_image_author` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+</table>
+<table name="lib_author_title" view="colnames">
+<left>1068</left>
+<top>26</top>
+<width>152</width>
+<height>153</height>
+<sql_create_table>CREATE TABLE `lib_author_title` (
+  `lib_author_title_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
+  `name` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `description_text_id` int(10) unsigned NOT NULL,
+  `front_description` text NOT NULL,
+  `lib_writeboard_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`lib_author_title_id`),
+  KEY `FK_lib_author_title_writeboard` (`lib_writeboard_id`),
+  KEY `FK_lib_author_title_description` (`description_text_id`),
+  CONSTRAINT `FK_lib_author_title_description` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
+  CONSTRAINT `FK_lib_author_title_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+</table>
+<table name="lib_author_has_title" view="colnames">
+<left>648</left>
+<top>12</top>
+<width>120</width>
+<height>94</height>
+<sql_create_table>CREATE TABLE `lib_author_has_title` (
+  `lib_author_id` int(11) unsigned NOT NULL,
+  `lib_author_title_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY  (`lib_author_id`,`lib_author_title_id`),
+  KEY `FK_lib_author_has_title_title` (`lib_author_title_id`),
+  CONSTRAINT `FK_lib_author_has_title_title` FOREIGN KEY (`lib_author_title_id`) REFERENCES `lib_author_title` (`lib_author_title_id`),
+  CONSTRAINT `FK_lib_author_has_title_author` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 </tables>
 </canvas>

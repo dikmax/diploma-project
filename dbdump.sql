@@ -20,18 +20,36 @@ CREATE TABLE `lib_author` (
   `name` varchar(100) NOT NULL COMMENT 'Display name',
   `url` varchar(100) NOT NULL COMMENT 'Name used in url',
   `description_text_id` int(10) unsigned NOT NULL COMMENT 'ID with text description',
+  `front_description` text NOT NULL COMMENT 'Description to show on main page',
   `lib_writeboard_id` int(10) unsigned NOT NULL COMMENT 'ID of author writeboard',
   PRIMARY KEY  (`lib_author_id`),
   UNIQUE KEY `lib_author_url` (`url`),
   KEY `FK_lib_author` (`description_text_id`),
   KEY `FK_lib_author_writeboard` (`lib_writeboard_id`),
-  CONSTRAINT `FK_lib_author_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`),
-  CONSTRAINT `FK_lib_author_text` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`)
+  CONSTRAINT `FK_lib_author_text` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
+  CONSTRAINT `FK_lib_author_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Authors';
 
 /*Data for the table `lib_author` */
 
-insert  into `lib_author`(`lib_author_id`,`name`,`url`,`description_text_id`,`lib_writeboard_id`) values (1,'Саймак, Клиффорд Доналд','clifford_simak',1,3);
+insert  into `lib_author`(`lib_author_id`,`name`,`url`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Саймак, Клиффорд Доналд','clifford_simak',1,'Клиффорд Доналд Саймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.',3);
+
+/*Table structure for table `lib_author_has_title` */
+
+DROP TABLE IF EXISTS `lib_author_has_title`;
+
+CREATE TABLE `lib_author_has_title` (
+  `lib_author_id` int(11) unsigned NOT NULL,
+  `lib_author_title_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY  (`lib_author_id`,`lib_author_title_id`),
+  KEY `FK_lib_author_has_title_title` (`lib_author_title_id`),
+  CONSTRAINT `FK_lib_author_has_title_title` FOREIGN KEY (`lib_author_title_id`) REFERENCES `lib_author_title` (`lib_author_title_id`),
+  CONSTRAINT `FK_lib_author_has_title_author` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `lib_author_has_title` */
+
+insert  into `lib_author_has_title`(`lib_author_id`,`lib_author_title_id`) values (1,1);
 
 /*Table structure for table `lib_author_image` */
 
@@ -65,6 +83,28 @@ CREATE TABLE `lib_author_name` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Author different names names';
 
 /*Data for the table `lib_author_name` */
+
+/*Table structure for table `lib_author_title` */
+
+DROP TABLE IF EXISTS `lib_author_title`;
+
+CREATE TABLE `lib_author_title` (
+  `lib_author_title_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
+  `name` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `description_text_id` int(10) unsigned NOT NULL,
+  `front_description` text NOT NULL,
+  `lib_writeboard_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`lib_author_title_id`),
+  KEY `FK_lib_author_title_writeboard` (`lib_writeboard_id`),
+  KEY `FK_lib_author_title_description` (`description_text_id`),
+  CONSTRAINT `FK_lib_author_title_description` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
+  CONSTRAINT `FK_lib_author_title_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `lib_author_title` */
+
+insert  into `lib_author_title`(`lib_author_title_id`,`name`,`url`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Город','city',1,'City',4);
 
 /*Table structure for table `lib_channel` */
 
@@ -234,11 +274,11 @@ CREATE TABLE `lib_writeboard` (
   `lib_writeboard_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `owner_description` varchar(50) NOT NULL COMMENT 'String with data to whom writeboard belongs',
   PRIMARY KEY  (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `lib_writeboard` */
 
-insert  into `lib_writeboard`(`lib_writeboard_id`,`owner_description`) values (1,'User 1'),(2,'User 2'),(3,'Author 1');
+insert  into `lib_writeboard`(`lib_writeboard_id`,`owner_description`) values (1,'User 1'),(2,'User 2'),(3,'Author 1'),(4,'Title 1');
 
 /*Table structure for table `lib_writeboard_message` */
 
@@ -255,11 +295,11 @@ CREATE TABLE `lib_writeboard_message` (
   KEY `FK_lib_writeboard_message_writeboard_id` (`lib_writeboard_id`),
   CONSTRAINT `FK_lib_writeboard_message_writeboard_id` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`),
   CONSTRAINT `FK_lib_writeboard_writer` FOREIGN KEY (`writeboard_writer`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `lib_writeboard_message` */
 
-insert  into `lib_writeboard_message`(`lib_writeboard_message_id`,`lib_writeboard_id`,`writeboard_writer`,`message`,`message_date`) values (1,1,1,'Test message 1','2008-08-10 22:21:51'),(2,1,1,'Test message 2','2008-08-20 22:22:07'),(3,1,1,'test','2008-08-21 00:45:33'),(4,1,1,'test2','2008-08-21 01:13:48'),(5,1,2,'Сообщение от друга','2008-08-23 03:17:34'),(7,1,1,'asdf','2008-08-24 00:43:20');
+insert  into `lib_writeboard_message`(`lib_writeboard_message_id`,`lib_writeboard_id`,`writeboard_writer`,`message`,`message_date`) values (1,1,1,'Test message 1','2008-08-10 22:21:51'),(2,1,1,'Test message 2','2008-08-20 22:22:07'),(3,1,1,'test','2008-08-21 00:45:33'),(4,1,1,'test2','2008-08-21 01:13:48'),(5,1,2,'Сообщение от друга','2008-08-23 03:17:34'),(7,1,1,'asdf','2008-08-24 00:43:20'),(8,3,1,'Good author','2008-08-27 22:10:40'),(9,3,1,'Еще одно сообщение','2008-08-27 22:12:39');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
