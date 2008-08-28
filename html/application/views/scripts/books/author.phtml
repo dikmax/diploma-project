@@ -1,0 +1,45 @@
+<?php if ($this->frontImage === false): ?>
+    <div class="photo-placeholder">
+        Здесь<br />
+        могла<br />
+        быть<br />
+        фотография<br />
+        автора<br />
+    </div>
+<?php else: ?>
+    <div class="photo-image">
+        <img src="<?= $this->frontImage->getPath(); ?>" />
+    </div>
+<?php endif; ?>
+<h1><?= $this->author->getName(); ?></h1>
+<?php if ($this->author->getFrontDescription() != ''): ?>
+<p><?= $this->author->getFrontDescription(); ?></p>
+<p><a href="#">Читать далее...</a> | <a href="#">Редактировать</a> </p>
+<?php else: ?>
+<p>У нас пока нет описания этого автора. <a href="#">Есть желание помочь?</a></p>
+<?php endif; ?>
+
+<div class="author-titles">
+    <div class="header">
+        Произведения
+    </div>
+    <div class="body">
+        Город<br />
+        Почти как люди<br />
+        Все живое - трава
+    </div>
+</div>
+
+<div class="profile-info">
+    <div class="header">
+        <?php if ($this->isAllowed($this->writeboard, "delete")): ?>
+        <div class="edit">
+            [чистить]
+        </div>
+        <?php endif; ?>
+        Доска сообщений
+    </div>
+    <div class="body">
+        <?= $this->action('show', 'writeboard', null, array('writeboard' => $this->author->getWriteboard())); ?>
+    </div>
+</div>

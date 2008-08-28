@@ -1,0 +1,13 @@
+<?php echo $this->doctype() ?>
+<html>
+<head>
+  <?= $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8'); ?>
+  <?= $this->headLink()->appendStylesheet('/public/css/main.css'); ?>
+  <?= $this->headTitle(); ?>
+</head>
+<body>
+	<div class="content full-width">
+	    <?= $this->layout()->content; ?>
+	</div>
+</body>
+</html>
