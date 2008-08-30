@@ -33,6 +33,7 @@ class BooksController extends Zend_Controller_Action
             $this->view->headTitle($authorUrl);
             $this->view->author = $authorUrl;
             $this->_helper->viewRenderer->setScriptAction('author-not-found');
+            return;
         }
         $this->view->headTitle($author->getName());
         $this->view->author = $author;
@@ -44,13 +45,26 @@ class BooksController extends Zend_Controller_Action
      */
     public function titleAction()
     {
-        $author = $this->getRequest()->getParam('author');
-        $this->view->headTitle($author);
-        
-        $title = $this->getRequest()->getParam('title');
-        $this->view->headTitle($title);
-        
+        $authorUrl = $this->getRequest()->getParam('author');
+        $author = App_Library_Author::getAuthorByUrl($authorUrl);
+        if ($author === false) {
+            $this->view->headTitle($authorUrl);
+            $this->view->author = $authorUrl;
+            $this->_helper->viewRenderer->setScriptAction('author-not-found');
+            return;
+        }
+        $this->view->headTitle($author->getName());
         $this->view->author = $author;
+        
+        $titleUrl = $this->getRequest()->getParam('title');
+        $title = App_Library_Title::getTitleByUrl($titleUrl, $author);
+        if ($title === false) {
+            $this->view->headTitle($titleUrl);
+            $this->view->title = $titleUrl;
+            $this->_helper->viewRenderer->setScriptAction('title-not-found');
+            return;
+        }
+        $this->view->headTitle($title->getName());
         $this->view->title = $title;
     }
 }

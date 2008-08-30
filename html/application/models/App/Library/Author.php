@@ -63,6 +63,13 @@ class App_Library_Author
     protected $_frontImage;
     
     /**
+     * Titles written by author
+     * 
+     * @var array
+     */
+    protected $_titles;
+    
+    /**
      * Constructs author object
      *
      * @param array $construct
@@ -110,6 +117,8 @@ class App_Library_Author
         $this->_writeboard = null;
         
         $this->_frontImage = null;
+        
+        $this->_books = null;
     }
     
     /**
@@ -247,5 +256,15 @@ class App_Library_Author
             }
         }
         return $this->_frontImage;
+    }
+    
+    /**
+     * Returns all titles written by author
+     * 
+     * @return array
+     */
+    public function getTitles()
+    {
+        // TODO write smth here
     }
 }
