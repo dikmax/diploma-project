@@ -83,41 +83,6 @@ class App_Library_Title
         // TODO Writeboard
     }
     
-    /**
-     * Returns title by url
-     * 
-     * @param string $url title part of url
-     * @param App_Library_Author|int author who wrote title
-     * 
-     * @return App_Library_Title
-     */
-    public static function getTitleByUrl($url, $author)
-    {
-        if ($author instanceof App_Library_Author) {
-            $authorId = $author->getId();
-        } else if(is_numeric($author)) {
-            $authorId = $author;
-        } else {
-            throw new App_Library_Title_Exception('Author\'s id not defined');
-        }
-        
-        $db = Zend_Registry::get('db');
-        $row = $db->fetchRow('SELECT t.lib_title_id, t.name, t.url, '
-             .     't.front_description '
-             . 'FROM lib_title t '
-             . 'LEFT JOIN lib_author_has_title h USING (lib_title_id) '
-             . 'WHERE h.lib_author_id = :lib_author_id AND t.url = :url',
-             array(':lib_author_id' => $authorId,
-                   ':url' => $url)
-        );
-        
-        if ($row === false) {
-            return false;
-        }
-        
-        return new App_Library_Title($row);
-    }
-    
     /*
      * Setters and getters
      */

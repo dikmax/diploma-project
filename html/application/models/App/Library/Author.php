@@ -121,31 +121,6 @@ class App_Library_Author
         $this->_books = null;
     }
     
-    /**
-     * Returns author by url part
-     *
-     * @param string $url Part of url, which contains author name
-     * @return App_Library_Author
-     */
-    public static function getAuthorByUrl($url)
-    {
-        if (!is_string($url)) {
-            throw new App_Library_Author_Exception('Author url must be string');
-        }
-        
-        $db = Zend_Registry::get('db');
-        
-        $row = $db->fetchRow('SELECT lib_author_id, name, url, description_text_id, '
-            .     'front_description, lib_writeboard_id '
-            . 'FROM lib_author '
-            . 'WHERE url = :url', array(':url' => $url));
-        
-        if ($row === false) {
-            return false;
-        }
-        return new App_Library_Author($row);
-    }
-    
     /*
      * Setters and getters
      */

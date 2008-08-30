@@ -251,6 +251,7 @@
   PRIMARY KEY  (`lib_title_id`),
   KEY `FK_lib_author_title_writeboard` (`lib_writeboard_id`),
   KEY `FK_lib_author_title_description` (`description_text_id`),
+  KEY `lib_title_url` (`url`),
   CONSTRAINT `FK_lib_author_title_description` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_author_title_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>

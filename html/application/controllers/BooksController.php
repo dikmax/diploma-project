@@ -26,18 +26,17 @@ class BooksController extends Zend_Controller_Action
      */
     public function authorAction()
     {
-        $authorUrl = $this->getRequest()->getParam('author');
-        $author = App_Library_Author::getAuthorByUrl($authorUrl);
-        
-        if ($author === false) {
+        try {
+            $authorUrl = $this->getRequest()->getParam('author');
+            $author = App_Library::getAuthorByUrl($authorUrl);
+            $this->view->headTitle($author->getName());
+            $this->view->author = $author;
+            $this->view->frontImage = $author->getFrontImage();
+        } catch (App_Library_Exception_AuthorNotFound $e) {
             $this->view->headTitle($authorUrl);
             $this->view->author = $authorUrl;
             $this->_helper->viewRenderer->setScriptAction('author-not-found');
-            return;
         }
-        $this->view->headTitle($author->getName());
-        $this->view->author = $author;
-        $this->view->frontImage = $author->getFrontImage();
     }
     
     /**
@@ -45,26 +44,24 @@ class BooksController extends Zend_Controller_Action
      */
     public function titleAction()
     {
-        $authorUrl = $this->getRequest()->getParam('author');
-        $author = App_Library_Author::getAuthorByUrl($authorUrl);
-        if ($author === false) {
+        try {
+            $authorUrl = $this->getRequest()->getParam('author');
+            $author = App_Library::getAuthorByUrl($authorUrl);
+            $this->view->headTitle($author->getName());
+            $this->view->author = $author;
+            
+            $titleUrl = $this->getRequest()->getParam('title');
+            $title = App_Library::getTitleByUrl($author, $titleUrl);
+            $this->view->headTitle($title->getName());
+            $this->view->title = $title;
+        } catch (App_Library_Exception_AuthorNotFound $e) {
             $this->view->headTitle($authorUrl);
             $this->view->author = $authorUrl;
             $this->_helper->viewRenderer->setScriptAction('author-not-found');
-            return;
-        }
-        $this->view->headTitle($author->getName());
-        $this->view->author = $author;
-        
-        $titleUrl = $this->getRequest()->getParam('title');
-        $title = App_Library_Title::getTitleByUrl($titleUrl, $author);
-        if ($title === false) {
+        } catch (App_Library_Exception_TitleNotFound $e) {
             $this->view->headTitle($titleUrl);
             $this->view->title = $titleUrl;
             $this->_helper->viewRenderer->setScriptAction('title-not-found');
-            return;
         }
-        $this->view->headTitle($title->getName());
-        $this->view->title = $title;
     }
 }

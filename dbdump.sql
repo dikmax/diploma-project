@@ -40,16 +40,16 @@ DROP TABLE IF EXISTS `lib_author_has_title`;
 
 CREATE TABLE `lib_author_has_title` (
   `lib_author_id` int(11) unsigned NOT NULL,
-  `lib_author_title_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`lib_author_id`,`lib_author_title_id`),
-  KEY `FK_lib_author_has_title_title` (`lib_author_title_id`),
-  CONSTRAINT `FK_lib_author_has_title_title` FOREIGN KEY (`lib_author_title_id`) REFERENCES `lib_author_title` (`lib_author_title_id`),
+  `lib_title_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY  (`lib_author_id`,`lib_title_id`),
+  KEY `FK_lib_author_has_title` (`lib_title_id`),
+  CONSTRAINT `FK_lib_author_has_title` FOREIGN KEY (`lib_title_id`) REFERENCES `lib_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_author_has_title_author` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `lib_author_has_title` */
 
-insert  into `lib_author_has_title`(`lib_author_id`,`lib_author_title_id`) values (1,1);
+insert  into `lib_author_has_title`(`lib_author_id`,`lib_title_id`) values (1,1);
 
 /*Table structure for table `lib_author_image` */
 
@@ -83,28 +83,6 @@ CREATE TABLE `lib_author_name` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Author different names names';
 
 /*Data for the table `lib_author_name` */
-
-/*Table structure for table `lib_author_title` */
-
-DROP TABLE IF EXISTS `lib_author_title`;
-
-CREATE TABLE `lib_author_title` (
-  `lib_author_title_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
-  `name` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `description_text_id` int(10) unsigned NOT NULL,
-  `front_description` text NOT NULL,
-  `lib_writeboard_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY  (`lib_author_title_id`),
-  KEY `FK_lib_author_title_writeboard` (`lib_writeboard_id`),
-  KEY `FK_lib_author_title_description` (`description_text_id`),
-  CONSTRAINT `FK_lib_author_title_description` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
-  CONSTRAINT `FK_lib_author_title_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
-
-/*Data for the table `lib_author_title` */
-
-insert  into `lib_author_title`(`lib_author_title_id`,`name`,`url`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Город','city',1,'City',4);
 
 /*Table structure for table `lib_channel` */
 
@@ -227,6 +205,29 @@ CREATE TABLE `lib_text_revision_content` (
 /*Data for the table `lib_text_revision_content` */
 
 insert  into `lib_text_revision_content`(`lib_text_revision_content_id`,`content`) values (1,'Тест');
+
+/*Table structure for table `lib_title` */
+
+DROP TABLE IF EXISTS `lib_title`;
+
+CREATE TABLE `lib_title` (
+  `lib_title_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
+  `name` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `description_text_id` int(10) unsigned NOT NULL,
+  `front_description` text NOT NULL,
+  `lib_writeboard_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`lib_title_id`),
+  KEY `FK_lib_author_title_writeboard` (`lib_writeboard_id`),
+  KEY `FK_lib_author_title_description` (`description_text_id`),
+  KEY `lib_title_url` (`url`),
+  CONSTRAINT `FK_lib_author_title_description` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
+  CONSTRAINT `FK_lib_author_title_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `lib_title` */
+
+insert  into `lib_title`(`lib_title_id`,`name`,`url`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Город','city',1,'City',4);
 
 /*Table structure for table `lib_user` */
 
