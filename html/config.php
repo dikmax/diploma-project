@@ -28,29 +28,27 @@ return array(
                 'login' => ''
             )
         ),
-        'bookstitle' => array(
-            'route' => 'books/:author/:title',
+        'librarytitle' => array(
+            'route' => 'library/:author/:title',
             'defaults' => array(
-                'controller' => 'books',
-                'action' => 'title',
-                'author' => '',
-                'title' => ''
+                'controller' => 'title',
+                'action' => 'show'
             )
         ),
-        'booksauthor' => array(
-            'route' => 'books/:author',
+        'libraryauthor' => array(
+            'route' => 'library/:author',
             'defaults' => array(
-                'controller' => 'books',
-                'action' => 'author'
+                'controller' => 'author',
+                'action' => 'show'
             ),
   
         ),
-        'booksmain' => array(
+        'librarymain' => array(
             'type' => 'Zend_Controller_Router_Route_Static',
-            'route' => 'books',
+            'route' => 'library',
             'defaults' => array(
-                'controller' => 'books',
-                'action' => 'main'
+                'controller' => 'index',
+                'action' => 'library'
             )
         ),
     )

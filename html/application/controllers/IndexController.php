@@ -45,6 +45,14 @@ class IndexController extends Zend_Controller_Action
         //$this->view->rows = $r;
     }
     
+    /**
+     * Main library page
+     */
+    public function libraryAction()
+    {
+        
+    }
+    
     public function textReadAction()
     {
         $text = App_Text::read(9);
