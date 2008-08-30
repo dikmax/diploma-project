@@ -9,7 +9,7 @@
  */
 
 /**
- * Books controller
+ * Author controller
  */
 class AuthorController extends Zend_Controller_Action
 {

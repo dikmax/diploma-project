@@ -9,7 +9,7 @@
  */
 
 /**
- * Books controller
+ * Title controller
  */
 class TitleController extends Zend_Controller_Action
 {
