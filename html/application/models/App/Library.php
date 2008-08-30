@@ -67,7 +67,7 @@ class App_Library
         
         $db = Zend_Registry::get('db');
         $row = $db->fetchRow('SELECT t.lib_title_id, t.name, t.url, '
-             .     't.front_description '
+             .     't.front_description, t.lib_writeboard_id '
              . 'FROM lib_title t '
              . 'LEFT JOIN lib_author_has_title h USING (lib_title_id) '
              . 'WHERE h.lib_author_id = :lib_author_id AND t.url = :url',

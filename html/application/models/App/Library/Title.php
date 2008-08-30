@@ -40,6 +40,20 @@ class App_Library_Title
      * @var string
      */
     protected $_frontDescription;
+
+    /**
+     * Title's writeboard id
+     *
+     * @var int
+     */
+    protected $_writeboardId;
+    
+    /**
+     * Title's writeboard
+     *
+     * @var App_Writeboard
+     */
+    protected $_writeboard;
     
     /**
      * Constructs title object
@@ -52,6 +66,7 @@ class App_Library_Title
      *   <li><code>name</code>: title string (<b>string</b>)</li>
      *   <li><code>url</code>: title part of url (<b?string</b>)</li>
      *   <li><code>front_description</code>: description on front page (<b>string</b>)</li>
+     *   <li><code>lib_writeboard_id</code>: writeboard id (<b>int</b>)</li>
      * </ul>
      */
     public function __construct($construct)
@@ -80,7 +95,12 @@ class App_Library_Title
             ? $construct['front_description']
             : '';
         
-        // TODO Writeboard
+        // Writeboard
+        $this->_writeboardId = isset($construct['lib_writeboard_id'])
+            ? $construct['lib_writeboard_id']
+            : null;
+        
+        $this->_writeboard = null;
     }
     
     /*
@@ -135,5 +155,34 @@ class App_Library_Title
     public function getFrontDescription()
     {
         return $this->_frontDescription;
+    }
+
+    /**
+     * Returns title writeboard id
+     *
+     * @return int
+     */
+    public function getWriteboardId()
+    {
+        return $this->_writeboardId;
+    }
+    
+    /**
+     * Returns title writeboard
+     *
+     * @return App_Writeboard
+     */
+    public function getWriteboard()
+    {
+        if ($this->_writeboard === null) {
+            if ($this->_writeboardId === null) {
+                $this->_writeboard = false;
+            } else {
+                $this->_writeboard = new App_Writeboard(array(
+                    'lib_writeboard_id' => $this->_writeboardId
+                ));
+            }
+        }
+        return $this->_writeboard;
     }
 }

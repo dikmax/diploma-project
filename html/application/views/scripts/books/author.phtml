@@ -32,7 +32,7 @@
 
 <div class="profile-info">
     <div class="header">
-        <?php if ($this->isAllowed($this->writeboard, "delete")): ?>
+        <?php if ($this->isAllowed($this->author->getWriteboard(), "delete")): ?>
         <div class="edit">
             [чистить]
         </div>

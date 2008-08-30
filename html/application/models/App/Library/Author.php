@@ -115,10 +115,11 @@ class App_Library_Author
             : null;
         
         $this->_writeboard = null;
-        
+
+        // Lazy init stuff
         $this->_frontImage = null;
         
-        $this->_books = null;
+        $this->_titles = null;
     }
     
     /*
