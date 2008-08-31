@@ -21,7 +21,8 @@ if (ACL_NO_CACHE || !($acl = $cache->load(ACL_CACHE_ID))) {
     // Creating resources
     $acl->add(new Zend_Acl_Resource('profile'))
         ->add(new Zend_Acl_Resource('writeboard'))
-        ->add(new Zend_Acl_Resource('blog'));
+        ->add(new Zend_Acl_Resource('blog'))
+        ->add(new Zend_Acl_Resource('wiki'));
     
     // Creating permissions
     $acl->allow('guest', 'profile', 'view');
@@ -32,6 +33,9 @@ if (ACL_NO_CACHE || !($acl = $cache->load(ACL_CACHE_ID))) {
     
     $acl->allow('guest', 'blog', 'view');
     $acl->allow('user', 'blog', 'edit');
+    
+    $acl->allow('user', 'wiki', 'edit');
+    $acl->allow('admin', 'wiki', 'edit');
     
     // Set caching
     $cache->save($acl, ACL_CACHE_ID);

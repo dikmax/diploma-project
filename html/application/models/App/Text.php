@@ -14,7 +14,7 @@
  * @copyright  2008 Maxim Dikun
  * @version    Release: 0.0.1
  */
-class App_Text {
+class App_Text extends App_Acl_Resource_Abstract {
     /**
      * Index for database table <code>lib_text</code>
      *
@@ -104,6 +104,8 @@ class App_Text {
             : App_Date::now();
 
         $this->_text = null;
+        
+        $this->registerResource();
     }
 
     /**
@@ -266,5 +268,32 @@ class App_Text {
         if (!$noWrite) {
             $this->write();
         }
+    }
+    
+    /*
+     * App_Acl_Resource_Abstract
+     */
+
+    /**
+     * Returns the string identifier of the Resource
+     *
+     * @return string
+     */
+    public function getResourceId()
+    {
+        if ($this->_libTextId !== null) {
+            return "wiki-" . $this->_libTextId;
+        }
+        return "wiki-new";
+    }
+    
+    /**
+     * Returns resource parent (for registering)
+     *
+     * @return string
+     */
+    protected function getResourceParentId()
+    {
+        return 'wiki';
     }
 }

@@ -5,4 +5,6 @@
 <?= $this->author->getText(); ?>
 </p>
 
-<a href="<?= $this->url(array('action' => 'wiki-edit')); ?>">Редактировать</a>
+<?php if ($this->isAllowed('wiki', 'edit')): ?>
+    <a href="<?= $this->url(array('action' => 'wiki-edit')); ?>">Редактировать</a>
+<?php endif; ?>

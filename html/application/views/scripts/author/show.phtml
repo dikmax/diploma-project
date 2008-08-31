@@ -17,13 +17,21 @@
 <p>
     <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki'), 'libraryauthoraction') ?>">
         Читать далее...
-    </a> | 
+    </a>
+    <?php if ($this->isAllowed('wiki', 'edit')): ?>
+     | 
     <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">
         Редактировать
     </a>
+    <?php endif; ?>
 </p>
 <?php else: ?>
-<p>У нас пока нет описания этого автора. <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">Есть желание помочь?</a></p>
+<p>У нас пока нет описания этого автора.
+    <?php if ($this->isAllowed('wiki', 'edit')): ?> 
+        <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">Есть желание помочь?</a>
+    <?php endif; ?>
+</p>
+        
 <?php endif; ?>
 
 <div class="author-titles">
