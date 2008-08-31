@@ -20,6 +20,13 @@ return array(
     ),
     'mainChannelId' => 1,
     'routes' => array(
+        'default' => array(
+            'route' => ':action',
+            'defaults' => array(
+                'controller' => 'index',
+                'action' => 'index'
+            )
+        ),
         'user' => array(
             'route' => 'user/:login/:action',
             'defaults' => array(
@@ -33,6 +40,21 @@ return array(
             'defaults' => array(
                 'controller' => 'title',
                 'action' => 'show'
+            ),
+            'reqs' => array(
+                'title' => '^[^~].*'
+            )
+        ),
+        'librarytitleaction' => array(
+            'type' => 'Zend_Controller_Router_Route_Regex',
+            'route' => 'library/([^/]*)/([^/]*)/~([^/]*)',
+            'defaults' => array(
+                'controller' => 'title',
+            ),
+            'map' => array(
+                1 => 'author',
+                2 => 'title',
+                3 => 'action'
             )
         ),
         'libraryauthor' => array(
@@ -41,7 +63,17 @@ return array(
                 'controller' => 'author',
                 'action' => 'show'
             ),
-  
+        ),
+        'libraryauthoraction' => array(
+            'type' => 'Zend_Controller_Router_Route_Regex',
+            'route' => 'library/([^/]*)/~([^/]*)',
+            'defaults' => array(
+                'controller' => 'author'
+            ),
+            'map' => array(
+                1 => 'author',
+                2 => 'action'
+            )
         ),
         'librarymain' => array(
             'type' => 'Zend_Controller_Router_Route_Static',
