@@ -27,6 +27,20 @@ return array(
                 'action' => 'index'
             )
         ),
+        'auth' => array(
+            'route' => 'auth/:action',
+            'defaults' => array(
+                'controller' => 'auth',
+                'action' => 'index'
+            )
+        ),
+        'writeboard' => array(
+            'route' => 'writeboard/:action',
+            'defaults' => array(
+                'controller' => 'writeboard',
+                'action' => 'index'
+            )
+        ),
         'user' => array(
             'route' => 'user/:login/:action',
             'defaults' => array(
@@ -76,14 +90,6 @@ return array(
                 2 => 'action'
             ),
             'reverse' => 'library/%s/~%s'
-        ),
-        'librarymain' => array(
-            'type' => 'Zend_Controller_Router_Route_Static',
-            'route' => 'library',
-            'defaults' => array(
-                'controller' => 'index',
-                'action' => 'library'
-            )
-        ),
+        )
     )
 );

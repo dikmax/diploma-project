@@ -44,13 +44,6 @@ class App_Text_Revision {
     protected $_content;
     
     /**
-     * Old version of revision content to compare with before saving to database
-     *
-     * @var string
-     */
-    protected $_oldContent;
-    
-    /**
      * Date of modification
      *
      * @var App_Date
@@ -129,14 +122,11 @@ class App_Text_Revision {
         } else {
             $this->_content = '';
         }
-        $this->_oldContent = $this->_libTextRevisionId === null ? null : $this->_content;
 
         // mdate
-        if (isset($construct['mdate'])) {
-            $this->_mdate = new App_Date($construct['mdate']);
-        } else {
-            $this->_mdate = App_Date::now();
-        }
+        $this->_mdate = isset($construct['mdate'])
+            ? new App_Date($construct['mdate'])
+            : $this->_mdate = App_Date::now();
         
         // revision
         if (!isset($construct['revision'])) {
@@ -163,6 +153,8 @@ class App_Text_Revision {
 
     /**
      * Writes/updates revision into database
+     * 
+     * @throws App_Text_Revision_Exception
      */
     public function write()
     {
@@ -171,6 +163,10 @@ class App_Text_Revision {
         if ($this->_libTextRevisionId === null) {
             // Creating revision
             
+            $user = App_User_Factory::getSessionUser();
+            if (!$user) {
+                throw new App_Text_Revision_Exception('Guest user can\'t edit texts');
+            }
             // Creating 'lib_text_revision_content' record
             $data = array("content" => $this->_content);
             $db->insert('lib_text_revision_content', $data);
@@ -181,16 +177,31 @@ class App_Text_Revision {
             }
             
             // Creating 'lib_text_revision' record
+            if ($this->_revision !== null) {
+                $revision = $this->_revision;
+            } else if ($this->_libText !== null && $this->_libText->getId() !== null) {
+                $revision = $db->fetchOne('(SELECT max(revision) + 1 '
+                    . 'FROM lib_text_revision '
+                    . 'WHERE lib_text_id = :lib_text_id)', 
+                    array(
+                        ':lib_text_id' => $this->_libText->getId()
+                    ));
+                //$revision = new Zend_Db_Expr($db->quoteInto());
+            } else {
+                $revision = 1;
+            }
             $data = array('lib_text_revision_content_id' => $this->_contentId,
                           'mdate' => $this->_mdate->toMysqlString(),
-                          'revision' => $this->_revision,
-                          'author_id' => 1,   // TODO set to real user id
+                          'revision' => $revision,
+                          'author_id' => $user->getId(),
                           'changes' => $this->_changes);
             if ($this->_libText !== null && $this->_libText->getLibTextId() !== null) {
                 $data['lib_text_id'] = $this->_libText->getId();
             }
             $db->insert('lib_text_revision', $data);
             $this->_libTextRevisionId = $db->lastInsertId();
+        } else {
+            throw new App_Text_Revision_Exception('Revision could not be updated');
         }
     }
 
@@ -318,6 +329,40 @@ class App_Text_Revision {
     public function getChanges()
     {
         return $this->_changes;
+    }
+
+    /**
+     * Sets new revision content (creates new revision)
+     * 
+     * @param string $content
+     * @return boolean Success
+     */
+    public function setContent($content)
+    {
+        if ($this->_content == $content) {
+            // Content is same. Skip
+            return false;
+        }
+        // Updating fields for new revision
+        $this->_libTextRevisionId = null;
+        $this->_contentId = null;
+        $this->_content = $content;
+        $this->_mdate = App_Date::now();
+        $this->_revision = null;
+        $this->_changes = "Update text";
+        
+        return true;
+    }
+    
+    /**
+     * Set new revision content, creates new revision (alias for <code>setContent</code>)
+     * 
+     * @param string $text
+     * @return boolean Success
+     */
+    public function setText($text)
+    {
+        return $this->setContent($text);
     }
 }
 ?>

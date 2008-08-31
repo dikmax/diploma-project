@@ -83,7 +83,7 @@ class App_Text {
             } elseif (is_array($construct['revision'])) {
                 $revision_params = $construct['revision'];
                 $revision_params['lib_text'] = $this;
-                $this->_revision = new App_Text_Revision($construct['revision']);
+                $this->_revision = new App_Text_Revision($revision_params);
             } else {
                 throw new App_Text_Exception("'revision' index must be App_Text_Revision or array");
             }
@@ -99,12 +99,11 @@ class App_Text {
             $this->_revision = new App_Text_Revision($revision_params);
         }
         
-        if (isset($construct['cdate'])) {
-            $this->_cdate = new App_Date($construct['cdate']);
-        } else {
-            $this->_cdate = App_Date::now();
-        }
-        
+        $this->_cdate = isset($construct['cdate'])
+            ? new App_Date($construct['cdate'])
+            : App_Date::now();
+
+        $this->_text = null;
     }
 
     /**
@@ -135,7 +134,21 @@ class App_Text {
             }
         } else {
             // Updates existing text
-            // TODO write update
+            
+            $db->beginTransaction();
+            
+            try {
+                $this->_revision->write();
+                
+                $data = array('lib_text_revision_id' => $this->_revision->getId());
+                $db->update('lib_text', $data,
+                    $db->quoteInto('lib_text_id = ?', $this->_libTextId));
+                
+                $db->commit();
+            } catch (Exception $e) {
+                $db->rollBack();
+                throw $e;
+            }
         }
     }
 
@@ -222,9 +235,9 @@ class App_Text {
     }
     
     /**
-     * Returns latese text
+     * Returns latest text
      * 
-     * @var string
+     * @return string
      */
     public function getText()
     {
@@ -239,5 +252,19 @@ class App_Text {
     public function getCdate()
     {
         return $this->_cdate;
+    }
+    
+    /**
+     * Sets new text
+     * 
+     * @param string $text newText
+     * @param boolean $noWrite <code>true</code> if don't write to database
+     */
+    public function setText($text, $noWrite = false)
+    {
+        $this->_revision->setText($text);
+        if (!$noWrite) {
+            $this->write();
+        }
     }
 }

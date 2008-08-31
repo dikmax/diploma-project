@@ -2,7 +2,7 @@
 <h4>Информация</h4>
 
 <form method="post" action="<?= $this->url(array('action' => 'wiki-save')); ?>">
-<textarea rows="20" style="width: 100%"><?= $this->author->getDescription()->getText(); ?></textarea>
+<textarea rows="20" style="width: 100%" name="text"><?= $this->author->getText(); ?></textarea>
 <input type="submit" value="Сохранить" />
 </form>
 

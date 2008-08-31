@@ -144,6 +144,26 @@ class App_Library_Author
         $this->_titles = null;
     }
     
+    /**
+     * Writes/updates author into database
+     */
+    public function write()
+    {
+        $db = Zend_Registry::get('db');
+        
+        if ($this->_libAuthorId === null) {
+            // TODO write create
+        } else {
+            $data = array(
+                'name' => $this->_name,
+                'url' => $this->_url,
+                'front_description' => $this->_frontDescription
+            );
+            $db->update('lib_author', $data,
+                $db->quoteInto('lib_author_id = ?', $this->_libAuthorId));
+        }
+    }
+    
     /*
      * Setters and getters
      */
@@ -199,7 +219,7 @@ class App_Library_Author
     }
     
     /**
-     * Returns descirption text
+     * Returns description text object
      * 
      * @return App_Text
      */
@@ -209,6 +229,34 @@ class App_Library_Author
             $this->_description = App_Text::read($this->_descriptionId);
         }
         return $this->_description;
+    }
+    
+    /**
+     * Returns description text. Shorthand for <code>getDescription()->getText()</code>
+     * 
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->getDescription()->getText();
+    }
+    
+    /**
+     * Sets new text and updates front description
+     * 
+     * @param string $text New text
+     * @param boolean $noWrite <code>true<code> if don't update database
+     */
+    public function setText($text, $noWrite = false)
+    {
+        $this->getDescription(); // Ensure that $this->_description initialized
+        $this->_description->setText($text);
+        
+        // TODO write front description transform
+        $this->_frontDescription = $text;
+        if (!$noWrite) {
+            $this->write();
+        }
     }
     
     /**

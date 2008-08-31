@@ -1,5 +1,5 @@
 <?php if (!$this->isLoggedIn): ?>
-<form action="<?= $this->url(array('controller' => 'auth', 'action' => 'login'), 'default'); ?>" method="post">
+<form action="<?= $this->url(array('action' => 'login'), 'auth'); ?>" method="post">
 	<table>
 		<tr>
 			<td style="text-align: right;"><label for="login">Логин:</label></td>
@@ -19,6 +19,6 @@
 <div align="center">
     Привет,
     <h2><a href="<?= $this->url(array('controller' => 'user', 'action' => 'profile', 'login' => $this->login), 'user'); ?>"><?= $this->login ?></a></h2>
-    <a href="<?= $this->url(array('controller' => 'auth', 'action' => 'logout'), 'default'); ?>">Выйти</a>
+    <a href="<?= $this->url(array('action' => 'logout'), 'auth'); ?>">Выйти</a>
 </div>
 <?php endif; ?>

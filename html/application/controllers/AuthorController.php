@@ -67,4 +67,29 @@ class AuthorController extends Zend_Controller_Action
             ));
         }
     }
+    
+    /**
+     * Save wiki action
+     */
+    public function wikiSaveAction()
+    {
+        try {
+            $authorUrl = $this->getRequest()->getParam('author');
+            $author = App_Library::getAuthorByUrl($authorUrl);
+            
+            $text = $this->getRequest()->getParam('text');
+            
+            if ($text == $author->getText()) {
+                // Text doesn't change. Nothing to do
+            } else {
+                $author->setText($text);
+            }
+            $this->_redirect($this->view->url(array(
+                'action' => 'wiki')));
+        } catch (App_Library_Exception_AuthorNotFound $e) {
+            $this->_forward('author-not-found', 'error', null, array(
+                'author' => $authorUrl
+            ));
+        }
+    }
 }

@@ -2,7 +2,7 @@
     <?php if ($this->isAllowed('writeboard', 'add')): ?>
         <a href="#" onclick="document.getElementById('writeboard-input').style.display = 'block'; this.style.display = 'none'; return false;">Оставить сообщение</a>
         <div id="writeboard-input">
-            <form action="<?= $this->url(array('controller' => 'writeboard', 'action' => 'add'), 'default'); ?>" method="post">
+            <form action="<?= $this->url(array('action' => 'add'), 'writeboard'); ?>" method="post">
                 Еще можно написать <span id="writeboard-length">1000</span> символов.
                 <textarea rows="4" name="message"></textarea>
                 <input type="hidden" name="id" value="<?= $this->id; ?>" />
@@ -31,8 +31,7 @@
                     <?php endif; ?>
                 </div>
                     <?php if ($this->isAllowed($message, 'delete')): ?>
-                        <form action="<?= $this->url(array('controller' => 'writeboard',
-                                                      'action' => 'delete'), 'default'); ?>" method="post">
+                        <form action="<?= $this->url(array('action' => 'delete'), 'writeboard'); ?>" method="post">
                             <input type="hidden" name="id" value="<?= $this->id ?>" />
                             <input type="hidden" name="messageid" value="<?= $message->getId() ?>" />
                             <input type="submit" value="удалить" />
