@@ -38,11 +38,6 @@ class IndexController extends Zend_Controller_Action
         $this->view->vars = array(
             "title" => "Librarian",
             "main" => "Тест!");
-
-        //$text = new App_Text(array("text" => "Тест"));
-        //$text->write();
-        
-        //$this->view->rows = $r;
     }
     
     /**

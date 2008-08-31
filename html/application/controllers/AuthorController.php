@@ -30,4 +30,41 @@ class AuthorController extends Zend_Controller_Action
             ));
         }
     }
+    
+    /**
+     * Shows full wiki page
+     */
+    public function wikiAction()
+    {
+        try {
+            $authorUrl = $this->getRequest()->getParam('author');
+            $author = App_Library::getAuthorByUrl($authorUrl);
+            $this->view->headTitle($author->getName())
+                       ->headTitle('Информация');
+            $this->view->author = $author;
+        } catch (App_Library_Exception_AuthorNotFound $e) {
+            $this->_forward('author-not-found', 'error', null, array(
+                'author' => $authorUrl
+            ));
+        }
+    }
+    
+    /**
+     * Edit wiki page
+     */
+    public function wikiEditAction()
+    {
+        try {
+            $authorUrl = $this->getRequest()->getParam('author');
+            $author = App_Library::getAuthorByUrl($authorUrl);
+            $this->view->headTitle($author->getName())
+                       ->headTitle('Информация')
+                       ->headTitle('Редактирование');
+            $this->view->author = $author;
+        } catch (App_Library_Exception_AuthorNotFound $e) {
+            $this->_forward('author-not-found', 'error', null, array(
+                'author' => $authorUrl
+            ));
+        }
+    }
 }

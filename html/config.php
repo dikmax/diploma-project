@@ -55,7 +55,8 @@ return array(
                 1 => 'author',
                 2 => 'title',
                 3 => 'action'
-            )
+            ),
+            'reverse' => 'library/%s/%s/~%s'
         ),
         'libraryauthor' => array(
             'route' => 'library/:author',
@@ -73,7 +74,8 @@ return array(
             'map' => array(
                 1 => 'author',
                 2 => 'action'
-            )
+            ),
+            'reverse' => 'library/%s/~%s'
         ),
         'librarymain' => array(
             'type' => 'Zend_Controller_Router_Route_Static',

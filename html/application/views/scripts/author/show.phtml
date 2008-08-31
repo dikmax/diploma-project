@@ -14,9 +14,16 @@
 <h1><?= $this->author->getName(); ?></h1>
 <?php if ($this->author->getFrontDescription() != ''): ?>
 <p><?= $this->author->getFrontDescription(); ?></p>
-<p><a href="#">Читать далее...</a> | <a href="#">Редактировать</a> </p>
+<p>
+    <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki'), 'libraryauthoraction') ?>">
+        Читать далее...
+    </a> | 
+    <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">
+        Редактировать
+    </a>
+</p>
 <?php else: ?>
-<p>У нас пока нет описания этого автора. <a href="#">Есть желание помочь?</a></p>
+<p>У нас пока нет описания этого автора. <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">Есть желание помочь?</a></p>
 <?php endif; ?>
 
 <div class="author-titles">

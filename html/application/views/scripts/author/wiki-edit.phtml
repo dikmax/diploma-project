@@ -1,0 +1,8 @@
+<h1><?= $this->author->getName(); ?></h1>
+<h4>Информация</h4>
+
+<form method="post" action="<?= $this->url(array('action' => 'wiki-save')); ?>">
+<textarea rows="20" style="width: 100%"><?= $this->author->getDescription()->getText(); ?></textarea>
+<input type="submit" value="Сохранить" />
+</form>
+

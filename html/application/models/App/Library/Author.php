@@ -56,6 +56,20 @@ class App_Library_Author
     protected $_writeboard;
     
     /**
+     * ID of description text
+     * 
+     * @var int 
+     */
+    protected $_descriptionId;
+    
+    /**
+     * Description text
+     * 
+     * @var App_Text
+     */
+    protected $_description;
+    
+    /**
      * Image shown of front page
      *
      * @var App_Library_Author_Image
@@ -79,6 +93,7 @@ class App_Library_Author
      *   <li><code>id</code>: alias for <code>lib_author_id</code> (<b>int</b>)</li>
      *   <li><code>name</code>: author name (<b>string</b>)</li>
      *   <li><code>url</code>: url name component (<b>string</b>)</li>
+     *   <li><code>description_text_id</code>: id of description text (<b>int</b>)</li>
      *   <li><code>front_description</code>: text to show on author's page (<b>string</b>)</li>
      *   <li><code>lib_writeboard_id</code>: writeboard id (<b>int</b>)</li>
      * </ul>
@@ -104,6 +119,13 @@ class App_Library_Author
             ? $construct['url']
             : '';
 
+        // Description
+        $this->_descriptionId = isset($construct['description_text_id'])
+            ? $construct['description_text_id']
+            : '';
+        
+        $this->_description = null;
+        
         // Front Description
         $this->_frontDescription = isset($construct['front_description'])
             ? $construct['front_description']
@@ -164,6 +186,29 @@ class App_Library_Author
     public function getUrl()
     {
         return $this->_url;
+    }
+    
+    /**
+     * Returns id of description text
+     * 
+     * @return int
+     */
+    public function getDescriptionId()
+    {
+        return $this->_descriptionId;
+    }
+    
+    /**
+     * Returns descirption text
+     * 
+     * @return App_Text
+     */
+    public function getDescription()
+    {
+        if ($this->_description === null) {
+            $this->_description = App_Text::read($this->_descriptionId);
+        }
+        return $this->_description;
     }
     
     /**

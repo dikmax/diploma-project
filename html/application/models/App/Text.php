@@ -148,7 +148,7 @@ class App_Text {
      */
     public static function read($id)
     {
-        if (!is_int($id)) {
+        if (!is_numeric($id)) {
             throw new App_Text_Exception('First parameter to App_Text::read() must be int');
         }
         
@@ -219,6 +219,16 @@ class App_Text {
     public function getRevision()
     {
         return $this->_revision;
+    }
+    
+    /**
+     * Returns latese text
+     * 
+     * @var string
+     */
+    public function getText()
+    {
+        return $this->_revision->getText();
     }
     
     /**
