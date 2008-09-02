@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ini.php 9636 2008-06-08 15:04:42Z rob $
+ * @version    $Id: Ini.php 11181 2008-09-01 09:41:44Z alexander $
  */
 
 
@@ -105,9 +105,13 @@ class Zend_Config_Ini extends Zend_Config
             }
         }
 
-        $old_error_handler = set_error_handler(array('Zend_Config_Ini', 'parseIniFileErrorHandler'));
-        $iniArray = parse_ini_file($filename, true); // convert any warnings into exceptions
+        set_error_handler(array($this, '_loadFileErrorHandler'));
+        $iniArray = parse_ini_file($filename, true); // Warnings and errors are suppressed
         restore_error_handler();
+        // Check if there was a error while loading file
+        if ($this->_loadFileErrorStr !== null) {
+            throw new Zend_Config_Exception($this->_loadFileErrorStr);
+        }
         
         $preProcessedArray = array();
         foreach ($iniArray as $key => $data)
@@ -242,22 +246,5 @@ class Zend_Config_Ini extends Zend_Config
             $config[$key] = $value;
         }
         return $config;
-    }
-
-    /**
-     * Handle any errors from parse_ini_file
-     *
-     * @param unknown_type $errno
-     * @param unknown_type $errstr
-     * @param unknown_type $errfile
-     * @param unknown_type $errline
-     */
-    public static function parseIniFileErrorHandler($errno, $errstr, $errfile, $errline)
-    { 
-        /**
-         * @see Zend_Config_Exception
-         */
-        require_once 'Zend/Config/Exception.php';
-        throw new Zend_Config_Exception($errstr);
     }
 }

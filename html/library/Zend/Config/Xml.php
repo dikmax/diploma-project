@@ -16,7 +16,7 @@
  * @package   Zend_Config
  * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Xml.php 10262 2008-07-21 16:31:27Z matthew $
+ * @version   $Id: Xml.php 11181 2008-09-01 09:41:44Z alexander $
  */
 
 /**
@@ -60,9 +60,13 @@ class Zend_Config_Xml extends Zend_Config
             throw new Zend_Config_Exception('Filename is not set');
         }
 
-        $old_error_handler = set_error_handler(array(__CLASS__, 'simplexmlLoadFileFileErrorHandler'));
-        $config = simplexml_load_file($filename);
+        set_error_handler(array($this, '_loadFileErrorHandler'));
+        $config = simplexml_load_file($filename); // Warnings and errors are suppressed
         restore_error_handler();
+        // Check if there was a error while loading file
+        if ($this->_loadFileErrorStr !== null) {
+            throw new Zend_Config_Exception($this->_loadFileErrorStr);
+        }
 
         if ($section === null) {
             $dataArray = array();
@@ -222,23 +226,4 @@ class Zend_Config_Xml extends Zend_Config
 
         return $firstArray;
     }
-    
-    /**
-     * Handle any errors from simplexml_load_file
-     *
-     * @param integer $errno
-     * @param string $errstr
-     * @param string $errfile
-     * @param integer $errline
-     */
-    public static function simplexmlLoadFileFileErrorHandler($errno, $errstr, $errfile, $errline)
-    { 
-        /**
-         * @see Zend_Config_Exception
-         */
-        require_once 'Zend/Config/Exception.php';
-        throw new Zend_Config_Exception($errstr);
-    }
-
-    
 }

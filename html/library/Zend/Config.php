@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Config.php 9664 2008-06-11 07:12:40Z stas $
+ * @version    $Id: Config.php 11181 2008-09-01 09:41:44Z alexander $
  */
 
 
@@ -73,6 +73,15 @@ class Zend_Config implements Countable, Iterator
      * @var array
      */
     protected $_extends = array();
+
+    /**
+     * Load file error string.
+     * 
+     * Is null if there was no error while file loading
+     *
+     * @var string
+     */
+    protected $_loadFileErrorStr = null;
 
     /**
      * Zend_Config provides a property based interface to
@@ -152,6 +161,25 @@ class Zend_Config implements Countable, Iterator
             require_once 'Zend/Config/Exception.php';
             throw new Zend_Config_Exception('Zend_Config is read only');
         }
+    }
+
+    /**
+     * Deep clone of this instance to ensure that nested Zend_Configs
+     * are also cloned.
+     * 
+     * @return void
+     */
+    public function __clone()
+    {
+      $array = array();
+      foreach ($this->_data as $key => $value) {
+          if ($value instanceof Zend_Config) {
+              $array[$key] = clone $value;
+          } else {
+              $array[$key] = $value;
+          }
+      }
+      $this->_data = $array;
     }
 
     /**
@@ -343,6 +371,19 @@ class Zend_Config implements Countable, Iterator
         }
         // remember that this section extends another section
         $this->_extends[$extendingSection] = $extendedSection;
+    }
+
+    /**
+     * Handle any errors from simplexml_load_file or parse_ini_file
+     *
+     * @param integer $errno
+     * @param string $errstr
+     * @param string $errfile
+     * @param integer $errline
+     */
+    protected function _loadFileErrorHandler($errno, $errstr, $errfile, $errline)
+    { 
+        $this->_loadFileErrorStr = $errstr;
     }
 
 }

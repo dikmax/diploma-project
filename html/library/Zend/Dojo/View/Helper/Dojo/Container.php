@@ -16,7 +16,7 @@
  * @package    Zend_Dojo
  * @subpackage View
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Container.php 11017 2008-08-24 21:23:41Z matthew $
+ * @version    $Id: Container.php 11087 2008-08-27 18:04:24Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -205,7 +205,7 @@ class Zend_Dojo_View_Helper_Dojo_Container
      */
     public function requireModule($module)
     {
-        if (!preg_match('/^[a-z][a-z0-9.]+$/i', $module)) {
+        if (!preg_match('/^[a-z][a-z0-9._]+$/i', $module)) {
             require_once 'Zend/Dojo/View/Exception.php';
             throw new Zend_Dojo_View_Exception(sprintf('Module name specified, "%s", contains invalid characters', (string) $module));
         }
