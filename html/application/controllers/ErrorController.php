@@ -19,6 +19,9 @@ class ErrorController extends Zend_Controller_Action
      */
     public function authorNotFoundAction()
     {
+        // Send "404 Not Found" header
+        $this->getResponse()->setHttpResponseCode(404);
+        
         $authorUrl = $this->getRequest()->getParam('author');
         
         $this->view->headTitle($authorUrl);
@@ -31,6 +34,9 @@ class ErrorController extends Zend_Controller_Action
      */
     public function titleNotFoundAction()
     {
+        // Send "404 Not Found" header
+        $this->getResponse()->setHttpResponseCode(404);
+        
         $titleUrl = $this->getRequest()->getParam('title');
         
         $this->view->headTitle($titleUrl);
