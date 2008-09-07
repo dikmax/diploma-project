@@ -35,13 +35,15 @@
 <?php endif; ?>
 
 <div class="author-titles">
+    <?php $this->titles = $this->author->getTitles(); ?>
     <div class="header">
-        Произведения
+        Произведения (<?= count($this->titles); ?>)
     </div>
     <div class="body">
-        Город<br />
-        Почти как люди<br />
-        Все живое - трава
+        <?php foreach ($this->titles as $title): ?>
+            <a href="<?= $this->url(array('author' => $this->author->getUrl(),
+                'title' => $title->getUrl()), 'librarytitle'); ?>"><?= $title->getName() ?></a><br />
+        <?php endforeach; ?>
     </div>
 </div>
 

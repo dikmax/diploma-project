@@ -104,6 +104,7 @@ $frontController->getRouter()->addConfig($config, 'routes');
 $frontController->dispatch();
 
 // Show debug information at the end of the page
+/*
 if (DEBUG) {
     $profiler = $db->getProfiler();
     echo '<hr /><div align="right">Запросов к БД: ' . $profiler->getTotalNumQueries()
@@ -118,6 +119,7 @@ if (DEBUG) {
         }
     }
 }
+*/
 
 // Closing connections
 $db->closeConnection();

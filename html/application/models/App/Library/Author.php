@@ -334,6 +334,22 @@ class App_Library_Author
      */
     public function getTitles()
     {
-        // TODO write smth here
+        if ($this->_titles === null) {
+            $db = Zend_Registry::get('db');
+            
+            $titles = $db->fetchAll('SELECT  t.lib_title_id, t.name, t.url, '
+                .     't.description_text_id, t.front_description, '
+                .     't.lib_writeboard_id '
+                . 'FROM lib_author_has_title h '
+                . 'LEFT JOIN lib_title t USING (lib_title_id) '
+                . 'WHERE h.lib_author_id = :lib_author_id',
+                array(':lib_author_id' => $this->_libAuthorId));
+            
+            $this->_titles = array();
+            foreach ($titles as $row) {
+                $this->_titles[] = new App_Library_Title($row);
+            }
+        }
+        return $this->_titles;
     }
 }
