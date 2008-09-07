@@ -43,6 +43,7 @@ class UserController extends Zend_Controller_Action
         
         $user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
         
+        $this->view->user = $user;
         $this->view->writeboard = $user->getWriteboard();
     }
 

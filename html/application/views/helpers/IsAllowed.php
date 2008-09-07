@@ -11,7 +11,7 @@
 /**
  * Helper for checking acl isAllowed
  */
-class App_View_Helper_IsAllowed
+class App_View_Helper_IsAllowed extends Zend_View_Helper_Abstract
 {
     public function isAllowed($resource, $previlege)
     {

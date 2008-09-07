@@ -74,17 +74,17 @@ class App_User implements Zend_Acl_Role_Interface
     protected $_writeboard;
     
     /**
-     * Readonly instance
-     *
-     * @var boolean
+     * User bookshelf
+     * 
+     * @var App_User_Bookshelf
      */
-    protected $_readOnly;
+    protected $_bookshelf;
     
     /**
      * Constructs user object
      *
      * @param array $construct
-     * Available indexes:
+     * Available indices:
      * <ul>
      *   <li><code>lib_user_id</code>: database id (<b>int</b>)</li>
      *   <li><code>id</code>: alias for <code>lib_user_id</code> (<b>int</b>)</li>
@@ -96,8 +96,6 @@ class App_User implements Zend_Acl_Role_Interface
      *       (<b>int|string|array|App_Date</b>)</li>
      *   <li><code>login_ip</code>: user last login ip (<b>string</b>)</li>
      *   <li><code>lib_writeboard_id</code>: writeboard id (<b>int</b>)</li>
-     *   <li><code>readonly</code>: instance mustn't be written to database
-     *       (<b>boolean</b>, default = <code>false</code>)</li>
      * </ul>
      */
     public function __construct($construct)
@@ -153,18 +151,10 @@ class App_User implements Zend_Acl_Role_Interface
             $this->_writeboardId = null;
         }
         $this->_writeboard = null;
-        
         // THINK maybe it would be useful to create 'writeboard' index
         
-        // Read-only
-        if (isset($construct['readonly'])) {
-            if (!is_bool($construct['readonly'])) {
-                throw new App_User_Exception("'readonly' index must be boolean");
-            }
-            $this->_readOnly = $construct['readonly'];
-        } else {
-            $this->_readOnly = false;
-        }
+        // Bookshelf
+        $this->_bookshelf = null;
         
         $this->registerRole();
     }
@@ -285,6 +275,19 @@ class App_User implements Zend_Acl_Role_Interface
     public function getWriteboardId()
     {
         return $this->_writeboardId;
+    }
+    
+    /**
+     * Returns user bookshelf
+     * 
+     * @return App_User_Bookshelf
+     */
+    public function getBookshelf()
+    {
+        if ($this->_bookshelf === null) {
+            $this->_bookshelf = new App_User_Bookshelf(array('user' => $this));
+        }
+        return $this->_bookshelf;
     }
     
     // Zend_Acl_Role_Interface implementation

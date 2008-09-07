@@ -35,6 +35,20 @@ class App_Library_Title
     protected $_url;
     
     /**
+     * Index of authors in format "author1#url1#author2#url2"
+     * 
+     * @var string
+     */
+    protected $_authorsIndex;
+    
+    /**
+     * Array of author indices ('url' => 'name')
+     * 
+     * @var array
+     */
+    protected $_authorsIndexArray;
+    
+    /**
      * Description shown on front page
      * 
      * @var string
@@ -78,7 +92,8 @@ class App_Library_Title
      *   <li><code>lib_title_id</code>: database id (<b>int</b>)</li>
      *   <li><code>id</code>: alias for <code>lib_title_id</code> (<b>int</b>)</li>
      *   <li><code>name</code>: title string (<b>string</b>)</li>
-     *   <li><code>url</code>: title part of url (<b?string</b>)</li>
+     *   <li><code>url</code>: title part of url (<b>string</b>)</li>
+     *   <li><code>authors_index</code>: index of authors (<b>string</b>)</li>
      *   <li><code>description_text_id</code>: id of description text (<b>int</b>)</li>
      *   <li><code>front_description</code>: description on front page (<b>string</b>)</li>
      *   <li><code>lib_writeboard_id</code>: writeboard id (<b>int</b>)</li>
@@ -105,6 +120,13 @@ class App_Library_Title
             ? $construct['url']
             : '';
 
+        // Authors index
+        $this->_authorsIndex = isset($construct['authors_index'])
+            ? $construct['authors_index']
+            : '';
+        
+        $this->_authorsIndexArray = null;
+            
         // Description
         $this->_descriptionId = isset($construct['description_text_id'])
             ? $construct['description_text_id']
@@ -277,5 +299,27 @@ class App_Library_Title
             }
         }
         return $this->_writeboard;
+    }
+    
+    /**
+     * Returns author index array ('url' => 'name')
+     * 
+     * @return array
+     */
+    public function getAuthorsIndex()
+    {
+        if ($this->_authorsIndexArray === null) {
+            $this->_authorsIndexArray = array();
+            
+            $parts = explode('#', $this->_authorsIndex);
+            
+            for($i = 0; $i < count($parts); $i = $i + 2) {
+                if (!isset($parts[$i + 1]) || $parts[$i + 1] == '') {
+                    break;
+                }
+                $this->_authorsIndexArray[$parts[$i+1]] = $parts[$i];
+            }
+        }
+        return $this->_authorsIndexArray;
     }
 }

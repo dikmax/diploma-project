@@ -11,7 +11,7 @@
 /**
  * Helper for writing navigation links in left panel
  */
-class App_View_Helper_NavigationLink
+class App_View_Helper_NavigationLink extends Zend_View_Helper_Abstract
 {
     public function navigationLink($resource, $name, $url)
     {
