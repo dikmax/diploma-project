@@ -34,6 +34,7 @@
         <div class="header">
             <?php if ($this->isAllowed("profile", "edit")): ?>
             <div class="edit">
+                <a href="<?= $this->url(array('action' => 'add')); ?>">[добавить]</a>
                 [редактировать]
             </div>
             <?php endif; ?>

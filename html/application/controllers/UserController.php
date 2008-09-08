@@ -54,4 +54,12 @@ class UserController extends Zend_Controller_Action
     {
         $this->_forward("show", "blog");
     }
+    
+    /**
+     * Shows library add form
+     */
+    public function addAction()
+    {
+        
+    }
 }
