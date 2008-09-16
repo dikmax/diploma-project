@@ -34,6 +34,12 @@ return array(
                 'action' => 'index'
             )
         ),
+        'ajax' => array(
+            'route' => 'ajax/:action',
+            'defaults' => array(
+                'controller' => 'ajax'
+            )
+        ),
         'writeboard' => array(
             'route' => 'writeboard/:action',
             'defaults' => array(

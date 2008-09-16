@@ -274,6 +274,20 @@
   CONSTRAINT `FK_lib_user_bookshelf_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
+<table name="lib_author_name_index" view="colnames">
+<left>48</left>
+<top>336</top>
+<width>160</width>
+<height>110</height>
+<sql_create_table>CREATE TABLE `lib_author_name_index` (
+  `lib_author_name_index_id` int(10) unsigned NOT NULL auto_increment,
+  `word` varchar(50) NOT NULL,
+  `lib_author_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`lib_author_name_index_id`),
+  KEY `FK_lib_author_name_index` (`lib_author_id`),
+  CONSTRAINT `FK_lib_author_name_index` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+</table>
 </tables>
 </canvas>
 </schemadesigner>

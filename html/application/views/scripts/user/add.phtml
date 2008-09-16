@@ -19,23 +19,36 @@ $this->headScript()->appendFile('/public/js/ext-base.js')
     </table>
 </form>
 <script type="text/javascript">
-Ext.onReady(function(){
+formatAuthorSuggestion = function(authors)
+{
+	var parts = document.getElementById('author').value.split(' ');
+    var res = '';
+    for (var i = 0; i < authors.length; ++i) {
+        var nameParts = authors[i].name.split(' ');
+        jloop:
+        for (var j = 0; j < nameParts.length; ++j) {
+            for (var k = 0; k < parts.length; ++k) {
+                if (nameParts[j].toLowerCase().indexOf(parts[k].toLowerCase()) == 0) {
+                    nameParts[j] = '<b>' + nameParts[j].substr(0, parts[k].length)
+                        + '</b>' + nameParts[j].substr(parts[k].length);
+                    continue jloop;
+                }
+            }
+        }
+        res += '<div class="x-combo-list-item">' + nameParts.join(' ') + '</div>';
+    }
+    return res;
+}
 
-    var ds = new Ext.data.Store({
-        proxy: new Ext.data.ScriptTagProxy({
-            url: 'http://extjs.com/forum/topics-remote.php'
-        }),
-        reader: new Ext.data.JsonReader({
-            root: 'topics',
-            totalProperty: 'totalCount',
-            id: 'post_id'
-        }, [
-            {name: 'title', mapping: 'topic_title'},
-            {name: 'topicId', mapping: 'topic_id'},
-            {name: 'author', mapping: 'author'},
-            {name: 'lastPost', mapping: 'post_time', type: 'date', dateFormat: 'timestamp'},
-            {name: 'excerpt', mapping: 'post_text'}
-        ])
+Ext.onReady(function(){
+    var ds = new Ext.data.JsonStore({
+        url: '/ajax/author-suggest',
+        root: 'authors',
+        //totalProperty: 'totalCount',
+        id: 'author_id',
+        fields: [
+            {name: 'name', mapping: 'name'}
+        ]
     });
 
     // Custom rendering Template
@@ -48,19 +61,14 @@ Ext.onReady(function(){
     
     var search = new Ext.form.ComboBox({
         store: ds,
-        displayField:'title',
+        displayField:'name',
         typeAhead: false,
+        minChars: 1,
         loadingText: 'Searching...',
         width: 570,
-        pageSize:10,
+        tpl: '{[window.formatAuthorSuggestion(values)]}',
         hideTrigger:true,
-        tpl: resultTpl,
-        applyTo: 'author',
-        itemSelector: 'div.search-item',
-        onSelect: function(record){ // override default onSelect to do redirect
-            window.location =
-                String.format('http://extjs.com/forum/showthread.php?t={0}&p={1}', record.data.topicId, record.id);
-        }
+        applyTo: 'author'
     });
 });
 </script>

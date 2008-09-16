@@ -32,7 +32,7 @@ CREATE TABLE `lib_author` (
 
 /*Data for the table `lib_author` */
 
-insert  into `lib_author`(`lib_author_id`,`name`,`url`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Саймак, Клиффорд Доналд','clifford_simak',1,'Клиффорд Доналд Саймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.',3);
+insert  into `lib_author`(`lib_author_id`,`name`,`url`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Саймак, Клиффорд Доналд','clifford_simak',1,'Кли́ффорд До́налд Са́ймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.',3);
 
 /*Table structure for table `lib_author_has_title` */
 
@@ -83,6 +83,21 @@ CREATE TABLE `lib_author_name` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Author different names names';
 
 /*Data for the table `lib_author_name` */
+
+/*Table structure for table `lib_author_name_index` */
+
+DROP TABLE IF EXISTS `lib_author_name_index`;
+
+CREATE TABLE `lib_author_name_index` (
+  `lib_author_name_index_id` int(10) unsigned NOT NULL auto_increment,
+  `word` varchar(50) NOT NULL,
+  `lib_author_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`lib_author_name_index_id`),
+  KEY `FK_lib_author_name_index` (`lib_author_id`),
+  CONSTRAINT `FK_lib_author_name_index` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `lib_author_name_index` */
 
 /*Table structure for table `lib_channel` */
 
@@ -165,7 +180,7 @@ CREATE TABLE `lib_text` (
 
 /*Data for the table `lib_text` */
 
-insert  into `lib_text`(`lib_text_id`,`lib_text_revision_id`,`cdate`) values (1,1,'2008-07-16 10:51:50');
+insert  into `lib_text`(`lib_text_id`,`lib_text_revision_id`,`cdate`) values (1,6,'2008-07-16 10:51:50');
 
 /*Table structure for table `lib_text_revision` */
 
@@ -186,11 +201,11 @@ CREATE TABLE `lib_text_revision` (
   CONSTRAINT `FK_lib_text_revision` FOREIGN KEY (`lib_text_revision_content_id`) REFERENCES `lib_text_revision_content` (`lib_text_revision_content_id`),
   CONSTRAINT `FK_lib_text_revision_text` FOREIGN KEY (`lib_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_text_revision_user` FOREIGN KEY (`author_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions';
 
 /*Data for the table `lib_text_revision` */
 
-insert  into `lib_text_revision`(`lib_text_revision_id`,`lib_text_id`,`lib_text_revision_content_id`,`mdate`,`revision`,`author_id`,`changes`) values (1,1,1,'2008-07-16 10:51:50',1,1,'First revision');
+insert  into `lib_text_revision`(`lib_text_revision_id`,`lib_text_id`,`lib_text_revision_content_id`,`mdate`,`revision`,`author_id`,`changes`) values (1,1,1,'2008-07-16 10:51:50',1,1,'First revision'),(2,NULL,2,'2008-08-31 19:39:04',1,1,'Update text'),(3,NULL,3,'2008-08-31 19:44:28',1,1,'Update text'),(4,NULL,4,'2008-08-31 19:44:48',1,1,'Update text'),(6,1,12,'2008-08-31 19:57:36',2,1,'Update text');
 
 /*Table structure for table `lib_text_revision_content` */
 
@@ -200,11 +215,11 @@ CREATE TABLE `lib_text_revision_content` (
   `lib_text_revision_content_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `content` longtext NOT NULL COMMENT 'Revision content',
   PRIMARY KEY  (`lib_text_revision_content_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data';
 
 /*Data for the table `lib_text_revision_content` */
 
-insert  into `lib_text_revision_content`(`lib_text_revision_content_id`,`content`) values (1,'Тест');
+insert  into `lib_text_revision_content`(`lib_text_revision_content_id`,`content`) values (1,'Тест'),(2,'Тест\r\nИ еще тест'),(3,'Тест\r\nИ еще тест +1'),(4,'Тест\r\nИ еще тест'),(12,'Кли́ффорд До́налд Са́ймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.');
 
 /*Table structure for table `lib_title` */
 
@@ -214,6 +229,7 @@ CREATE TABLE `lib_title` (
   `lib_title_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `name` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
+  `authors_index` varchar(255) NOT NULL COMMENT 'List of authors in format "author1#url1#author2#url2#..."',
   `description_text_id` int(10) unsigned NOT NULL,
   `front_description` text NOT NULL,
   `lib_writeboard_id` int(10) unsigned NOT NULL,
@@ -227,7 +243,7 @@ CREATE TABLE `lib_title` (
 
 /*Data for the table `lib_title` */
 
-insert  into `lib_title`(`lib_title_id`,`name`,`url`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Город','city',1,'City',4);
+insert  into `lib_title`(`lib_title_id`,`name`,`url`,`authors_index`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Город','city','Клиффорд Саймак#clifford_simak',1,'City',4);
 
 /*Table structure for table `lib_user` */
 
@@ -250,6 +266,26 @@ CREATE TABLE `lib_user` (
 /*Data for the table `lib_user` */
 
 insert  into `lib_user`(`lib_user_id`,`login`,`password`,`registration_date`,`login_date`,`login_ip`,`lib_writeboard_id`) values (1,'dikmax','77122cb39a3aa48e3a6ff8df64aa93b9','2008-07-16 11:26:52','2008-07-16 11:28:18','127.0.0.1',1),(2,'dikmax2','77122cb39a3aa48e3a6ff8df64aa93b9','2008-08-23 02:21:05','2008-08-23 02:21:05','0.0.0.0',2);
+
+/*Table structure for table `lib_user_bookshelf` */
+
+DROP TABLE IF EXISTS `lib_user_bookshelf`;
+
+CREATE TABLE `lib_user_bookshelf` (
+  `lib_user_bookshelf_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
+  `lib_user_id` int(10) unsigned NOT NULL COMMENT 'User ID',
+  `lib_title_id` int(10) unsigned NOT NULL COMMENT 'Title ID',
+  `relation` int(11) NOT NULL COMMENT 'Don''t know yet',
+  PRIMARY KEY  (`lib_user_bookshelf_id`),
+  KEY `FK_lib_user_bookshelf_user` (`lib_user_id`),
+  KEY `FK_lib_user_bookshelf_title` (`lib_title_id`),
+  CONSTRAINT `FK_lib_user_bookshelf_title` FOREIGN KEY (`lib_title_id`) REFERENCES `lib_title` (`lib_title_id`),
+  CONSTRAINT `FK_lib_user_bookshelf_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `lib_user_bookshelf` */
+
+insert  into `lib_user_bookshelf`(`lib_user_bookshelf_id`,`lib_user_id`,`lib_title_id`,`relation`) values (1,1,1,0);
 
 /*Table structure for table `lib_user_data` */
 
