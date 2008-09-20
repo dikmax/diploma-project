@@ -16,7 +16,7 @@
  * @package    Zend_Layout
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Layout.php 10746 2008-08-07 05:35:31Z ralph $
+ * @version    $Id: Layout.php 11376 2008-09-12 17:41:43Z ralph $
  */
 
 /**
@@ -773,7 +773,11 @@ class Zend_Layout
         $view = $this->getView();
 
         if (null !== ($path = $this->getViewScriptPath())) {
-            $view->addScriptPath($path);
+            if (method_exists($view, 'addScriptPath')) {
+                $view->addScriptPath($path);
+            } else {
+                $view->setScriptPath($path);
+            }
         } elseif (null !== ($path = $this->getViewBasePath())) {
             $view->addBasePath($path, $this->_viewBasePrefix);
         }

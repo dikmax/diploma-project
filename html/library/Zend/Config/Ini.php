@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ini.php 11181 2008-09-01 09:41:44Z alexander $
+ * @version    $Id: Ini.php 11209 2008-09-03 14:42:23Z ralph $
  */
 
 
@@ -110,6 +110,10 @@ class Zend_Config_Ini extends Zend_Config
         restore_error_handler();
         // Check if there was a error while loading file
         if ($this->_loadFileErrorStr !== null) {
+            /**
+             * @see Zend_Config_Exception
+             */
+            require_once 'Zend/Config/Exception.php';
             throw new Zend_Config_Exception($this->_loadFileErrorStr);
         }
         

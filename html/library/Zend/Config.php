@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Config.php 11181 2008-09-01 09:41:44Z alexander $
+ * @version    $Id: Config.php 11386 2008-09-13 15:25:12Z alexander $
  */
 
 
@@ -383,7 +383,11 @@ class Zend_Config implements Countable, Iterator
      */
     protected function _loadFileErrorHandler($errno, $errstr, $errfile, $errline)
     { 
-        $this->_loadFileErrorStr = $errstr;
+        if ($this->_loadFileErrorStr === null) {
+            $this->_loadFileErrorStr = $errstr;
+        } else {
+            $this->_loadFileErrorStr .= (PHP_EOL . $errstr);
+        }
     }
 
 }

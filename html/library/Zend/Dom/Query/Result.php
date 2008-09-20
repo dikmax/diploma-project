@@ -1,5 +1,24 @@
 <?php
 /**
+ * Zend Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
+ *
+ * @category   Zend
+ * @package    Zend_Dom
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
+
+/**
  * Results for DOM XPath query
  * 
  * @package    Zend_Dom
@@ -7,7 +26,7 @@
  * @uses       Iterator
  * @copyright  Copyright (C) 2008 - Present, Zend Technologies, Inc.
  * @license    New BSD {@link http://framework.zend.com/license/new-bsd}
- * @version    $Id: Result.php 9799 2008-06-27 01:54:36Z dasprid $
+ * @version    $Id: Result.php 11296 2008-09-08 19:46:57Z thomas $
  */
 class Zend_Dom_Query_Result implements Iterator,Countable
 {
