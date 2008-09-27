@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.html"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.html"] = true;
 dojo.provide("dojox.dtl.html");
 
 dojo.require("dojox.dtl._base");
@@ -812,3 +814,5 @@ dojo.require("dojox.dtl.Context");
 	});
 
 })();
+
+}

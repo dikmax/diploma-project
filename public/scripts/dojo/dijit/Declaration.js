@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.Declaration"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.Declaration"] = true;
 dojo.provide("dijit.Declaration");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
@@ -70,3 +72,5 @@ dojo.declare(
 		}
 	}
 );
+
+}

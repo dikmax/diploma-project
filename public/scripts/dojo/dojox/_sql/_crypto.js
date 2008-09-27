@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox._sql._crypto"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox._sql._crypto"] = true;
 // Taken from http://www.movable-type.co.uk/scripts/aes.html by
 // Chris Veness (CLA signed); adapted for Dojo and Google Gears Worker Pool
 // by Brad Neuberg, bkn3@columbia.edu
@@ -437,3 +439,5 @@ dojo.mixin(dojox._sql._crypto,{
 		}
 	}
 });
+
+}

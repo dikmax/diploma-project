@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.PersevereRestStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.PersevereRestStore"] = true;
 dojo.provide("dojox.data.PersevereRestStore");
 dojo.require("dojox.data.JsonRestStore");
 dojo.require("dojox.json.ref"); // TODO: Make it work without this dependency
@@ -33,3 +35,5 @@ dojo.declare("dojox.data.PersevereRestStore",
  
 dojox.data.nextClientId = 0;
 
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.Dialog"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.Dialog"] = true;
 dojo.provide("dijit.Dialog");
 
 dojo.require("dojo.dnd.TimedMoveable");
@@ -7,7 +9,7 @@ dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit.layout.ContentPane");
 dojo.require("dijit.form.Form");
-dojo.requireLocalization("dijit", "common");
+dojo.requireLocalization("dijit", "common", null, "zh,pt,da,tr,ru,de,sv,ja,he,fi,nb,el,ar,ROOT,pt-pt,cs,fr,es,ko,nl,zh-tw,pl,it,hu");
 
 dojo.declare(
 	"dijit.DialogUnderlay",
@@ -139,7 +141,7 @@ dojo.declare(
 		// |	foo.startup();
 		
 		templateString: null,
-		templatePath: dojo.moduleUrl("dijit", "templates/Dialog.html"),
+		templateString:"<div class=\"dijitDialog\" tabindex=\"-1\" waiRole=\"dialog\" waiState=\"labelledby-${id}_title\">\n\t<div dojoAttachPoint=\"titleBar\" class=\"dijitDialogTitleBar\">\n\t<span dojoAttachPoint=\"titleNode\" class=\"dijitDialogTitle\" id=\"${id}_title\">${title}</span>\n\t<span dojoAttachPoint=\"closeButtonNode\" class=\"dijitDialogCloseIcon\" dojoAttachEvent=\"onclick: onCancel\">\n\t\t<span dojoAttachPoint=\"closeText\" class=\"closeText\">x</span>\n\t</span>\n\t</div>\n\t\t<div dojoAttachPoint=\"containerNode\" class=\"dijitDialogPaneContent\"></div>\n</div>\n",
 
 		// open: Boolean
 		//		is True or False depending on state of dialog
@@ -424,7 +426,7 @@ dojo.declare(
 		_lastFocusItem: null,
 
 		templateString: null,
-		templatePath: dojo.moduleUrl("dijit.layout", "templates/TooltipDialog.html"),
+		templateString:"<div class=\"dijitTooltipDialog\" waiRole=\"presentation\">\n\t<div class=\"dijitTooltipContainer\" waiRole=\"presentation\">\n\t\t<div class =\"dijitTooltipContents dijitTooltipFocusNode\" dojoAttachPoint=\"containerNode\" tabindex=\"-1\" waiRole=\"dialog\"></div>\n\t</div>\n\t<div class=\"dijitTooltipConnector\" waiRole=\"presenation\"></div>\n</div>\n",
 
 		postCreate: function(){
 			this.inherited(arguments);
@@ -474,3 +476,5 @@ dojo.declare(
 	}	
 );
 
+
+}

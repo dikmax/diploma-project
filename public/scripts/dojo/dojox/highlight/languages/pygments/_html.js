@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.highlight.languages.pygments._html"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.highlight.languages.pygments._html"] = true;
 dojo.provide("dojox.highlight.languages.pygments._html");
 
 // html-related constants
@@ -19,3 +21,5 @@ dojox.highlight.languages.pygments._html.tags = {
 	"samp": 1, "map": 1, "object": 1, "a": 1, "xmlns": 1, "center": 1,
 	"textarea": 1, "i": 1, "q": 1, "u": 1
 };
+
+}

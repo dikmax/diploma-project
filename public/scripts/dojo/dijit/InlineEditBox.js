@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.InlineEditBox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.InlineEditBox"] = true;
 dojo.provide("dijit.InlineEditBox");
 
 dojo.require("dojo.i18n");
@@ -7,7 +9,7 @@ dojo.require("dijit._Container");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
 
-dojo.requireLocalization("dijit", "common");
+dojo.requireLocalization("dijit", "common", null, "zh,pt,da,tr,ru,de,sv,ja,he,fi,nb,el,ar,ROOT,pt-pt,cs,fr,es,ko,nl,zh-tw,pl,it,hu");
 
 dojo.declare("dijit.InlineEditBox",
 	dijit._Widget,
@@ -252,7 +254,7 @@ dojo.declare(
 	// value: String
 	//		Value as an HTML string or plain text string, depending on renderAsHTML flag
 
-	templatePath: dojo.moduleUrl("dijit", "templates/InlineEditBox.html"),
+	templateString:"<fieldset dojoAttachPoint=\"editNode\" waiRole=\"presentation\" style=\"position: absolute; visibility:hidden\" class=\"dijitReset dijitInline\"\n\tdojoAttachEvent=\"onkeypress: _onKeyPress\" \n\t><input dojoAttachPoint=\"editorPlaceholder\"\n\t/><span dojoAttachPoint=\"buttonContainer\"\n\t\t><button class='saveButton' dojoAttachPoint=\"saveButton\" dojoType=\"dijit.form.Button\" dojoAttachEvent=\"onClick:save\" disabled=\"true\">${buttonSave}</button\n\t\t><button class='cancelButton' dojoAttachPoint=\"cancelButton\" dojoType=\"dijit.form.Button\" dojoAttachEvent=\"onClick:cancel\">${buttonCancel}</button\n\t></span\n></fieldset>\n",
 	widgetsInTemplate: true,
 
 	postMixInProperties: function(){
@@ -416,3 +418,5 @@ dojo.declare(
 		dijit.selectInputText(this.editWidget.focusNode);
 	}
 });
+
+}

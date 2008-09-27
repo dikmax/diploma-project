@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.html"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.html"] = true;
 dojo.require("dojo._base.lang");
 dojo.provide("dojo._base.html");
 
@@ -1221,3 +1223,5 @@ dojo.toggleClass = function(/*DomNode|String*/node, /*String*/classStr, /*Boolea
 	}
 	dojo[condition ? "addClass" : "removeClass"](node, classStr);
 };
+
+}

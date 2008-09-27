@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tag.date"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tag.date"] = true;
 dojo.provide("dojox.dtl.tag.date");
 
 dojo.require("dojox.dtl._base");
@@ -22,4 +24,6 @@ dojox.dtl.tag.date.now = function(parser, text){
 	}
 	var format = parts[1];
 	return new dojox.dtl.tag.date.NowNode(format, parser.getTextNodeConstructor());
+}
+
 }

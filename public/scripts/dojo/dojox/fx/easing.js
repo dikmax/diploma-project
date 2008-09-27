@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.fx.easing"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.fx.easing"] = true;
 dojo.provide("dojox.fx.easing");
 /*
 	dojox.fx.easing is in this little file so you don't need dojox.fx to utilize this.
@@ -217,3 +219,5 @@ dojox.fx.easing = {
 		return (dojox.fx.easing.bounceOut(n*2-1) / 2) + 0.5; // Decimal
 	}
 };
+
+}

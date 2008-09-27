@@ -14,31 +14,22 @@
 	background-position:-60px 0px;
 	height:14px;
 }
-
 .soria .dojoxExpandoIcon {
 	background: url('../../../dijit/themes/soria/images/spriteRoundedIconsSmall.png') no-repeat center center;
 }
-
 .tundra .dojoxExpandoLeft .dojoxExpandoIcon,
 .nihilo .dojoxExpandoLeft .dojoxExpandoIcon {
-	/*
-	background: url('../../presentation/resources/icons/prev.png') no-repeat;
-	*/
+	
 	background: url('../../../dijit/themes/tundra/images/minusButton.gif') no-repeat;
 }
-
 .tundra .dojoxExpandoRight .dojoxExpandoIcon,
 .nihilo .dojoxExpandoRight .dojoxExpandoIcon {
-	/*
-	background: url('../../presentation/resources/icons/next.png') no-repeat;
-	*/
+	
 	background: url('../../../dijit/themes/tundra/images/minusButton.gif') no-repeat;
 }
-
 .tundra .dojoxExpandoClosed .dojoxExpandoIcon {
 	background: url('../../../dijit/themes/tundra/images/plusButton.gif') no-repeat;
 }
-
 .dojoxExpandoClosed .dojoxExpandoIcon {
 	background-position: 0px 0px;
 }
@@ -63,7 +54,6 @@
 .dojoxExpandoRight .dojoxExpandoIcon {
 	float:left;
 }
-
 .nihilo .dojoxExpandoTitle {
 	height:18px;
 	font-size:0.9em;
@@ -74,17 +64,14 @@
 	background:#fafafa url("../../../dijit/themes/nihilo/images/tabStripe.gif") repeat-x left bottom;
 	
 }
-
 .nihilo .dojoxExpandoTop {
 	border-bottom:1px solid #ccc;
 	border-left:1px solid #ccc;
 	border-right:1px solid #ccc; 
 }
-
 .soria .dojoxExpandoTop {
 	
 }
-
 .soria .dojoxExpandoTitle {
 	height:18px;
 	font-size:0.9em;
@@ -94,7 +81,6 @@
 	padding-bottom:7px;
 	background:#f0f4fc url("../../../dijit/themes/soria/images/tabStripe.gif") repeat-x left bottom; 
 }
-
 .tundra .dojoxExpandoTitle {
 	font-size: 0.9em;
 	font-weight: bold;
@@ -103,11 +89,8 @@
 	padding-bottom: 7px;
 	background: #fafafa url("../../../dijit/themes/tundra/images/accordionItemActive.gif") repeat-x scroll left bottom;
 }
-
 .tundra .dojoxExpandoClosed {
-	/* 
-	background: #ececec url("../../grid/_grid/images/tabEnabled_rotated.png") repeat-y scroll left top !important;
-	*/
+	
 	background-color: #fafafa;
 }
 .tundra .dojoxExpandoClosed .dojoxExpandoTitle {

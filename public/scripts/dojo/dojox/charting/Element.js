@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.Element"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.Element"] = true;
 dojo.provide("dojox.charting.Element");
 
 dojo.declare("dojox.charting.Element", null, {
@@ -43,3 +45,5 @@ dojo.declare("dojox.charting.Element", null, {
 		this.purgeGroup();
 	}
 });
+
+}

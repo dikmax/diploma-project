@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests.DeferredList"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests.DeferredList"] = true;
 dojo.provide("tests.DeferredList");
 
 dojo.require("dojo.DeferredList");
@@ -200,3 +202,5 @@ doh.register("tests.DeferredList",
         }
 	]
 );
+
+}

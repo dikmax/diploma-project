@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._data.editors"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._data.editors"] = true;
 dojo.provide("dojox.grid._data.editors");
 dojo.provide("dojox.grid.editors");
 
@@ -233,3 +235,5 @@ dojo.declare("dojox.grid.editors.Bool", dojox.grid.editors.AlwaysOn, {
 	}
 });
 dojox.grid.editors.bool = dojox.grid.editors.Bool; // back-compat
+
+}

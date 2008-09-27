@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.storage.Provider"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.storage.Provider"] = true;
 dojo.provide("dojox.storage.Provider");
 
 dojo.declare("dojox.storage.Provider", null, {
@@ -325,3 +327,5 @@ dojo.declare("dojox.storage.Provider", null, {
 		return [];
 	}
 });
+
+}

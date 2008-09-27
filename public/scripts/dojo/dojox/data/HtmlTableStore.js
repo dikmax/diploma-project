@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.HtmlTableStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.HtmlTableStore"] = true;
 dojo.provide("dojox.data.HtmlTableStore");
 
 dojo.require("dojox.data.dom");
@@ -463,3 +465,5 @@ dojo.declare("dojox.data.HtmlTableStore", null, {
 	}
 });
 dojo.extend(dojox.data.HtmlTableStore,dojo.data.util.simpleFetch);
+
+}

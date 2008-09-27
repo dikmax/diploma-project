@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.FisheyeLite"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.FisheyeLite"] = true;
 dojo.provide("dojox.widget.FisheyeLite");
 dojo.experimental("dojox.widget.FisheyeLite");
 
@@ -129,3 +131,5 @@ dojo.declare("dojox.widget.FisheyeLite",
 	}
 		
 });
+
+}

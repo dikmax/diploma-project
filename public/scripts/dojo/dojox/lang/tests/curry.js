@@ -1,4 +1,6 @@
-﻿dojo.provide("dojox.lang.tests.curry");
+if(!dojo._hasResource["dojox.lang.tests.curry"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.tests.curry"] = true;
+dojo.provide("dojox.lang.tests.curry");
 
 dojo.require("dojox.lang.functional.curry");
 
@@ -25,3 +27,5 @@ dojo.require("dojox.lang.functional.curry");
 		function testPartial8(t){ t.assertEqual(df.partial(fun, df.arg, df.arg, df.arg)(1, 2, 3), 123); }
 	]);
 })();
+
+}

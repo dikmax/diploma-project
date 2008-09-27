@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._base.popup"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._base.popup"] = true;
 dojo.provide("dijit._base.popup");
 
 dojo.require("dijit._base.focus");
@@ -263,3 +265,5 @@ dojo.extend(dijit.BackgroundIframe, {
 		}
 	}
 });
+
+}

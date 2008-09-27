@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.color.tests._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.color.tests._base"] = true;
 dojo.provide("dojox.color.tests._base");
 dojo.require("dojox.color");
 
@@ -76,3 +78,5 @@ tests.register("dojox.color.tests._base", [
 		t.assertEqual(yellow.toHsv(), { h:60, s:100, v:100 });
 	}
 ]);
+
+}

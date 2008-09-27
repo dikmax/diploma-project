@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.Slider"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.Slider"] = true;
 dojo.provide("dojox.sketch.Slider");
 
 dojo.require("dijit.form.Slider");
@@ -25,3 +27,5 @@ dojo.declare("dojox.sketch.Slider",dojox.sketch._Plugin,{
 });
 
 dojox.sketch.registerTool("Slider", dojox.sketch.Slider);
+
+}

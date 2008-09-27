@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.SortList"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.SortList"] = true;
 dojo.provide("dojox.widget.SortList");
 dojo.experimental("dojox.widget.SortList"); // level: prototype, designed for dijit.chat.demo
 
@@ -37,7 +39,7 @@ dojo.declare("dojox.widget.SortList",
 	store: "",
 	key: "name",
 
-	templatePath: dojo.moduleUrl("dojox.widget","SortList/SortList.html"),
+	templateString:"<div class=\"sortList\" id=\"${id}\">\n\t\t<div class=\"sortListTitle\" dojoAttachPoint=\"titleNode\">\n\t\t<div class=\"sortListIcon\"></div>\n\t\t<span dojoAttachPoint=\"focusNode\">${title}</span>\n\t\t</div>\n\t\t<div class=\"sortListBodyWrapper\" dojoAttachEvent=\"onmouseover: _set, onmouseout: _unset, onclick:_handleClick\" dojoAttachPoint=\"bodyWrapper\">\n\t\t<ul dojoAttachPoint=\"containerNode\" class=\"sortListBody\"></ul>\n\t</div>\n</div>\n",
 
 	_addItem: function(item){
 		var node = dojo.doc.createElement("li");
@@ -145,3 +147,5 @@ dojo.declare("dojox.widget.SortList",
 		// summary: stub function, passes the last changed item, and is fired after current state 
 	}
 });
+
+}

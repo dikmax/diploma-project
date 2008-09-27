@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form.TimeTextBox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.TimeTextBox"] = true;
 dojo.provide("dijit.form.TimeTextBox");
 
 dojo.require("dijit._TimePicker");
@@ -27,3 +29,5 @@ dojo.declare(
 =====*/
 	}
 );
+
+}

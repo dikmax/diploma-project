@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.PreexistingAnnotation"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.PreexistingAnnotation"] = true;
 dojo.provide("dojox.sketch.PreexistingAnnotation");
 
 dojo.require("dojox.sketch.Annotation");
@@ -115,3 +117,5 @@ dojo.require("dojox.sketch.Anchor");
 
 	ta.Annotation.register("Preexisting");
 })();
+
+}

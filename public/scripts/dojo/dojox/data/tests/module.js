@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.tests.module"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.tests.module"] = true;
 dojo.provide("dojox.data.tests.module");
 
 try{
@@ -24,3 +26,5 @@ try{
 }
 
 
+
+}

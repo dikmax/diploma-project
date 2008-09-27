@@ -19,18 +19,14 @@
         width:3px;
         height:3px;
 }
-
-
 .black {
         color:#fff;
         background-color:#000;        
 }
-
 .white {
         color:#666;
         background-color:#fff;        
 }
-
 .green {
         color:#000;
         background-color:#eef;
@@ -43,14 +39,11 @@
         color:#000;
         background-color:#fef !important;
 }
-
-/* font sizes */
 .baseFont {
         line-height:14px;
         font:12px Arial,sans-serif;
         letter-spacing:0.1em;
 }
-
 .spacedVertical {
         line-height:42px;
 }
@@ -60,8 +53,6 @@
 .fontSizeTest {
         font:20px Arial,sans-serif;
 }
-
-/* margins */
 .bigMargin {
         margin:30px;        
 }
@@ -74,8 +65,6 @@
 .bigMarginLeft {
         margin-left:150px;
 }
-
-/* padding */
 .padded {
         padding:3px;
 }
@@ -88,14 +77,10 @@
 .bigPadding {
         padding:30px; 
 }
-
-/* positioning */
-
 .offsetSome {
         top:50px;
         left:75px; 
 }
-
 .topLeft {
         top:0;
         left:0;
@@ -104,7 +89,6 @@
         bottom:0;
         right:0;
 }
-
 .bothAxis {
         top:10px;
         left:10px;

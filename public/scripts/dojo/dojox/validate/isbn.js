@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.validate.isbn"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.validate.isbn"] = true;
 dojo.provide("dojox.validate.isbn");
 
 dojox.validate.isValidIsbn = function(/* String */value) {
@@ -30,4 +32,6 @@ dojox.validate.isValidIsbn = function(/* String */value) {
 	}else{
 		return false;
 	}
+}
+
 }

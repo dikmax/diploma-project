@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.query"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.query"] = true;
 dojo.provide("dojo._base.query");
 dojo.require("dojo._base.NodeList");
 
@@ -1185,3 +1187,5 @@ dojo.require("dojo._base.NodeList");
 		return tnl;
 	}
 })();
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.Annotation"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.Annotation"] = true;
 dojo.provide("dojox.sketch.Annotation");
 dojo.require("dojox.sketch.Anchor");
 dojo.require("dojox.sketch._Plugin");
@@ -217,3 +219,5 @@ dojo.require("dojox.sketch._Plugin");
 		ta.registerTool(name, function(p){dojo.mixin(p,{shape: name,annotation:cls});return new ta.AnnotationTool(p)});
 	};
 })();
+
+}

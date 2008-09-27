@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.date.locale"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.date.locale"] = true;
 dojo.provide("dojo.date.locale");
 
 // Localization methods for Date.   Honor local customs using locale-dependent dojo.cldr data.
@@ -10,7 +12,7 @@ dojo.require("dojo.i18n");
 
 // Load the bundles containing localization information for
 // names and formats
-dojo.requireLocalization("dojo.cldr", "gregorian");
+dojo.requireLocalization("dojo.cldr", "gregorian", null, "zh-cn,zh,en-ca,ko-kr,pt,pt-br,it-it,ROOT,en-gb,de,ja,en,en-au,fr,es,ko,zh-tw,it,es-es");
 
 //NOTE: Everything in this module assumes Gregorian calendars.
 // Other calendars will be implemented in separate modules.
@@ -650,3 +652,5 @@ dojo.date.locale._getWeekOfYear = function(/*Date*/dateObject, /*Number*/firstDa
 
 	return week; // Number
 };
+
+}

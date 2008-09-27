@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._editor.plugins.LinkDialog"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor.plugins.LinkDialog"] = true;
 dojo.provide("dijit._editor.plugins.LinkDialog");
 
 dojo.require("dijit._Widget");
@@ -8,7 +10,7 @@ dojo.require("dijit.form.Button");
 dojo.require("dijit.form.ValidationTextBox");
 dojo.require("dojo.i18n");
 dojo.require("dojo.string");
-dojo.requireLocalization("dijit._editor", "LinkDialog");
+dojo.requireLocalization("dijit._editor", "LinkDialog", null, "zh,pt,da,tr,ru,de,ROOT,sv,ja,he,fi,nb,el,ar,pt-pt,cs,fr,es,ko,nl,zh-tw,pl,it,hu");
 
 dojo.declare("dijit._editor.plugins.LinkDialog",
 	dijit._editor._Plugin,
@@ -141,3 +143,5 @@ dojo.subscribe(dijit._scopeName + ".Editor.getPlugin",null,function(o){
 		o.plugin = new dijit._editor.plugins.LinkDialog({command: o.args.name});
 	}
 });
+
+}

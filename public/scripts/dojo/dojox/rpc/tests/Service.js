@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.rpc.tests.Service"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.rpc.tests.Service"] = true;
 dojo.provide("dojox.rpc.tests.Service");
 dojo.require("dojo.io.script");
 dojo.require("dojox.rpc.Service");
@@ -696,3 +698,5 @@ doh.register("dojox.rpc.tests.jsonRpcForcedError", [
 			}
 		}
 ]);
+
+}

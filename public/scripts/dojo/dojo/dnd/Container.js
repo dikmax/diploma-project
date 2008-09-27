@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.dnd.Container"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.dnd.Container"] = true;
 dojo.provide("dojo.dnd.Container");
 
 dojo.require("dojo.dnd.common");
@@ -305,3 +307,5 @@ dojo.dnd._defaultCreator = function(node){
 		return {node: n, data: data, type: type};
 	};
 };
+
+}

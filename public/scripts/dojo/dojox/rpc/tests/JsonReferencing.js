@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.rpc.tests.JsonReferencing"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.rpc.tests.JsonReferencing"] = true;
 dojo.provide("dojox.rpc.tests.JsonReferencing");
 dojo.require("dojox.rpc.JsonReferencing");
 
@@ -24,3 +26,5 @@ doh.register("dojox.rpc.tests.JsonReferencing", [
 			t.assertEqual(mirrorObj.b.h, mirrorObj.a);
 	}
 ]);
+
+}

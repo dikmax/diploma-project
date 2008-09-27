@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tests.html.buffer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tests.html.buffer"] = true;
 dojo.provide("dojox.dtl.tests.html.buffer");
 
 dojo.require("dojox.dtl.html");
@@ -29,3 +31,5 @@ doh.register("dojox.dtl.html.buffer",
 		}
 	]
 );
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests.date"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests.date"] = true;
 dojo.provide("tests.date");
 
 dojo.require("dojo.date");
@@ -710,3 +712,5 @@ function test_date_add_diff_second(t){
 
 dojo.require("tests.date.locale");
 dojo.require("tests.date.stamp");
+
+}

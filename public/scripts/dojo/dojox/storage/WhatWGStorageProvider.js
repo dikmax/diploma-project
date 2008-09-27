@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.storage.WhatWGStorageProvider"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.storage.WhatWGStorageProvider"] = true;
 dojo.provide("dojox.storage.WhatWGStorageProvider");
 dojo.require("dojox.storage.Provider");
 dojo.require("dojox.storage.manager");
@@ -272,3 +274,5 @@ dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], 
 
 dojox.storage.manager.register("dojox.storage.WhatWGStorageProvider", 
 								new dojox.storage.WhatWGStorageProvider());
+
+}

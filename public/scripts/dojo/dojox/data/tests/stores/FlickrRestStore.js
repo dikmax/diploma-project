@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.tests.stores.FlickrRestStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.tests.stores.FlickrRestStore"] = true;
 dojo.provide("dojox.data.tests.stores.FlickrRestStore");
 dojo.require("dojox.data.FlickrRestStore");
 dojo.require("dojo.data.api.Read");
@@ -470,3 +472,5 @@ doh.register("dojox.data.tests.stores.FlickrRestStore",
 	]
 );
 
+
+}

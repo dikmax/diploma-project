@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.SnapLogicStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.SnapLogicStore"] = true;
 dojo.provide("dojox.data.SnapLogicStore");
 
 dojo.require("dojo.io.script");
@@ -326,3 +328,5 @@ dojo.declare("dojox.data.SnapLogicStore", null, {
 	}
 });
 
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.TimeSpinner"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.TimeSpinner"] = true;
 dojo.provide("dojox.widget.TimeSpinner");
 
 dojo.require("dijit.form._Spinner");
@@ -42,3 +44,5 @@ dojo.declare(
 	value: "12:00 AM"
 
 });
+
+}

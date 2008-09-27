@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.Figure"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.Figure"] = true;
 dojo.provide("dojox.sketch.Figure");
 dojo.experimental("dojox.sketch");
 
@@ -487,3 +489,5 @@ dojo.require("dojox.sketch.UndoStack");
 	};
 	p.getValue=p.serialize;
 })();
+
+}

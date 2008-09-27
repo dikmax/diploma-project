@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.highlight.languages.pygments.css"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.highlight.languages.pygments.css"] = true;
 dojo.provide("dojox.highlight.languages.pygments.css");
 
 dojo.require("dojox.highlight._base");
@@ -205,3 +207,5 @@ dojo.require("dojox.highlight.languages.pygments._html");
 		]
 	};
 })();
+
+}

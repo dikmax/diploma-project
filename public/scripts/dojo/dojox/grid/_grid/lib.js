@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._grid.lib"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._grid.lib"] = true;
 dojo.provide("dojox.grid._grid.lib");
 // summary: grid utility library
 dojo.mixin(dojox.grid,{
@@ -246,5 +248,7 @@ dojox.grid.jobs = {
 	cancelJob: function(inName){
 		dojox.grid.jobs.cancel(dojox.grid.jobs.jobs[inName]);
 	}
+
+}
 
 }

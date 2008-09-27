@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.tests.crypto.Blowfish"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.tests.crypto.Blowfish"] = true;
 dojo.provide("dojox.encoding.tests.crypto.Blowfish");
 dojo.require("dojox.encoding.crypto.Blowfish");
 
@@ -29,3 +31,5 @@ dojo.require("dojox.encoding.crypto.Blowfish");
 		}
 	]);
 })();
+
+}

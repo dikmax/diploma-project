@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.cldr.supplemental"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.cldr.supplemental"] = true;
 dojo.provide("dojo.cldr.supplemental");
 
 dojo.require("dojo.i18n");
@@ -68,3 +70,5 @@ dojo.cldr.supplemental.getWeekend = function(/*String?*/locale){
 	if(end === undefined){end=0;}
 	return {start:start, end:end}; /*Object {start,end}*/
 };
+
+}

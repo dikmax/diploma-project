@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.fx._core"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.fx._core"] = true;
 dojo.provide("dojox.fx._core");
 
 dojox.fx._Line = function(start, end){
@@ -54,3 +56,5 @@ dojox.fx._Line = function(start, end){
 		}
 	}
 };
+
+}

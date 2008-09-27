@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.Loader"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.Loader"] = true;
 dojo.provide("dojox.widget.Loader");
 dojo.experimental("dojox.widget.Loader"); 
 
@@ -97,3 +99,5 @@ dojo.declare("dojox.widget.Loader", [dijit._Widget,dijit._Templated], {
 	}
 
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.wire.DataWire"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.wire.DataWire"] = true;
 dojo.provide("dojox.wire.DataWire");
 
 dojo.require("dojox.wire.Wire");
@@ -173,3 +175,5 @@ dojo.declare("dojox.wire.DataWire", dojox.wire.Wire, {
 		}
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.Toaster"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.Toaster"] = true;
 dojo.provide("dojox.widget.Toaster");
 
 dojo.require("dojo.fx");
@@ -262,3 +264,5 @@ dojo.declare("dojox.widget.Toaster", [dijit._Widget, dijit._Templated], {
 		}
 	}
 );
+
+}

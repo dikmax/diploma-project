@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.analytics.plugins.mouseClick"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.analytics.plugins.mouseClick"] = true;
 dojo.provide("dojox.analytics.plugins.mouseClick");
 
 // window startup data
@@ -43,3 +45,5 @@ dojox.analytics.plugins.mouseClick = new (function(){
 		return t;
 	}
 })();
+
+}

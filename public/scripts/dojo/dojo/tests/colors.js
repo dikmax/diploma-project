@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests.colors"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests.colors"] = true;
 dojo.provide("tests.colors");
 dojo.require("dojo.colors");
 
@@ -42,3 +44,5 @@ dojo.require("dojo.colors");
 		]
 	);
 })();
+
+}

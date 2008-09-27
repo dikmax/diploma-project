@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tests.html.util"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tests.html.util"] = true;
 dojo.provide("dojox.dtl.tests.html.util");
 
 dojo.require("dojox.dtl.html");
@@ -153,4 +155,6 @@ dojox.dtl.tests.html.util.serialize = function(node, tokens, clones, events, out
 
 		return output;
 	}
+}
+
 }

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox._sql.common"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox._sql.common"] = true;
 dojo.provide("dojox._sql.common");
 
 dojo.require("dojox._sql._crypto");
@@ -532,3 +534,5 @@ dojo.declare("dojox.sql._SQLCrypto", null, {
 		}));
 	}
 });
+
+}

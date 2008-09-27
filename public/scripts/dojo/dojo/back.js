@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.back"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.back"] = true;
 dojo.provide("dojo.back");
 
 /*=====
@@ -388,3 +390,5 @@ dojo.back = {
 		}
 	};
  })();
+
+}

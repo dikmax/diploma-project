@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.filter.lists"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.filter.lists"] = true;
 dojo.provide("dojox.dtl.filter.lists")
 
 dojo.require("dojox.dtl._base");
@@ -131,3 +133,5 @@ dojo.mixin(dojox.dtl.filter.lists, {
 		return dojox.dtl.filter.lists._unordered_list(value, 1);
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._editor.html"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor.html"] = true;
 dojo.provide("dijit._editor.html");
 
 dijit._editor.escapeXml=function(/*String*/str, /*Boolean*/noSingleQuotes){
@@ -99,4 +101,6 @@ dijit._editor.getChildrenHtml = function(/* DomNode */dom){
 		out += dijit._editor.getNodeHtml(node);
 	}
 	return out; // String
+}
+
 }

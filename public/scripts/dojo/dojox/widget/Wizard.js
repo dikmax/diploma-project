@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.Wizard"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.Wizard"] = true;
 dojo.provide("dojox.widget.Wizard");
 
 dojo.require("dijit.layout.StackContainer");
@@ -5,8 +7,8 @@ dojo.require("dijit.layout.ContentPane");
 dojo.require("dijit.form.Button");
 
 dojo.require("dojo.i18n"); 
-dojo.requireLocalization("dijit", "common"); 
-dojo.requireLocalization("dojox.widget", "Wizard"); 
+dojo.requireLocalization("dijit", "common", null, "zh,pt,da,tr,ru,de,sv,ja,he,fi,nb,el,ar,ROOT,pt-pt,cs,fr,es,ko,nl,zh-tw,pl,it,hu"); 
+dojo.requireLocalization("dojox.widget", "Wizard", null, "zh,pt,da,tr,ru,de,sv,ja,he,fi,nb,el,ar,pt-pt,cs,fr,es,nl,ko,zh-tw,ROOT,pl,it,hu"); 
 
 dojo.declare(
 	"dojox.widget.WizardContainer",
@@ -18,7 +20,7 @@ dojo.declare(
 	//
 	
 	widgetsInTemplate: true,
-	templatePath: dojo.moduleUrl("dojox.widget", "Wizard/Wizard.html"),
+	templateString:"<div class=\"dojoxWizard\" dojoAttachPoint=\"wizardNode\">\n    <div class=\"dojoxWizardContainer\" dojoAttachPoint=\"containerNode\"></div>\n    <div class=\"dojoxWizardButtons\" dojoAttachPoint=\"wizardNav\">\n        <button dojoType=\"dijit.form.Button\" dojoAttachPoint=\"previousButton\">${previousButtonLabel}</button>\n        <button dojoType=\"dijit.form.Button\" dojoAttachPoint=\"nextButton\">${nextButtonLabel}</button>\n        <button dojoType=\"dijit.form.Button\" dojoAttachPoint=\"doneButton\" style=\"display:none\">${doneButtonLabel}</button>\n        <button dojoType=\"dijit.form.Button\" dojoAttachPoint=\"cancelButton\">${cancelButtonLabel}</button>\n    </div>\n</div>\n",
 	
 	// nextButtonLabel: String
 	//		Label override for the "Next" button.
@@ -186,3 +188,5 @@ dojo.declare(
 	}
 
 });
+
+}

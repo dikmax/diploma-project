@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.cometd.timesync"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.cometd.timesync"] = true;
 dojo.provide("dojox.cometd.timesync");
 dojo.require("dojox.cometd");
 
@@ -120,3 +122,5 @@ dojox.cometd.timesync= new function(){
 
 dojox.cometd._extendInList.push(dojo.hitch(dojox.cometd.timesync,"_in"));
 dojox.cometd._extendOutList.push(dojo.hitch(dojox.cometd.timesync,"_out"));
+
+}

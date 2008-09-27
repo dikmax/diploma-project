@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.plot2d.Grid"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.plot2d.Grid"] = true;
 dojo.provide("dojox.charting.plot2d.Grid");
 
 dojo.require("dojox.charting.Element");
@@ -110,3 +112,5 @@ dojo.require("dojox.lang.functional");
 		}
 	});
 })();
+
+}

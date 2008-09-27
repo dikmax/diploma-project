@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.QueryReadStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.QueryReadStore"] = true;
 dojo.provide("dojox.data.QueryReadStore");
 
 dojo.require("dojo.string");
@@ -507,3 +509,5 @@ dojo.declare("dojox.data.QueryReadStore",
 		}
 	}
 );
+
+}

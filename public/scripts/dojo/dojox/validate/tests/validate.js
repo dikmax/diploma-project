@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.validate.tests.validate"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.validate.tests.validate"] = true;
 dojo.provide("dojox.validate.tests.validate"); 
 
 dojo.require("dojox.validate._base");
@@ -310,3 +312,5 @@ tests.register("dojox.validate.tests.validate",
 		}
 	}
 ]);
+
+}

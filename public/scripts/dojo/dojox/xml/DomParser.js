@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.xml.DomParser"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.xml.DomParser"] = true;
 dojo.provide("dojox.xml.DomParser");
 
 dojox.xml.DomParser=new (function(){
@@ -373,3 +375,5 @@ dojox.xml.DomParser=new (function(){
 		return root;
 	};
 })();
+
+}

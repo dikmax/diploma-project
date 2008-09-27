@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.math._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.math._base"] = true;
 dojo.provide("dojox.math._base");
 
 dojo.mixin(dojox.math, {
@@ -116,3 +118,5 @@ dojo.mixin(dojox.math, {
 		return m;	//	Array
 	}
 });
+
+}

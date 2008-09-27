@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.analytics.plugins.window"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.analytics.plugins.window"] = true;
 dojo.provide("dojox.analytics.plugins.window");
 
 // window startup data
@@ -28,3 +30,5 @@ dojox.analytics.plugins.window = new (function(){
 		this.addData(data);
 	}));
 })();
+
+}

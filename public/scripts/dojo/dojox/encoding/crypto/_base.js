@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.crypto._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.crypto._base"] = true;
 dojo.provide("dojox.encoding.crypto._base");
 
 (function(){
@@ -13,3 +15,5 @@ dojo.provide("dojox.encoding.crypto._base");
 		Base64:0, Hex:1, String:2, Raw:3 
 	};
 })();
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid.VirtualGrid"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid.VirtualGrid"] = true;
 dojo.provide("dojox.grid.VirtualGrid");
 
 dojo.require("dojox.grid._grid.lib");
@@ -52,7 +54,7 @@ dojo.declare('dojox.VirtualGrid',
 	//	|		structure="structure" 
 	//	|		dojoType="dojox.VirtualGrid"></div>
 
-	templatePath: dojo.moduleUrl("dojox.grid","resources/VirtualGrid.html"),
+	templateString:"<div class=\"dojoxGrid\" hidefocus=\"hidefocus\" role=\"wairole:grid\">\n\t<div class=\"dojoxGrid-master-header\" dojoAttachPoint=\"viewsHeaderNode\"></div>\n\t<div class=\"dojoxGrid-master-view\" dojoAttachPoint=\"viewsNode\"></div>\n\t<span dojoAttachPoint=\"lastFocusNode\" tabindex=\"0\"></span>\n</div>\n",
 	
 	// classTag: String
 	// 		CSS class applied to the grid's domNode
@@ -773,3 +775,5 @@ dojo.declare('dojox.VirtualGrid',
 });
 
 dojo.mixin(dojox.VirtualGrid.prototype, dojox.grid.publicEvents);
+
+}

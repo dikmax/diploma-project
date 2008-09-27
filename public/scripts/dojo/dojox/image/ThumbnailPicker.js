@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.image.ThumbnailPicker"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.image.ThumbnailPicker"] = true;
 dojo.provide("dojox.image.ThumbnailPicker");
 dojo.experimental("dojox.image.ThumbnailPicker");
 //
@@ -89,7 +91,7 @@ dojo.declare("dojox.image.ThumbnailPicker",
 	// The attribute name for accessing the title from the data store
 	titleAttr: "title",
 	
-	templatePath: dojo.moduleUrl("dojox.image", "resources/ThumbnailPicker.html"), 
+	templateString:"<div dojoAttachPoint=\"outerNode\" class=\"thumbOuter\">\n\t<div dojoAttachPoint=\"navPrev\" class=\"thumbNav thumbClickable\">\n\t  <img src=\"\" dojoAttachPoint=\"navPrevImg\"/>    \n\t</div>\n\t<div dojoAttachPoint=\"thumbScroller\" class=\"thumbScroller\">\n\t  <div dojoAttachPoint=\"thumbsNode\" class=\"thumbWrapper\"></div>\n\t</div>\n\t<div dojoAttachPoint=\"navNext\" class=\"thumbNav thumbClickable\">\n\t  <img src=\"\" dojoAttachPoint=\"navNextImg\"/>  \n\t</div>\n</div>\n", 
 	tempImgPath: dojo.moduleUrl("dojo", "resources/blank.gif"),
 	
 	// thumbs: Array
@@ -529,3 +531,5 @@ dojo.declare("dojox.image.ThumbnailPicker",
 		change(this.navNext, addClass);
 	}
 });
+
+}

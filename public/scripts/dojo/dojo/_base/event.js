@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.event"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.event"] = true;
 dojo.provide("dojo._base.event");
 dojo.require("dojo._base.connect");
 
@@ -522,4 +524,6 @@ if(dojo.isIE){
 		var f = dojo._event_listener._fixEvent;
 		return function(e){ return fp.call(this, f(e, this)); };
 	}
+}
+
 }

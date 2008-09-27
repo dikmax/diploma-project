@@ -1,3 +1,5 @@
+if(!dojo._hasResource['dojox.grid._grid.scroller']){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource['dojox.grid._grid.scroller'] = true;
 dojo.provide('dojox.grid._grid.scroller');
 
 dojo.declare('dojox.grid.scroller.base', null, {
@@ -483,3 +485,5 @@ dojo.declare('dojox.grid.scroller.columns', dojox.grid.scroller, {
 		}
 	}
 });
+
+}

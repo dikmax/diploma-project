@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._tree.dndSelector"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._tree.dndSelector"] = true;
 dojo.provide("dijit._tree.dndSelector");
 dojo.require("dojo.dnd.common");
 dojo.require("dijit._tree.dndContainer");
@@ -165,3 +167,5 @@ dojo.declare("dijit._tree.dndSelector",
 			return this;	// self
 		}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.fx.style"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.fx.style"] = true;
 dojo.provide("dojox.fx.style");
 dojo.experimental("dojox.fx.style"); 
 //
@@ -213,3 +215,5 @@ dojox.fx._getCalculatedStyleChanges = function(/*dojox.fx._arg.StyleArgs*/ args,
 	});
 	return calculated; 
 };
+
+}

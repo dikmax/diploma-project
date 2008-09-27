@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form.CheckBox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.CheckBox"] = true;
 dojo.provide("dijit.form.CheckBox");
 
 dojo.require("dijit.form.Button");
@@ -22,7 +24,7 @@ dojo.declare(
 		// In case 2, the regular html inputs are invisible but still used by
 		// the user. They are turned quasi-invisible and overlay the background-image.
 
-		templatePath: dojo.moduleUrl("dijit.form", "templates/CheckBox.html"),
+		templateString:"<div class=\"dijitReset dijitInline\" waiRole=\"presentation\"\n\t><input\n\t \ttype=\"${type}\" name=\"${name}\"\n\t\tclass=\"dijitReset dijitCheckBoxInput\"\n\t\tdojoAttachPoint=\"focusNode\"\n\t \tdojoAttachEvent=\"onmouseover:_onMouse,onmouseout:_onMouse,onclick:_onClick\"\n/></div>\n",
 
 		baseClass: "dijitCheckBox",
 
@@ -127,3 +129,5 @@ dojo.declare(
 		}
 	}
 );
+
+}

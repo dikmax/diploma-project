@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._editor.selection"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor.selection"] = true;
 dojo.provide("dijit._editor.selection");
 
 // FIXME:
@@ -240,3 +242,5 @@ dojo.mixin(dijit._editor.selection, {
 		}
 	}
 });
+
+}

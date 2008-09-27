@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.DoubleArrowAnnotation"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.DoubleArrowAnnotation"] = true;
 dojo.provide("dojox.sketch.DoubleArrowAnnotation");
 
 dojo.require("dojox.sketch.Annotation");
@@ -194,3 +196,5 @@ dojo.require("dojox.sketch.Anchor");
 
 	ta.Annotation.register("DoubleArrow");
 })();
+
+}

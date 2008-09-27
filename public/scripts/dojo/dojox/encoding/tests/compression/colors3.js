@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.tests.compression.colors3"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.tests.compression.colors3"] = true;
 dojo.provide("dojox.encoding.tests.compression.colors3");
 
 // all CSS3 colors
@@ -47,3 +49,5 @@ dojox.encoding.tests.compression.colors3 = {};
 		dojox.encoding.tests.compression.colors3[n2[j]] = [i.g(8), i.g(8), i.g(8)];
 	}
 })();
+
+}

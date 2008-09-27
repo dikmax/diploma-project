@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.tests.stores.jsonPathStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.tests.stores.jsonPathStore"] = true;
 dojo.provide("dojox.data.tests.stores.jsonPathStore");
 dojo.require("dojox.data.jsonPathStore");
 
@@ -598,3 +600,5 @@ doh.register("dojox.data.tests.stores.jsonPathStore",
 		}
 	]
 );
+
+}

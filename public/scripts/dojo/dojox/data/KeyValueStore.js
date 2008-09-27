@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.KeyValueStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.KeyValueStore"] = true;
 dojo.provide("dojox.data.KeyValueStore");
 
 dojo.require("dojo.data.util.filter");
@@ -375,3 +377,5 @@ dojo.declare("dojox.data.KeyValueStore", null, {
 });
 //Mix in the simple fetch implementation to this class.
 dojo.extend(dojox.data.KeyValueStore,dojo.data.util.simpleFetch);
+
+}

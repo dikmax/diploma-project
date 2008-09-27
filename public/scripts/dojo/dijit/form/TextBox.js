@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form.TextBox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.TextBox"] = true;
 dojo.provide("dijit.form.TextBox");
 
 dojo.require("dijit.form._FormWidget");
@@ -29,7 +31,7 @@ dojo.declare(
 		//		HTML INPUT tag maxLength declaration.
 		maxLength: "",
 
-		templatePath: dojo.moduleUrl("dijit.form", "templates/TextBox.html"),
+		templateString:"<input class=\"dijit dijitReset dijitLeft\" dojoAttachPoint='textbox,focusNode' name=\"${name}\"\n\tdojoAttachEvent='onmouseenter:_onMouse,onmouseleave:_onMouse,onfocus:_onMouse,onblur:_onMouse,onkeypress:_onKeyPress,onkeyup'\n\tautocomplete=\"off\" type=\"${type}\"\n\t/>\n",
 		baseClass: "dijitTextBox",
 
 		attributeMap: dojo.mixin(dojo.clone(dijit.form._FormValueWidget.prototype.attributeMap),
@@ -178,4 +180,6 @@ dijit.selectInputText = function(/*DomNode*/element, /*Number?*/ start, /*Number
 			element.setSelectionRange(start, stop);
 		}
 	}
+}
+
 }

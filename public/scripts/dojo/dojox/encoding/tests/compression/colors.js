@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.tests.compression.colors"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.tests.compression.colors"] = true;
 dojo.provide("dojox.encoding.tests.compression.colors");
 
 // all CSS3 colors
@@ -150,3 +152,5 @@ whitesmoke:	[245,245,245],
 yellow:	[255,255,0],
 yellowgreen:	[154,205,50]
 };
+
+}

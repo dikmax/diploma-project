@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.matrix"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.matrix"] = true;
 dojo.provide("dojox.gfx.matrix");
 
 (function(){
@@ -438,3 +440,5 @@ dojo.provide("dojox.gfx.matrix");
 
 // propagate Matrix2D up
 dojox.gfx.Matrix2D = dojox.gfx.matrix.Matrix2D;
+
+}

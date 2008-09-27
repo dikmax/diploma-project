@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._grid.views"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._grid.views"] = true;
 dojo.provide("dojox.grid._grid.views");
 
 dojo.declare('dojox.grid.views', null, {
@@ -271,3 +273,5 @@ dojo.declare('dojox.grid.views', null, {
 	}
 	
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.cometd._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.cometd._base"] = true;
 dojo.provide("dojox.cometd._base");
 dojo.require("dojo.AdapterRegistry");
 dojo.require("dojo.io.script");
@@ -944,3 +946,5 @@ dojox.cometd.connectionTypes.register("long-polling", dojox.cometd.longPollTrans
 dojox.cometd.connectionTypes.register("callback-polling", dojox.cometd.callbackPollTransport.check, dojox.cometd.callbackPollTransport);
 
 dojo.addOnUnload(dojox.cometd,"_onUnload");
+
+}

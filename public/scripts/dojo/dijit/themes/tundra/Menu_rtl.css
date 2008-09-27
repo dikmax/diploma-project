@@ -2,7 +2,6 @@
 	padding-left: 3px;
 	padding-right: 0px;
 }
-
 .dijitRtl .dijitMenuItem .dijitMenuExpandEnabled {
 	background-image:url('images/arrowLeft.gif');
 }

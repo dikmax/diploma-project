@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.ProgressBar"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.ProgressBar"] = true;
 dojo.provide("dijit.ProgressBar");
 
 dojo.require("dojo.fx");
@@ -34,7 +36,7 @@ dojo.declare("dijit.ProgressBar", [dijit._Widget, dijit._Templated], {
 	// 	If true: show that a process is underway but that the progress is unknown
 	indeterminate: false,
 
-	templatePath: dojo.moduleUrl("dijit", "templates/ProgressBar.html"),
+	templateString:"<div class=\"dijitProgressBar dijitProgressBarEmpty\"\n\t><div waiRole=\"progressbar\" tabindex=\"0\" dojoAttachPoint=\"internalProgress\" class=\"dijitProgressBarFull\"\n\t\t><div class=\"dijitProgressBarTile\"></div\n\t\t><span style=\"visibility:hidden\">&nbsp;</span\n\t></div\n\t><div dojoAttachPoint=\"label\" class=\"dijitProgressBarLabel\" id=\"${id}_label\">&nbsp;</div\n\t><img dojoAttachPoint=\"inteterminateHighContrastImage\" class=\"dijitProgressBarIndeterminateHighContrastImage\"\n\t></img\n></div>\n",
 
 	_indeterminateHighContrastImagePath:
 		dojo.moduleUrl("dijit", "themes/a11y/indeterminate_progress.gif"),
@@ -89,3 +91,5 @@ dojo.declare("dijit.ProgressBar", [dijit._Widget, dijit._Templated], {
 		// summary: User definable function fired when progress updates.
 	}
 });
+
+}

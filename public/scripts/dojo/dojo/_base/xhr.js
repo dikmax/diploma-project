@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.xhr"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.xhr"] = true;
 dojo.provide("dojo._base.xhr");
 dojo.require("dojo._base.Deferred");
 dojo.require("dojo._base.json");
@@ -724,3 +726,5 @@ dojo.require("dojo._base.query");
 	}
 	*/
 })();
+
+}

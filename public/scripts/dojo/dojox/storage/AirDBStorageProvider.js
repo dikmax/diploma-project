@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.storage.AirDBStorageProvider"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.storage.AirDBStorageProvider"] = true;
 dojo.provide("dojox.storage.AirDBStorageProvider");
 dojo.require("dojox.storage.manager");
 dojo.require("dojox.storage.Provider");
@@ -245,4 +247,6 @@ if (dojo.isAIR) {
 		dojox.storage.manager.register("dojox.storage.AirDBStorageProvider", new dojox.storage.AirDBStorageProvider());
 		dojox.storage.manager.initialize();
 	})();
+}
+
 }

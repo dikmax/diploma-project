@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests._base"] = true;
 var testGlobal = this;
 try{
 	dojo.provide("tests._base");
@@ -129,4 +131,6 @@ try{
 	dojo.requireIf(dojo.isBrowser, "tests._base.xhr");
 }catch(e){
 	doh.debug(e);
+}
+
 }

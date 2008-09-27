@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.flash._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.flash._base"] = true;
 dojo.provide("dojox.flash._base");
 
 // for dijit.getViewport(), needed by dojox.flash.Embed.center()
@@ -756,3 +758,5 @@ dojox.flash.Install.prototype = {
 dojox.flash.info = new dojox.flash.Info();
 
 // vim:ts=4:noet:tw=0:
+
+}

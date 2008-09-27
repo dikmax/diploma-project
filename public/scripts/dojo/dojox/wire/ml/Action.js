@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.wire.ml.Action"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.wire.ml.Action"] = true;
 dojo.provide("dojox.wire.ml.Action");
 dojo.provide("dojox.wire.ml.ActionFilter");
 
@@ -219,3 +221,5 @@ dojo.declare("dojox.wire.ml.ActionFilter", dijit._Widget, {
 		return false; //Boolean
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.parser"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.parser"] = true;
 dojo.provide("dojo.parser");
 dojo.require("dojo.date.stamp");
 
@@ -270,4 +272,6 @@ dojo.parser._nameAnonFunc = function(/*Function*/anonFuncPtr, /*Object*/thisObj)
 	}
 	nso[ret] = anonFuncPtr;
 	return ret; // String
+}
+
 }

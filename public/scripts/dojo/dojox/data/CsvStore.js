@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.CsvStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.CsvStore"] = true;
 dojo.provide("dojox.data.CsvStore");
 
 dojo.require("dojo.data.util.filter");
@@ -555,3 +557,5 @@ dojo.declare("dojox.data.CsvStore", null, {
 });
 //Mix in the simple fetch implementation to this class.
 dojo.extend(dojox.data.CsvStore,dojo.data.util.simpleFetch);
+
+}

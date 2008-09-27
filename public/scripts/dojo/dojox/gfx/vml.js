@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.vml"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.vml"] = true;
 dojo.provide("dojox.gfx.vml");
 
 dojo.require("dojox.gfx._base");
@@ -1159,3 +1161,5 @@ dojo.extend(dojox.gfx.Group, dojox.gfx.shape.Creator);
 
 dojo.extend(dojox.gfx.Surface, dojox.gfx.vml.Container);
 dojo.extend(dojox.gfx.Surface, dojox.gfx.shape.Creator);
+
+}

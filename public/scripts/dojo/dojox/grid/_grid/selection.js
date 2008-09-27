@@ -1,3 +1,5 @@
+if(!dojo._hasResource['dojox.grid._grid.selection']){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource['dojox.grid._grid.selection'] = true;
 dojo.provide('dojox.grid._grid.selection');
 
 dojo.declare("dojox.grid.selection",
@@ -209,3 +211,5 @@ dojo.declare("dojox.grid.selection",
 	}
 
 });
+
+}

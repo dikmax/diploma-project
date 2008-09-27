@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.highlight.languages.cpp"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.highlight.languages.cpp"] = true;
 dojo.provide("dojox.highlight.languages.cpp"); 
 
 dojo.require("dojox.highlight._base");
@@ -47,3 +49,5 @@ dojo.require("dojox.highlight._base");
 		]
 	};
 })();
+
+}

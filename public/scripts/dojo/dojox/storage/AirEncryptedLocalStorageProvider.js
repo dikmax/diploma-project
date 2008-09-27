@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.storage.AirEncryptedLocalStorageProvider"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.storage.AirEncryptedLocalStorageProvider"] = true;
 dojo.provide("dojox.storage.AirEncryptedLocalStorageProvider");
 dojo.require("dojox.storage.manager");
 dojo.require("dojox.storage.Provider");
@@ -214,4 +216,6 @@ if (dojo.isAIR) {
 		dojox.storage.manager.register("dojox.storage.AirEncryptedLocalStorageProvider", new dojox.storage.AirEncryptedLocalStorageProvider());
 		dojox.storage.manager.initialize();
 	})();
+}
+
 }

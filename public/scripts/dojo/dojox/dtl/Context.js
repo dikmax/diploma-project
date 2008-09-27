@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.Context"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.Context"] = true;
 dojo.provide("dojox.dtl.Context");
 dojo.require("dojox.dtl._base");
 
@@ -81,3 +83,5 @@ dojox.dtl.Context = dojo.extend(function(dict){
 		return false;
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.rpc.JsonReferencing"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.rpc.JsonReferencing"] = true;
 dojo.provide("dojox.rpc.JsonReferencing");
 dojo.require("dojo.date.stamp");
 dojo.require("dojo._base.Deferred");
@@ -258,4 +260,6 @@ dojox.rpc.toJson = function(/*Object*/ it, /*Boolean?*/ prettyPrint, /*Object?*/
 		delete paths[i]._id;
 	}
 	return json;
+}
+
 }

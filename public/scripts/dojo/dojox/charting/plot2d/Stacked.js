@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.plot2d.Stacked"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.plot2d.Stacked"] = true;
 dojo.provide("dojox.charting.plot2d.Stacked");
 
 dojo.require("dojox.charting.plot2d.common");
@@ -154,3 +156,5 @@ dojo.require("dojox.lang.functional.reversed");
 		}
 	});
 })();
+
+}

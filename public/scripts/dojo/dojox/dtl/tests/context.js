@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tests.context"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tests.context"] = true;
 dojo.provide("dojox.dtl.tests.context");
 
 dojo.require("dojox.dtl");
@@ -73,3 +75,5 @@ doh.register("dojox.dtl.context",
 		}
 	]
 );
+
+}

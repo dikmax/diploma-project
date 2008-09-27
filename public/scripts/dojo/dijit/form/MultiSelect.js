@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form.MultiSelect"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.MultiSelect"] = true;
 dojo.provide("dijit.form.MultiSelect");
 
 dojo.require("dijit.form._FormWidget");
@@ -78,3 +80,5 @@ dojo.declare("dijit.form.MultiSelect",dijit.form._FormWidget,{
 		this._onChange();
 	}
 });
+
+}

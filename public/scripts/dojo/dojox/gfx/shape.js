@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.shape"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.shape"] = true;
 dojo.provide("dojox.gfx.shape");
 
 dojo.require("dojox.gfx._base");
@@ -685,3 +687,5 @@ dojox.gfx.shape.Creator = {
 		return null;	// dojox.gfx.Shape
 	}
 };
+
+}

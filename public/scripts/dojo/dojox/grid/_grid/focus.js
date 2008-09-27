@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._grid.focus"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._grid.focus"] = true;
 dojo.provide("dojox.grid._grid.focus");
 
 // focus management
@@ -201,3 +203,5 @@ dojo.declare("dojox.grid.focus", null, {
 		this.tabbingOut = false;
 	}
 });
+
+}

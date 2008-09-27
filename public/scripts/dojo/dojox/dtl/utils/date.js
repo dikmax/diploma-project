@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.utils.date"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.utils.date"] = true;
 dojo.provide("dojox.dtl.utils.date");
 
 dojo.require("dojox.date.php");
@@ -66,3 +68,5 @@ dojo.mixin(dojox.dtl.utils.date, {
 	],
 	_months_ap: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."]
 });
+
+}

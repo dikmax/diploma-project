@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.image.Magnifier"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.image.Magnifier"] = true;
 dojo.provide("dojox.image.Magnifier");
 
 dojo.require("dojox.gfx");
@@ -69,3 +71,5 @@ dojo.declare("dojox.image.Magnifier",
 	}
 
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.tests.matrix"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.tests.matrix"] = true;
 dojo.provide("dojox.gfx.tests.matrix");
 dojo.require("dojox.gfx.matrix");
 
@@ -222,3 +224,5 @@ dojo.require("dojox.gfx.matrix");
 		}
 	]);
 })();
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.lang.functional.curry"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.functional.curry"] = true;
 dojo.provide("dojox.lang.functional.curry");
 
 dojo.require("dojox.lang.functional.lambda");
@@ -90,3 +92,5 @@ dojo.require("dojox.lang.functional.lambda");
 		}
 	});
 })();
+
+}

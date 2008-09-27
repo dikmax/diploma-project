@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.Tooltip"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.Tooltip"] = true;
 dojo.provide("dijit.Tooltip");
 
 dojo.require("dijit._Widget");
@@ -17,7 +19,7 @@ dojo.declare(
 		//		Milliseconds to fade in/fade out
 		duration: 200,
 
-		templatePath: dojo.moduleUrl("dijit", "templates/Tooltip.html"),
+		templateString:"<div class=\"dijitTooltip dijitTooltipLeft\" id=\"dojoTooltip\">\n\t<div class=\"dijitTooltipContainer dijitTooltipContents\" dojoAttachPoint=\"containerNode\" waiRole='alert'></div>\n\t<div class=\"dijitTooltipConnector\"></div>\n</div>\n",
 
 		postCreate: function(){
 			dojo.body().appendChild(this.domNode);
@@ -286,3 +288,5 @@ dojo.declare(
 //		that the drop down and tooltip don't overlap, even when the viewport is scrolled so that there
 //		is only room below (or above) the target node, but not both.
 dijit.Tooltip.defaultPosition = ["after", "before"];
+
+}

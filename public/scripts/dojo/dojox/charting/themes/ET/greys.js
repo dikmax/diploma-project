@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.themes.ET.greys"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.themes.ET.greys"] = true;
 dojo.provide("dojox.charting.themes.ET.greys");
 dojo.require("dojox.charting.Theme");
 
@@ -57,3 +59,5 @@ dojo.require("dojox.charting.Theme");
 	});
 })();
 
+
+}

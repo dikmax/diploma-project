@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx"] = true;
 dojo.provide("dojox.gfx");
 
 dojo.require("dojox.gfx.matrix");
@@ -34,3 +36,5 @@ dojo.requireIf(dojox.gfx.renderer == "svg", "dojox.gfx.svg");
 dojo.requireIf(dojox.gfx.renderer == "vml", "dojox.gfx.vml");
 dojo.requireIf(dojox.gfx.renderer == "silverlight", "dojox.gfx.silverlight");
 dojo.requireIf(dojox.gfx.renderer == "canvas", "dojox.gfx.canvas");
+
+}

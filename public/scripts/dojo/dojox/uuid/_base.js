@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.uuid._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.uuid._base"] = true;
 dojo.provide("dojox.uuid._base");
 
 // Public constants:
@@ -239,3 +241,5 @@ dojox.uuid.getTimestamp = function(/*String*/ uuidString, /*String?*/ returnType
 			break;
 	}
 };
+
+}

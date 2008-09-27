@@ -1,8 +1,10 @@
+if(!dojo._hasResource["dojo.currency"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.currency"] = true;
 dojo.provide("dojo.currency");
 
 dojo.require("dojo.number");
 dojo.require("dojo.i18n");
-dojo.requireLocalization("dojo.cldr", "currency");
+dojo.requireLocalization("dojo.cldr", "currency", null, "zh,en-ca,pt,en-us,de,ja,en,en-au,ROOT,fr,es,ko,zh-tw,it");
 dojo.require("dojo.cldr.monetary");
 
 /*=====
@@ -90,4 +92,6 @@ dojo.currency.parse = function(/*String*/expression, /*dojo.currency.__ParseOpti
 	// expression: A string representation of a Number
 
 	return dojo.number.parse(expression, dojo.currency._mixInDefaults(options));
+}
+
 }

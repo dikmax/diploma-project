@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._editor._Plugin"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor._Plugin"] = true;
 dojo.provide("dijit._editor._Plugin");
 dojo.require("dijit._Widget");
 dojo.require("dijit.Editor");
@@ -95,3 +97,5 @@ dojo.declare("dijit._editor._Plugin", null, {
 		// console.debug("adding", this.button, "to:", toolbar);
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.layout.SplitContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.layout.SplitContainer"] = true;
 dojo.provide("dijit.layout.SplitContainer");
 
 //
@@ -547,3 +549,5 @@ dojo.extend(dijit._Widget, {
 	//	each takes up 50% of the available space.
 	sizeShare: 10
 });
+
+}

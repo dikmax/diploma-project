@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._base.sniff"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._base.sniff"] = true;
 dojo.provide("dijit._base.sniff");
 
 // ported from dojo.html.applyBrowserClass (style.js)
@@ -39,3 +41,5 @@ dojo.provide("dijit._base.sniff");
 		}
 	}
 })();
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.timing._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.timing._base"] = true;
 dojo.provide("dojox.timing._base");
 dojo.experimental("dojox.timing"); 
 
@@ -52,3 +54,5 @@ dojo.extend(dojox.timing.Timer, {
 		window.clearInterval(this.timer);
 	}
 });
+
+}

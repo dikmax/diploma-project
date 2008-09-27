@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.validate.creditCard"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.validate.creditCard"] = true;
 dojo.provide("dojox.validate.creditCard");
 
 dojo.require("dojox.validate._base");
@@ -85,4 +87,6 @@ dojox.validate.isValidCvv = function(/*String|Int*/value, /*String*/ccType) {
 	//FIXME? Why does isNumberFormat take an object for flags when its only parameter is either a string or an array inside the object?
 	//FIXME: um... just check value.length?
 	return (value.length == format.length && dojox.validate.isNumberFormat(value, flags)); //Boolean
+}
+
 }

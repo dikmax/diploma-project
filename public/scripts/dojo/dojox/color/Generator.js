@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.color.Generator"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.color.Generator"] = true;
 dojo.provide("dojox.color.Generator");
 
 dojox.color.Generator = new (function(){
@@ -255,3 +257,5 @@ dojox.color.Generator = new (function(){
 		return a;	// Array
 	};
 })();
+
+}

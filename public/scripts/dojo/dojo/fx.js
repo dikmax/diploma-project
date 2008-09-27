@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.fx"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.fx"] = true;
 dojo.provide("dojo.fx");
 dojo.provide("dojo.fx.Toggler");
 
@@ -408,4 +410,6 @@ dojo.fx.slideTo = function(/*Object?*/ args){
 	dojo.connect(anim, "beforeBegin", anim, init);
 
 	return anim; // dojo._Animation
+}
+
 }

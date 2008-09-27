@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.rpc.Service"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.rpc.Service"] = true;
 dojo.provide("dojox.rpc.Service");
 
 dojo.require("dojo.AdapterRegistry");
@@ -286,4 +288,6 @@ if (!dojox.rpc.toJson){
 	dojox.rpc.resolveJson = function(it){
 		return it;
 	}
+}
+
 }

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests.date.stamp"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests.date.stamp"] = true;
 dojo.provide("tests.date.stamp");
 
 dojo.require("dojo.date.stamp");
@@ -88,3 +90,5 @@ function test_date_iso_tz(t){
 	}
 	]
 );
+
+}

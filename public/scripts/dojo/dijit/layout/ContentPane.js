@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.layout.ContentPane"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.layout.ContentPane"] = true;
 dojo.provide("dijit.layout.ContentPane");
 
 dojo.require("dijit._Widget");
@@ -5,7 +7,7 @@ dojo.require("dijit.layout._LayoutWidget");
 
 dojo.require("dojo.parser");
 dojo.require("dojo.string");
-dojo.requireLocalization("dijit", "loading");
+dojo.requireLocalization("dijit", "loading", null, "zh,pt,da,tr,ru,ROOT,de,sv,ja,he,fi,nb,el,ar,pt-pt,cs,fr,es,ko,nl,zh-tw,pl,it,hu");
 
 dojo.declare(
 	"dijit.layout.ContentPane",
@@ -439,3 +441,5 @@ dojo.declare(
 		//		called when download is finished
 	}
 });
+
+}

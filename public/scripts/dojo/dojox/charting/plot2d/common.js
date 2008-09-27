@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.plot2d.common"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.plot2d.common"] = true;
 dojo.provide("dojox.charting.plot2d.common");
 
 dojo.require("dojo.colors");
@@ -107,3 +109,5 @@ dojo.require("dojox.lang.functional");
 		}
 	});
 })();
+
+}

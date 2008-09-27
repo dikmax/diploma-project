@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.svg"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.svg"] = true;
 dojo.provide("dojox.gfx.svg");
 
 dojo.require("dojox.gfx._base");
@@ -632,3 +634,5 @@ dojo.extend(dojox.gfx.Group, dojox.gfx.shape.Creator);
 
 dojo.extend(dojox.gfx.Surface, dojox.gfx.svg.Container);
 dojo.extend(dojox.gfx.Surface, dojox.gfx.shape.Creator);
+
+}

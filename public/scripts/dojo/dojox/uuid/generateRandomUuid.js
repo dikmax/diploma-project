@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.uuid.generateRandomUuid"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.uuid.generateRandomUuid"] = true;
 dojo.provide("dojox.uuid.generateRandomUuid");
 
 dojox.uuid.generateRandomUuid = function(){
@@ -50,3 +52,5 @@ dojox.uuid.generateRandomUuid = function(){
 	returnValue = returnValue.toLowerCase();
 	return returnValue; // String
 };
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.layout.BorderContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.layout.BorderContainer"] = true;
 dojo.provide("dijit.layout.BorderContainer");
 
 dojo.require("dijit.layout._LayoutWidget");
@@ -509,3 +511,5 @@ dojo.declare("dijit.layout._Splitter", [ dijit._Widget, dijit._Templated ],
 		this.inherited(arguments);
 	}
 });
+
+}

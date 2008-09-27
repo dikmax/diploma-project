@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.off._common"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.off._common"] = true;
 dojo.provide("dojox.off._common");
 
 dojo.require("dojox.storage");
@@ -553,3 +555,5 @@ dojox.storage.manager.addOnLoad(dojo.hitch(dojox.off, "_onStorageLoad"));
 
 // wait until the page is finished loading
 dojo.addOnLoad(dojox.off, "_onPageLoad");
+
+}

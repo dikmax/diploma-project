@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.tests.encoding"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.tests.encoding"] = true;
 dojo.provide("dojox.encoding.tests.encoding");
 
 try{
@@ -6,4 +8,6 @@ try{
 	dojo.require("dojox.encoding.tests.bits");
 }catch(e){
 	doh.debug(e);
+}
+
 }

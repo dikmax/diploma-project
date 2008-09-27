@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests.rpc"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests.rpc"] = true;
 dojo.provide("tests.rpc");
 
 dojo.require("dojo.rpc.RpcService");
@@ -145,3 +147,5 @@ doh.register("tests.rpc",
 );
 
 
+
+}

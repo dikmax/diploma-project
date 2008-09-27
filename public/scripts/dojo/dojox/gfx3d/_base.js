@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx3d._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx3d._base"] = true;
 dojo.provide("dojox.gfx3d._base");
 
 dojo.mixin(dojox.gfx3d, {
@@ -13,3 +15,5 @@ dojo.mixin(dojox.gfx3d, {
 	defaultCube:	  {type: "cube",      bottom: {x: 0, y: 0, z: 0}, top: {x: 100, y: 100, z: 100}},
 	defaultCylinder:  {type: "cylinder",  center: /* center of bottom */ {x: 0, y: 0, z: 0}, height: 100, radius: 50}
 });
+
+}

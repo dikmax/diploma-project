@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.scaler"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.scaler"] = true;
 dojo.provide("dojox.charting.scaler");
 
 (function(){
@@ -155,3 +157,5 @@ dojo.provide("dojox.charting.scaler");
 		return micro ? ticks : calcTicks(min, max, h, major, minor, 0, span);	// Object
 	};
 })();
+
+}

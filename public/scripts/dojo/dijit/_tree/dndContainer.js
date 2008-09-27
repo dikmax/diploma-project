@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._tree.dndContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._tree.dndContainer"] = true;
 dojo.provide("dijit._tree.dndContainer");
 dojo.require("dojo.dnd.common");
 dojo.require("dojo.dnd.Container");
@@ -144,3 +146,5 @@ dojo.declare("dijit._tree.dndContainer",
 			// summary: this function is called once, when mouse is out of our container
 		}
 });
+
+}

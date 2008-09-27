@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.date"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.date"] = true;
 dojo.provide("dojo.date");
 
 /*=====
@@ -337,3 +339,5 @@ dojo.date.difference = function(/*Date*/date1, /*Date?*/date2, /*String?*/interv
 	// Round for fractional values and DST leaps
 	return Math.round(delta); // Number (integer)
 };
+
+}

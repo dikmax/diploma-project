@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.UnderlineAnnotation"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.UnderlineAnnotation"] = true;
 dojo.provide("dojox.sketch.UnderlineAnnotation");
 dojo.require("dojox.sketch.Annotation");
 dojo.require("dojox.sketch.Anchor");
@@ -76,3 +78,5 @@ dojo.require("dojox.sketch.Anchor");
 
 	ta.Annotation.register("Underline");
 })();
+
+}

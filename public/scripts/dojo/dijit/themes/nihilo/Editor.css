@@ -1,17 +1,13 @@
 .dijitIEFixedToolbar {
 	position:absolute;
-	/* top:0; */
+	
 	top: expression(eval((document.documentElement||document.body).scrollTop));
 }
-
 .nihilo .dijitToolbar .dijitToolbarSeparator {
 	background: url('images/editor.gif');
 }
-
-/**** ICONS *****/
-
 .nihilo .dijitEditorIcon {
-	background-image: url('images/editor.gif'); /* editor icons sprite image */
+	background-image: url('images/editor.gif'); 
 	background-repeat: no-repeat;
 	width: 18px;
 	height: 18px;
@@ -56,5 +52,4 @@
 .nihilo .dijitEditorIconUnderline { background-position: -648px; }
 .nihilo .dijitEditorIconUndo { background-position: -666px; }
 .nihilo .dijitEditorIconWikiword { background-position: -684px; }
-.nihilo .dijitEditorIconToggleDir { background-position: -540px; /* padding: 0; margin: 0; color:#555555;
-									font-family:verdana,arial,sans-serif; font-weight: 800; font-size: 70%; */}
+.nihilo .dijitEditorIconToggleDir { background-position: -540px; }

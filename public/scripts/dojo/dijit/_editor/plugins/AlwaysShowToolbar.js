@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._editor.plugins.AlwaysShowToolbar"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor.plugins.AlwaysShowToolbar"] = true;
 dojo.provide("dijit._editor.plugins.AlwaysShowToolbar");
 
 dojo.declare("dijit._editor.plugins.AlwaysShowToolbar", dijit._editor._Plugin,
@@ -134,3 +136,5 @@ dojo.declare("dijit._editor.plugins.AlwaysShowToolbar", dijit._editor._Plugin,
 		}
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base._loader.loader_debug"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base._loader.loader_debug"] = true;
 dojo.provide("dojo._base._loader.loader_debug");
 
 //Override dojo.provide, so we can trigger the next
@@ -54,4 +56,6 @@ dojo._xdDebugFileLoaded = function(resourceName){
 			document.getElementsByTagName("head")[0].appendChild(element);
 		}
 	}
+}
+
 }

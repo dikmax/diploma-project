@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.jsonPathStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.jsonPathStore"] = true;
 dojo.provide("dojox.data.jsonPathStore");
 dojo.require("dojox.jsonPath");
 dojo.require("dojo.date");
@@ -1185,3 +1187,5 @@ dojo.declare("dojox.data.jsonPathStore",
 
 //setup an alias to byId, is there a better way to do this?
 dojox.data.jsonPathStore.byId=dojox.data.jsonPathStore.fetchItemByIdentity;
+
+}

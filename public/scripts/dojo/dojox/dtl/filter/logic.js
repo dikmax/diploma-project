@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.filter.logic"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.filter.logic"] = true;
 dojo.provide("dojox.dtl.filter.logic");
 
 dojo.mixin(dojox.dtl.filter.logic, {
@@ -28,3 +30,5 @@ dojo.mixin(dojox.dtl.filter.logic, {
 		return parts[2];
 	}
 });
+
+}

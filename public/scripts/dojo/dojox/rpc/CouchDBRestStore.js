@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.CouchDBRestStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.CouchDBRestStore"] = true;
 dojo.provide("dojox.data.CouchDBRestStore");
 dojo.require("dojox.data.JsonRestStore");
 dojo.require("dojox.json.ref"); // TODO: Make it work without this dependency
@@ -80,4 +82,6 @@ dojox.data.CouchDBRestStore.generateSMD = function(couchServerUrl) {
 						} 		
 	});
 	return couchSMD;
+}
+
 }

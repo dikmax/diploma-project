@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.analytics.plugins.idle"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.analytics.plugins.idle"] = true;
 dojo.provide("dojox.analytics.plugins.idle");
 
 // window startup data
@@ -28,3 +30,5 @@ dojox.analytics.plugins.idle = new (function(){
 		}
 	}));
 })();
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.uuid.tests.uuid"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.uuid.tests.uuid"] = true;
 dojo.provide("dojox.uuid.tests.uuid");
 dojo.require("dojox.uuid");
 dojo.require("dojox.uuid.Uuid");
@@ -371,3 +373,5 @@ function test_uuid_multiplyTwo64bitArrays(){
 	doh.assertTrue(result[3] === 20);
 }
 */
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.DeferredList"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.DeferredList"] = true;
 dojo.provide("dojo.DeferredList");
 dojo.declare("dojo.DeferredList", dojo.Deferred, {
 	constructor: function(/*Array*/ list, /*Boolean?*/ fireOnOneCallback, /*Boolean?*/ fireOnOneErrback, /*Boolean?*/ consumeErrors, /*Function?*/ canceller){
@@ -82,3 +84,5 @@ dojo.declare("dojo.DeferredList", dojo.Deferred, {
 		return d;
 	}
 });
+
+}

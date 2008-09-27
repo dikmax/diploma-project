@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.digests.MD5"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.digests.MD5"] = true;
 dojo.provide("dojox.encoding.digests.MD5");
 
 dojo.require("dojox.encoding.digests._base");
@@ -171,3 +173,5 @@ dojo.require("dojox.encoding.digests._base");
 		}
 	};
 })();
+
+}

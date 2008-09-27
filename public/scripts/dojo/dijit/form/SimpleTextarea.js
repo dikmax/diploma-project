@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form.SimpleTextarea"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.SimpleTextarea"] = true;
 dojo.provide("dijit.form.SimpleTextarea");
 
 dojo.require("dijit.form._FormWidget");
@@ -44,3 +46,5 @@ dojo.declare("dijit.form.SimpleTextarea",
 		return this.domNode.value.replace(/\r/g,"");
 	}
 });
+
+}

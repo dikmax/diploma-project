@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.tests.stores.XmlStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.tests.stores.XmlStore"] = true;
 dojo.provide("dojox.data.tests.stores.XmlStore");
 dojo.require("dojox.data.XmlStore");
 dojo.require("dojo.data.api.Read");
@@ -875,3 +877,5 @@ doh.register("dojox.data.tests.stores.XmlStore",
 
 
 
+
+}

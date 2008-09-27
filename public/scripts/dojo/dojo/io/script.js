@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.io.script"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.io.script"] = true;
 dojo.provide("dojo.io.script");
 
 /*=====
@@ -204,4 +206,6 @@ dojo.io.script = {
 		//		request.
 		this.ioArgs.json = json;
 	}
+}
+
 }

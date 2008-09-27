@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.collections.Queue"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.collections.Queue"] = true;
 dojo.provide("dojox.collections.Queue");
 dojo.require("dojox.collections._base");
 
@@ -68,3 +70,5 @@ dojox.collections.Queue=function(/* array? */arr){
 		return [].concat(q);
 	};
 };
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.AtomReadStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.AtomReadStore"] = true;
 dojo.provide("dojox.data.AtomReadStore");
 
 dojo.require("dojo.data.util.simpleFetch");
@@ -537,3 +539,5 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 	}
 });
 dojo.extend(dojox.data.AtomReadStore,dojo.data.util.simpleFetch);
+
+}

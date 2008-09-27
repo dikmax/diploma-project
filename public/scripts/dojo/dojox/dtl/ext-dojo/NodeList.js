@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.ext-dojo.NodeList"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.ext-dojo.NodeList"] = true;
 dojo.provide("dojox.dtl.ext-dojo.NodeList");
 dojo.require("dojox.dtl._base");
 
@@ -27,3 +29,5 @@ dojo.extend(dojo.NodeList, {
 		return this;
 	}
 });
+
+}

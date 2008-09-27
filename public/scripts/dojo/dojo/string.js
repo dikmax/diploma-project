@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.string"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.string"] = true;
 dojo.provide("dojo.string");
 
 /*=====
@@ -78,3 +80,5 @@ dojo.string.trim = function(/*String*/ str){
 	}
 	return str;	// String
 };
+
+}

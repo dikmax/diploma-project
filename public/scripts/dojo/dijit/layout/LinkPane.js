@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.layout.LinkPane"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.layout.LinkPane"] = true;
 dojo.provide("dijit.layout.LinkPane");
 
 dojo.require("dijit.layout.ContentPane");
@@ -30,3 +32,5 @@ dojo.declare("dijit.layout.LinkPane",
 		this.inherited("postCreate",arguments);
 	}
 });
+
+}

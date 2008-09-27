@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.dnd.Selector"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.dnd.Selector"] = true;
 dojo.provide("dojo.dnd.Selector");
 
 dojo.require("dojo.dnd.common");
@@ -238,3 +240,5 @@ dojo.declare("dojo.dnd.Selector", dojo.dnd.Container, {
 		return this;	// self
 	}
 });
+
+}

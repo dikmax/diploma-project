@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.off.ui"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.off.ui"] = true;
 dojo.provide("dojox.off.ui");
 
 dojo.require("dojox.storage.Provider");
@@ -616,3 +618,5 @@ dojo.connect(dojox.off, "onFrameworkEvent", dojox.off.ui, "_onFrameworkEvent");
 
 // start our magic when the Dojo Offline framework is ready to go
 dojo.connect(dojox.off, "onLoad", dojox.off.ui, dojox.off.ui._initialize);
+
+}

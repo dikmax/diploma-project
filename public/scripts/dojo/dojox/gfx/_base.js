@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx._base"] = true;
 dojo.provide("dojox.gfx._base");
 
 (function(){
@@ -282,3 +284,5 @@ dojo.mixin(dojox.gfx, {
 		return a && b && a == b;
 	}
 });
+
+}

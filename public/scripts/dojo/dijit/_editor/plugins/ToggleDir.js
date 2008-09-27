@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._editor.plugins.ToggleDir"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor.plugins.ToggleDir"] = true;
 dojo.provide("dijit._editor.plugins.ToggleDir");
 dojo.experimental("dijit._editor.plugins.ToggleDir");
 
@@ -34,3 +36,5 @@ dojo.subscribe(dijit._scopeName + ".Editor.getPlugin",null,function(o){
 		o.plugin = new dijit._editor.plugins.ToggleDir({command: o.args.name});
 	}
 });
+
+}

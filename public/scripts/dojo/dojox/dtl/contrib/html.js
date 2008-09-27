@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.contrib.html"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.contrib.html"] = true;
 dojo.provide("dojox.dtl.contrib.html");
 
 dojo.require("dojox.dtl.html");
@@ -101,3 +103,5 @@ dojo.require("dojox.dtl.html");
 		"html": ["html", "attr:tstyle"]
 	});
 })();
+
+}

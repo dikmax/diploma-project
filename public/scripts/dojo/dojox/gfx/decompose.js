@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.decompose"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.decompose"] = true;
 dojo.provide("dojox.gfx.decompose");
 
 dojo.require("dojox.gfx.matrix");
@@ -133,3 +135,5 @@ dojo.require("dojox.gfx.matrix");
 		return dojo.mixin(result, {sx: S.xx, sy: S.yy});	// Object
 	};
 })();
+
+}

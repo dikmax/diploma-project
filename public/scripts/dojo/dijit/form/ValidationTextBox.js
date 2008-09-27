@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form.ValidationTextBox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.ValidationTextBox"] = true;
 dojo.provide("dijit.form.ValidationTextBox");
 
 dojo.require("dojo.i18n");
@@ -5,7 +7,7 @@ dojo.require("dojo.i18n");
 dojo.require("dijit.form.TextBox");
 dojo.require("dijit.Tooltip");
 
-dojo.requireLocalization("dijit.form", "validate");
+dojo.requireLocalization("dijit.form", "validate", null, "zh,pt,da,tr,ru,de,sv,ja,he,fi,nb,el,ar,pt-pt,ROOT,cs,fr,es,ko,nl,zh-tw,pl,it,hu");
 
 /*=====
 	dijit.form.ValidationTextBox.__Constraints = function(){
@@ -25,7 +27,7 @@ dojo.declare(
 		// summary:
 		//		A TextBox subclass with the ability to validate content of various types and provide user feedback.
 
-		templatePath: dojo.moduleUrl("dijit.form", "templates/ValidationTextBox.html"),
+		templateString:"<div class=\"dijit dijitReset dijitInlineTable dijitLeft\"\n\tid=\"widget_${id}\"\n\tdojoAttachEvent=\"onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse\" waiRole=\"presentation\"\n\t><div style=\"overflow:hidden;\"\n\t\t><div class=\"dijitReset dijitValidationIcon\"><br></div\n\t\t><div class=\"dijitReset dijitValidationIconText\">&Chi;</div\n\t\t><div class=\"dijitReset dijitInputField\"\n\t\t\t><input class=\"dijitReset\" dojoAttachPoint='textbox,focusNode' dojoAttachEvent='onfocus:_update,onkeyup:_onkeyup,onblur:_onMouse,onkeypress:_onKeyPress' autocomplete=\"off\"\n\t\t\ttype='${type}' name='${name}'\n\t\t/></div\n\t></div\n></div>\n",
 		baseClass: "dijitTextBox",
 
 		// default values for new subclass properties
@@ -302,3 +304,5 @@ dojo.declare(
 		}
 	}
 );
+
+}

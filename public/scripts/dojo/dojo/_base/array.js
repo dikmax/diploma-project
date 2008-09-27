@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.array"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.array"] = true;
 dojo.require("dojo._base.lang");
 dojo.provide("dojo._base.array");
 
@@ -176,3 +178,5 @@ dojo.provide("dojo._base.array");
 		}
 	});
 })();
+
+}

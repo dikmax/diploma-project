@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid.Grid"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid.Grid"] = true;
 dojo.provide("dojox.grid.Grid");
 dojo.require("dojox.grid.VirtualGrid");
 dojo.require("dojox.grid._data.model");
@@ -357,3 +359,5 @@ dojox.Grid.markupFactory = function(props, node, ctor){
 
 // alias us to the right location
 dojox.grid.Grid = dojox.Grid;
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.FisheyeList"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.FisheyeList"] = true;
 dojo.provide("dojox.widget.FisheyeList");
 
 dojo.require("dijit._Widget");
@@ -702,3 +704,5 @@ dojo.declare("dojox.widget.FisheyeListItem", [dijit._Widget, dijit._Templated, d
 		// summary: user overridable callback when user clicks this menu item
 	}
 });
+
+}

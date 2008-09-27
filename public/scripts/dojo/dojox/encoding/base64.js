@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.base64"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.base64"] = true;
 dojo.provide("dojox.encoding.base64");
 
 (function(){
@@ -60,3 +62,5 @@ dojo.provide("dojox.encoding.base64");
 		return out;	//	byte[]
 	};
 })();
+
+}

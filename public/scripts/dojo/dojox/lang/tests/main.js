@@ -1,4 +1,6 @@
-﻿dojo.provide("dojox.lang.tests.main");
+if(!dojo._hasResource["dojox.lang.tests.main"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.tests.main"] = true;
+dojo.provide("dojox.lang.tests.main");
 
 try{
 	// functional block
@@ -10,4 +12,6 @@ try{
 	dojo.require("dojox.lang.tests.array");
 }catch(e){
 	doh.debug(e);
+}
+
 }

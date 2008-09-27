@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tests.module"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tests.module"] = true;
 dojo.provide("dojox.dtl.tests.module");
 
 try{
@@ -8,4 +10,6 @@ try{
 	dojo.require("dojox.dtl.tests.context");
 }catch(e){
 	doh.debug(e);
+}
+
 }

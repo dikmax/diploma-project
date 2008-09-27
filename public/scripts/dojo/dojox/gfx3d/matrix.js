@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx3d.matrix"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx3d.matrix"] = true;
 dojo.provide("dojox.gfx3d.matrix");
 
 // candidates for dojox.math:
@@ -333,3 +335,5 @@ dojo.mixin(dojox.gfx3d.matrix, {
 
 // propagate matrix up
 dojox.gfx3d.Matrix3D = dojox.gfx3d.matrix.Matrix3D;
+
+}

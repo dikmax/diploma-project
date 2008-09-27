@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.window"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.window"] = true;
 dojo.provide("dojo._base.window");
 
 dojo._gearsObject = function(){
@@ -139,3 +141,5 @@ dojo.withDoc = function(	/*Object*/documentObject,
 	}
 	return rval;
 };
+
+}

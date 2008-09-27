@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.axis2d.Default"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.axis2d.Default"] = true;
 dojo.provide("dojox.charting.axis2d.Default");
 
 dojo.require("dojox.charting.scaler");
@@ -317,3 +319,5 @@ dojo.require("dojox.lang.utils");
 		}
 	});
 })();
+
+}

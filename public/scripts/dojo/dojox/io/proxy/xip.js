@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.io.proxy.xip"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.io.proxy.xip"] = true;
 dojo.provide("dojox.io.proxy.xip");
 
 dojo.require("dojo.io.iframe");
@@ -435,3 +437,5 @@ dojo.extend(dojox.io.proxy.xip.XhrIframeFacade, {
 		}
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.dnd.Moveable"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.dnd.Moveable"] = true;
 dojo.provide("dojo.dnd.Moveable");
 
 dojo.require("dojo.dnd.Mover");
@@ -124,3 +126,5 @@ dojo.declare("dojo.dnd.Moveable", null, {
 		// default implementation does nothing
 	}
 });
+
+}

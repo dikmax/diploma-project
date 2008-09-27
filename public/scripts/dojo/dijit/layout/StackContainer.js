@@ -1,10 +1,12 @@
+if(!dojo._hasResource["dijit.layout.StackContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.layout.StackContainer"] = true;
 dojo.provide("dijit.layout.StackContainer");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit.layout._LayoutWidget");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.Menu");
-dojo.requireLocalization("dijit", "common");
+dojo.requireLocalization("dijit", "common", null, "zh,pt,da,tr,ru,de,sv,ja,he,fi,nb,el,ar,ROOT,pt-pt,cs,fr,es,ko,nl,zh-tw,pl,it,hu");
 
 dojo.declare(
 	"dijit.layout.StackContainer",
@@ -487,3 +489,5 @@ dojo.extend(dijit._Widget, {
 		return true;
 	}
 });
+
+}

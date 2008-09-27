@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.tests.compression.lzw"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.tests.compression.lzw"] = true;
 dojo.provide("dojox.encoding.tests.compression.lzw");
 dojo.require("dojox.encoding.compression.lzw");
 dojo.require("dojox.encoding.bits");
@@ -48,3 +50,5 @@ dojo.require("dojox.encoding.bits");
 		function testLzwMsg4(t){ t.assertEqual(msg4, decode(msg4.length, encode(msg4))); }
 	]);
 })();
+
+}

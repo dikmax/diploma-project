@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.OpmlStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.OpmlStore"] = true;
 dojo.provide("dojox.data.OpmlStore");
 
 dojo.require("dojo.data.util.filter");
@@ -509,3 +511,5 @@ dojo.declare("dojox.data.OpmlStore", null, {
 //Mix in the simple fetch implementation to this class.
 dojo.extend(dojox.data.OpmlStore,dojo.data.util.simpleFetch);
 	
+
+}

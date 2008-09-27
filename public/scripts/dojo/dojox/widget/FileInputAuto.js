@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.FileInputAuto"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.FileInputAuto"] = true;
 dojo.provide("dojox.widget.FileInputAuto");
 
 dojo.require("dojox.widget.FileInput");
@@ -41,7 +43,7 @@ dojo.declare("dojox.widget.FileInputAuto",
 	_sent: false,
 
 	// small template changes, new attachpoint: overlay
-	templatePath: dojo.moduleUrl("dojox.widget","FileInput/FileInputAuto.html"),
+	templateString:"<div class=\"dijitFileInput\">\n\t<input id=\"${id}\" name=\"${name}\" class=\"dijitFileInputReal\" type=\"file\" dojoAttachPoint=\"fileInput\" />\n\t<div class=\"dijitFakeInput\" dojoAttachPoint=\"fakeNodeHolder\">\n\t\t<input class=\"dijitFileInputVisible\" type=\"text\" dojoAttachPoint=\"focusNode, inputNode\" />\n\t\t<div class=\"dijitInline dijitFileInputText\" dojoAttachPoint=\"titleNode\">${label}</div>\n\t\t<div class=\"dijitInline dijitFileInputButton\" dojoAttachPoint=\"cancelNode\" dojoAttachEvent=\"onclick:_onClick\">${cancelText}</div>\n\t</div>\n\t<div class=\"dijitProgressOverlay\" dojoAttachPoint=\"overlay\">&nbsp;</div>\n</div>\n",
 
 	startup: function(){
 		// summary: add our extra blur listeners
@@ -179,3 +181,5 @@ dojo.declare("dojox.widget.FileInputBlind",
 		this._fixPosition(); 
 	}
 });
+
+}

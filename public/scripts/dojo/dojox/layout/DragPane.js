@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.layout.DragPane"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.layout.DragPane"] = true;
 dojo.provide("dojox.layout.DragPane");
 
 dojo.require("dijit._Widget");
@@ -59,3 +61,5 @@ dojo.declare("dojox.layout.DragPane",
 	}
 	
 });
+
+}

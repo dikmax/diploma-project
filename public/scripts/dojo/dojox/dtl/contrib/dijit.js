@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.contrib.dijit"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.contrib.dijit"] = true;
 dojo.provide("dojox.dtl.contrib.dijit");
 
 dojo.require("dojox.dtl.html");
@@ -214,3 +216,5 @@ dojo.require("dojo.parser");
 		"dijit": ["attr:dojoType", "attr:dojoAttachPoint", ["attr:attach", "dojoAttachPoint"], "attr:dojoAttachEvent", [/(attr:)?on(click|key(up))/i, "on"]]
 	});
 })();
+
+}

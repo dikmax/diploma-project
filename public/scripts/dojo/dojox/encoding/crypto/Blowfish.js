@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.crypto.Blowfish"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.crypto.Blowfish"] = true;
 dojo.provide("dojox.encoding.crypto.Blowfish");
 
 dojo.require("dojox.encoding.base64");
@@ -475,3 +477,5 @@ dojox.encoding.crypto.Blowfish = new function(){
 
 	this.setIV("0000000000000000", dojox.encoding.crypto.outputTypes.Hex);
 }();
+
+}

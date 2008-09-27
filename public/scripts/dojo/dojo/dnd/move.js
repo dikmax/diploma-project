@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.dnd.move"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.dnd.move"] = true;
 dojo.provide("dojo.dnd.move");
 
 dojo.require("dojo.dnd.Mover");
@@ -196,3 +198,5 @@ dojo.dnd.move.parentConstrainedMover = function(area, within){
 dojo.dnd.constrainedMover = dojo.dnd.move.constrainedMover;
 dojo.dnd.boxConstrainedMover = dojo.dnd.move.boxConstrainedMover;
 dojo.dnd.parentConstrainedMover = dojo.dnd.move.parentConstrainedMover;
+
+}

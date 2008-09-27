@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.jaxer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.jaxer"] = true;
 dojo.provide("dojo.jaxer");
 
 if(typeof print == "function"){
@@ -9,3 +11,5 @@ if(typeof print == "function"){
 }
 
 onserverload = dojo._loadInit;
+
+}

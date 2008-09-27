@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.fx.ext-dojo.NodeList"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.fx.ext-dojo.NodeList"] = true;
 dojo.provide("dojox.fx.ext-dojo.NodeList");
 dojo.experimental("dojox.fx.ext-dojo.NodeList");
 // summary: Core extensions to dojo.NodeList providing addtional fx to dojo.NodeList-fx
@@ -60,3 +62,5 @@ dojo.extend(dojo.NodeList, {
 	}
 
 });
+
+}

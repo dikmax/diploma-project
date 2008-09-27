@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.UndoStack"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.UndoStack"] = true;
 dojo.provide("dojox.sketch.UndoStack");
 dojo.require("dojox.xml.DomParser");
 
@@ -98,3 +100,5 @@ dojo.require("dojox.xml.DomParser");
 		}
 	});
 })();
+
+}

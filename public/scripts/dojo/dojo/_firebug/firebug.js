@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._firebug.firebug"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._firebug.firebug"] = true;
 dojo.provide("dojo._firebug.firebug");
 
 dojo.deprecated = function(/*String*/ behaviour, /*String?*/ extra, /*String?*/ removal){
@@ -1096,4 +1098,6 @@ if((!("console" in window) || !("firebug" in console)) &&
 		toggleConsole(true);
 	}
 })();
+}
+
 }

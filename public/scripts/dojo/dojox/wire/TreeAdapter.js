@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.wire.TreeAdapter"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.wire.TreeAdapter"] = true;
 dojo.provide("dojox.wire.TreeAdapter");
 
 dojo.require("dojox.wire.CompositeWire");
@@ -182,3 +184,5 @@ dojo.declare("dojox.wire.TreeAdapter", dojox.wire.CompositeWire, {
 		return nodes; //Array
 	}
 });
+
+}

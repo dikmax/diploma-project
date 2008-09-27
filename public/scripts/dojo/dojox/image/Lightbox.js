@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.image.Lightbox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.image.Lightbox"] = true;
 dojo.provide("dojox.image.Lightbox");
 dojo.experimental("dojox.image.Lightbox");
 
@@ -166,7 +168,7 @@ dojo.declare("dojox.image._LightboxDialog",
 	_showNavAnim: null,
 	_animConnects: [],
 	
-	templatePath: dojo.moduleUrl("dojox.image","resources/Lightbox.html"),
+	templateString:"<div class=\"dojoxLightbox\" dojoAttachPoint=\"containerNode\">\n\t<div style=\"position:relative\">\n\t\t<div dojoAttachPoint=\"imageContainer\" class=\"dojoxLightboxContainer\">\n\t\t\t<img dojoAttachPoint=\"imgNode\" src=\"${imgUrl}\" class=\"dojoxLightboxImage\" alt=\"${title}\">\n\t\t\t<div class=\"dojoxLightboxFooter\" dojoAttachPoint=\"titleNode\">\n\t\t\t\t<div class=\"dijitInline LightboxClose\" dojoAttachPoint=\"closeNode\"></div>\n\t\t\t\t<div class=\"dijitInline LightboxNext\" dojoAttachPoint=\"nextNode\"></div>\t\n\t\t\t\t<div class=\"dijitInline LightboxPrev\" dojoAttachPoint=\"prevNode\"></div>\n\n\t\t\t\t<div class=\"dojoxLightboxText\"><span dojoAttachPoint=\"textNode\">${title}</span><span dojoAttachPoint=\"groupCount\" class=\"dojoxLightboxGroupText\"></span></div>\n\t\t\t</div>\n\t\t</div>\t\n\t\t\n\t</div>\n</div>\n",
 
 	startup: function(){
 		// summary: Add some extra event handlers, and startup our superclass.
@@ -445,3 +447,5 @@ dojo.declare("dojox.image._LightboxDialog",
 		this._showNavAnim = dojo.fadeIn({ node: this.titleNode, duration:225 });
 	}
 });
+
+}

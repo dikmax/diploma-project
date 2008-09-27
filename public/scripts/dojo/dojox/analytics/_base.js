@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.analytics._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.analytics._base"] = true;
 dojo.provide("dojox.analytics._base");
 
 dojox.analytics = function(){
@@ -121,3 +123,5 @@ dojo.extend(dojox.analytics, {
 
 //create the analytics  singleton
 dojox.analytics = new dojox.analytics();
+
+}

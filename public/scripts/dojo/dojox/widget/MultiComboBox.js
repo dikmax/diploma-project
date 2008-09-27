@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.MultiComboBox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.MultiComboBox"] = true;
 dojo.provide("dojox.widget.MultiComboBox");
 dojo.experimental("dojox.widget.MultiComboBox"); 
 dojo.require("dijit.form.ComboBox");
@@ -55,3 +57,5 @@ dojo.declare("dojox.widget.MultiComboBox",
 		this.inherited(arguments);
 	}		
 });
+
+}

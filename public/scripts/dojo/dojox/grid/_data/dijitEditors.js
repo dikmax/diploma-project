@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._data.dijitEditors"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._data.dijitEditors"] = true;
 dojo.provide("dojox.grid._data.dijitEditors");
 dojo.require("dojox.grid._data.editors");
 dojo.require("dijit.form.DateTextBox");
@@ -164,3 +166,5 @@ dojo.declare("dojox.grid.editors.Editor", dojox.grid.editors.Dijit, {
 		this.editor.placeCursorAtEnd();
 	}
 });
+
+}

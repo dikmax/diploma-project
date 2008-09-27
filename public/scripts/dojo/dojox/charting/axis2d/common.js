@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.axis2d.common"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.axis2d.common"] = true;
 dojo.provide("dojox.charting.axis2d.common");
 
 dojo.require("dojox.gfx");
@@ -69,3 +71,5 @@ dojo.require("dojox.gfx");
 		}
 	});
 })();
+
+}

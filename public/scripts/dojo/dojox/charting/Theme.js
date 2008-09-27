@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.Theme"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.Theme"] = true;
 dojo.provide("dojox.charting.Theme");
 dojo.require("dojox.charting._color");
 
@@ -250,3 +252,5 @@ dojo.require("dojox.charting._color");
 		}
 	});
 })();
+
+}

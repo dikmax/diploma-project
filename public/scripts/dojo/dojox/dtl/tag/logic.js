@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tag.logic"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tag.logic"] = true;
 dojo.provide("dojox.dtl.tag.logic");
 
 dojo.require("dojox.dtl._base");
@@ -266,3 +268,5 @@ dojo.require("dojox.dtl._base");
 		}
 	});
 })();
+
+}

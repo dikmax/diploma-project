@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._tree.dndSource"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._tree.dndSource"] = true;
 dojo.provide("dijit._tree.dndSource");
 
 dojo.require("dijit._tree.dndSelector");
@@ -367,3 +369,5 @@ dojo.declare("dijit._tree.dndTarget", dijit._tree.dndSource, {
 		return new dijit._tree.dndTarget(node, params);
 	}
 });
+
+}

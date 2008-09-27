@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._grid.publicEvents"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._grid.publicEvents"] = true;
 dojo.provide("dojox.grid._grid.publicEvents");
 
 dojox.grid.publicEvents = {
@@ -443,5 +445,7 @@ dojox.grid.publicEvents = {
 
 	onSelectionChanged: function(){
 	}
+
+}
 
 }

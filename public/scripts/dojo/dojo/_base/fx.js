@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.fx"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.fx"] = true;
 dojo.provide("dojo._base.fx");
 dojo.require("dojo._base.Color");
 dojo.require("dojo._base.connect");
@@ -578,3 +580,5 @@ dojo.require("dojo._base.html");
 		}).play(delay||0);
 	}
 })();
+
+}

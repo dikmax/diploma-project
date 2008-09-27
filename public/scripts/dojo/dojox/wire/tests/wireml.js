@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.wire.tests.wireml"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.wire.tests.wireml"] = true;
 dojo.provide("dojox.wire.tests.wireml");
 
 try{
@@ -11,4 +13,6 @@ try{
 	}
 }catch(e){
 	doh.debug(e);
+}
+
 }

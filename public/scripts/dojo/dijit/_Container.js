@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._Container"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._Container"] = true;
 dojo.provide("dijit._Container");
 
 dojo.declare("dijit._Contained",
@@ -340,3 +342,5 @@ dojo.declare("dijit._KeyNavContainer",
 		}
 	}
 );
+
+}

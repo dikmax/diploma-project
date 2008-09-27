@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.storage.FlashStorageProvider"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.storage.FlashStorageProvider"] = true;
 dojo.provide("dojox.storage.FlashStorageProvider");
 
 dojo.require("dojox.flash");
@@ -340,3 +342,5 @@ dojo.declare("dojox.storage.FlashStorageProvider", dojox.storage.Provider, {
 
 dojox.storage.manager.register("dojox.storage.FlashStorageProvider",
 								new dojox.storage.FlashStorageProvider());
+
+}

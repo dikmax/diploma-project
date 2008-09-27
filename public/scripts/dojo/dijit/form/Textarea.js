@@ -1,8 +1,10 @@
+if(!dojo._hasResource["dijit.form.Textarea"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.Textarea"] = true;
 dojo.provide("dijit.form.Textarea");
 
 dojo.require("dijit.form._FormWidget");
 dojo.require("dojo.i18n");
-dojo.requireLocalization("dijit.form", "Textarea");
+dojo.requireLocalization("dijit.form", "Textarea", null, "zh,pt,da,tr,ru,de,ROOT,sv,ja,he,fi,nb,el,ar,pt-pt,cs,fr,es,ko,nl,zh-tw,pl,it,hu");
 
 dojo.declare(
 	"dijit.form.Textarea",
@@ -255,3 +257,5 @@ dojo.declare(
 		this.setValue(null, priorityChange || false);
 	}
 });
+
+}

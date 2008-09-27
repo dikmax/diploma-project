@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.tests.decompose"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.tests.decompose"] = true;
 dojo.provide("dojox.gfx.tests.decompose");
 dojo.require("dojox.gfx.decompose");
 
@@ -108,3 +110,5 @@ dojo.require("dojox.gfx.decompose");
 		}
 	]);
 })();
+
+}

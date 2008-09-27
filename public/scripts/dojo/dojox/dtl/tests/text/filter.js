@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tests.text.filter"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tests.text.filter"] = true;
 dojo.provide("dojox.dtl.tests.text.filter");
 
 dojo.require("dojox.dtl");
@@ -734,3 +736,5 @@ doh.register("dojox.dtl.text.filter",
 		}
 	]
 );
+
+}

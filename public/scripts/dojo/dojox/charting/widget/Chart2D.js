@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.widget.Chart2D"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.widget.Chart2D"] = true;
 dojo.provide("dojox.charting.widget.Chart2D");
 
 dojo.require("dijit._Widget");
@@ -209,3 +211,5 @@ dojo.require("dojox.lang.functional");
 		return null;
 	};
 })();
+
+}

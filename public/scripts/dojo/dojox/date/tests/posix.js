@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.date.tests.posix"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.date.tests.posix"] = true;
 dojo.provide("dojox.date.tests.posix");
 dojo.require("dojox.date.posix");
 
@@ -230,3 +232,5 @@ function test_date_getIsoWeeksInYear(t){
 }
 	]
 );
+
+}

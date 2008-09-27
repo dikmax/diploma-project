@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.av._base.flash"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.av._base.flash"] = true;
 dojo.provide("dojox.av._base.flash");
 
 (function(){
@@ -180,3 +182,5 @@ dojo.provide("dojox.av._base.flash");
 		}
 	}
 })();
+
+}

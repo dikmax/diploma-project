@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.tests.stores.KeyValueStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.tests.stores.KeyValueStore"] = true;
 dojo.provide("dojox.data.tests.stores.KeyValueStore");
 dojo.require("dojox.data.KeyValueStore");
 dojo.require("dojo.data.api.Read");
@@ -996,3 +998,5 @@ doh.register("dojox.data.tests.stores.KeyValueStore",
 	]
 );
 
+
+}

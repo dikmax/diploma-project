@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.lang.functional.zip"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.functional.zip"] = true;
 dojo.provide("dojox.lang.functional.zip");
 
 // This module adds high-level functions and related constructs:
@@ -39,3 +41,5 @@ dojo.provide("dojox.lang.functional.zip");
 		}
 	});
 })();
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.av._base.quicktime"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.av._base.quicktime"] = true;
 dojo.provide("dojox.av._base.quicktime");
 
 (function(){
@@ -155,3 +157,5 @@ dojo.provide("dojox.av._base.quicktime");
 		}
 	};
 })();
+
+}

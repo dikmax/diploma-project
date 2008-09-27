@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.Rating"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.Rating"] = true;
 dojo.provide("dojox.widget.Rating");
 
 dojo.require("dijit.form._FormWidget");
@@ -84,3 +86,5 @@ dojo.declare("dojox.widget.Rating",
 		// summary: connect here if you like to, the value is passed to this function as the second parameter!
 	}
 });
+
+}

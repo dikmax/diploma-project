@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.tests.compression.splay"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.tests.compression.splay"] = true;
 dojo.provide("dojox.encoding.tests.compression.splay");
 dojo.require("dojox.encoding.compression.splay");
 dojo.require("dojox.encoding.bits");
@@ -43,3 +45,5 @@ dojo.require("dojox.encoding.bits");
 		function testSplayMsg4(t){ t.assertEqual(msg4, decode(msg4.length, encode(msg4))); }
 	]);
 })();
+
+}

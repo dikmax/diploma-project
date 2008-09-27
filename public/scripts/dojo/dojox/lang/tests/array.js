@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.lang.tests.array"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.tests.array"] = true;
 dojo.provide("dojox.lang.tests.array");
 
 dojo.require("dojox.lang.functional");
@@ -78,3 +80,5 @@ dojo.require("dojox.lang.functional.reversed");
 		function testReduceRight2(t){ t.assertEqual(df.reduceRight([4, 2, 1], "x-y", 8), 1); }
 	]);
 })();
+
+}

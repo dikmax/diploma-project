@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tag.loader"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tag.loader"] = true;
 dojo.provide("dojox.dtl.tag.loader");
 
 dojo.require("dojox.dtl._base");
@@ -271,3 +273,5 @@ dojo.require("dojox.dtl._base");
 		}
 	});
 })();
+
+}

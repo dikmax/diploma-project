@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.help._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.help._base"] = true;
 dojo.provide("dojox.help._base");
 dojo.require("dojox.rpc.Service");
 dojo.require("dojo.io.script");
@@ -467,3 +469,5 @@ dojox.help = {
 		}
 	}
 };
+
+}

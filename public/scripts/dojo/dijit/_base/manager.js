@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._base.manager"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._base.manager"] = true;
 dojo.provide("dijit._base.manager");
 
 dojo.declare("dijit.WidgetSet", null, {
@@ -188,3 +190,5 @@ dijit.getLastInTabbingOrder = function(/*String|DOMNode*/root){
 	var elems = dijit._getTabNavigable(dojo.byId(root));
 	return elems.last ? elems.last : elems.highest; // Element
 };
+
+}

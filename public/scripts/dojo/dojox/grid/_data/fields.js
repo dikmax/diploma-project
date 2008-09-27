@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._data.fields"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._data.fields"] = true;
 dojo.provide("dojox.grid._data.fields");
 
 dojo.declare("dojox.grid.data.Mixer", null, {
@@ -98,3 +100,5 @@ dojo.declare('dojox.grid.data.Fields', dojox.grid.data.Mixer, {
 		return -1;
 	}
 });
+
+}

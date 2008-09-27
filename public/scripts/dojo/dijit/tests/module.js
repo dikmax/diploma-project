@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.tests.module"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.tests.module"] = true;
 dojo.provide("dijit.tests.module");
 
 try{
@@ -15,3 +17,5 @@ try{
 }
 
 
+
+}

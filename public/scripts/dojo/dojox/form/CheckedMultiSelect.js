@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.form.CheckedMultiSelect"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.form.CheckedMultiSelect"] = true;
 dojo.provide("dojox.form.CheckedMultiSelect");
 
 dojo.require("dijit.form.MultiSelect");
@@ -10,7 +12,7 @@ dojo.declare("dojox.form._CheckedMultiSelectItem",
 	//		The individual items for a CheckedMultiSelect
 
 	widgetsInTemplate: true,
-	templatePath: dojo.moduleUrl("dojox.form", "resources/_CheckedMultiSelectItem.html"),
+	templateString:"<div class=\"dijitReset ${baseClass}\"\n\t><input class=\"${baseClass}Box\" dojoType=\"dijit.form.CheckBox\" dojoAttachPoint=\"checkBox\" dojoAttachEvent=\"_onClick:_changeBox\" type=\"checkbox\" \n\t><div class=\"dijitInline ${baseClass}Label\" dojoAttachPoint=\"labelNode\" dojoAttachEvent=\"onmousedown:_onMouse,onmouseover:_onMouse,onmouseout:_onMouse,onclick:_onClick\">${option.innerHTML}</div\n></div>\n",
 
 	baseClass: "dojoxMultiSelectItem",
 
@@ -86,7 +88,7 @@ dojo.declare("dojox.form.CheckedMultiSelect", dijit.form.MultiSelect, {
 	//		Extends the core dijit MultiSelect to provide a "checkbox" selector
 
 	templateString: "",
-	templatePath: dojo.moduleUrl("dojox.form", "resources/CheckedMultiSelect.html"),
+	templateString:"<div class=\"dijit dijitReset dijitInline\" dojoAttachEvent=\"onmousedown:_mouseDown,onclick:focus\"\n\t><select class=\"${baseClass}Select\" multiple=\"true\" dojoAttachPoint=\"containerNode,focusNode\" dojoAttachEvent=\"onchange: _onChange\"></select\n\t><div dojoAttachPoint=\"wrapperDiv\"></div\n></div>\n",
 
 	baseClass: "dojoxMultiSelect",
 
@@ -217,3 +219,5 @@ dojo.declare("dojox.form.CheckedMultiSelect", dijit.form.MultiSelect, {
 		this._started = true;
 	}
 });
+
+}

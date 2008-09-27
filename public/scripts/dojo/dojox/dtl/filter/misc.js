@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.filter.misc"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.filter.misc"] = true;
 dojo.provide("dojox.dtl.filter.misc");
 
 dojo.mixin(dojox.dtl.filter.misc, {
@@ -53,3 +55,5 @@ dojo.mixin(dojox.dtl.filter.misc, {
 		return dojo.toJson(value);
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.dnd.autoscroll"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.dnd.autoscroll"] = true;
 dojo.provide("dojo.dnd.autoscroll");
 
 dojo.dnd.getViewport = function(){
@@ -97,3 +99,5 @@ dojo.dnd.autoScrollNodes = function(e){
 	}
 	dojo.dnd.autoScroll(e);
 };
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.fx.scroll"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.fx.scroll"] = true;
 dojo.provide("dojox.fx.scroll");
 dojo.experimental("dojox.fx.scroll"); 
 
@@ -34,3 +36,5 @@ dojox.fx.smoothScroll = function(/* Object */args){
 	},args));
 	return anim; // dojo._Animation
 };
+
+}

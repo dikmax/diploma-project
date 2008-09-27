@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.dnd.Source"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.dnd.Source"] = true;
 dojo.provide("dojo.dnd.Source");
 
 dojo.require("dojo.dnd.Selector");
@@ -387,3 +389,5 @@ dojo.declare("dojo.dnd.Target", dojo.dnd.Source, {
 		return new dojo.dnd.Target(node, params);
 	}
 });
+
+}

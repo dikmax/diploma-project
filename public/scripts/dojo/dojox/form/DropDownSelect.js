@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.form.DropDownSelect"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.form.DropDownSelect"] = true;
 dojo.provide("dojox.form.DropDownSelect");
 
 dojo.require("dijit.form.Button");
@@ -261,3 +263,5 @@ dojo.declare("dojox.form.DropDownSelect", dijit.form.DropDownButton, {
 		}
 	}
 });
+
+}

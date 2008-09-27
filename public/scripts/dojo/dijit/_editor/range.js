@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._editor.range"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor.range"] = true;
 dojo.provide("dijit._editor.range");
 
 dijit.range={};
@@ -564,3 +566,5 @@ dojo.declare("dijit.range.W3CRange",null, {
 }
 });
 } //if(!dijit.range._w3c)
+
+}

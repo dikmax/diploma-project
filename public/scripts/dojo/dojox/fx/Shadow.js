@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.fx.Shadow"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.fx.Shadow"] = true;
 dojo.provide("dojox.fx.Shadow");
 dojo.experimental("dojox.fx.Shadow"); 
 
@@ -145,3 +147,5 @@ dojo.declare("dojox.fx.Shadow",
 		}
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.canvas"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.canvas"] = true;
 dojo.provide("dojox.gfx.canvas");
 
 dojo.require("dojox.gfx._base");
@@ -681,3 +683,5 @@ dojo.experimental("dojox.gfx.canvas");
 	dojo.extend(g.Surface, Container);
 	dojo.extend(g.Surface, gs.Creator);
 })();
+
+}

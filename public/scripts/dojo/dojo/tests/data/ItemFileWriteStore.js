@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests.data.ItemFileWriteStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests.data.ItemFileWriteStore"] = true;
 dojo.provide("tests.data.ItemFileWriteStore");
 dojo.require("tests.data.readOnlyItemFileTestTemplates");
 
@@ -1396,3 +1398,5 @@ doh.register("tests.data.ItemFileWriteStore",
 );
 
 
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.storage.GearsStorageProvider"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.storage.GearsStorageProvider"] = true;
 dojo.provide("dojox.storage.GearsStorageProvider");
 dojo.require("dojox.storage.Provider");
 dojo.require("dojox.storage.manager");
@@ -313,4 +315,6 @@ if(dojo.isGears){
 		dojox.storage.manager.register("dojox.storage.GearsStorageProvider",
 										new dojox.storage.GearsStorageProvider());
 	})();
+}
+
 }

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form.CurrencyTextBox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.CurrencyTextBox"] = true;
 dojo.provide("dijit.form.CurrencyTextBox");
 
 //FIXME: dojo.experimental throws an unreadable exception?
@@ -45,3 +47,5 @@ dojo.declare(
 		}
 	}
 );
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.themes.PlotKit.orange"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.themes.PlotKit.orange"] = true;
 dojo.provide("dojox.charting.themes.PlotKit.orange");
 dojo.require("dojox.charting.Theme");
 
@@ -37,3 +39,5 @@ dojo.require("dojox.charting.Theme");
 	});
 	dxc.themes.PlotKit.orange.defineColors({ hue:31, saturation:60, low:40, high:88 });
 })();
+
+}

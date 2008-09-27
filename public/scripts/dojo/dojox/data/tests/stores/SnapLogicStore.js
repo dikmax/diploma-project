@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.tests.stores.SnapLogicStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.tests.stores.SnapLogicStore"] = true;
 dojo.provide("dojox.data.tests.stores.SnapLogicStore");
 dojo.require("dojox.data.SnapLogicStore");
 dojo.require("dojo.data.api.Read");
@@ -432,3 +434,5 @@ doh.register("dojox.data.tests.stores.SnapLogicStore",
 		}
 	]
 );		
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._grid.cell"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._grid.cell"] = true;
 dojo.provide("dojox.grid._grid.cell");
 
 dojo.declare("dojox.grid.cell", null, {
@@ -60,3 +62,5 @@ dojo.declare("dojox.grid.cell", null, {
 		}
 	}
 });
+
+}

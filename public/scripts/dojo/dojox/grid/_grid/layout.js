@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._grid.layout"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._grid.layout"] = true;
 dojo.provide("dojox.grid._grid.layout");
 dojo.require("dojox.grid._grid.cell");
 
@@ -69,3 +71,5 @@ dojo.declare("dojox.grid.layout", null, {
 			}));
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._grid.builder"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._grid.builder"] = true;
 dojo.provide("dojox.grid._grid.builder");
 dojo.require("dojox.grid._grid.drag");
 
@@ -516,3 +518,5 @@ dojo.declare("dojox.grid.tableMap",
 
 dojox.grid.rowIndexTag = "gridRowIndex";
 dojox.grid.gridViewTag = "gridView";
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.Toolbar"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.Toolbar"] = true;
 dojo.provide("dijit.Toolbar");
 
 dojo.require("dijit._Widget");
@@ -48,3 +50,5 @@ dojo.declare("dijit.ToolbarSeparator",
 	}
 
 });
+
+}

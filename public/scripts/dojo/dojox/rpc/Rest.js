@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.rpc.Rest"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.rpc.Rest"] = true;
 dojo.provide("dojox.rpc.Rest");
 dojo.require("dojox.rpc.Service");
 // This provides a HTTP REST service with full range REST verbs include PUT,POST, and DELETE.
@@ -84,3 +86,5 @@ dojox.rpc.transportRegistry.register(
 		restMethods:dojox.rpc._restMethods 		
 	}
 );
+
+}

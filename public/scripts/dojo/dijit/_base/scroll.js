@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._base.scroll"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._base.scroll"] = true;
 dojo.provide("dijit._base.scroll");
 
 dijit.scrollIntoView = function(/* DomNode */node){
@@ -23,3 +25,5 @@ dijit.scrollIntoView = function(/* DomNode */node){
 		parent.scrollTop -= (parent.scrollTop - node.offsetTop);
 	}
 };
+
+}

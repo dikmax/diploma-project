@@ -1,10 +1,12 @@
+if(!dojo._hasResource["dijit.ColorPalette"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.ColorPalette"] = true;
 dojo.provide("dijit.ColorPalette");
 
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dojo.colors");
 dojo.require("dojo.i18n");
-dojo.requireLocalization("dojo", "colors");
+dojo.requireLocalization("dojo", "colors", null, "zh,pt,da,tr,ru,de,sv,ja,he,fi,nb,el,ar,pt-pt,cs,fr,es,nl,ko,zh-tw,pl,it,hu,ROOT");
 
 dojo.declare("dijit.ColorPalette",
 	[dijit._Widget, dijit._Templated],
@@ -89,7 +91,7 @@ dojo.declare("dijit.ColorPalette",
 
 	// templatePath: String
 	//		Path to the template of this widget.
-	templatePath: dojo.moduleUrl("dijit", "templates/ColorPalette.html"),
+	templateString:"<div class=\"dijitInline dijitColorPalette\">\n\t<div class=\"dijitColorPaletteInner\" dojoAttachPoint=\"divNode\" waiRole=\"grid\" tabIndex=\"${tabIndex}\">\n\t\t<img class=\"dijitColorPaletteUnder\" dojoAttachPoint=\"imageNode\" waiRole=\"presentation\">\n\t</div>\t\n</div>\n",
 
 	// _paletteDims: Object
 	//		Size of the supported palettes for alignment purposes.
@@ -286,3 +288,5 @@ dojo.declare("dijit.ColorPalette",
 		}
 	}
 });
+
+}

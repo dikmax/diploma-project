@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.FileInput"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.FileInput"] = true;
 dojo.provide("dojox.widget.FileInput");
 dojo.experimental("dojox.widget.FileInput"); 
 
@@ -25,7 +27,7 @@ dojo.declare("dojox.widget.FileInput",
 	//	ugh, this should be pulled from this.domNode
 	name: "uploadFile",
 
-	templatePath: dojo.moduleUrl("dojox.widget","FileInput/FileInput.html"),
+	templateString:"<div class=\"dijitFileInput\">\n\t<input id=\"${id}\" class=\"dijitFileInputReal\" type=\"file\" dojoAttachPoint=\"fileInput\" name=\"${name}\" />\n\t<div class=\"dijitFakeInput\">\n\t\t<input class=\"dijitFileInputVisible\" type=\"text\" dojoAttachPoint=\"focusNode, inputNode\" />\n\t\t<div class=\"dijitInline dijitFileInputText\" dojoAttachPoint=\"titleNode\">${label}</div>\n\t\t<div class=\"dijitInline dijitFileInputButton\" dojoAttachPoint=\"cancelNode\" \n\t\t\tdojoAttachEvent=\"onclick:_onClick\">${cancelText}</div>\n\t</div>\n</div>\n",
 	
 	startup: function(){
 		// summary: listen for changes on our real file input
@@ -69,3 +71,5 @@ dojo.declare("dojox.widget.FileInput",
 	}
 
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.wire.ml.Service"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.wire.ml.Service"] = true;
 dojo.provide("dojox.wire.ml.Service");
 dojo.provide("dojox.wire.ml.RestHandler");
 dojo.provide("dojox.wire.ml.XmlHandler");
@@ -334,3 +336,5 @@ dojo.declare("dojox.wire.ml.JsonHandler", dojox.wire.ml.RestHandler, {
 		return content; //String
 	}
 });
+
+}

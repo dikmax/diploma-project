@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.filter.strings"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.filter.strings"] = true;
 dojo.provide("dojox.dtl.filter.strings");
 
 dojo.require("dojox.dtl.filter.htmlstrings");
@@ -321,3 +323,5 @@ dojo.mixin(dojox.dtl.filter.strings, {
 		return output.join("");
 	}
 });
+
+}

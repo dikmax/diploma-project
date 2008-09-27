@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests._base.connect"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests._base.connect"] = true;
 dojo.provide("tests._base.connect");
 
 hub = function(){
@@ -219,3 +221,5 @@ tests.register("tests._base.connect",
 		}
 	]
 );
+
+}

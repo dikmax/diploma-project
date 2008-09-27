@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.io.xhrMultiPart"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.io.xhrMultiPart"] = true;
 dojo.provide("dojox.io.xhrMultiPart");
 
 dojo.require("dojo._base.xhr");
@@ -75,3 +77,5 @@ dojo.require("dojox.uuid.generateRandomUuid");
 		}));
 	}
 })();
+
+}

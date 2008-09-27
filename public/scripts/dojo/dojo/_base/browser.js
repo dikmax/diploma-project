@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.browser"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.browser"] = true;
 dojo.provide("dojo._base.browser");
 
 dojo.require("dojo._base.window");
@@ -14,4 +16,6 @@ dojo.require("dojo._base.fx");
 //could be called before all of base is defined.
 if(dojo.config.require){
 	dojo.forEach(dojo.config.require, "dojo['require'](item);");
+}
+
 }

@@ -1,4 +1,6 @@
-﻿dojo.provide("dojox.lang.tests.fold");
+if(!dojo._hasResource["dojox.lang.tests.fold"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.tests.fold"] = true;
+dojo.provide("dojox.lang.tests.fold");
 
 dojo.require("dojox.lang.functional.fold");
 dojo.require("dojox.lang.functional.scan");
@@ -58,3 +60,5 @@ dojo.require("dojox.lang.functional.curry");
 		function testScanr4(t){ t.assertEqual(df.scanr1([1, 2, 3], df.partial(Math.min, a, a)), [1, 2, 3]); }
 	]);
 })();
+
+}

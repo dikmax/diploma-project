@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.off.sync"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.off.sync"] = true;
 dojo.provide("dojox.off.sync");
 
 dojo.require("dojox.storage.GearsStorageProvider");
@@ -684,3 +686,5 @@ dojo.declare("dojox.off.sync.ActionLog", null, {
 );
 
 dojox.off.sync.actions = new dojox.off.sync.ActionLog();
+
+}

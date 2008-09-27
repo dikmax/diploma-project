@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.plot3d.Cylinders"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.plot3d.Cylinders"] = true;
 dojo.provide("dojox.charting.plot3d.Cylinders");
 
 dojo.require("dojox.charting.plot3d.Base");
@@ -63,3 +65,5 @@ dojo.require("dojox.charting.plot3d.Base");
 		}
 	});
 })();
+
+}

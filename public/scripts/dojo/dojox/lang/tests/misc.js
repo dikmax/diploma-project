@@ -1,4 +1,6 @@
-﻿dojo.provide("dojox.lang.tests.misc");
+if(!dojo._hasResource["dojox.lang.tests.misc"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.tests.misc"] = true;
+dojo.provide("dojox.lang.tests.misc");
 
 dojo.require("dojox.lang.functional.object");
 dojo.require("dojox.lang.functional.zip");
@@ -25,3 +27,5 @@ dojo.require("dojox.lang.functional.zip");
 		function testValues(t){ t.assertEqual(df.values({a: 1, b: 2, c: 3}), [1, 2, 3]); }
 	]);
 })();
+
+}

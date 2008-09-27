@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.declare"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.declare"] = true;
 dojo.provide("dojo._base.declare");
 dojo.require("dojo._base.lang");
 
@@ -172,3 +174,5 @@ dojo.mixin(dojo.declare, {
 		}
 	}
 });
+
+}

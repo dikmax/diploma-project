@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.string.tokenize"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.string.tokenize"] = true;
 dojo.provide("dojox.string.tokenize");
 
 dojox.string.tokenize = function(/*String*/ str, /*RegExp*/ re, /*Function?*/ parseDelim, /*Object?*/ instance){
@@ -35,4 +37,6 @@ dojox.string.tokenize = function(/*String*/ str, /*RegExp*/ re, /*Function?*/ pa
 		tokens.push(content);
 	}
 	return tokens;
+}
+
 }

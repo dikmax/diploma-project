@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.layout.AccordionContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.layout.AccordionContainer"] = true;
 dojo.provide("dijit.layout.AccordionContainer");
 
 dojo.require("dojo.fx");
@@ -172,7 +174,7 @@ dojo.declare("dijit.layout.AccordionPane",
 	// example: 
 	// | see dijit.layout.AccordionContainer
 
-	templatePath: dojo.moduleUrl("dijit.layout", "templates/AccordionPane.html"),
+	templateString:"<div class='dijitAccordionPane'\n\t><div dojoAttachPoint='titleNode,focusNode' dojoAttachEvent='ondijitclick:_onTitleClick,onkeypress:_onTitleKeyPress,onfocus:_handleFocus,onblur:_handleFocus'\n\t\tclass='dijitAccordionTitle' wairole=\"tab\"\n\t\t><div class='dijitAccordionArrow' waiRole=\"presentation\"></div\n\t\t><div class='arrowTextUp' waiRole=\"presentation\">&#9650;</div\n\t\t><div class='arrowTextDown' waiRole=\"presentation\">&#9660;</div\n\t\t><div waiRole=\"presentation\" dojoAttachPoint='titleTextNode' class='dijitAccordionText'>${title}</div></div\n\t><div><div dojoAttachPoint='containerNode' style='overflow: hidden; height: 1px; display: none'\n\t\tclass='dijitAccordionBody' wairole=\"tabpanel\"\n\t></div></div>\n</div>\n",
 
 	postCreate: function(){
 		this.inherited("postCreate",arguments)
@@ -223,3 +225,5 @@ dojo.declare("dijit.layout.AccordionPane",
 		// summary: called when this pane is selected
 	}
 });
+
+}

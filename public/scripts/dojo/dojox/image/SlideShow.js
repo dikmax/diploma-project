@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.image.SlideShow"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.image.SlideShow"] = true;
 dojo.provide("dojox.image.SlideShow");
 //
 // dojox.image.SlideShow courtesy Shane O Sullivan, licensed under a Dojo CLA 
@@ -96,7 +98,7 @@ dojo.declare("dojox.image.SlideShow",
 	// Time, in seconds, between image transitions during a slideshow.
 	slideshowInterval: 3,
 	
-	templatePath: dojo.moduleUrl("dojox.image", "resources/SlideShow.html"),
+	templateString:"<div dojoAttachPoint=\"outerNode\" class=\"slideShowWrapper\">\n\t<div style=\"position:relative;\" dojoAttachPoint=\"innerWrapper\">\n\t\t<div class=\"slideShowNav\" dojoAttachEvent=\"onclick: _handleClick\">\n\t\t\t<div class=\"dijitInline slideShowTitle\" dojoAttachPoint=\"titleNode\">${title}</div>\n\t\t</div>\n\t\t<div dojoAttachPoint=\"navNode\" class=\"slideShowCtrl\" dojoAttachEvent=\"onclick: _handleClick\">\n\t\t\t<span dojoAttachPoint=\"navPrev\" class=\"slideShowCtrlPrev\"></span>\n\t\t\t<span dojoAttachPoint=\"navPlay\" class=\"slideShowCtrlPlay\"></span>\n\t\t\t<span dojoAttachPoint=\"navNext\" class=\"slideShowCtrlNext\"></span>\n\t\t</div>\n\t\t<div dojoAttachPoint=\"largeNode\" class=\"slideShowImageWrapper\"></div>\t\t\n\t\t<div dojoAttachPoint=\"hiddenNode\" class=\"slideShowHidden\"></div>\n\t</div>\n</div>\n",
 	
 	// _tempImgPath: URL
 	//	URL to the image to display when an image is not yet fully loaded.
@@ -592,3 +594,5 @@ dojo.declare("dojox.image.SlideShow",
 		);	//	boolean
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.data.ItemFileWriteStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.data.ItemFileWriteStore"] = true;
 dojo.provide("dojo.data.ItemFileWriteStore");
 dojo.require("dojo.data.ItemFileReadStore");
 
@@ -798,3 +800,5 @@ dojo.declare("dojo.data.ItemFileWriteStore", dojo.data.ItemFileReadStore, {
 		// client code can connect observers to it. 
 	}
 });
+
+}

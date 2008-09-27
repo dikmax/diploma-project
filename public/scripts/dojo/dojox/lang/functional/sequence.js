@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.lang.functional.sequence"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.functional.sequence"] = true;
 dojo.provide("dojox.lang.functional.sequence");
 
 dojo.require("dojox.lang.functional.lambda");
@@ -32,3 +34,5 @@ dojo.require("dojox.lang.functional.lambda");
 		}
 	});
 })();
+
+}

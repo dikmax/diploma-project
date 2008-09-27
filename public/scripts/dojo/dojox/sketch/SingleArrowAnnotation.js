@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.SingleArrowAnnotation"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.SingleArrowAnnotation"] = true;
 dojo.provide("dojox.sketch.SingleArrowAnnotation");
 dojo.require("dojox.sketch.Annotation");
 dojo.require("dojox.sketch.Anchor");
@@ -177,3 +179,5 @@ dojo.require("dojox.sketch.Anchor");
 
 	ta.Annotation.register("SingleArrow");
 })();
+
+}

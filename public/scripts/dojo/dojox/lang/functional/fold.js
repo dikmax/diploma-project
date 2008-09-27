@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.lang.functional.fold"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.functional.fold"] = true;
 dojo.provide("dojox.lang.functional.fold");
 
 dojo.require("dojox.lang.functional.lambda");
@@ -81,3 +83,5 @@ dojo.require("dojox.lang.functional.lambda");
 		}
 	});
 })();
+
+}

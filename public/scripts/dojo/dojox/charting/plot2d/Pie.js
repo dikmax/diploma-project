@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.plot2d.Pie"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.plot2d.Pie"] = true;
 dojo.provide("dojox.charting.plot2d.Pie");
 
 dojo.require("dojox.charting.Element");
@@ -193,3 +195,5 @@ dojo.require("dojox.gfx");
 		}
 	});
 })();
+
+}

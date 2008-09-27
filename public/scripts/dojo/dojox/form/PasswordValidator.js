@@ -1,9 +1,11 @@
+if(!dojo._hasResource["dojox.form.PasswordValidator"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.form.PasswordValidator"] = true;
 dojo.provide("dojox.form.PasswordValidator");
 
 dojo.require("dijit.form._FormWidget");
 dojo.require("dijit.form.ValidationTextBox");
 
-dojo.requireLocalization("dojox.form", "PasswordValidator");
+dojo.requireLocalization("dojox.form", "PasswordValidator", null, "ROOT");
 
 dojo.declare("dojox.form._ChildTextBox", dijit.form.ValidationTextBox, {
 	// summary:
@@ -125,7 +127,7 @@ dojo.declare("dojox.form.PasswordValidator", dijit.form._FormValueWidget, {
 	//		The name to send our old password as (when form is posted)
 	oldName: "",
 	
-	templatePath: dojo.moduleUrl("dojox.form", "resources/PasswordValidator.html"),
+	templateString:"<div dojoAttachPoint=\"containerNode\">\n\t<input type=\"hidden\" name=\"${name}\" value=\"\" dojoAttachPoint=\"focusNode\" />\n</div>\n",
 	
 	_hasBeenBlurred: false,
 
@@ -274,3 +276,5 @@ dojo.declare("dojox.form.PasswordValidator", dijit.form._FormValueWidget, {
 		if(!f){ this._inputWidgets[1].focus(); }
 	}
 });
+
+}

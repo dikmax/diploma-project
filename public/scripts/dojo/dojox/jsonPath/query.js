@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.jsonPath.query"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.jsonPath.query"] = true;
 dojo.provide("dojox.jsonPath.query");
 
 dojox.jsonPath.query = function(/*Object*/obj, /*String*/expr, /*Object*/arg){
@@ -157,3 +159,5 @@ dojox.jsonPath.query = function(/*Object*/obj, /*String*/expr, /*Object*/arg){
 	return false;
 
 }; 
+
+}

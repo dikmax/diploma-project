@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base._loader.loader_xd"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base._loader.loader_xd"] = true;
 //Cross-domain resource loader.
 dojo.provide("dojo._base._loader.loader_xd");
 
@@ -624,4 +626,6 @@ dojo._xdNotifyLoaded = function(){
 	if(this._initFired && !this._loadNotifying){ 
 		this._callLoaded();
 	}
+}
+
 }

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._base.place"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._base.place"] = true;
 dojo.provide("dijit._base.place");
 
 // ported from dojo.html.util
@@ -206,4 +208,6 @@ dijit.placeOnScreenAroundElement = function(
 	}
 
 	return dijit._place(node, choices, layoutNode);
+}
+
 }

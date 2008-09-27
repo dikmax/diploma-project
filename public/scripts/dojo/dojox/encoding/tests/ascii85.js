@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.tests.ascii85"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.tests.ascii85"] = true;
 dojo.provide("dojox.encoding.tests.ascii85");
 dojo.require("dojox.encoding.ascii85");
 
@@ -29,3 +31,5 @@ dojo.require("dojox.encoding.ascii85");
 		function testMsg4(t){ t.assertEqual(msg4, b2s(dca.decode(dca.encode(s2b(msg4))))); }
 	]);
 })();
+
+}

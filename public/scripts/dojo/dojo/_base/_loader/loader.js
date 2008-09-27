@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.foo"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.foo"] = true;
 /*
  * loader.js - A bootstrap module.  Runs before the hostenv_*.js file. Contains
  * all of the package loading methods.
@@ -48,8 +50,7 @@
 	});
 
 
-	//>>excludeStart("xdomainExclude", fileName.indexOf("dojo.xd.js") != -1 && kwArgs.loader == "xdomain");
-	dojo._loadPath = function(/*String*/relpath, /*String?*/module, /*Function?*/cb){
+		dojo._loadPath = function(/*String*/relpath, /*String?*/module, /*Function?*/cb){
 		// 	summary:
 		//		Load a Javascript module given a relative path
 		//
@@ -111,8 +112,7 @@
 		if(cb){ cb(value); }
 		return true; // Boolean
 	}
-	//>>excludeEnd("xdomainExclude");
-
+	
 	// FIXME: probably need to add logging to this method
 	dojo._loadUriAndCheck = function(/*String*/uri, /*String*/moduleName, /*Function?*/cb){
 		// summary: calls loadUri then findModule and returns true if both succeed
@@ -686,3 +686,5 @@
 		return new d._Url(loc, url); // String
 	}
 })();
+
+}

@@ -1,10 +1,12 @@
+if(!dojo._hasResource["dijit._editor.RichText"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor.RichText"] = true;
 dojo.provide("dijit._editor.RichText");
 
 dojo.require("dijit._Widget");
 dojo.require("dijit._editor.selection");
 dojo.require("dijit._editor.html");
 dojo.require("dojo.i18n");
-dojo.requireLocalization("dijit.form", "Textarea");
+dojo.requireLocalization("dijit.form", "Textarea", null, "zh,pt,da,tr,ru,de,ROOT,sv,ja,he,fi,nb,el,ar,pt-pt,cs,fr,es,ko,nl,zh-tw,pl,it,hu");
 
 // used to restore content when user leaves this page then comes back
 // but do not try doing dojo.doc.write if we are using xd loading.
@@ -1443,3 +1445,5 @@ dojo.declare("dijit._editor.RichText", dijit._Widget, {
 			.replace(this._srcInImgRegex, '$1$4$2$3$5$2 _djrealurl=$2$3$5$2'); // String
 	}
 });
+
+}

@@ -1,4 +1,6 @@
-﻿dojo.provide("dojox.lang.tests.listcomp");
+if(!dojo._hasResource["dojox.lang.tests.listcomp"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.tests.listcomp"] = true;
+dojo.provide("dojox.lang.tests.listcomp");
 
 dojo.require("dojox.lang.functional.listcomp");
 dojo.require("dojox.lang.functional.sequence");
@@ -22,3 +24,5 @@ dojo.require("dojox.lang.functional.sequence");
 		function testListcomp10(t){ t.assertEqual(df.listcomp("i+j for(i=0; i<3; ++i) if(i%2==1) for(j=0; j<3; ++j)"), [1, 2, 3]); }
 	]);
 })();
+
+}

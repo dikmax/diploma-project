@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.filter.dates"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.filter.dates"] = true;
 dojo.provide("dojox.dtl.filter.dates");
 
 dojo.require("dojox.dtl.utils.date");
@@ -48,3 +50,5 @@ dojo.require("dojox.dtl.utils.date");
 		}
 	});
 })();
+
+}

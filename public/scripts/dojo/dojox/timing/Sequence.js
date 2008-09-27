@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.timing.Sequence"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.timing.Sequence"] = true;
 dojo.provide("dojox.timing.Sequence");
 dojo.experimental("dojox.timing.Sequence"); // in case it gets moved/renamed somewhere soon
 
@@ -139,3 +141,5 @@ dojo.declare("dojox.timing.Sequence",null,{
 		this._running = false;
 	}
 }); 
+
+}

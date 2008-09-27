@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.Deferred"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.Deferred"] = true;
 dojo.provide("dojo._base.Deferred");
 dojo.require("dojo._base.lang");
 
@@ -402,3 +404,5 @@ dojo.extend(dojo.Deferred, {
 		}
 	}
 });
+
+}

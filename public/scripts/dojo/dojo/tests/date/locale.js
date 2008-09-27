@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests.date.locale"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests.date.locale"] = true;
 dojo.provide("tests.date.locale");
 
 dojo.require("dojo.date.locale");
@@ -14,7 +16,7 @@ tests.register("tests.date.locale",
 				var partLocaleList = ["en-us", "fr-fr", "es", "de-at", "ja-jp", "zh-cn"];
 
 				dojo.forEach(partLocaleList, function(locale){
-					dojo.requireLocalization("dojo.cldr", "gregorian", locale);
+					dojo.requireLocalization("dojo.cldr", "gregorian", locale, "zh-cn,zh,en-ca,ko-kr,pt,pt-br,it-it,ROOT,en-gb,de,ja,en,en-au,fr,es,ko,zh-tw,it,es-es");
 				});
 			},
 			runTest: function(t){
@@ -392,3 +394,5 @@ function test_validate_datetime_isValidDate(){
 	jum.assertTrue("test25", dojo_validate_isValidDate("19-10-2005", "d-M-yyyy"));
 }
 */
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.silverlight"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.silverlight"] = true;
 dojo.provide("dojox.gfx.silverlight");
 
 dojo.require("dojox.gfx._base");
@@ -687,3 +689,5 @@ dojo.extend(dojox.gfx.Surface, dojox.gfx.shape.Creator);
 	}
 
 })();
+
+}

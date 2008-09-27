@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tag.loop"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tag.loop"] = true;
 dojo.provide("dojox.dtl.tag.loop");
 
 dojo.require("dojox.dtl._base");
@@ -190,3 +192,5 @@ dojo.require("dojox.string.tokenize");
 		}
 	});
 })();
+
+}

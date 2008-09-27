@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.tests.stores.QueryReadStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.tests.stores.QueryReadStore"] = true;
 dojo.provide("dojox.data.tests.stores.QueryReadStore");
 dojo.require("dojox.data.QueryReadStore");
 dojo.require("dojo.data.api.Read");
@@ -436,3 +438,5 @@ tests.register("dojox.data.tests.stores.QueryReadStore",
 		}
 	]
 );
+
+}

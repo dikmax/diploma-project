@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.tests.manualTests"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.tests.manualTests"] = true;
 dojo.provide("dojox.tests.manualTests");
 
 try{
@@ -204,4 +206,6 @@ if(dojo.isBrowser){
 }
 }catch(e){
 	doh.debug(e);
+}
+
 }

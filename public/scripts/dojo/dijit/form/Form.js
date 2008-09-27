@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form.Form"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.Form"] = true;
 dojo.provide("dijit.form.Form");
 
 dojo.require("dijit._Widget");
@@ -378,3 +380,5 @@ dojo.declare(
 		}
 	}
 );
+
+}

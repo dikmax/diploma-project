@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx3d.scheduler"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx3d.scheduler"] = true;
 dojo.provide("dojox.gfx3d.scheduler");
 dojo.provide("dojox.gfx3d.drawer");
 dojo.require("dojox.gfx3d.vector");
@@ -120,3 +122,5 @@ dojo.mixin(dojox.gfx3d.drawer, {
 	// More aggrasive optimization may re-order the DOM nodes using the order 
 	// of objects, and only elements of todos call setShape.
 });
+
+}

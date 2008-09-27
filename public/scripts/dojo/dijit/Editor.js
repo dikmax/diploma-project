@@ -1,10 +1,12 @@
+if(!dojo._hasResource["dijit.Editor"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.Editor"] = true;
 dojo.provide("dijit.Editor");
 dojo.require("dijit._editor.RichText");
 dojo.require("dijit.Toolbar");
 dojo.require("dijit._editor._Plugin");
 dojo.require("dijit._Container");
 dojo.require("dojo.i18n");
-dojo.requireLocalization("dijit._editor", "commands");
+dojo.requireLocalization("dijit._editor", "commands", null, "zh,pt,da,tr,ru,de,sv,ja,he,fi,nb,el,ar,pt-pt,cs,fr,es,ko,nl,zh-tw,pl,it,hu,ROOT");
 
 dojo.declare(
 	"dijit.Editor",
@@ -367,3 +369,5 @@ dojo.subscribe(dijit._scopeName + ".Editor.getPlugin",null,function(o){
 //	console.log('name',name,p);
 	o.plugin=p;
 });
+
+}

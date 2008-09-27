@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests.data.readOnlyItemFileTestTemplates"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests.data.readOnlyItemFileTestTemplates"] = true;
 dojo.provide("tests.data.readOnlyItemFileTestTemplates");
 dojo.require("dojo.data.api.Read");
 dojo.require("dojo.data.api.Identity");
@@ -2254,3 +2256,5 @@ tests.data.readOnlyItemFileTestTemplates.testTemplates = [
 	}
 ];
 
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.Moveable"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.Moveable"] = true;
 dojo.provide("dojox.gfx.Moveable");
 
 dojo.require("dojox.gfx.Mover");
@@ -95,3 +97,5 @@ dojo.declare("dojox.gfx.Moveable", null, {
 		// default implementation does nothing
 	}
 });
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.rpc.RpcService"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.rpc.RpcService"] = true;
 dojo.provide("dojo.rpc.RpcService");
 
 dojo.declare("dojo.rpc.RpcService", null, {
@@ -166,3 +168,5 @@ dojo.declare("dojo.rpc.RpcService", null, {
 		this.smd = object;
 	}
 });
+
+}

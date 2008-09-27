@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.rpc.JsonRPC"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.rpc.JsonRPC"] = true;
 dojo.provide("dojox.rpc.JsonRPC");
 
 dojox.rpc.envelopeRegistry.register(
@@ -52,3 +54,5 @@ dojox.rpc.envelopeRegistry.register(
 		}
 	}
 );
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.fx._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.fx._base"] = true;
 dojo.provide("dojox.fx._base");
 // summary: add-on Animations to dojo.fx
 
@@ -233,4 +235,6 @@ dojox.fx.wipeTo = function(/*Object*/ args){
 
 	var anim = dojo.animateProperty(dojo.mixin({ properties: props },args));
 	return anim; // dojo._Animation
+}
+
 }

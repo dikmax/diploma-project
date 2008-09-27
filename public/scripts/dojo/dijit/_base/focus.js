@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._base.focus"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._base.focus"] = true;
 dojo.provide("dijit._base.focus");
 
 // summary:
@@ -336,3 +338,5 @@ dojo.mixin(dijit,
 
 // register top window and all the iframes it contains
 dojo.addOnLoad(dijit.registerWin);
+
+}

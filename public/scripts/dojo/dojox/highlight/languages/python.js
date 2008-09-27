@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.highlight.languages.python"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.highlight.languages.python"] = true;
 dojo.provide("dojox.highlight.languages.python"); 
 
 dojo.require("dojox.highlight._base");
@@ -96,3 +98,5 @@ dojo.require("dojox.highlight._base");
       ]
     };
 })();
+
+}

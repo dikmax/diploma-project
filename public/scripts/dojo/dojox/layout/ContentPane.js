@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.layout.ContentPane"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.layout.ContentPane"] = true;
 dojo.provide("dojox.layout.ContentPane");
 
 dojo.require("dijit.layout.ContentPane");
@@ -473,3 +475,5 @@ dojo.declare("dojox.layout.ContentPane", dijit.layout.ContentPane, {
 });
 
 })();
+
+}

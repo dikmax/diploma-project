@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.encoding.compression.lzw"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.encoding.compression.lzw"] = true;
 dojo.provide("dojox.encoding.compression.lzw");
 dojo.require("dojox.encoding.bits");
 
@@ -85,3 +87,5 @@ dojo.require("dojox.encoding.bits");
 		}
 	});
 })();
+
+}

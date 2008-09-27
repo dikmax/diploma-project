@@ -1,3 +1,5 @@
+if(!dojo._hasResource["tests._base.Color"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["tests._base.Color"] = true;
 dojo.provide("tests._base.Color");
 
 (function(){
@@ -26,3 +28,5 @@ dojo.provide("tests._base.Color");
 		]
 	);
 })();
+
+}

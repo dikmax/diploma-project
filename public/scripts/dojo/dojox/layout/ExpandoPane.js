@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.layout.ExpandoPane"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.layout.ExpandoPane"] = true;
 dojo.provide("dojox.layout.ExpandoPane");
 dojo.experimental("dojox.layout.ExpandoPane"); // just to show it can be done?
 
@@ -20,7 +22,7 @@ dojo.declare("dojox.layout.ExpandoPane",
 	splitter:"",
 
 	tamplateString:null,
-	templatePath:dojo.moduleUrl("dojox.layout","resources/ExpandoPane.html"),
+	templateString:"<div class=\"dojoxExpandoPane\" dojoAttachEvent=\"ondblclick:toggle\" >\n\t<div dojoAttachPoint=\"titleWrapper\" class=\"dojoxExpandoTitle\">\n\t\t<div class=\"dojoxExpandoIcon\" dojoAttachPoint=\"iconNode\" dojoAttachEvent=\"onclick:toggle\"><span class=\"a11yNode\">X</span></div>\t\t\t\n\t\t<span class=\"dojoxExpandoTitleNode\" dojoAttachPoint=\"titleNode\">${title}</span>\n\t</div>\n\t<div class=\"dojoxExpandoWrapper\" dojoAttachPoint=\"cwrapper\" dojoAttachEvent=\"ondblclick:_trap\">\n\t\t<div class=\"dojoxExpandoContent\" dojoAttachPoint=\"containerNode\"></div>\n\t</div>\n</div>\n",
 
 	_showing:true,
 	_titleHeight: 28, // FIXME: calculate
@@ -202,3 +204,5 @@ dojo.declare("dojox.layout.ExpandoPane",
 	}
 
 });
+
+}

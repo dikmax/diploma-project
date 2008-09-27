@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.demos.stores.LazyLoadJSIStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.demos.stores.LazyLoadJSIStore"] = true;
 dojo.provide("dojox.data.demos.stores.LazyLoadJSIStore");
 dojo.require("dojo.data.ItemFileReadStore");
 
@@ -136,3 +138,5 @@ dojo.declare("dojox.data.demos.stores.LazyLoadJSIStore", dojo.data.ItemFileReadS
 	}
 });
 
+
+}

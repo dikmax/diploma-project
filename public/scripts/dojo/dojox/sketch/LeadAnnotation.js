@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.LeadAnnotation"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.LeadAnnotation"] = true;
 dojo.provide("dojox.sketch.LeadAnnotation");
 dojo.require("dojox.sketch.Annotation");
 dojo.require("dojox.sketch.Anchor");
@@ -135,3 +137,5 @@ dojo.require("dojox.sketch.Anchor");
 
 	ta.Annotation.register("Lead");
 })();
+
+}

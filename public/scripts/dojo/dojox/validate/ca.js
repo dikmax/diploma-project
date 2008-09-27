@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.validate.ca"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.validate.ca"] = true;
 dojo.provide("dojox.validate.ca");
 
 dojo.require("dojox.validate._base");
@@ -38,3 +40,5 @@ dojox.validate.ca.isPostalCode = function(value) {
         var re = new RegExp("^" + dojox.regexp.ca.postalCode() + "$", "i");
         return re.test(value);
 };
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.gfx.path"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.gfx.path"] = true;
 dojo.provide("dojox.gfx.path");
 
 dojo.require("dojox.gfx.shape");
@@ -355,3 +357,5 @@ dojo.declare("dojox.gfx.path.TextPath", dojox.gfx.path.Path, {
 		return this;	// self
 	}
 });
+
+}

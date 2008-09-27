@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._editor.plugins.EnterKeyHandling"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor.plugins.EnterKeyHandling"] = true;
 dojo.provide("dijit._editor.plugins.EnterKeyHandling");
 
 dojo.declare("dijit._editor.plugins.EnterKeyHandling", dijit._editor._Plugin, {
@@ -410,3 +412,5 @@ dojo.declare("dijit._editor.plugins.EnterKeyHandling", dijit._editor._Plugin, {
 		return element;
 	}
 });
+
+}

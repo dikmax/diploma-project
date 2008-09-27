@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._TimePicker"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._TimePicker"] = true;
 dojo.provide("dijit._TimePicker");
 
 dojo.require("dijit.form._FormWidget");
@@ -31,7 +33,7 @@ dojo.declare("dijit._TimePicker",
 		//		This widget is used internally by other widgets and is not accessible
 		//		as a standalone widget.
 
-		templatePath: dojo.moduleUrl("dijit.form", "templates/TimePicker.html"),
+		templateString:"<div id=\"widget_${id}\" class=\"dijitMenu\"\n    ><div dojoAttachPoint=\"upArrow\" class=\"dijitButtonNode\"><span class=\"dijitTimePickerA11yText\">&#9650;</span></div\n    ><div dojoAttachPoint=\"timeMenu,focusNode\" dojoAttachEvent=\"onclick:_onOptionSelected,onmouseover,onmouseout\"></div\n    ><div dojoAttachPoint=\"downArrow\" class=\"dijitButtonNode\"><span class=\"dijitTimePickerA11yText\">&#9660;</span></div\n></div>\n",
 		baseClass: "dijitTimePicker",
 
 		// clickableIncrement: String
@@ -243,3 +245,5 @@ dojo.declare("dijit._TimePicker",
 		}
 	}
 );
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form.NumberTextBox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form.NumberTextBox"] = true;
 dojo.provide("dijit.form.NumberTextBox");
 
 dojo.require("dijit.form.ValidationTextBox");
@@ -73,3 +75,5 @@ dojo.declare(
 		//		A validating, serializable, range-bound text box.
 	}
 );
+
+}

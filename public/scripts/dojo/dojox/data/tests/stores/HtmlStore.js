@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.tests.stores.HtmlStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.tests.stores.HtmlStore"] = true;
 dojo.provide("dojox.data.tests.stores.HtmlStore");
 dojo.require("dojox.data.HtmlStore");
 dojo.require("dojo.data.api.Read");
@@ -798,3 +800,5 @@ doh.register("dojox.data.tests.stores.HtmlStore",
 
 //Register the remote tests ... when they work.
 //doh.registerUrl("dojox.data.tests.stores.HtmlStore.remote", dojo.moduleUrl("dojox.data.tests", "ml/test_HtmlStore_declaratively.html"));
+
+}

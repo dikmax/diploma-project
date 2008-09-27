@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._editor.plugins.TextColor"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._editor.plugins.TextColor"] = true;
 dojo.provide("dijit._editor.plugins.TextColor");
 
 dojo.require("dijit._editor._Plugin");
@@ -34,3 +36,5 @@ dojo.subscribe(dijit._scopeName + ".Editor.getPlugin",null,function(o){
 		o.plugin = new dijit._editor.plugins.TextColor({command: o.args.name});
 	}
 });
+
+}

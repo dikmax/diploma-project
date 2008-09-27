@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.layout.ResizeHandle"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.layout.ResizeHandle"] = true;
 dojo.provide("dojox.layout.ResizeHandle");
 dojo.experimental("dojox.layout.ResizeHandle"); 
 
@@ -265,3 +267,5 @@ dojo.declare("dojox.layout._ResizeHelper",
 		dojo.marginBox(this.domNode, dim);
 	}
 });
+
+}

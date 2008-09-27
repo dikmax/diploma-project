@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.wire.demos.TableContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.wire.demos.TableContainer"] = true;
 dojo.provide("dojox.wire.demos.TableContainer");
 
 dojo.require("dojo.parser");
@@ -62,3 +64,5 @@ dojo.declare("dojox.wire.demos.TableContainer", [ dijit._Widget, dijit._Template
 		this.tableContainer.appendChild(tr);
 	}
 });
+
+}

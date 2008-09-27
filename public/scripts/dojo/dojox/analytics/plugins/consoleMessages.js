@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.analytics.plugins.consoleMessages"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.analytics.plugins.consoleMessages"] = true;
 dojo.provide("dojox.analytics.plugins.consoleMessages");
 
 dojox.analytics.plugins.consoleMessages = new (function(){
@@ -18,3 +20,5 @@ dojox.analytics.plugins.consoleMessages = new (function(){
 		}
 	}
 })();
+
+}

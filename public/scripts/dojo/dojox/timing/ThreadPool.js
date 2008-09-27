@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.timing.ThreadPool"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.timing.ThreadPool"] = true;
 dojo.provide("dojox.timing.ThreadPool");
 dojo.require("dojox.timing");
 
@@ -151,3 +153,5 @@ dojo.experimental("dojox.timing.ThreadPool");
 		timer.onTick=self.invoke;
 	})(16, 5000);
 })();
+
+}

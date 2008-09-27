@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.dnd.Avatar"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.dnd.Avatar"] = true;
 dojo.provide("dojo.dnd.Avatar");
 
 dojo.require("dojo.dnd.common");
@@ -76,3 +78,5 @@ dojo.declare("dojo.dnd.Avatar", null, {
 		return this.manager.nodes.length.toString();
 	}
 });
+
+}

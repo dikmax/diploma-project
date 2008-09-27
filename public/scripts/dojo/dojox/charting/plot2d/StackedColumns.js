@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.plot2d.StackedColumns"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.plot2d.StackedColumns"] = true;
 dojo.provide("dojox.charting.plot2d.StackedColumns");
 
 dojo.require("dojox.charting.plot2d.common");
@@ -77,3 +79,5 @@ dojo.require("dojox.lang.functional.reversed");
 		}
 	});
 })();
+
+}

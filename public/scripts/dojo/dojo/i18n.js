@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.i18n"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.i18n"] = true;
 dojo.provide("dojo.i18n");
 
 /*=====
@@ -243,3 +245,5 @@ dojo.i18n._preloadLocalizations = function(/*String*/bundlePrefix, /*Array*/loca
 		preload(extra[i]);
 	}
 };
+
+}

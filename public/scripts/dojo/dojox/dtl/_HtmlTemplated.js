@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl._HtmlTemplated"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl._HtmlTemplated"] = true;
 dojo.provide("dojox.dtl._HtmlTemplated");
 dojo.require("dijit._Templated");
 dojo.require("dojox.dtl.html");
@@ -66,3 +68,5 @@ dojox.dtl._HtmlTemplated = {
 		}
 	}
 };
+
+}

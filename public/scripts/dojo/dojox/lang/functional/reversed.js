@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.lang.functional.reversed"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.functional.reversed"] = true;
 dojo.provide("dojox.lang.functional.reversed");
 
 dojo.require("dojox.lang.functional.lambda");
@@ -73,3 +75,5 @@ dojo.require("dojox.lang.functional.lambda");
 		}
 	});
 })();
+
+}

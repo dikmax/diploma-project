@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.widget.Iterator"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.widget.Iterator"] = true;
 dojo.provide("dojox.widget.Iterator");
 dojo.require("dijit.Declaration");
 
@@ -171,3 +173,5 @@ dojo.declare("dojox.widget.Iterator",
 });
 
 dojox.widget.Iterator._classes = {};
+
+}

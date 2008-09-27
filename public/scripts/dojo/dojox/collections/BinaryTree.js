@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.collections.BinaryTree"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.collections.BinaryTree"] = true;
 dojo.provide("dojox.collections.BinaryTree");
 dojo.require("dojox.collections._base");
 
@@ -205,3 +207,5 @@ dojox.collections.BinaryTree=function(data){
 dojox.collections.BinaryTree.TraversalMethods={
 	Preorder: 1, Inorder: 2, Postorder: 3
 };
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.io.iframe"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.io.iframe"] = true;
 dojo.provide("dojo.io.iframe");
 
 dojo.io.iframe = {
@@ -351,4 +353,6 @@ dojo.io.iframe = {
 
 		ioArgs._finished = true;
 	}
+}
+
 }

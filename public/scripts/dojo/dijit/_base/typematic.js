@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._base.typematic"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._base.typematic"] = true;
 dojo.provide("dijit._base.typematic");
 
 dijit.typematic = {
@@ -133,3 +135,5 @@ dijit.typematic = {
 			this.addMouseListener(mouseNode, _this, callback, subsequentDelay, initialDelay));
 	}
 };
+
+}

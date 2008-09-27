@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.JsonRestStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.JsonRestStore"] = true;
 dojo.provide("dojox.data.JsonRestStore");
 dojo.require("dojox.rpc.Rest"); 
 dojo.require("dojox.rpc.JsonReferencing"); // TODO: Make it work without this dependency
@@ -655,3 +657,5 @@ dojo.declare("dojox.data.JsonRestStore",
 	}
 );
 
+
+}

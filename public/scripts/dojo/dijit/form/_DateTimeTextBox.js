@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.form._DateTimeTextBox"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.form._DateTimeTextBox"] = true;
 dojo.provide("dijit.form._DateTimeTextBox");
 
 dojo.require("dojo.date");
@@ -169,3 +171,5 @@ dojo.declare(
 		}
 	}
 );
+
+}

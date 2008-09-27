@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.data.api.Write"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.data.api.Write"] = true;
 dojo.provide("dojo.data.api.Write");
 dojo.require("dojo.data.api.Read");
 
@@ -220,3 +222,5 @@ dojo.declare("dojo.data.api.Write", dojo.data.api.Read, {
 		return false; // boolean
 	}
 });
+
+}

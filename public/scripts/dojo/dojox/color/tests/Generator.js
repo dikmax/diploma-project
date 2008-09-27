@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.color.tests.Generator"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.color.tests.Generator"] = true;
 dojo.provide("dojox.color.tests.Generator");
 dojo.require("dojox.color.Generator");
 
@@ -122,3 +124,5 @@ tests.register("dojox.color.tests.Generator", [
 		t.debug(s+'</tr></table>');
 	}
 ]);
+
+}

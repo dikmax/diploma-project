@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.date.posix"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.date.posix"] = true;
 dojo.provide("dojox.date.posix");
 
 dojo.require("dojo.date");
@@ -286,4 +288,6 @@ dojox.date.posix.getIsoWeeksInYear = function(/*Date*/dateObject) {
 	}
 	var y = dateObject.getFullYear();
 	return ( p(y) % 7 == 4 || p(y-1) % 7 == 3 ) ? 53 : 52;	//	Integer
+}
+
 }

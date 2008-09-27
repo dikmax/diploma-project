@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.cookie"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.cookie"] = true;
 dojo.provide("dojo.cookie");
 
 dojo.require("dojo.regexp");
@@ -89,3 +91,5 @@ dojo.cookie.isSupported = function(){
 	}
 	return navigator.cookieEnabled;
 };
+
+}

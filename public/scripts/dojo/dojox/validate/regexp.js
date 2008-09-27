@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.validate.regexp"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.validate.regexp"] = true;
 dojo.provide("dojox.validate.regexp");
 
 dojo.require("dojo.regexp"); 
@@ -324,4 +326,6 @@ dojox.regexp.numberFormat = function(/*Object?*/flags){
 
 	// build RE for multiple number formats
 	return dojo.regexp.buildGroupRE(flags.format, digitRE); //String
+}
+
 }

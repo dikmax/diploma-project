@@ -1,8 +1,8 @@
+if(!dojo._hasResource["dijit._Widget"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._Widget"] = true;
 dojo.provide("dijit._Widget");
 
-//>>excludeStart("dijitBaseExclude", kwArgs.customDijitBase == "true");
 dojo.require( "dijit._base" );
-//>>excludeEnd("dijitBaseExclude");
 
 dojo.declare("dijit._Widget", null, {
 	//	summary:
@@ -403,3 +403,5 @@ dojo.declare("dijit._Widget", null, {
 		return this.focus && (dojo.style(this.domNode, "display") != "none");
 	}
 });
+
+}

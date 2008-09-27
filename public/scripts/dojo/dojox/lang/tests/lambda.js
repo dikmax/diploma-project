@@ -1,4 +1,6 @@
-﻿dojo.provide("dojox.lang.tests.lambda");
+if(!dojo._hasResource["dojox.lang.tests.lambda"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.lang.tests.lambda"] = true;
+dojo.provide("dojox.lang.tests.lambda");
 
 dojo.require("dojox.lang.functional");
 dojo.require("dojox.lang.functional.sequence");
@@ -18,3 +20,5 @@ dojo.require("dojox.lang.functional.sequence");
 		function testLambda10(t){ t.assertEqual(df.repeat(3, ["_-1", ["*3"]], 1), [1, 2, 5]); }
 	]);
 })();
+
+}

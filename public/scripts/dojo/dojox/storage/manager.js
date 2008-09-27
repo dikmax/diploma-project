@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.storage.manager"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.storage.manager"] = true;
 dojo.provide("dojox.storage.manager");
 //dojo.require("dojo.AdapterRegistry");
 // FIXME: refactor this to use an AdapterRegistry
@@ -255,3 +257,5 @@ dojox.storage.manager = new function(){
 		return results;
 	}
 };
+
+}

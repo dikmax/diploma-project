@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._base"] = true;
 dojo.provide("dijit._base");
 
 dojo.require("dijit._base.focus");
@@ -20,4 +22,6 @@ if(dojo.isSafari){
 		window.resizeBy(1,0);
 		setTimeout(function(){ window.resizeBy(-1,0); }, 10);
 	});
+}
+
 }

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.image.Gallery"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.image.Gallery"] = true;
 dojo.provide("dojox.image.Gallery");
 dojo.experimental("dojox.image.Gallery");
 //
@@ -62,7 +64,7 @@ dojo.declare("dojox.image.Gallery",
 	//	time in seconds, between image changes in the slide show.
 	slideshowInterval: 3,
 	
-	templatePath: dojo.moduleUrl("dojox.image", "resources/Gallery.html"), 
+	templateString:"<div dojoAttachPoint=\"outerNode\" class=\"imageGalleryWrapper\">\n\t<div dojoAttachPoint=\"thumbPickerNode\"></div>\n\t<div dojoAttachPoint=\"slideShowNode\"></div>\n</div>\n", 
 
 	postCreate: function(){
 		// summary: Initializes the widget, creates the ThumbnailPicker and SlideShow widgets
@@ -176,3 +178,5 @@ dojo.declare("dojox.image.Gallery",
 		}
 	}
 });
+
+}

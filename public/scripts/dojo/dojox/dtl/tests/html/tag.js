@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl.tests.html.tag"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl.tests.html.tag"] = true;
 dojo.provide("dojox.dtl.tests.html.tag");
 
 dojo.require("dojox.dtl.html");
@@ -227,3 +229,5 @@ doh.register("dojox.dtl.html.tag",
 		}
 	]
 );
+
+}

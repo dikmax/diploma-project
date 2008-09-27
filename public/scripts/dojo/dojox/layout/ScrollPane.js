@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.layout.ScrollPane"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.layout.ScrollPane"] = true;
 dojo.provide("dojox.layout.ScrollPane");
 dojo.experimental("dojox.layout.ScrollPane");
 
@@ -37,7 +39,7 @@ dojo.declare("dojox.layout.ScrollPane",
 	//		either "horizontal" or "vertical" for scroll orientation. 
 	orientation: "vertical",
 	
-	templatePath: dojo.moduleUrl("dojox.layout","resources/ScrollPane.html"),
+	templateString:"<div class=\"dojoxScrollWindow\" dojoAttachEvent=\"onmouseenter: _enter, onmouseleave: _leave\">\n    <div class=\"dojoxScrollWrapper\" style=\"${style}\" dojoAttachPoint=\"wrapper\" dojoAttachEvent=\"onmousemove: _calc\">\n\t<div class=\"dojoxScrollPane\" dojoAttachPoint=\"containerNode\"></div>\n    </div>\n    <div dojoAttachPoint=\"helper\" class=\"dojoxScrollHelper\"><span class=\"helperInner\">|</span></div>\n</div>\n",
 	
 	layout: function(){
 		// summary: calculates required sizes. call this if we add/remove content manually, or reload the content.
@@ -108,3 +110,5 @@ dojo.declare("dojox.layout.ScrollPane",
 	}
     
 });
+
+}

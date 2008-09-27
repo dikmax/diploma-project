@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.highlight._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.highlight._base"] = true;
 dojo.provide("dojox.highlight._base");
 
 //
@@ -400,3 +402,5 @@ dojo.provide("dojox.highlight._base");
 		dh.init(node);
 	};
 })();
+
+}

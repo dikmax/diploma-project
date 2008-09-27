@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.data.tests.stores.CsvStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.data.tests.stores.CsvStore"] = true;
 dojo.provide("dojox.data.tests.stores.CsvStore");
 dojo.require("dojox.data.CsvStore");
 dojo.require("dojo.data.api.Read");
@@ -1121,3 +1123,5 @@ doh.register("dojox.data.tests.stores.CsvStore",
 	]
 );
 
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.plot3d.Base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.plot3d.Base"] = true;
 dojo.provide("dojox.charting.plot3d.Base");
 
 dojo.require("dojox.charting.Chart3D");
@@ -17,3 +19,5 @@ dojo.declare("dojox.charting.plot3d.Base", null, {
 	generate: function(chart, creator){
 	}
 });
+
+}

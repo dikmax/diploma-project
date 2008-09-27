@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.layout.LayoutContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.layout.LayoutContainer"] = true;
 dojo.provide("dijit.layout.LayoutContainer");
 
 dojo.require("dijit.layout._LayoutWidget");
@@ -68,3 +70,5 @@ dojo.extend(dijit._Widget, {
 	//		See the LayoutContainer description for details on this parameter.
 	layoutAlign: 'none'
 });
+
+}

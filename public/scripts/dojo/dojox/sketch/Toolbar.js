@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.sketch.Toolbar"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.sketch.Toolbar"] = true;
 dojo.provide("dojox.sketch.Toolbar");
 
 dojo.require("dojox.sketch.Annotation");
@@ -90,3 +92,5 @@ dojox.sketch.makeToolbar=function(node,figure){
 	node.appendChild(toolbar.domNode);
 	return toolbar;
 };
+
+}

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.Menu"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.Menu"] = true;
 dojo.provide("dijit.Menu");
 
 dojo.require("dijit._Widget");
@@ -481,3 +483,5 @@ dojo.declare("dijit.MenuSeparator",
 		return false; // Boolean
 	}
 });
+
+}

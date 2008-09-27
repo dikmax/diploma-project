@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit._Templated"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit._Templated"] = true;
 dojo.provide("dijit._Templated");
 
 dojo.require("dijit._Widget");
@@ -323,3 +325,5 @@ dojo.extend(dijit._Widget,{
 	waiRole: "",
 	waiState:""
 })
+
+}

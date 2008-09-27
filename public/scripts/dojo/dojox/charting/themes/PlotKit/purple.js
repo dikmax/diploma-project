@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.charting.themes.PlotKit.purple"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.charting.themes.PlotKit.purple"] = true;
 dojo.provide("dojox.charting.themes.PlotKit.purple");
 dojo.require("dojox.charting.Theme");
 
@@ -37,3 +39,5 @@ dojo.require("dojox.charting.Theme");
 	});
 	dxc.themes.PlotKit.purple.defineColors({ hue:271, saturation:60, low:40, high:88 });
 })();
+
+}

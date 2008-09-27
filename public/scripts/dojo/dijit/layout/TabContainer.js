@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dijit.layout.TabContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dijit.layout.TabContainer"] = true;
 dojo.provide("dijit.layout.TabContainer");
 
 dojo.require("dijit.layout.StackContainer");
@@ -22,7 +24,7 @@ dojo.declare("dijit.layout.TabContainer",
 	tabPosition: "top",
 
 	templateString: null,	// override setting in StackContainer
-	templatePath: dojo.moduleUrl("dijit.layout", "templates/TabContainer.html"),
+	templateString:"<div class=\"dijitTabContainer\">\n\t<div dojoAttachPoint=\"tablistNode\"></div>\n\t<div class=\"dijitTabPaneWrapper\" dojoAttachPoint=\"containerNode\"></div>\n</div>\n",
 
 	// _controllerWidget: String
 	//		An optional parameter to overrider the default TabContainer controller used.
@@ -166,7 +168,7 @@ dojo.declare("dijit.layout._TabButton",
 
 	baseClass: "dijitTab",
 
-	templatePath: dojo.moduleUrl("dijit.layout","templates/_TabButton.html"),
+	templateString:"<div waiRole=\"presentation\" dojoAttachEvent='onclick:onClick,onmouseenter:_onMouse,onmouseleave:_onMouse'>\n    <div waiRole=\"presentation\" class='dijitTabInnerDiv' dojoAttachPoint='innerDiv'>\n        <div waiRole=\"presentation\" class='dijitTabContent' dojoAttachPoint='tabContent'>\n\t        <span dojoAttachPoint='containerNode,focusNode' class='tabLabel'>${!label}</span>\n\t        <span dojoAttachPoint='closeButtonNode' class='closeImage' dojoAttachEvent='onmouseenter:_onMouse, onmouseleave:_onMouse, onclick:onClickCloseButton' stateModifier='CloseButton'>\n\t            <span dojoAttachPoint='closeText' class='closeText'>x</span>\n\t        </span>\n        </div>\n    </div>\n</div>\n",
 
 	postCreate: function(){
 		if(this.closeButton){
@@ -178,3 +180,5 @@ dojo.declare("dijit.layout._TabButton",
 		dojo.setSelectable(this.containerNode, false);
 	}
 });
+
+}

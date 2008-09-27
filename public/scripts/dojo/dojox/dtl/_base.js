@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.dtl._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.dtl._base"] = true;
 dojo.provide("dojox.dtl._base");
 
 dojo.require("dojox.string.Builder");
@@ -564,3 +566,5 @@ dojo.require("dojox.string.tokenize");
 		"strings": ["addslashes", "capfirst", "center", "cut", "fix_ampersands", "floatformat", "iriencode", "linenumbers", "ljust", "lower", "make_list", "rjust", "slugify", "stringformat", "title", "truncatewords", "truncatewords_html", "upper", "urlencode", "urlize", "urlizetrunc", "wordcount", "wordwrap"]
 	});
 })();
+
+}

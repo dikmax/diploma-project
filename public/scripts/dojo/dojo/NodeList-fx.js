@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.NodeList-fx"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.NodeList-fx"] = true;
 dojo.provide("dojo.NodeList-fx");
 dojo.require("dojo.fx");
 
@@ -131,3 +133,5 @@ dojo.extend(dojo.NodeList, {
 		return canim.play(delay||0); // dojo._Animation
 	}
 });
+
+}

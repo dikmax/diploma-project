@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo.colors"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo.colors"] = true;
 dojo.provide("dojo.colors");
 
 //TODO: this module appears to break naming conventions
@@ -219,3 +221,5 @@ dojo.Color.named = dojo.mixin({
 	whitesmoke:	[245,245,245],
 	yellowgreen:	[154,205,50]
 }, dojo.Color.named);
+
+}

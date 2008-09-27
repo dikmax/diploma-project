@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.rpc.tests.Yahoo"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.rpc.tests.Yahoo"] = true;
 dojo.provide("dojox.rpc.tests.Yahoo");
 dojo.require("dojo.io.script");
 dojo.require("dojox.rpc.Service");
@@ -311,3 +313,5 @@ doh.register("dojox.rpc.tests.yahoo",
 			})
 		}
 ]);
+
+}

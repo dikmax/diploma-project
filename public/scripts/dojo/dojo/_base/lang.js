@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojo._base.lang"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojo._base.lang"] = true;
 dojo.provide("dojo._base.lang");
 
 // Crockford (ish) functions
@@ -250,4 +252,6 @@ dojo.trim = function(/*String*/ str){
 	//		The fastest but longest version of this function is located at
 	//		dojo.string.trim()
 	return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');	// String
+}
+
 }

@@ -1,3 +1,5 @@
+if(!dojo._hasResource["dojox.grid._grid.view"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
+dojo._hasResource["dojox.grid._grid.view"] = true;
 dojo.provide("dojox.grid._grid.view");
 
 dojo.require("dijit._Widget");
@@ -20,7 +22,7 @@ dojo.declare('dojox.GridView',
 	// 		Width for the view, in valid css unit
 	viewWidth: "",
 
-	templatePath: dojo.moduleUrl("dojox.grid","resources/GridView.html"),
+	templateString:"<div class=\"dojoxGrid-view\">\n\t<div class=\"dojoxGrid-header\" dojoAttachPoint=\"headerNode\">\n\t\t<div dojoAttachPoint=\"headerNodeContainer\" style=\"width:9000em\">\n\t\t\t<div dojoAttachPoint=\"headerContentNode\"></div>\n\t\t</div>\n\t</div>\n\t<input type=\"checkbox\" class=\"dojoxGrid-hidden-focus\" dojoAttachPoint=\"hiddenFocusNode\" />\n\t<input type=\"checkbox\" class=\"dojoxGrid-hidden-focus\" />\n\t<div class=\"dojoxGrid-scrollbox\" dojoAttachPoint=\"scrollboxNode\">\n\t\t<div class=\"dojoxGrid-content\" dojoAttachPoint=\"contentNode\" hidefocus=\"hidefocus\"></div>\n\t</div>\n</div>\n",
 	
 	themeable: false,
 	classTag: 'dojoxGrid',
@@ -330,3 +332,5 @@ dojo.declare('dojox.GridView',
 		this.headerNode.scrollLeft = left;
 	}
 });
+
+}
