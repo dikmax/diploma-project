@@ -1,0 +1,7 @@
+<h1>Журнал <?= $this->login; ?></h1>
+
+<?php if ($this->count === 0): ?>
+    В журнале пока нет ни одной записи. <a href="#" onclick="return false;">Создать?</a>
+<?php else: ?>
+    В журнале присутствует <?= $this->count; ?> записей.
+<?php endif; ?>

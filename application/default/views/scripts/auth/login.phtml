@@ -1,0 +1,7 @@
+    <div align="center">
+        <?= $this->action('show-login', 'auth'); ?>
+        <?php if (isset($this->reason)): ?>
+            <div class="error">* <?= $this->reason; ?></div>
+        <?php endif; ?>
+    </div>
+

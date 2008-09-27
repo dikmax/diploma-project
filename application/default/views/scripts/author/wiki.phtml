@@ -1,0 +1,10 @@
+<h1><?= $this->author->getName(); ?></h1>
+<h4>Информация</h4>
+
+<p>
+<?= $this->author->getText(); ?>
+</p>
+
+<?php if ($this->isAllowed('wiki', 'edit')): ?>
+    <a href="<?= $this->url(array('action' => 'wiki-edit')); ?>">Редактировать</a>
+<?php endif; ?>
