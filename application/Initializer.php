@@ -282,7 +282,79 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initRoutes()
     {
-        $this->_front->getRouter()->addConfig(self::$_config, 'routes');
+        $router = $this->_front->getRouter();
+
+        $router->removeDefaultRoutes();
+
+        $router->addRoute('default',
+            new Zend_Controller_Router_Route(':action', array(
+                'controller' => 'index',
+                'action' => 'index'
+            ))
+        );
+
+        $router->addRoute('auth',
+            new Zend_Controller_Router_Route('auth/:action', array(
+                'controller' => 'auth',
+                'action' => 'index'
+            ))
+        );
+
+        $router->addRoute('ajax',
+            new Zend_Controller_Router_Route('ajax/:action', array(
+                'controller' => 'ajax'
+            ))
+        );
+
+        $router->addRoute('writeboard',
+            new Zend_Controller_Router_Route('writeboard/:action', array(
+                'controller' => 'writeboard',
+                'action' => 'index'
+            ))
+        );
+
+        $router->addRoute('user',
+            new Zend_Controller_Router_Route('user/:login/:action', array(
+                'controller' => 'user',
+                'action' => 'profile',
+                'login' => ''
+            ))
+        );
+
+        $router->addRoute('librarytitle',
+            new Zend_Controller_Router_Route('library/:author/:title', array(
+                'controller' => 'title',
+                'action' => 'show'
+            ), array(
+                'title' => '^[^~].*'
+            ))
+        );
+
+        $router->addRoute('librarytitleaction',
+            new Zend_Controller_Router_Route_Regex('library/([^/]*)/([^/]*)/~([^/]*)', array(
+                'controller' => 'title',
+            ), array(
+                1 => 'author',
+                2 => 'title',
+                3 => 'action'
+            ), 'library/%s/%s/~%s')
+        );
+
+        $router->addRoute('libraryauthor',
+            new Zend_Controller_Router_Route('library/:author', array(
+                'controller' => 'author',
+                'action' => 'show'
+            ))
+        );
+
+        $router->addRoute('libraryauthoraction',
+            new Zend_Controller_Router_Route_Regex('library/([^/]*)/~([^/]*)', array(
+                'controller' => 'author'
+            ), array(
+                1 => 'author',
+                2 => 'action'
+            ), 'library/%s/~%s')
+        );
     }
 
     /**
