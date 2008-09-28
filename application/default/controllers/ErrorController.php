@@ -1,7 +1,4 @@
 <?php
-/** Zend_Controller_Action */
-require_once 'Zend/Controller/Action.php';
-
 /**
  * Errors controlles
  */
@@ -13,7 +10,7 @@ class ErrorController extends Zend_Controller_Action
     public function errorAction()
     {
     }
-    
+
     /**
      * Shows "Author not found" page
      */
@@ -21,14 +18,14 @@ class ErrorController extends Zend_Controller_Action
     {
         // Send "404 Not Found" header
         $this->getResponse()->setHttpResponseCode(404);
-        
+
         $authorUrl = $this->getRequest()->getParam('author');
-        
+
         $this->view->headTitle($authorUrl);
         $this->view->author = $authorUrl;
         $this->_helper->viewRenderer->setScriptAction('author-not-found');
     }
-    
+
     /**
      * Shows "Title not found" page
      */
@@ -36,9 +33,9 @@ class ErrorController extends Zend_Controller_Action
     {
         // Send "404 Not Found" header
         $this->getResponse()->setHttpResponseCode(404);
-        
+
         $titleUrl = $this->getRequest()->getParam('title');
-        
+
         $this->view->headTitle($titleUrl);
         $this->view->title = $titleUrl;
         $this->_helper->viewRenderer->setScriptAction('title-not-found');

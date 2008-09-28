@@ -249,6 +249,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     {
         $view = new Zend_View();
         $view->addHelperPath($this->_root . '/application/default/views/helpers', 'App_View_Helper');
+        Zend_Dojo::enableView($view);
         $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
         $viewRenderer->setView($view);
         $view->headTitle('Librarian')

@@ -1,32 +1,40 @@
 <?php echo $this->doctype() ?>
 <html>
 <head>
+  <?= $this->headTitle(); ?>
   <?= $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8'); ?>
   <?= $this->headLink()->appendStylesheet('/styles/main.css'); ?>
+<?php
+    if ($this->dojo()->isEnabled()):
+        $this->dojo()->setLocalPath('/scripts/dojo/dojo/dojo.js')
+                 ->addStyleSheetModule('dijit.themes.tundra');
+        echo $this->dojo();
+    endif;
+?>
   <?= $this->headScript(); ?>
-  <?= $this->headTitle(); ?>
 </head>
-<body>
-	<?php
-	    $login = Zend_Controller_Front::getInstance()->getRequest()->getParam('login');
-	?>
-	<div class="left-col">
-	<div class="login"><?= $this->action('show-login', 'auth'); ?></div>
-	<div class="navigation">
-	    <?= $this->navigationLink(null, 'Книги',
-	            $this->url(array('action' => 'library'), 'default')); ?>
-	    <?= $this->navigationLink('profile', 'Профиль',
-	            $this->url(array('controller' => 'user',
-	                             'action' => 'profile',
-	                             'login' => $login), 'user')); ?>
-	    <?= $this->navigationLink('blog', 'Журнал',
-	            $this->url(array('controller' => 'user',
-	                             'action' => 'blog',
-	                             'login' => $login), 'user')); ?>
-	</div>
-	</div>
-	<div class="content">
-	    <?= $this->layout()->content; ?>
-	</div>
+<body class="tundra">
+    <?php
+        $login = Zend_Controller_Front::getInstance()->getRequest()->getParam('login');
+    ?>
+    <div class="left-col">
+    <div class="login"><?= $this->action('show-login', 'auth'); ?></div>
+    <div class="navigation">
+        <?= $this->navigationLink(null, 'Книги',
+                $this->url(array('action' => 'library'), 'default')); ?>
+        <?= $this->navigationLink('profile', 'Профиль',
+                $this->url(array('controller' => 'user',
+                                'action' => 'profile',
+                                'login' => $login), 'user')); ?>
+        <?= $this->navigationLink('blog', 'Журнал',
+                $this->url(array('controller' => 'user',
+                                'action' => 'blog',
+                                'login' => $login), 'user')); ?>
+    </div>
+    </div>
+    <div class="content">
+        <?= $this->layout()->content; ?>
+        <?= $this->inlineScript() ?>
+    </div>
 </body>
 </html>

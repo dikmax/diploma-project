@@ -1,74 +1,15 @@
-<?php
-$this->headLink()->appendStylesheet('/public/css/ext-all.css');
-$this->headScript()->appendFile('/public/js/ext-base.js')
-                   ->appendFile('/public/js/ext-all.js');
-?>
-<form action="" method="post">
-    <table>
-        <tr>
-            <td><label for="author">Автор:</label>
-            <td><input type="text" name="author" id="author" /></td>
-        </tr>
-        <tr>
-            <td><label for="title">Название:</label></td>
-            <td><input type="text" name="title" id="title" /></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Добавить" /></td>
-        </tr>
-    </table>
-</form>
-<script type="text/javascript">
-formatAuthorSuggestion = function(authors)
-{
-	var parts = document.getElementById('author').value.split(' ');
-    var res = '';
-    for (var i = 0; i < authors.length; ++i) {
-        var nameParts = authors[i].name.split(' ');
-        jloop:
-        for (var j = 0; j < nameParts.length; ++j) {
-            for (var k = 0; k < parts.length; ++k) {
-                if (nameParts[j].toLowerCase().indexOf(parts[k].toLowerCase()) == 0) {
-                    nameParts[j] = '<b>' + nameParts[j].substr(0, parts[k].length)
-                        + '</b>' + nameParts[j].substr(parts[k].length);
-                    continue jloop;
-                }
-            }
-        }
-        res += '<div class="x-combo-list-item">' + nameParts.join(' ') + '</div>';
-    }
-    return res;
-}
+<? // setup data store for FilteringSelect ?>
+<div dojoType="dojo.data.ItemFileReadStore" jsId="stateStore"
+    url="/ajax/author-suggest"
+    requestMethod="get"></div>
 
-Ext.onReady(function(){
-    var ds = new Ext.data.JsonStore({
-        url: '/ajax/author-suggest',
-        root: 'authors',
-        //totalProperty: 'totalCount',
-        id: 'author_id',
-        fields: [
-            {name: 'name', mapping: 'name'}
-        ]
-    });
+<? // Input element: ?>
+State: <input id="state" dojoType="dijit.form.FilteringSelect"
+    store="stateStore" pageSize="5" />
 
-    // Custom rendering Template
-    var resultTpl = new Ext.XTemplate(
-        '<tpl for="."><div class="search-item">',
-            '<h3><span>{lastPost:date("M j, Y")}<br />by {author}</span>{title}</h3>',
-            '{excerpt}',
-        '</div></tpl>'
-    );
-    
-    var search = new Ext.form.ComboBox({
-        store: ds,
-        displayField:'name',
-        typeAhead: false,
-        minChars: 1,
-        loadingText: 'Searching...',
-        width: 570,
-        tpl: '{[window.formatAuthorSuggestion(values)]}',
-        hideTrigger:true,
-        applyTo: 'author'
-    });
-});
-</script>
+<? // setup required dojo elements:
+$this->dojo()->enable()
+             ->setDjConfigOption('parseOnLoad', true)
+             ->requireModule('dijit.form.FilteringSelect')
+             ->requireModule('dojo.data.ItemFileReadStore'); ?>
+
