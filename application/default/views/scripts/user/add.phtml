@@ -1,15 +1,16 @@
 <? // setup data store for FilteringSelect ?>
-<div dojoType="dojo.data.ItemFileReadStore" jsId="stateStore"
+<div dojoType="dojox.data.QueryReadStore" jsId="authorStore"
     url="/ajax/author-suggest"
     requestMethod="get"></div>
 
 <? // Input element: ?>
-State: <input id="state" dojoType="dijit.form.FilteringSelect"
-    store="stateStore" pageSize="5" />
+State: <input id="state" dojoType="dijit.form.ComboBox"
+    store="authorStore" pageSize="10" hasDownArrow="false" autoComplete="false" 
+    searchDelay="300" />
 
 <? // setup required dojo elements:
 $this->dojo()->enable()
              ->setDjConfigOption('parseOnLoad', true)
-             ->requireModule('dijit.form.FilteringSelect')
-             ->requireModule('dojo.data.ItemFileReadStore'); ?>
+             ->requireModule('dijit.form.ComboBox')
+             ->requireModule('dojox.data.QueryReadStore'); ?>
 

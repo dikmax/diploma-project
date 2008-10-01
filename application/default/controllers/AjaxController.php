@@ -15,15 +15,18 @@ class AjaxController extends Zend_Controller_Action
 {
     public function init()
     {
-        $this->_helper->viewRenderer->setNoRender();
+        $response = $this->getResponse();
+        $response->setHeader('Content-Type', 'text/json-comment-filtered');
+        
         $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setScriptAction('json-comment-filtered');
     }
 
     public function authorSuggestAction()
     {
         //$query = $this->getRequest()->getParam('query');
 
-        $response = new Zend_Dojo_Data('author_id', array(
+        $res = new Zend_Dojo_Data('author_id', array(
             array(
                 "author_id" => "1",
                 "name" => "Клиффорд Саймак"
@@ -34,6 +37,6 @@ class AjaxController extends Zend_Controller_Action
             )
         ));
 
-        echo $response;
+        $this->view->data = $res;
     }
 }
