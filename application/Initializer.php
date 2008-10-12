@@ -36,6 +36,16 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      * @var string Current environment
      */
     protected $_env;
+    
+    /**
+     * @var boolean Is current enviroment console
+     */
+    protected $_envConsole;
+    
+    /**
+     * @var boolean Is current enviroment development
+     */
+    protected $_envDevelopment;
 
     /**
      * @var Zend_Controller_Front
@@ -66,18 +76,22 @@ class Initializer extends Zend_Controller_Plugin_Abstract
 
         $this->initPhpConfig();
 
-        $this->_front = Zend_Controller_Front::getInstance();
+        if (!$this->_envConsole) {
+            $this->_front = Zend_Controller_Front::getInstance();
+        }
 
         // set the test environment parameters
-        if ($env == 'development') {
+        if ($this->_envDevelopment) {
             // Enable all errors so we'll know when something goes wrong.
             error_reporting(E_ALL | E_STRICT);
             ini_set('display_startup_errors', 1);
             ini_set('display_errors', 1);
 
-            $this->_front->throwExceptions(true);
-
-            $this->_aclNoCache = true;
+            if (!$this->_envConsole) {
+	            $this->_front->throwExceptions(true);
+	
+	            $this->_aclNoCache = true;
+            }
         }
     }
 
@@ -90,6 +104,9 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     protected function _setEnv($env)
     {
         $this->_env = $env;
+        
+        $this->_envConsole = strpos($env, 'console') !== false;
+        $this->_envDevelopment = strpos($env, 'development') !== false;
     }
 
 
@@ -108,17 +125,24 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      *
      * @return void
      */
-    public function routeStartup(Zend_Controller_Request_Abstract $request)
+    public function routeStartup()
+    {
+        $this->initApplication();
+    }
+    
+    public function initApplication()
     {
         $this->initEnviroment();
         $this->initCache();
         $this->initDb();
-        $this->initAcl();
-        $this->initHelpers();
-        $this->initView();
-        $this->initPlugins();
-        $this->initRoutes();
-        $this->initControllers();
+        if (!$this->_envConsole) {
+            $this->initAcl();
+            $this->initHelpers();
+            $this->initView();
+            $this->initPlugins();
+            $this->initRoutes();
+            $this->initControllers();
+        }
     }
 
     public function initEnviroment()

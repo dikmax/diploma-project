@@ -1,16 +1,19 @@
-<? // setup data store for FilteringSelect ?>
+<h1>Добавить произведение в библиотеку</h1>
+
 <div dojoType="dojox.data.QueryReadStore" jsId="authorStore"
     url="/ajax/author-suggest"
     requestMethod="get"></div>
 
-<? // Input element: ?>
-State: <input id="state" dojoType="dijit.form.ComboBox"
+<span title="Достаточно указать любого из авторов, если их несколько">Автор</span>:
+<input id="author" dojoType="dijit.form.ComboBox"
     store="authorStore" pageSize="10" hasDownArrow="false" autoComplete="false" 
-    searchDelay="300" />
+    searchDelay="300" /><br />
+
+Название: <input id="title" dojoType="dijit.form.ComboBox" /><br />
+<input type="button" value="Добавить" />
 
 <? // setup required dojo elements:
 $this->dojo()->enable()
              ->setDjConfigOption('parseOnLoad', true)
              ->requireModule('dijit.form.ComboBox')
-             ->requireModule('dojox.data.QueryReadStore'); ?>
-
+             ->requireModule('dojox.data.QueryReadStore');
