@@ -21,21 +21,21 @@ class App_Text extends App_Acl_Resource_Abstract {
      * @var int
      */
     protected $_libTextId;
-    
+
     /**
      * Text revision
      *
      * @var App_Text_Revision
      */
     protected $_revision;
-    
+
     /**
      * Date of creation
      *
      * @var App_Date
      */
     protected $_cdate;
-    
+
     /**
      * Constructs new App_Text object
      *
@@ -57,11 +57,10 @@ class App_Text extends App_Acl_Resource_Abstract {
      *       If not set it will be equal to current date. Usable if <code>revision</code>
      *       isn't defined (<b>int|string|array|App_Date</b>)</li>
      * </ul>
-     * @param array $options
      *
      * @throws App_Text_Exception
      */
-    public function __construct(array $construct = array(), $options = null)
+    public function __construct(array $construct = array())
     {
         // Id
         if (isset($construct['lib_text_id'])) {
@@ -71,7 +70,7 @@ class App_Text extends App_Acl_Resource_Abstract {
         } else {
             $this->_libTextId = null;
         }
-        
+
         // Revision
         if ($this->_libTextId !== null) {
             if (!isset($construct['revision'])) {
@@ -98,13 +97,13 @@ class App_Text extends App_Acl_Resource_Abstract {
             $revision_params['lib_text'] = $this;
             $this->_revision = new App_Text_Revision($revision_params);
         }
-        
+
         $this->_cdate = isset($construct['cdate'])
             ? new App_Date($construct['cdate'])
             : App_Date::now();
 
         $this->_text = null;
-        
+
         $this->registerResource();
     }
 
@@ -121,12 +120,12 @@ class App_Text extends App_Acl_Resource_Abstract {
 
             try {
                 $this->_revision->write();
-                
+
                 $data = array('lib_text_revision_id' => $this->_revision->getId(),
                               'cdate' => $this->_cdate->toMysqlString());
                 $db->insert('lib_text', $data);
                 $this->_libTextId = $db->lastInsertId();
-                
+
                 $this->_revision->writeLibTextId();
 
                 $db->commit();
@@ -136,16 +135,16 @@ class App_Text extends App_Acl_Resource_Abstract {
             }
         } else {
             // Updates existing text
-            
+
             $db->beginTransaction();
-            
+
             try {
                 $this->_revision->write();
-                
+
                 $data = array('lib_text_revision_id' => $this->_revision->getId());
                 $db->update('lib_text', $data,
                     $db->quoteInto('lib_text_id = ?', $this->_libTextId));
-                
+
                 $db->commit();
             } catch (Exception $e) {
                 $db->rollBack();
@@ -166,9 +165,9 @@ class App_Text extends App_Acl_Resource_Abstract {
         if (!is_numeric($id)) {
             throw new App_Text_Exception('First parameter to App_Text::read() must be int');
         }
-        
+
         $db = Zend_Registry::get('db');
-        
+
         $result = $db->fetchRow('SELECT t.lib_text_id, t.cdate, '
             .     'lib_text_revision_id, lib_text_revision_content_id, '
             .     'r.mdate, r.revision, r.author_id, r.changes, c.content '
@@ -178,11 +177,11 @@ class App_Text extends App_Acl_Resource_Abstract {
             . 'WHERE t.lib_text_id = :lib_text_id',
             array(':lib_text_id' => $id)
         );
-        
+
         if ($result === false) {
             throw new App_Text_Exception("Text with id=$id doesn't exists");
         }
-        
+
         //Transforming $result to pass to constructor
         // TODO Add author support here
         $revision = array(
@@ -198,14 +197,14 @@ class App_Text extends App_Acl_Resource_Abstract {
             'revision' => $revision,
             'cdate' => App_Date::fromMysqlString($result['cdate'])
         );
-        
+
         return new App_Text($text);
     }
 
     /*
      * Setters and getters
      */
-    
+
     /**
      * Returns database id
      *
@@ -215,7 +214,7 @@ class App_Text extends App_Acl_Resource_Abstract {
     {
         return $this->_libTextId;
     }
-    
+
     /**
      * Returns database id (alias for <code>getLibTextId</code>)
      *
@@ -225,7 +224,7 @@ class App_Text extends App_Acl_Resource_Abstract {
     {
         return $this->_libTextId;
     }
-    
+
     /**
      * Returns <code>App_Text_Revision</code> object
      *
@@ -235,17 +234,17 @@ class App_Text extends App_Acl_Resource_Abstract {
     {
         return $this->_revision;
     }
-    
+
     /**
      * Returns latest text
-     * 
+     *
      * @return string
      */
     public function getText()
     {
         return $this->_revision->getText();
     }
-    
+
     /**
      * Returns create date
      *
@@ -255,10 +254,10 @@ class App_Text extends App_Acl_Resource_Abstract {
     {
         return $this->_cdate;
     }
-    
+
     /**
      * Sets new text
-     * 
+     *
      * @param string $text newText
      * @param boolean $noWrite <code>true</code> if don't write to database
      */
@@ -269,7 +268,7 @@ class App_Text extends App_Acl_Resource_Abstract {
             $this->write();
         }
     }
-    
+
     /*
      * App_Acl_Resource_Abstract
      */
@@ -286,7 +285,7 @@ class App_Text extends App_Acl_Resource_Abstract {
         }
         return "wiki-new";
     }
-    
+
     /**
      * Returns resource parent (for registering)
      *

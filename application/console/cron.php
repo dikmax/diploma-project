@@ -2,4 +2,6 @@
 <?php
 require_once 'bootstrap.php';
 
-echo "Console test\n";
+$console = new App_Console();
+
+$console->process();

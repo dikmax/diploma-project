@@ -25,9 +25,9 @@ class App_Date extends Zend_Date
     {
         return $this->toString("Y-M-d H:m:s");
     }
-    
+
     // TODO write new toString, which will allow full localized dates (instead of medium)
-    
+
     /**
      * Returns the actual date as new date object
      *
@@ -38,7 +38,7 @@ class App_Date extends Zend_Date
     {
         return new App_Date(time(), Zend_Date::TIMESTAMP, $locale);
     }
-    
+
     /**
      * Generates App_Date from MySQL date string
      *
@@ -51,7 +51,7 @@ class App_Date extends Zend_Date
         }
         return new App_Date($string, 'Y-M-d H:m:s');
     }
-    
+
     public function toRelativeString() {
         $date = new App_Date($this);
         $dateNow = new App_Date();
@@ -84,6 +84,6 @@ class App_Date extends Zend_Date
         } else {
             return "Еще старше";
         }
-        return $diff." ".$this->toString();
+        //return $diff." ".$this->toString();
     }
 }
