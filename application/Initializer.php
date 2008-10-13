@@ -36,12 +36,12 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      * @var string Current environment
      */
     protected $_env;
-    
+
     /**
      * @var boolean Is current enviroment console
      */
     protected $_envConsole;
-    
+
     /**
      * @var boolean Is current enviroment development
      */
@@ -88,9 +88,9 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             ini_set('display_errors', 1);
 
             if (!$this->_envConsole) {
-	            $this->_front->throwExceptions(true);
-	
-	            $this->_aclNoCache = true;
+                $this->_front->throwExceptions(true);
+
+                $this->_aclNoCache = true;
             }
         }
     }
@@ -104,11 +104,10 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     protected function _setEnv($env)
     {
         $this->_env = $env;
-        
+
         $this->_envConsole = strpos($env, 'console') !== false;
         $this->_envDevelopment = strpos($env, 'development') !== false;
     }
-
 
     /**
      * Initialize php
@@ -129,7 +128,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     {
         $this->initApplication();
     }
-    
+
     public function initApplication()
     {
         $this->initEnviroment();
@@ -390,6 +389,14 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     public function initControllers()
     {
         $this->_front->addControllerDirectory($this->_root . '/application/default/controllers', 'default');
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoot()
+    {
+        return $this->_root;
     }
 }
 ?>

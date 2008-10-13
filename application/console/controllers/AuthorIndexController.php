@@ -1,7 +1,16 @@
 <?php
-require_once ('application/default/models/App/Console/Controller/Action/Abstract.php');
 class AuthorIndexController extends App_Console_Controller_Action_Abstract
 {
+    /**
+     *
+     * @see App_Console_Controller_Action_Abstract::process()
+     */
+    public function process ()
+    {
+        echo "Author index build start...\n";
+        echo "Author index build end...\n";
+    }
+
     /**
      *
      * @return string
@@ -23,10 +32,13 @@ class AuthorIndexController extends App_Console_Controller_Action_Abstract
     }
 
     /**
+     * @see App_Console_Controller_Action_Abstract::getDescription()
      *
-     * @see App_Console_Controller_Action_Abstract::process()
+     * @return string
      */
-    public function process ()
-    {}
+    public static function getDescription ()
+    {
+        return 'Update authors name index';
+    }
 }
 ?>

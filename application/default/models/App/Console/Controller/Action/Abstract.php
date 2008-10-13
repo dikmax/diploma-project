@@ -25,7 +25,10 @@ abstract class App_Console_Controller_Action_Abstract
      *
      * @return string
      */
-    abstract public static function getLongActionName();
+    public static function getLongActionName()
+    {
+        return '';
+    }
 
     /**
      * Returns short action name
@@ -33,6 +36,16 @@ abstract class App_Console_Controller_Action_Abstract
      * @return string
      */
     public static function getShortActionName()
+    {
+        return '';
+    }
+
+    /**
+     * Returns action description
+     *
+     * @return string
+     */
+    public static function getDescription()
     {
         return '';
     }

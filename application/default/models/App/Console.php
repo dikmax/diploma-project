@@ -16,8 +16,12 @@
  */
 class App_Console
 {
-    const OPTION_HELP = 'help';
-    const OPTION_UPDATE_AUTHOR_NAME_INDEX = 'update_authors';
+    /**
+     * Console controller
+     *
+     * @var App_Console_Controller
+     */
+    protected $_controller = null;
 
     /**
      * Constructs main console controller class
@@ -41,12 +45,12 @@ class App_Console
     public function process()
     {
         try {
-            $opts = new Zend_Console_Getopt(
-                array(
-                    self::OPTION_HELP => 'Shows help',
-                    self::OPTION_UPDATE_AUTHOR_NAME_INDEX . '|a' => 'Update authors name index'
-                )
-            );
+            $controller = $this->getController();
+
+            $options = $controller->getOptionsList();
+            $options['help|h'] = 'Shows help';
+
+            $opts = new Zend_Console_Getopt($options);
             $opts->parse();
 
             if ($opts->getOption('help')) {
@@ -54,7 +58,7 @@ class App_Console
                 return;
             }
 
-
+            $this->processOptions($opts->getOptions());
         } catch (Zend_Console_Getopt_Exception $e) {
             echo $e->getUsageMessage();
         }
@@ -62,16 +66,32 @@ class App_Console
 
     public function processOptions(array $options)
     {
+        $controller = $this->getController();
+
         foreach ($options as $option) {
-            switch ($option) {
-                case self::OPTION_HELP:
-                    break;
-                case self::OPTION_UPDATE_AUTHOR_NAME_INDEX:
-                    break;
-                default:
-                    echo "Warning: undefined option ($option)\n";
-                    break;
+            if ($option !== 'help') {
+                var_dump($option);
+                $controller->executeAction($option);
             }
         }
+    }
+
+    /**
+     * @return App_Console_Controller
+     */
+    public function getController()
+    {
+        if ($this->_controller === null) {
+            $this->_controller = new App_Console_Controller();
+        }
+        return $this->_controller;
+    }
+
+    /**
+     * @param App_Console_Controller $controller
+     */
+    public function setController(App_Console_Controller $controller)
+    {
+        $this->_controller = $controller;
     }
 }
