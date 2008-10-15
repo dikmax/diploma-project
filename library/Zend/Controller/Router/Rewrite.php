@@ -15,7 +15,7 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Rewrite.php 10744 2008-08-07 02:32:44Z matthew $
+ * @version    $Id: Rewrite.php 11510 2008-09-24 15:51:04Z doctorrock83 $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -27,9 +27,6 @@ require_once 'Zend/Controller/Router/Abstract.php';
 
 /** Zend_Controller_Router_Route */
 require_once 'Zend/Controller/Router/Route.php';
-
-/** Zend_Controller_Router_Route_Static */
-require_once 'Zend/Controller/Router/Route/Static.php';
 
 /**
  * Ruby routing based Router.

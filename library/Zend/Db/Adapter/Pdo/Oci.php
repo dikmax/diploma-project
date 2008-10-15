@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Oci.php 9537 2008-05-26 22:06:54Z peptolab $
+ * @version    $Id: Oci.php 11673 2008-10-04 14:00:04Z mikaelkael $
  */
 
 
@@ -110,7 +110,8 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         if (is_int($value) || is_float($value)) {
             return $value;
         }
-        return "'" . addcslashes($value, "\000\n\r\\'\"\032") . "'";
+        $value = str_replace("'", "''", $value);
+        return "'" . addcslashes($value, "\000\n\r\\\032") . "'";
     }
 
     /**

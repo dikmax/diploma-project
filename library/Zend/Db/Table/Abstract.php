@@ -865,6 +865,7 @@ abstract class Zend_Db_Table_Abstract
                 switch ($map[self::ON_UPDATE]) {
                     case self::CASCADE:
                         $newRefs = array();
+                        $where = array();
                         for ($i = 0; $i < count($map[self::COLUMNS]); ++$i) {
                             $col = $this->_db->foldCase($map[self::COLUMNS][$i]);
                             $refCol = $this->_db->foldCase($map[self::REF_COLUMNS][$i]);
@@ -913,6 +914,7 @@ abstract class Zend_Db_Table_Abstract
             if ($map[self::REF_TABLE_CLASS] == $parentTableClassname && isset($map[self::ON_DELETE])) {
                 switch ($map[self::ON_DELETE]) {
                     case self::CASCADE:
+                    	$where = array();
                         for ($i = 0; $i < count($map[self::COLUMNS]); ++$i) {
                             $col = $this->_db->foldCase($map[self::COLUMNS][$i]);
                             $refCol = $this->_db->foldCase($map[self::REF_COLUMNS][$i]);
@@ -995,7 +997,7 @@ abstract class Zend_Db_Table_Abstract
                 $whereAndTerms = array();
                 foreach ($keyValueSets as $keyPosition => $keyValue) {
                     $type = $this->_metadata[$keyNames[$keyPosition]]['DATA_TYPE'];
-                    $tableName = $this->_db->quoteTableAs($this->_name);
+                    $tableName = $this->_db->quoteTableAs($this->_name, null, true);
                     $columnName = $this->_db->quoteIdentifier($keyNames[$keyPosition], true);
                     $whereAndTerms[] = $this->_db->quoteInto(
                         $tableName . '.' . $columnName . ' = ?',

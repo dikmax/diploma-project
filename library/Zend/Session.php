@@ -17,7 +17,7 @@
  * @package    Zend_Session
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Session.php 10767 2008-08-07 19:00:45Z alexander $
+ * @version    $Id: Session.php 11746 2008-10-08 18:33:39Z norm2782 $
  * @since      Preview Release 0.2
  */
 
@@ -175,7 +175,7 @@ class Zend_Session extends Zend_Session_Abstract
     /**
      * Constructor overriding - make sure that a developer cannot instantiate
      */
-    private function __construct()
+    protected function __construct()
     {
     }
 

@@ -16,7 +16,7 @@
  * @package    Zend_Soap
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AutoDiscover.php 9881 2008-07-02 16:27:25Z alexander $
+ * @version    $Id: AutoDiscover.php 11815 2008-10-10 02:50:19Z yoshida@zend.co.jp $
  */
 
 require_once 'Zend/Server/Interface.php';

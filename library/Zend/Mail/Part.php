@@ -16,7 +16,7 @@
  * @package    Zend_Mail
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Part.php 9099 2008-03-30 19:35:47Z thomas $
+ * @version    $Id: Part.php 11815 2008-10-10 02:50:19Z yoshida@zend.co.jp $
  */
 
 
@@ -220,6 +220,9 @@ class Zend_Mail_Part implements RecursiveIterator, Zend_Mail_Part_Interface
             throw new Zend_Mail_Exception('no boundary found in content type to split message');
         }
         $parts = Zend_Mime_Decode::splitMessageStruct($this->_content, $boundary);
+        if ($parts === null) {
+        	return;
+        }
         $counter = 1;
         foreach ($parts as $part) {
             $this->_parts[$counter++] = new self(array('headers' => $part['header'], 'content' => $part['body']));

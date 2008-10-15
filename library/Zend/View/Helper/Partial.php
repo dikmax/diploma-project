@@ -16,7 +16,7 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Partial.php 10665 2008-08-05 10:57:18Z matthew $
+ * @version    $Id: Partial.php 11510 2008-09-24 15:51:04Z doctorrock83 $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -69,6 +69,7 @@ class Zend_View_Helper_Partial extends Zend_View_Helper_Abstract
 
         $view = $this->cloneView();
         if ((null !== $module) && is_string($module)) {
+            require_once 'Zend/Controller/Front.php';
             $moduleDir = Zend_Controller_Front::getInstance()->getControllerDirectory($module);
             if (null === $moduleDir) {
                 require_once 'Zend/View/Helper/Partial/Exception.php';

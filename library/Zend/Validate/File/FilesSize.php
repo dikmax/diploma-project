@@ -45,32 +45,10 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
      * @var array Error message templates
      */
     protected $_messageTemplates = array(
-        self::TOO_BIG      => "The files in sum exceed the maximum allowed size",
-        self::TOO_SMALL    => "All files are in sum smaller than required",
+        self::TOO_BIG      => "All files in sum should have a maximum size of '%max%' but '%size%' were detected",
+        self::TOO_SMALL    => "All files in sum should have a minimum size of '%min%' but '%size%' were detected",
         self::NOT_READABLE => "One or more files can not be read"
     );
-
-    /**
-     * @var array Error message template variables
-     */
-    protected $_messageVariables = array(
-        'min' => '_min',
-        'max' => '_max'
-    );
-
-    /**
-     * Minimum filesize
-     *
-     * @var integer
-     */
-    protected $_min;
-
-    /**
-     * Maximum filesize
-     *
-     * @var integer|null
-     */
-    protected $_max;
 
     /**
      * Internal file array
@@ -80,27 +58,21 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
     protected $_files;
 
     /**
-     * Internal file size counter
-     *
-     * @var integer
-     */
-    protected $_size;
-
-    /**
      * Sets validator options
      *
      * Min limits the used diskspace for all files, when used with max=null it is the maximum filesize
      * It also accepts an array with the keys 'min' and 'max'
      *
-     * @param  integer|array $min Minimum diskspace for all files
-     * @param  integer       $max Maximum diskspace for all files
+     * @param  integer|array $min        Minimum diskspace for all files
+     * @param  integer       $max        Maximum diskspace for all files
+     * @param  boolean       $bytestring Use bytestring or real size ?
      * @return void
      */
-    public function __construct($min, $max = null)
+    public function __construct($min, $max = null, $bytestring = true)
     {
         $this->_files = array();
         $this->_size  = 0;
-        parent::__construct($min, $max);
+        parent::__construct($min, $max, $bytestring);
     }
 
     /**
@@ -134,17 +106,29 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
             }
 
             // limited to 2GB files
-            $size         = @filesize($files);
-            $this->_size += $size;
-            $this->_setValue($this->_size);
+            $this->_size += @filesize($files);
             if (($this->_max !== null) && ($this->_max < $this->_size)) {
-                $this->_throw($file, self::TOO_BIG);
+                if ($this->_bytestr) {
+                    $max = $this->_max;
+                    $this->_max = $this->_toByteString($this->_max);
+                    $this->_throw($file, self::TOO_BIG);
+                    $this->_max = $max;
+                } else {
+                    $this->_throw($file, self::TOO_BIG);
+                }
             }
         }
 
         // Check that aggregate files are >= minimum size
         if (($this->_min !== null) && ($this->_size < $this->_min)) {
-            $this->_throw($file, self::TOO_SMALL);
+            if ($this->_bytestr) {
+                $min        = $this->_min;
+                $this->_min = $this->_toByteString($this->_min);
+                $this->_throw($file, self::TOO_SMALL);
+                $this->_min = $min;
+            } else {
+                $this->_throw($file, self::TOO_SMALL);
+            }
         }
 
         if (count($this->_messages) > 0) {

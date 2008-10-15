@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Config.php 11386 2008-09-13 15:25:12Z alexander $
+ * @version    $Id: Config.php 11502 2008-09-23 20:16:32Z rob $
  */
 
 
@@ -325,12 +325,16 @@ class Zend_Config implements Countable, Iterator
         foreach($merge as $key => $item) {
             if(array_key_exists($key, $this->_data)) {
                 if($item instanceof Zend_Config && $this->$key instanceof Zend_Config) {
-                    $this->$key = $this->$key->merge($item);
+                    $this->$key = $this->$key->merge(new Zend_Config($item->toArray(), !$this->readOnly()));
                 } else {
                     $this->$key = $item;
                 }
             } else {
-                $this->$key = $item;
+                if($item instanceof Zend_Config) {
+                    $this->$key = new Zend_Config($item->toArray(), !$this->readOnly());
+                } else {
+                    $this->$key = $item;
+                }
             }
         }
 
@@ -347,7 +351,17 @@ class Zend_Config implements Countable, Iterator
     {
         $this->_allowModifications = false;
     }
-
+    
+    /**
+     * Returns if this Zend_Config object is read only or not.
+     *
+     * @return boolean
+     */
+    public function readOnly()
+    {
+        return !$this->_allowModifications;
+    }
+    
     /**
      * Throws an exception if $extendingSection may not extend $extendedSection,
      * and tracks the section extension if it is valid.

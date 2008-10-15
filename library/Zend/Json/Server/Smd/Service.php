@@ -18,7 +18,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/** Zend_Json_Server_Smd */
+/**
+ * @see Zend_Json_Server_Smd
+ */
 require_once 'Zend/Json/Server/Smd.php';
 
 /**
@@ -26,7 +28,7 @@ require_once 'Zend/Json/Server/Smd.php';
  * 
  * @package    Zend_Json
  * @subpackage Server
- * @version    $Id: Service.php 9500 2008-05-22 19:24:30Z matthew $
+ * @version    $Id: Service.php 11823 2008-10-10 05:56:48Z yoshida@zend.co.jp $
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */

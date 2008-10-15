@@ -15,18 +15,12 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Module.php 10744 2008-08-07 02:32:44Z matthew $
+ * @version    $Id: Module.php 11510 2008-09-24 15:51:04Z doctorrock83 $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /** Zend_Controller_Router_Route_Abstract */
 require_once 'Zend/Controller/Router/Route/Abstract.php';
-
-/** Zend_Controller_Dispatcher_Interface */
-require_once 'Zend/Controller/Dispatcher/Interface.php';
-
-/** Zend_Controller_Request_Abstract */
-require_once 'Zend/Controller/Request/Abstract.php';
 
 /**
  * Module Route

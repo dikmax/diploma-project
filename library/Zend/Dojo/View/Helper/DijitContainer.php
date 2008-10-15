@@ -17,7 +17,7 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DijitContainer.php 10067 2008-07-12 21:05:32Z matthew $
+ * @version    $Id: DijitContainer.php 11745 2008-10-08 18:25:37Z zendbot $
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -67,7 +67,8 @@ abstract class Zend_Dojo_View_Helper_DijitContainer extends Zend_Dojo_View_Helpe
             'attribs' => $attribs,
         );
 
-        return ob_start();
+        ob_start();
+        return;
     }
 
     /**

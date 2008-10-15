@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 9577 2008-05-31 01:50:27Z peptolab $
+ * @version    $Id: Abstract.php 11818 2008-10-10 05:08:02Z yoshida@zend.co.jp $
  */
 
 
@@ -201,7 +201,7 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
      *
      * @param string|Zend_Db_Select $sql The SQL statement with placeholders.
      * @param array $bind An array of data to bind to the placeholders.
-     * @return Zend_Db_Pdo_Statement
+     * @return Zend_Db_Statement_Pdo
      * @throws Zend_Db_Adapter_Exception To re-throw PDOException.
      */
     public function query($sql, $bind = array())

@@ -46,8 +46,8 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
      * @var array Error message templates
      */
     protected $_messageTemplates = array(
-        self::TOO_BIG   => "The file '%value%' is bigger than allowed",
-        self::TOO_SMALL => "The file '%value%' is smaller than allowed",
+        self::TOO_BIG   => "Maximum allowed size for file '%value%' is '%max%' but '%size%' detected",
+        self::TOO_SMALL => "Minimum expected size for file '%value%' is '%min%' but '%size%' detected",
         self::NOT_FOUND => "The file '%value%' could not be found"
     );
 
@@ -55,8 +55,9 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
      * @var array Error message template variables
      */
     protected $_messageVariables = array(
-        'min' => '_min',
-        'max' => '_max'
+        'min'  => '_min',
+        'max'  => '_max',
+        'size' => '_size',
     );
 
     /**
@@ -75,25 +76,49 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
     protected $_max;
 
     /**
+     * Detected size
+     *
+     * @var integer
+     */
+    protected $_size;
+
+    /**
+     * Use bytestring ?
+     *
+     * @var boolean
+     */
+    protected $_bytestr;
+
+    /**
      * Sets validator options
      *
      * Min limits the filesize, when used with max=null it is the maximum filesize
      * It also accepts an array with the keys 'min' and 'max'
      *
-     * @param  integer|array $min Minimum filesize
-     * @param  integer       $max Maximum filesize
+     * @param  integer|array $min        Minimum filesize
+     * @param  integer       $max        Maximum filesize
+     * @param  boolean       $bytestring Use bytestring or real size
      * @return void
      */
-    public function __construct($min, $max = null)
+    public function __construct($min, $max = null, $bytestring = true)
     {
         if (is_array($min)) {
             $count = count($min);
             if (array_key_exists('min', $min)) {
+                if (array_key_exists('bytestring', $min)) {
+                    $bytestring = $min['bytestring'];
+                }
+
                 if (array_key_exists('max', $min)) {
                     $max = $min['max'];
                 }
 
                 $min = $min['min'];
+            } elseif ($count === 3) {
+                $minValue = array_shift($min);
+                $max = array_shift($min);
+                $bytestring = array_shift($min);
+                $min = $minValue;
             } elseif ($count === 2) {
                 $minValue = array_shift($min);
                 $max = array_shift($min);
@@ -102,8 +127,9 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
                 $min = array_shift($min);
                 $max = null;
             } else {
-                $min = 0;
-                $max = null;
+                $min        = 0;
+                $max        = null;
+                $bytestring = false;
             }
         }
 
@@ -114,6 +140,30 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
 
         $this->setMin($min);
         $this->setMax($max);
+        $this->useByteString($bytestring);
+    }
+
+    /**
+     * Returns the minimum filesize
+     *
+     * @param  boolean $bytestring Use bytestring ?
+     * @return integer
+     */
+    public function useByteString($bytestring = true)
+    {
+        $this->_bytestr = (boolean) $bytestring;
+
+        return $this;
+    }
+
+    /**
+     * Will bytestring be used ?
+     *
+     * @return boolean
+     */
+    public function isByteString()
+    {
+        return (boolean) $this->_bytestr;
     }
 
     /**
@@ -148,7 +198,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
                                             . " {$this->_max}");
         }
 
-        $this->_min = max(0, $min);
+        $this->_min    = max(0, $min);
         return $this;
     }
 
@@ -183,7 +233,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
             throw new Zend_Validate_Exception("The maximum must be greater than or equal to the minimum filesize, but "
                                             . "$max < {$this->_min}");
         } else {
-            $this->_max = $max;
+            $this->_max    = $max;
         }
 
         return $this;
@@ -208,17 +258,31 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
         }
 
         // limited to 4GB files
-        $size = sprintf("%u",@filesize($value));
-        $this->_setValue($size);
+        $this->_size    = sprintf("%u",@filesize($value));
+        $this->_sizestr = $this->_toByteString($this->_size);
 
         // Check to see if it's smaller than min size
-        if (($this->_min !== null) && ($size < $this->_min)) {
-            $this->_throw($file, self::TOO_SMALL);
+        if (($this->_min !== null) && ($this->_size < $this->_min)) {
+            if ($this->_bytestr) {
+                $min        = $this->_min;
+                $this->_min = $this->_toByteString($this->_min);
+                $this->_throw($file, self::TOO_SMALL);
+                $this->_min = $min;
+            } else {
+                $this->_throw($file, self::TOO_SMALL);
+            }
         }
 
         // Check to see if it's larger than max size
-        if (($this->_max !== null) && ($this->_max < $size)) {
-            $this->_throw($file, self::TOO_BIG);
+        if (($this->_max !== null) && ($this->_max < $this->_size)) {
+            if ($this->_bytestr) {
+                $max = $this->_max;
+                $this->_max = $this->_toByteString($this->_max);
+                $this->_throw($file, self::TOO_BIG);
+                $this->_max = $max;
+            } else {
+                $this->_throw($file, self::TOO_BIG);
+            }
         }
 
         if (count($this->_messages) > 0) {
@@ -237,7 +301,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
     protected function _toByteString($size) 
     {
         $sizes = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-        for ($i=0; $size > 1024 && $i < 9; $i++) {
+        for ($i=0; $size >= 1024 && $i < 9; $i++) {
             $size /= 1024;
         }
         return round($size, 2).$sizes[$i];

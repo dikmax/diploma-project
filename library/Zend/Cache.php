@@ -16,7 +16,7 @@
  * @package    Zend_Cache
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Cache.php 10893 2008-08-12 08:05:14Z fab $
+ * @version    $Id: Cache.php 11817 2008-10-10 04:24:20Z yoshida@zend.co.jp $
  */
 
 
@@ -195,6 +195,7 @@ abstract class Zend_Cache
         if (!$fh = @fopen($filename, 'r', true)) {
             return false;
         }
+        @fclose($fh);
         return true;
     }
 

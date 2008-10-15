@@ -16,7 +16,7 @@
  * @package    Zend_Dojo
  * @subpackage View
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Container.php 11353 2008-09-11 03:17:03Z matthew $
+ * @version    $Id: Container.php 11745 2008-10-08 18:25:37Z zendbot $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -575,7 +575,8 @@ class Zend_Dojo_View_Helper_Dojo_Container
         }
 
         $this->_captureLock = true;
-        return ob_start();
+        ob_start();
+        return;
     }
 
     /**
@@ -812,7 +813,8 @@ EOJ;
         }
 
         $this->_captureLock = true;
-        return ob_start();
+        ob_start();
+        return;
     }
 
     /**

@@ -13,39 +13,36 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Version
+ * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Version.php 11893 2008-10-12 10:34:58Z alexander $
+ * @version    $Id: DbTableSelect.php 11734 2008-10-08 13:57:28Z norm2782 $
  */
 
 /**
- * Class to store and retrieve the version of Zend Framework.
- *
+ * @see Zend_Paginator_Adapter_DbSelect
+ */
+require_once 'Zend/Paginator/Adapter/DbSelect.php';
+
+/**
  * @category   Zend
- * @package    Zend_Version
+ * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-final class Zend_Version
+class Zend_Paginator_Adapter_DbTableSelect extends Zend_Paginator_Adapter_DbSelect
 {
     /**
-     * Zend Framework version identification - see compareVersion()
-     */
-    const VERSION = '1.6.2';
-
-    /**
-     * Compare the specified Zend Framework version string $version
-     * with the current Zend_Version::VERSION of the Zend Framework.
+     * Returns a Zend_Db_Table_Rowset_Abstract of items for a page.
      *
-     * @param  string  $version  A version string (e.g. "0.7.1").
-     * @return boolean           -1 if the $version is older,
-     *                           0 if they are the same,
-     *                           and +1 if $version is newer.
-     *
+     * @param  integer $offset Page offset
+     * @param  integer $itemCountPerPage Number of items per page
+     * @return Zend_Db_Table_Rowset_Abstract
      */
-    public static function compareVersion($version)
+    public function getItems($offset, $itemCountPerPage)
     {
-        return version_compare($version, self::VERSION);
+        $this->_select->limit($itemCountPerPage, $offset);
+        
+        return $this->_select->getTable()->fetchAll($this->_select);
     }
 }

@@ -18,7 +18,7 @@
  * @subpackage Zend_OpenId_Consumer
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Consumer.php 10121 2008-07-16 09:12:52Z dmitry $
+ * @version    $Id: Consumer.php 11817 2008-10-10 04:24:20Z yoshida@zend.co.jp $
  */
 
 /**
@@ -94,7 +94,7 @@ class Zend_OpenId_Consumer
      *
      * @var string $_error
      */
-    private $_erro = '';
+    private $_error = '';
 
     /**
      * Constructs a Zend_OpenId_Consumer object with given $storage.
@@ -305,7 +305,7 @@ class Zend_OpenId_Consumer
                         (isset($params['openid_op_endpoint']) &&
                          $params['openid_op_endpoint'] != $discovered_server) ||
                         $discovered_version != $version) {
-                        $this->_setError("Dscovery information verification failed");
+                        $this->_setError("Discovery information verification failed");
                         return false;
                     }
                 }
@@ -329,7 +329,7 @@ class Zend_OpenId_Consumer
 
             if (!Zend_OpenId::normalize($id) ||
                 !$this->_discovery($id, $server, $discovered_version)) {
-                $this->_setError("Dscovery failed");
+                $this->_setError("Discovery failed");
                 return false;
             }
 
@@ -339,7 +339,7 @@ class Zend_OpenId_Consumer
                 (isset($params['openid_op_endpoint']) &&
                  $params['openid_op_endpoint'] != $server) ||
                 $discovered_version != $version) {
-                $this->_setError("Dscovery information verification failed");
+                $this->_setError("Discovery information verification failed");
                 return false;
             }
 

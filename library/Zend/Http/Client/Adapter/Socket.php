@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @version    $Id: Socket.php 9870 2008-07-02 07:28:04Z shahar $
+ * @version    $Id: Socket.php 11907 2008-10-12 17:20:19Z alexander $
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -219,11 +219,11 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
         // First, read headers only
         $response = '';
         $gotStatus = false;
-        while ($line = @fgets($this->socket)) {
+        while (($line = @fgets($this->socket)) !== false) {
             $gotStatus = $gotStatus || (strpos($line, 'HTTP') !== false);
             if ($gotStatus) {
                 $response .= $line;
-                if (!chop($line)) break;
+                if (rtrim($line) === '') break;
             }
         }
 
@@ -242,16 +242,8 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
         // Check headers to see what kind of connection / transfer encoding we have
         $headers = Zend_Http_Response::extractHeaders($response);
 
-        // if the connection is set to close, just read until socket closes
-        if (isset($headers['connection']) && $headers['connection'] == 'close') {
-            while ($buff = @fread($this->socket, 8192)) {
-                $response .= $buff;
-            }
-
-            $this->close();
-
-        // Else, if we got a transfer-encoding header (chunked body)
-        } elseif (isset($headers['transfer-encoding'])) {
+        // If we got a 'transfer-encoding: chunked' header
+        if (isset($headers['transfer-encoding'])) {
             if ($headers['transfer-encoding'] == 'chunked') {
                 do {
                     $chunk = '';
@@ -274,16 +266,20 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
                         $line = @fread($this->socket, $left_to_read);
                         $chunk .= $line;
                         $left_to_read -= strlen($line);
+                        
+                        // Break if the connection ended prematurely
+                        if (feof($this->socket)) break;
                     }
 
                     $chunk .= @fgets($this->socket);
                     $response .= $chunk;
                 } while ($chunksize > 0);
+                
             } else {
                 throw new Zend_Http_Client_Adapter_Exception('Cannot handle "' .
                     $headers['transfer-encoding'] . '" transfer encoding');
             }
-
+            
         // Else, if we got the content-length header, read this number of bytes
         } elseif (isset($headers['content-length'])) {
             $left_to_read = $headers['content-length'];
@@ -292,14 +288,23 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
                 $chunk = @fread($this->socket, $left_to_read);
                 $left_to_read -= strlen($chunk);
                 $response .= $chunk;
+                
+                // Break if the connection ended prematurely
+                if (feof($this->socket)) break;
             }
-        
-        // Fallback: just read the response (should not happen)
+                    
+        // Fallback: just read the response until EOF
         } else {
-            while ($buff = @fread($this->socket, 8192)) {
+            while (($buff = @fread($this->socket, 8192)) !== false) {
                 $response .= $buff;
+                if (feof($this->socket)) break;
             }
 
+            $this->close();
+        }
+        
+        // Close the connection if requested to do so by the server
+        if (isset($headers['connection']) && $headers['connection'] == 'close') {
             $this->close();
         }
 
