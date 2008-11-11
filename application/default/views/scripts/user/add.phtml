@@ -4,13 +4,15 @@
     url="/ajax/author-suggest"
     requestMethod="get"></div>
 
-<span title="Достаточно указать любого из авторов, если их несколько">Автор</span>:
-<input id="author" dojoType="dijit.form.ComboBox"
-    store="authorStore" pageSize="10" hasDownArrow="false" autoComplete="false" 
-    searchDelay="300" /><br />
+<form method="post" action="<?= $this->url(array('action' => 'add-process')); ?>">
+    <span title="Достаточно указать любого из авторов, если их несколько">Автор</span>:
+    <input id="author" dojoType="dijit.form.ComboBox"
+        store="authorStore" pageSize="10" hasDownArrow="false" autoComplete="false"
+        searchDelay="300" /><br />
 
-Название: <input id="title" dojoType="dijit.form.ComboBox" /><br />
-<input type="button" value="Добавить" />
+    Название: <input id="title" dojoType="dijit.form.ComboBox" /><br />
+    <input type="submit" value="Добавить" />
+</form>
 
 <? // setup required dojo elements:
 $this->dojo()->enable()

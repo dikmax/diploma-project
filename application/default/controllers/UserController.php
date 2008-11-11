@@ -33,16 +33,16 @@ class UserController extends Zend_Controller_Action
         $this->view->login = $this->_login;
         $this->view->headTitle($this->_login);
     }
-    
+
     /**
      * Shows user main profile page
      */
     public function profileAction()
     {
         $this->view->headTitle("профиль");
-        
+
         $user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
-        
+
         $this->view->user = $user;
         $this->view->writeboard = $user->getWriteboard();
     }
@@ -54,12 +54,20 @@ class UserController extends Zend_Controller_Action
     {
         $this->_forward("show", "blog");
     }
-    
+
     /**
      * Shows library add form
      */
     public function addAction()
     {
-        
+
+    }
+
+    /**
+     * Process add book to library
+     */
+    public function addProcessAction()
+    {
+        die('Handler must be here!');
     }
 }
