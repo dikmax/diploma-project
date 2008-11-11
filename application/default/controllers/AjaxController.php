@@ -17,7 +17,7 @@ class AjaxController extends Zend_Controller_Action
     {
         $response = $this->getResponse();
         $response->setHeader('Content-Type', 'text/json-comment-filtered');
-        
+
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setScriptAction('json-comment-filtered');
     }
