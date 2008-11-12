@@ -20,12 +20,12 @@ class TitleController extends Zend_Controller_Action
     {
         try {
             $authorUrl = $this->getRequest()->getParam('author');
-            $author = App_Library::getAuthorByUrl($authorUrl);
+            $author = App_Library_Author::getByName($authorUrl);
             $this->view->headTitle($author->getName());
             $this->view->author = $author;
-            
+
             $titleUrl = $this->getRequest()->getParam('title');
-            $title = App_Library::getTitleByUrl($author, $titleUrl);
+            $title = App_Library_Title::getByName($author, $titleUrl);
             $this->view->headTitle($title->getName());
             $this->view->title = $title;
         } catch (App_Library_Exception_AuthorNotFound $e) {
@@ -47,11 +47,11 @@ class TitleController extends Zend_Controller_Action
     {
         try {
             $authorUrl = $this->getRequest()->getParam('author');
-            $author = App_Library::getAuthorByUrl($authorUrl);
-            
+            $author = App_Library_Author::getByName($authorUrl);
+
             $titleUrl = $this->getRequest()->getParam('title');
-            $title = App_Library::getTitleByUrl($author, $titleUrl);
-            
+            $title = App_Library_Title::getByName($author, $titleUrl);
+
             $this->view->headTitle($author->getName())
                        ->headTitle($title->getName())
                        ->headTitle('Информация');
@@ -68,7 +68,7 @@ class TitleController extends Zend_Controller_Action
             ));
         }
     }
-    
+
     /**
      * Edit wiki page
      */
@@ -76,11 +76,11 @@ class TitleController extends Zend_Controller_Action
     {
         try {
             $authorUrl = $this->getRequest()->getParam('author');
-            $author = App_Library::getAuthorByUrl($authorUrl);
-            
+            $author = App_Library_Author::getByName($authorUrl);
+
             $titleUrl = $this->getRequest()->getParam('title');
-            $title = App_Library::getTitleByUrl($author, $titleUrl);
-            
+            $title = App_Library_Title::getByName($author, $titleUrl);
+
             $this->view->headTitle($author->getName())
                        ->headTitle($title->getName())
                        ->headTitle('Информация')
@@ -98,18 +98,19 @@ class TitleController extends Zend_Controller_Action
             ));
         }
     }
-    
+
     /**
      * Save wiki action
      */
     public function wikiSaveAction()
     {
+        // TODO rewrite for title's wiki save
         try {
             $authorUrl = $this->getRequest()->getParam('author');
-            $author = App_Library::getAuthorByUrl($authorUrl);
-            
+            $author = App_Library_Author::getByName($authorUrl);
+
             $text = $this->getRequest()->getParam('text');
-            
+
             if ($text == $author->getText()) {
                 // Text doesn't change. Nothing to do
             } else {
@@ -123,5 +124,5 @@ class TitleController extends Zend_Controller_Action
             ));
         }
     }
-    
+
 }

@@ -15,42 +15,35 @@ class App_Library_Title
 {
     /**
      * Index for database table <code>lib_title</code>
-     * 
+     *
      * @var int
      */
     protected $_libTitleId;
-    
+
     /**
      * Title string
-     * 
+     *
      * @var string
      */
     protected $_name;
-    
+
     /**
-     * Title url string
-     * 
-     * @var string
-     */
-    protected $_url;
-    
-    /**
-     * Index of authors in format "author1#url1#author2#url2"
-     * 
+     * Index of authors in format "author1#author2"
+     *
      * @var string
      */
     protected $_authorsIndex;
-    
+
     /**
-     * Array of author indices ('url' => 'name')
-     * 
+     * Array of author indices
+     *
      * @var array
      */
     protected $_authorsIndexArray;
-    
+
     /**
      * Description shown on front page
-     * 
+     *
      * @var string
      */
     protected $_frontDescription;
@@ -61,7 +54,7 @@ class App_Library_Title
      * @var int
      */
     protected $_writeboardId;
-    
+
     /**
      * Title's writeboard
      *
@@ -71,28 +64,27 @@ class App_Library_Title
 
     /**
      * ID of description text
-     * 
-     * @var int 
+     *
+     * @var int
      */
     protected $_descriptionId;
-    
+
     /**
      * Description text
-     * 
+     *
      * @var App_Text
      */
     protected $_description;
-    
+
     /**
      * Constructs title object
-     * 
+     *
      * @param array $construct
      * Available indices:
      * <ul>
      *   <li><code>lib_title_id</code>: database id (<b>int</b>)</li>
      *   <li><code>id</code>: alias for <code>lib_title_id</code> (<b>int</b>)</li>
      *   <li><code>name</code>: title string (<b>string</b>)</li>
-     *   <li><code>url</code>: title part of url (<b>string</b>)</li>
      *   <li><code>authors_index</code>: index of authors (<b>string</b>)</li>
      *   <li><code>description_text_id</code>: id of description text (<b>int</b>)</li>
      *   <li><code>front_description</code>: description on front page (<b>string</b>)</li>
@@ -109,121 +101,146 @@ class App_Library_Title
         } else {
             $this->_libTitleId = null;
         }
-        
+
         // Name
         $this->_name = isset($construct['name'])
             ? $construct['name']
-            : '';
-        
-        // Url
-        $this->_url = isset($construct['url'])
-            ? $construct['url']
             : '';
 
         // Authors index
         $this->_authorsIndex = isset($construct['authors_index'])
             ? $construct['authors_index']
             : '';
-        
+
         $this->_authorsIndexArray = null;
-            
+
         // Description
         $this->_descriptionId = isset($construct['description_text_id'])
             ? $construct['description_text_id']
             : '';
-        
+
         $this->_description = null;
 
         // Front description
         $this->_frontDescription = isset($construct['front_description'])
             ? $construct['front_description']
             : '';
-        
+
         // Writeboard
         $this->_writeboardId = isset($construct['lib_writeboard_id'])
             ? $construct['lib_writeboard_id']
             : null;
-        
+
         $this->_writeboard = null;
     }
-    
+
     /**
      * Writes/updates title into database
      */
     public function write()
     {
         $db = Zend_Registry::get('db');
-        
+
         if ($this->_libTitleId === null) {
             // TODO write create
         } else {
             $data = array(
                 'name' => $this->_name,
-                'url' => $this->_url,
                 'front_description' => $this->_frontDescription
             );
             $db->update('lib_title', $data,
                 $db->quoteInto('lib_title_id = ?', $this->_libTitleId));
         }
     }
-    
+
+    /**
+     * Returns title by name
+     *
+     * @param string|App_Library_Author $authorName author name
+     * @param string $titleName title
+     *
+     * @return App_Library_Title
+     *
+     * @throws App_Library_Exception_TitleNotFound
+     */
+    public static function getByName($authorName, $titleName)
+    {
+        if (!is_string($titleName)) {
+            throw new App_Library_Exception('Title url must be string');
+        }
+
+        if ($authorName instanceof App_Library_Author) {
+            $author = $authorName;
+        } else {
+            $author = App_Library_Author::getByName($authorName);
+        }
+        $authorId = $author->getId();
+
+        $db = Zend_Registry::get('db');
+        $row = $db->fetchRow('SELECT t.lib_title_id, t.name, '
+             .     't.authors_index, t.description_text_id, t.front_description, '
+             .     't.lib_writeboard_id '
+             . 'FROM lib_title t '
+             . 'LEFT JOIN lib_author_has_title h USING (lib_title_id) '
+             . 'WHERE h.lib_author_id = :lib_author_id AND t.name = :name',
+             array(':lib_author_id' => $authorId,
+                   ':name' => $titleName)
+        );
+
+        if ($row === false) {
+            throw new App_Library_Exception_TitleNotFound('Title ' . $titleName . ' not found');
+        }
+
+        return new self($row);
+    }
+
     /*
      * Setters and getters
      */
-    
+
     /**
      * Returns database id
-     * 
+     *
      * @return int
      */
     public function getLibTitleId()
     {
         return $this->_libTitleId;
     }
-    
+
     /**
      * Returns database id (alias for <code>getLibTitleId</code>)
-     * 
+     *
      * @return int
      */
     public function getId()
     {
         return $this->_libTitleId;
     }
-    
+
     /**
      * Returns title
-     * 
+     *
      * @return string
      */
     public function getName()
     {
         return $this->_name;
     }
-    
-    /**
-     * Returns title part or url
-     * 
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->_url;
-    }
-    
+
     /**
      * Returns id of description text
-     * 
+     *
      * @return int
      */
     public function getDescriptionId()
     {
         return $this->_descriptionId;
     }
-    
+
     /**
      * Returns description text object
-     * 
+     *
      * @return App_Text
      */
     public function getDescription()
@@ -233,20 +250,20 @@ class App_Library_Title
         }
         return $this->_description;
     }
-    
+
     /**
      * Returns description text. Shorthand for <code>getDescription()->getText()</code>
-     * 
+     *
      * @return string
      */
     public function getText()
     {
         return $this->getDescription()->getText();
     }
-    
+
     /**
      * Sets new text and updates front description
-     * 
+     *
      * @param string $text New text
      * @param boolean $noWrite <code>true<code> if don't update database
      */
@@ -254,17 +271,17 @@ class App_Library_Title
     {
         $this->getDescription(); // Ensure that $this->_description initialized
         $this->_description->setText($text);
-        
+
         // TODO write front description transform
         $this->_frontDescription = $text;
         if (!$noWrite) {
             $this->write();
         }
     }
-    
+
     /**
      * Returns description shown on main page
-     * 
+     *
      * @return string
      */
     public function getFrontDescription()
@@ -281,7 +298,7 @@ class App_Library_Title
     {
         return $this->_writeboardId;
     }
-    
+
     /**
      * Returns title writeboard
      *
@@ -300,24 +317,23 @@ class App_Library_Title
         }
         return $this->_writeboard;
     }
-    
+
     /**
      * Returns author index array ('url' => 'name')
-     * 
+     *
      * @return array
      */
     public function getAuthorsIndex()
     {
         if ($this->_authorsIndexArray === null) {
             $this->_authorsIndexArray = array();
-            
+
             $parts = explode('#', $this->_authorsIndex);
-            
-            for($i = 0; $i < count($parts); $i = $i + 2) {
-                if (!isset($parts[$i + 1]) || $parts[$i + 1] == '') {
-                    break;
+
+            for($i = 0; $i < count($parts); ++$i) {
+                if ($parts[$i] != '') {
+                    $this->_authorsIndexArray[] = $parts[$i];
                 }
-                $this->_authorsIndexArray[$parts[$i+1]] = $parts[$i];
             }
         }
         return $this->_authorsIndexArray;

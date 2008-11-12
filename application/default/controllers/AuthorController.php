@@ -20,7 +20,7 @@ class AuthorController extends Zend_Controller_Action
     {
         try {
             $authorUrl = $this->getRequest()->getParam('author');
-            $author = App_Library::getAuthorByUrl($authorUrl);
+            $author = App_Library_Author::getByName($authorUrl);
             $this->view->headTitle($author->getName());
             $this->view->author = $author;
             $this->view->frontImage = $author->getFrontImage();
@@ -30,7 +30,7 @@ class AuthorController extends Zend_Controller_Action
             ));
         }
     }
-    
+
     /**
      * Shows full wiki page
      */
@@ -38,7 +38,7 @@ class AuthorController extends Zend_Controller_Action
     {
         try {
             $authorUrl = $this->getRequest()->getParam('author');
-            $author = App_Library::getAuthorByUrl($authorUrl);
+            $author = App_Library_Author::getByName($authorUrl);
             $this->view->headTitle($author->getName())
                        ->headTitle('Информация');
             $this->view->author = $author;
@@ -48,7 +48,7 @@ class AuthorController extends Zend_Controller_Action
             ));
         }
     }
-    
+
     /**
      * Edit wiki page
      */
@@ -56,7 +56,7 @@ class AuthorController extends Zend_Controller_Action
     {
         try {
             $authorUrl = $this->getRequest()->getParam('author');
-            $author = App_Library::getAuthorByUrl($authorUrl);
+            $author = App_Library_Author::getByName($authorUrl);
             $this->view->headTitle($author->getName())
                        ->headTitle('Информация')
                        ->headTitle('Редактирование');
@@ -67,7 +67,7 @@ class AuthorController extends Zend_Controller_Action
             ));
         }
     }
-    
+
     /**
      * Save wiki action
      */
@@ -75,10 +75,10 @@ class AuthorController extends Zend_Controller_Action
     {
         try {
             $authorUrl = $this->getRequest()->getParam('author');
-            $author = App_Library::getAuthorByUrl($authorUrl);
-            
+            $author = App_Library_Author::getByName($authorUrl);
+
             $text = $this->getRequest()->getParam('text');
-            
+
             if ($text == $author->getText()) {
                 // Text doesn't change. Nothing to do
             } else {

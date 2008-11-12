@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemadesigner version="6.5">
 <source>
-<database charset="latin1" collation="latin1_swedish_ci">librarian</database>
+<database charset="utf8" collation="utf8_general_ci">librarian</database>
 </source>
 <canvas zoom="100">
 <tables>
 <table name="lib_author" view="colnames">
-<left>275</left>
+<left>276</left>
 <top>64</top>
 <width>184</width>
 <height>162</height>
 <sql_create_table>CREATE TABLE `lib_author` (
   `lib_author_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `name` varchar(100) NOT NULL COMMENT 'Display name',
-  `url` varchar(100) NOT NULL COMMENT 'Name used in url',
   `description_text_id` int(10) unsigned NOT NULL COMMENT 'ID with text description',
   `front_description` text NOT NULL COMMENT 'Description to show on main page',
   `lib_writeboard_id` int(10) unsigned NOT NULL COMMENT 'ID of author writeboard',
   PRIMARY KEY  (`lib_author_id`),
-  UNIQUE KEY `lib_author_url` (`url`),
   KEY `FK_lib_author` (`description_text_id`),
   KEY `FK_lib_author_writeboard` (`lib_writeboard_id`),
   CONSTRAINT `FK_lib_author_text` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_author_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Authors'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Authors'</sql_create_table>
 </table>
 <table name="lib_author_name" view="colnames">
 <left>20</left>
@@ -244,7 +242,6 @@
 <sql_create_table>CREATE TABLE `lib_title` (
   `lib_title_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `name` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
   `authors_index` varchar(255) NOT NULL COMMENT 'List of authors in format &quot;author1#url1#author2#url2#...&quot;',
   `description_text_id` int(10) unsigned NOT NULL,
   `front_description` text NOT NULL,
@@ -252,7 +249,6 @@
   PRIMARY KEY  (`lib_title_id`),
   KEY `FK_lib_author_title_writeboard` (`lib_writeboard_id`),
   KEY `FK_lib_author_title_description` (`description_text_id`),
-  KEY `lib_title_url` (`url`),
   CONSTRAINT `FK_lib_author_title_description` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_author_title_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
@@ -285,8 +281,9 @@
   `lib_author_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`lib_author_name_index_id`),
   KEY `FK_lib_author_name_index` (`lib_author_id`),
+  KEY `lib_author_name_word` (`word`(10)),
   CONSTRAINT `FK_lib_author_name_index` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 </tables>
 </canvas>

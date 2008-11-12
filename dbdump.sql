@@ -1,6 +1,6 @@
 /*
-SQLyog Enterprise - MySQL GUI v7.02 
-MySQL - 5.0.51a-3ubuntu5.1 : Database - librarian
+SQLyog Enterprise - MySQL GUI v7.11 
+MySQL - 5.0.67-0ubuntu6 : Database - librarian
 *********************************************************************
 */
 
@@ -11,6 +11,10 @@ MySQL - 5.0.51a-3ubuntu5.1 : Database - librarian
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`librarian` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `librarian`;
+
 /*Table structure for table `lib_author` */
 
 DROP TABLE IF EXISTS `lib_author`;
@@ -18,21 +22,19 @@ DROP TABLE IF EXISTS `lib_author`;
 CREATE TABLE `lib_author` (
   `lib_author_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `name` varchar(100) NOT NULL COMMENT 'Display name',
-  `url` varchar(100) NOT NULL COMMENT 'Name used in url',
   `description_text_id` int(10) unsigned NOT NULL COMMENT 'ID with text description',
   `front_description` text NOT NULL COMMENT 'Description to show on main page',
   `lib_writeboard_id` int(10) unsigned NOT NULL COMMENT 'ID of author writeboard',
   PRIMARY KEY  (`lib_author_id`),
-  UNIQUE KEY `lib_author_url` (`url`),
   KEY `FK_lib_author` (`description_text_id`),
   KEY `FK_lib_author_writeboard` (`lib_writeboard_id`),
   CONSTRAINT `FK_lib_author_text` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_author_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Authors';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Authors';
 
 /*Data for the table `lib_author` */
 
-insert  into `lib_author`(`lib_author_id`,`name`,`url`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Саймак, Клиффорд Доналд','clifford_simak',1,'Кли́ффорд До́налд Са́ймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.',3);
+insert  into `lib_author`(`lib_author_id`,`name`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Саймак, Клиффорд Доналд',1,'Кли́ффорд До́налд Са́ймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.',3),(2,'New author',1,'',3);
 
 /*Table structure for table `lib_author_has_title` */
 
@@ -94,10 +96,13 @@ CREATE TABLE `lib_author_name_index` (
   `lib_author_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`lib_author_name_index_id`),
   KEY `FK_lib_author_name_index` (`lib_author_id`),
+  KEY `lib_author_name_word` (`word`(10)),
   CONSTRAINT `FK_lib_author_name_index` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `lib_author_name_index` */
+
+insert  into `lib_author_name_index`(`lib_author_name_index_id`,`word`,`lib_author_id`) values (1,'Clifford',1),(2,'Simak',1);
 
 /*Table structure for table `lib_channel` */
 
@@ -228,7 +233,6 @@ DROP TABLE IF EXISTS `lib_title`;
 CREATE TABLE `lib_title` (
   `lib_title_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `name` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
   `authors_index` varchar(255) NOT NULL COMMENT 'List of authors in format "author1#url1#author2#url2#..."',
   `description_text_id` int(10) unsigned NOT NULL,
   `front_description` text NOT NULL,
@@ -236,14 +240,13 @@ CREATE TABLE `lib_title` (
   PRIMARY KEY  (`lib_title_id`),
   KEY `FK_lib_author_title_writeboard` (`lib_writeboard_id`),
   KEY `FK_lib_author_title_description` (`description_text_id`),
-  KEY `lib_title_url` (`url`),
   CONSTRAINT `FK_lib_author_title_description` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_author_title_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `lib_title` */
 
-insert  into `lib_title`(`lib_title_id`,`name`,`url`,`authors_index`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Город','city','Клиффорд Саймак#clifford_simak',1,'City',4);
+insert  into `lib_title`(`lib_title_id`,`name`,`authors_index`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Город','Клиффорд Саймак#clifford_simak',1,'City',4);
 
 /*Table structure for table `lib_user` */
 

@@ -4,15 +4,15 @@
 <?php if ($this->title->getFrontDescription() != ''): ?>
 <p><?= $this->title->getFrontDescription(); ?></p>
 <p>
-    <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'title' => $this->title->getUrl(), 'action' => 'wiki'), 'librarytitleaction') ?>">
+    <a href="<?= $this->url(array('author' => $this->author->getName(), 'title' => $this->title->getName(), 'action' => 'wiki'), 'librarytitleaction') ?>">
         Читать далее...
-    </a> | 
-    <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'title' => $this->title->getUrl(), 'action' => 'wiki-edit'), 'librarytitleaction') ?>">
+    </a> |
+    <a href="<?= $this->url(array('author' => $this->author->getName(), 'title' => $this->title->getName(), 'action' => 'wiki-edit'), 'librarytitleaction') ?>">
         Редактировать
     </a>
 </p>
 <?php else: ?>
-<p>У нас пока нет описания этого произведения. <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'title' => $this->title->getUrl(), 'action' => 'wiki-edit'), 'librarytitleaction') ?>">Есть желание помочь?</a></p>
+<p>У нас пока нет описания этого произведения. <a href="<?= $this->url(array('author' => $this->author->getName(), 'title' => $this->title->getName(), 'action' => 'wiki-edit'), 'librarytitleaction') ?>">Есть желание помочь?</a></p>
 <?php endif; ?>
 
 

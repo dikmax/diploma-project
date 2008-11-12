@@ -15,20 +15,20 @@
 <?php if ($this->author->getFrontDescription() != ''): ?>
 <p><?= $this->author->getFrontDescription(); ?></p>
 <p>
-    <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki'), 'libraryauthoraction') ?>">
+    <a href="<?= $this->url(array('author' => $this->author->getName(), 'action' => 'wiki'), 'libraryauthoraction') ?>">
         Читать далее...
     </a>
     <?php if ($this->isAllowed('wiki', 'edit')): ?>
-     | 
-    <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">
+     |
+    <a href="<?= $this->url(array('author' => $this->author->getName(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">
         Редактировать
     </a>
     <?php endif; ?>
 </p>
 <?php else: ?>
 <p>У нас пока нет описания этого автора.
-    <?php if ($this->isAllowed('wiki', 'edit')): ?> 
-        <a href="<?= $this->url(array('author' => $this->author->getUrl(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">Есть желание помочь?</a>
+    <?php if ($this->isAllowed('wiki', 'edit')): ?>
+        <a href="<?= $this->url(array('author' => $this->author->getName(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">Есть желание помочь?</a>
     <?php endif; ?>
 </p>
 <?php endif; ?>
@@ -40,8 +40,8 @@
     </div>
     <div class="body">
         <?php foreach ($this->titles as $title): ?>
-            <a href="<?= $this->url(array('author' => $this->author->getUrl(),
-                'title' => $title->getUrl()), 'librarytitle'); ?>"><?= $title->getName() ?></a><br />
+            <a href="<?= $this->url(array('author' => $this->author->getName(),
+                'title' => $title->getName()), 'librarytitle'); ?>"><?= $title->getName() ?></a><br />
         <?php endforeach; ?>
     </div>
 </div>

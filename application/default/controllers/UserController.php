@@ -68,6 +68,14 @@ class UserController extends Zend_Controller_Action
      */
     public function addProcessAction()
     {
+        $authorName = $this->getRequest()->getParam('author');
+        $titleName = $this->getRequest()->getParam('title');
+
+        try {
+            $author = App_Library_Author::getByName($authorName);
+        } catch (App_Library_Exception_AuthorNotFound $e) {
+            $author = null;
+        }
         die('Handler must be here!');
     }
 }

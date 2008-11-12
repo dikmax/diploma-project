@@ -6,11 +6,11 @@
 
 <form method="post" action="<?= $this->url(array('action' => 'add-process')); ?>">
     <span title="Достаточно указать любого из авторов, если их несколько">Автор</span>:
-    <input id="author" dojoType="dijit.form.ComboBox"
+    <input id="author" name="author" dojoType="dijit.form.ComboBox"
         store="authorStore" pageSize="10" hasDownArrow="false" autoComplete="false"
         searchDelay="300" /><br />
 
-    Название: <input id="title" dojoType="dijit.form.ComboBox" /><br />
+    Название: <input id="title" name="title" dojoType="dijit.form.ComboBox" /><br />
     <input type="submit" value="Добавить" />
 </form>
 
