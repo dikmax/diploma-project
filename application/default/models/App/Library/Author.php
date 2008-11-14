@@ -109,7 +109,7 @@ class App_Library_Author
         // Description
         $this->_descriptionId = isset($construct['description_text_id'])
             ? $construct['description_text_id']
-            : '';
+            : null;
 
         $this->_description = null;
 
@@ -139,8 +139,46 @@ class App_Library_Author
         $db = Zend_Registry::get('db');
 
         if ($this->_libAuthorId === null) {
-            // TODO write create
+            // Create new author
+            if ($this->_descriptionId === null) {
+                $description = new App_Text(array(
+                    'text' => ''
+                ));
+                $description->write();
+                $this->_descriptionId = $description->getId();
+                $this->_description = $description;
+            }
+
+            if ($this->_writeboardId === null) {
+                $writeboard = new App_Writeboard(array(
+                    'owner_description' => 'New author'
+                ));
+                $writeboard->write();
+
+                $this->_writeboardId = $writeboard->getId();
+                $this->_writeboard = $writeboard;
+            }
+
+            $data = array(
+                'name' => $this->_name,
+                'description_text_id' => $this->_descriptionId,
+                'front_description' => '',
+                'lib_writeboard_id' => $this->_writeboardId
+            );
+            $db->insert('lib_author', $data);
+
+            $this->_libAuthorId = $db->lastInsertId();
+            $writeboard->setOwnerDescription('Author ' . $this->_libAuthorId);
+            $writeboard->write();
+
+            // Adding default name
+            $data = array(
+                'lib_author_id' => $this->_libAuthorId,
+                'name' => $this->_name
+            );
+            $db->insert('lib_author_name', $data);
         } else {
+            // Update author
             $data = array(
                 'name' => $this->_name,
                 'front_description' => $this->_frontDescription

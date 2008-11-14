@@ -35,7 +35,7 @@
   PRIMARY KEY  (`lib_author_name_id`),
   KEY `FK_lib_author_name` (`lib_author_id`),
   CONSTRAINT `FK_lib_author_name` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Author different names names'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Author different names names'</sql_create_table>
 </table>
 <table name="lib_text" view="colnames">
 <left>618</left>

@@ -135,7 +135,6 @@ class App_Text extends App_Acl_Resource_Abstract {
             }
         } else {
             // Updates existing text
-
             $db->beginTransaction();
 
             try {

@@ -19,28 +19,35 @@ class App_Writeboard extends App_Acl_Resource_Abstract
      * @var int
      */
     protected $_libWriteboardId;
-    
+
     /**
      * Where writeboard belongs
      *
      * @var string
      */
     protected $_ownerDescription;
-    
+
     /**
      * Writeboard messages
      *
      * @var array
      */
     protected $_messages = null;
-    
+
     /**
      * Writeboard messages count
      *
      * @var int
      */
     protected $_messagesCount = null;
-    
+
+    /**
+     * Is writeboard changed
+     *
+     * @var boolean
+     */
+    protected $_changed = false;
+
     /**
      * Constructs writeboard object
      *
@@ -62,8 +69,9 @@ class App_Writeboard extends App_Acl_Resource_Abstract
             $this->_libWriteboardId = $construct['id'];
         } else {
             $this->_libWriteboardId = null;
+            $this->_changed = true;
         }
-        
+
         if (isset($construct['owner_description'])) {
             $this->_ownerDescription = (string)$construct['owner_description'];
         } else {
@@ -73,7 +81,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
             }
             $this->_ownerDescription = '';
         }
-        
+
         $this->registerResource();
     }
 
@@ -83,18 +91,20 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     public function write()
     {
         $db = Zend_Registry::get("db");
-        
+
         if ($this->_libWriteboardId === null) {
             // Creating new writeboard
             $data = array('owner_description' => $this->_ownerDescription);
             $db->insert('lib_writeboard', $data);
             $this->setLibWriteboardId($db->lastInsertId());
-        } else {
+        } else if ($this->_changed) {
             // Update writeboard
-            // Maybe later code appears here
+            $data = array('owner_description' => $this->_ownerDescription);
+            $db->update('lib_writeboard', $data,
+                $db->quoteInto('lib_writeboard_id = ?', $this->_libWriteboardId));
         }
     }
-    
+
     /**
      * Add new message to writeboard
      *
@@ -111,16 +121,16 @@ class App_Writeboard extends App_Acl_Resource_Abstract
         if (!($acl->isAllowed($aclRole, $this, 'add'))) {
             throw new App_Writeboard_Exception('You have no permission to write in writeboard');
         }
-        
+
         $writeboardMessage = new App_Writeboard_Message(array(
             'writeboard' => $this,
             'message' => $message,
             'writeboard_writer' => $user
         ));
-        
+
         $writeboardMessage->write();
     }
-    
+
     /**
      * Remove message from writeboard
      *
@@ -130,24 +140,24 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     {
         $acl = Zend_Registry::get('acl');
         $aclRole = Zend_Registry::get('aclRole');
-        
+
         $messages = $this->getMessages();
         if (!isset($messages[$messageid])) {
             throw new App_Writeboard_Exception("Message with id=$messageid doesn't exists");
         }
-        
+
         if (!$acl->isAllowed($aclRole, $messages[$messageid], 'delete')) {
             throw new App_Writeboard_Exception("You have no permission for delete message $messageid");
         }
-        
+
         $db = Zend_Registry::get('db');
-        
+
         $db->delete('lib_writeboard_message',
             $db->quoteInto('lib_writeboard_message_id = ?', $messageid));
     }
-    
+
     // Setters and getters
-    
+
     /**
      * Returns database id
      *
@@ -157,7 +167,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     {
         return $this->_libWriteboardId;
     }
-    
+
     /**
      * Sets new database id and registers in ACL
      *
@@ -169,7 +179,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
         $this->_libWriteboardId = $id;
         $this->registerResource();
     }
-    
+
     /**
      * Returns database id (alias for <code>getLibWriteboardId</code>)
      *
@@ -179,7 +189,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     {
         return $this->_libWriteboardId;
     }
-    
+
     /**
      * Returns owner description if it was readed from database or added manually
      * May not be useful
@@ -190,7 +200,24 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     {
         return $this->_ownerDescription;
     }
-    
+
+    /**
+     * Sets new owner description
+     *
+     * @param string $ownerDescription
+     */
+    public function setOwnerDescription($ownerDescription)
+    {
+        if (!is_string($ownerDescription)) {
+            throw new App_Writeboard_Exception('Owner description must be string');
+        }
+
+        if ($this->_ownerDescription !== $ownerDescription) {
+            $this->_ownerDescription = $ownerDescription;
+            $this->_changed = true;
+        }
+    }
+
     /**
      * Reads from database and returns messages
      *
@@ -200,7 +227,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     {
         if ($this->_messages === null) {
             $db = Zend_Registry::get('db');
-            
+
             $items = $db->fetchAll('SELECT lib_writeboard_message_id, '
                    . 'writeboard_writer, message, message_date '
                    . 'FROM lib_writeboard_message '
@@ -208,15 +235,15 @@ class App_Writeboard extends App_Acl_Resource_Abstract
                    . 'ORDER BY message_date DESC',
                    array(':lib_writeboard_id' => $this->_libWriteboardId));
             $this->_messagesCount = count($items);
-            
+
             // Extracting users
             $users = array();
             foreach ($items as $item) {
                 $users[] = $item['writeboard_writer'];
             }
-            
+
             $users = App_User_Factory::getInstance()->getUsers($users);
-            
+
             $result = array();
             foreach ($items as $item) {
                 $item['writeboard'] = $this;
@@ -228,7 +255,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
         }
         return $this->_messages;
     }
-    
+
     /**
      * Reads from database and returns count of messages
      *
@@ -238,7 +265,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     {
         if ($this->_messagesCount === null) {
             $db = Zend_Registry::get('db');
-            
+
             $count = $db->fetchOne('SELECT count(*) '
                    . 'FROM lib_writeboard_message '
                    . 'WHERE lib_writeboard_id = :lib_writeboard_id',
@@ -247,7 +274,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
         }
         return $this->_messagesCount;
     }
-    
+
     /**
      * Returns the string identifier of the Resource
      *
@@ -260,7 +287,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
         }
         return "writeboard-new";
     }
-    
+
     /**
      * Returns resource parent (for registering)
      *

@@ -76,6 +76,17 @@ class UserController extends Zend_Controller_Action
         } catch (App_Library_Exception_AuthorNotFound $e) {
             $author = null;
         }
+
+        if ($author === null) {
+            // New author: creating
+            $author = new App_Library_Author(array(
+                'name' => $authorName
+            ));
+
+            $author->write();
+        }
+
+
         die('Handler must be here!');
     }
 }
