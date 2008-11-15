@@ -29,7 +29,7 @@ class AuthController extends Zend_Controller_Action
             $auth->setIdentity($this->getRequest()->getParam('login'))
                 ->setCredential($this->getRequest()->getParam('password'));
             $result = $auth->authenticate();
-            
+
             if ($result->isValid()) {
                 $user = App_User_Factory::getInstance()->getUserByLogin($this->getRequest()->getParam('login'));
                 App_User_Factory::setSessionUser($user);
@@ -47,7 +47,7 @@ class AuthController extends Zend_Controller_Action
             $this->_helper->layout->setLayout('full-width');
         }
     }
-    
+
     /**
      * Logging out
      */
@@ -64,9 +64,9 @@ class AuthController extends Zend_Controller_Action
     public function showLoginAction()
     {
         $user = App_User_Factory::getSessionUser();
-        
-        $this->view->isLoggedIn = $user !== false;
-        if ($user !== false) {
+
+        $this->view->isLoggedIn = $user !== null;
+        if ($user !== null) {
             $this->view->login = $user->getLogin();
         }
     }

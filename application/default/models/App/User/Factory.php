@@ -64,12 +64,12 @@ class App_User_Factory
         $session = new Zend_Session_Namespace();
         if (!isset($session->userId)) {
             $session->userId = false;
-            return false;
+            return null;
         }
         if (is_numeric($session->userId)) {
             return $factory->getUser($session->userId);
         }
-        return false;
+        return null;
     }
 
     /**

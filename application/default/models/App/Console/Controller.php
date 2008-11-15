@@ -18,6 +18,7 @@ class App_Console_Controller
 
     /**
      * Constructs console controller
+     *
      * @param array $options
      */
     public function __construct ($controllersDirectory = '', $controllersClassPrefix = '')
@@ -32,11 +33,10 @@ class App_Console_Controller
         $this->_registeredControllers = null;
     }
 
-    private
     /**
      * Scan folder and registers all controllers
      */
-    private function scanControllersFolder()
+    protected function scanControllersFolder()
     {
         $this->_registeredControllers = array();
 
@@ -122,6 +122,8 @@ class App_Console_Controller
     }
 
     /**
+     * Returns folder with controllers
+     *
      * @return string
      */
     public function getControllersFolder()
@@ -130,6 +132,8 @@ class App_Console_Controller
     }
 
     /**
+     * Sets folder with controllers
+     *
      * @param string $controllersFolder
      */
     public function setControllersFolder($controllersFolder)
@@ -139,9 +143,11 @@ class App_Console_Controller
     }
 
     /**
+     * Returs list of registered controllers
+     *
      * @return array
      */
-    public function getRegisteredControllers ()
+    public function getRegisteredControllers()
     {
         if ($this->_registeredControllers === null) {
             $this->scanControllersFolder();

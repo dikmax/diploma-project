@@ -68,6 +68,15 @@ class UserController extends Zend_Controller_Action
      */
     public function addProcessAction()
     {
+        $user = App_User_Factory::getSessionUser();
+
+        if ($user === null) {
+            //$this->_helper->viewRenderer->setNoRender();
+            $this->_redirect($this->view->url(array('action' => 'show-login'), 'auth'));
+
+            return;
+        }
+
         $authorName = $this->getRequest()->getParam('author');
         $titleName = $this->getRequest()->getParam('title');
 
@@ -102,6 +111,8 @@ class UserController extends Zend_Controller_Action
 
             $title->write();
         }
+
+        $user->getBookshelf()->addTitle($title);
 
         die('Handler must be here!');
     }

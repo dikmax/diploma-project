@@ -113,7 +113,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     public function addMessage($message)
     {
         $user = App_User_Factory::getSessionUser();
-        if ($user === false) {
+        if ($user === null) {
             throw new App_Writeboard_Message_Exception('Can\'t create writeboard message without user');
         }
         $acl = Zend_Registry::get('acl');

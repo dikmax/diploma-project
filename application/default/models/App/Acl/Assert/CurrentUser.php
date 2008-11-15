@@ -27,7 +27,7 @@ class App_Acl_Assert_CurrentUser implements Zend_Acl_Assert_Interface
     {
         $pageOwner = Zend_Controller_Front::getInstance()->getRequest()->getParam('login');
         $user = App_User_Factory::getSessionUser();
-        if ($user !== false) {
+        if ($user !== null) {
             if ($user->getLogin() == $pageOwner) {
                 return true;
             }

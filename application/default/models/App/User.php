@@ -22,49 +22,49 @@ class App_User implements Zend_Acl_Role_Interface
      * @var int
      */
     protected $_libUserId;
-    
+
     /**
      * User name
      *
      * @var string
      */
     protected $_login;
-    
+
     /**
      * MD5 of user password
      *
      * @var string
      */
     protected $_password;
-    
+
     /**
      * User registration date
      *
      * @var App_Date
      */
     protected $_registrationDate;
-    
+
     /**
      * User last login date
      *
      * @var App_Date
      */
     protected $_loginDate;
-    
+
     /**
      * User last login IP
      *
      * @var string
      */
     protected $_loginIP;
-    
+
     /**
      * User personal writeboard id
      *
      * @var int
      */
     protected $_writeboardId;
-    
+
     /**
      * User personal writeboard.
      * Constructs on first request
@@ -72,14 +72,14 @@ class App_User implements Zend_Acl_Role_Interface
      * @var App_Writeboard
      */
     protected $_writeboard;
-    
+
     /**
      * User bookshelf
-     * 
+     *
      * @var App_User_Bookshelf
      */
     protected $_bookshelf;
-    
+
     /**
      * Constructs user object
      *
@@ -108,42 +108,42 @@ class App_User implements Zend_Acl_Role_Interface
         } else {
             $this->_libUserId = null;
         }
-        
+
         // Login
         if (isset($construct['login'])) {
             $this->_login = $construct['login'];
         } else {
             $this->_login = ''; // Not current user or guest
         }
-        
+
         // Password
         if (isset($construct['password'])) {
             $this->_password = $construct['password'];
         } else {
             $this->_password = ''; // Not current user or guest
         }
-        
+
         // Registration date
         if (isset($construct['registration_date'])) {
             $this->_registrationDate = new App_Date($construct['registration_date']);
         } else {
             $this->_registrationDate = App_Date::now();
         }
-        
+
         // Login date
         if (isset($construct['login_date'])) {
             $this->_loginDate = new App_Date($construct['login_date']);
         } else {
             $this->_loginDate = App_Date::now();
         }
-        
+
         // Login ip
         if (isset($construct['login_ip']) && is_string($construct['login_ip'])) {
             $this->_loginIP = $construct['login_ip'];
         } else {
             $this->_loginIP = '0.0.0.0';
         }
-        
+
         // Writeboard
         if (isset($construct['lib_writeboard_id'])) {
             $this->_writeboardId = $construct['lib_writeboard_id'];
@@ -152,10 +152,10 @@ class App_User implements Zend_Acl_Role_Interface
         }
         $this->_writeboard = null;
         // THINK maybe it would be useful to create 'writeboard' index
-        
+
         // Bookshelf
         $this->_bookshelf = null;
-        
+
         $this->registerRole();
     }
 
@@ -163,11 +163,11 @@ class App_User implements Zend_Acl_Role_Interface
     {
         throw new App_Exception("App_User serialization isn't allowed.");
     }
-    
+
     /*
      * Work with ACL
      */
-    
+
     /**
      * Registers role in ACL system
      */
@@ -177,7 +177,7 @@ class App_User implements Zend_Acl_Role_Interface
             Zend_Registry::get('acl')->addRole($this, 'user');
         }
     }
-    
+
     /**
      * Unregisters role from ACL system
      */
@@ -185,11 +185,11 @@ class App_User implements Zend_Acl_Role_Interface
     {
         Zend_Registry::get('acl')->removeRole($this);
     }
-    
+
     /*
      * Setters and getters
      */
-    
+
     /**
      * Returns database id
      *
@@ -199,7 +199,7 @@ class App_User implements Zend_Acl_Role_Interface
     {
         return $this->_libUserId;
     }
-    
+
     /**
      * Returns database id (alias for <code>getLibUserId</code>)
      *
@@ -209,7 +209,7 @@ class App_User implements Zend_Acl_Role_Interface
     {
         return $this->_libUserId;
     }
-    
+
     /**
      * Returns user login
      *
@@ -219,7 +219,7 @@ class App_User implements Zend_Acl_Role_Interface
     {
         return $this->_login;
     }
-    
+
     /**
      * Returns user registration date
      *
@@ -229,7 +229,7 @@ class App_User implements Zend_Acl_Role_Interface
     {
         return $this->_registrationDate;
     }
-    
+
     /**
      * Returns user last login date
      *
@@ -239,7 +239,7 @@ class App_User implements Zend_Acl_Role_Interface
     {
         return $this->_loginDate;
     }
-    
+
     /**
      * Returns user login ip
      *
@@ -249,7 +249,7 @@ class App_User implements Zend_Acl_Role_Interface
     {
         return $this->_loginIP;
     }
-    
+
     /**
      * Returns user personal writeboard
      *
@@ -266,7 +266,7 @@ class App_User implements Zend_Acl_Role_Interface
         }
         return $this->_writeboard;
     }
-    
+
     /**
      * Returns user personal writeboard id
      *
@@ -276,10 +276,10 @@ class App_User implements Zend_Acl_Role_Interface
     {
         return $this->_writeboardId;
     }
-    
+
     /**
      * Returns user bookshelf
-     * 
+     *
      * @return App_User_Bookshelf
      */
     public function getBookshelf()
@@ -289,9 +289,9 @@ class App_User implements Zend_Acl_Role_Interface
         }
         return $this->_bookshelf;
     }
-    
+
     // Zend_Acl_Role_Interface implementation
-    
+
     /**
      * Returns the string identifier of the Role
      *
@@ -304,5 +304,5 @@ class App_User implements Zend_Acl_Role_Interface
         }
         return "user-new";
     }
-    
+
 }

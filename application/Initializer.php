@@ -240,7 +240,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
 
         // Detection of acl role
         $user = App_User_Factory::getSessionUser();
-        if ($user === false) {
+        if ($user === null) {
             $aclRole = 'guest';
         } else {
             $aclRole = $user;

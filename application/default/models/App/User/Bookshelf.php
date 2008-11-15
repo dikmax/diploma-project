@@ -21,6 +21,13 @@ class App_User_Bookshelf
     protected $_user;
 
     /**
+     * Titles in bookshelf
+     *
+     * @var array
+     */
+    protected $_titles;
+
+    /**
      * Constructs user bookshelf object
      *
      * @param array $construct
@@ -40,25 +47,49 @@ class App_User_Bookshelf
         } else {
             throw new App_User_Bookshelf_Exception('user index is obligatory');
         }
+
+        $this->_titles = null;
     }
 
     public function getTitles()
     {
+        if ($this->_titles === null) {
+            $db = Zend_Registry::get('db');
+
+            // TODO Delete some fields
+            $titles = $db->fetchAll('SELECT t.lib_title_id, t.name, '
+                    .     't.authors_index, t.description_text_id, '
+                    .     't.front_description, t.lib_writeboard_id '
+                    . 'FROM lib_user_bookshelf s '
+                    . 'LEFT JOIN lib_title t USING (lib_title_id) '
+                    . 'WHERE s.lib_user_id = :lib_user_id',
+                    array(':lib_user_id' => $this->_user->getId()));
+
+            $this->_titles = array();
+            foreach ($titles as $title) {
+                $this->_titles[] = new App_Library_Title($title);
+            }
+        }
+        return $this->_titles;
+    }
+
+    /**
+     * Adds new title to bookshelf
+     *
+     * @param App_Library_Title $title
+     */
+    public function addTitle(App_Library_Title $title)
+    {
         $db = Zend_Registry::get('db');
 
-        // TODO Delete some fields
-        $titles = $db->fetchAll('SELECT t.lib_title_id, t.name, '
-                .     't.authors_index, t.description_text_id, '
-                .     't.front_description, t.lib_writeboard_id '
-                . 'FROM lib_user_bookshelf s '
-                . 'LEFT JOIN lib_title t USING (lib_title_id) '
-                . 'WHERE s.lib_user_id = :lib_user_id',
-                array(':lib_user_id' => $this->_user->getId()));
+        $data = array(
+            'lib_user_id' => $this->_user->getId(),
+            'lib_title_id' => $title->getId()
+        );
+        $db->insert('lib_user_bookshelf', $data);
 
-        $result = array();
-        foreach ($titles as $title) {
-            $result[] = new App_Library_Title($title);
+        if ($this->_titles !== null) {
+            $this->_titles[] = $title;
         }
-        return $result;
     }
 }
