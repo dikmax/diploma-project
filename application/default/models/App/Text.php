@@ -124,7 +124,7 @@ class App_Text extends App_Acl_Resource_Abstract {
                 $data = array('lib_text_revision_id' => $this->_revision->getId(),
                               'cdate' => $this->_cdate->toMysqlString());
                 $db->insert('lib_text', $data);
-                $this->_libTextId = $db->lastInsertId();
+                $this->setLibTextId($db->lastInsertId());
 
                 $this->_revision->writeLibTextId();
 
@@ -212,6 +212,18 @@ class App_Text extends App_Acl_Resource_Abstract {
     public function getLibTextId()
     {
         return $this->_libTextId;
+    }
+
+    /**
+     * Sets new database id and registers in ACL
+     *
+     * @param int $id
+     */
+    protected function setLibTextId($id)
+    {
+        $this->unregisterResource();
+        $this->_libTextId = $id;
+        $this->registerResource();
     }
 
     /**

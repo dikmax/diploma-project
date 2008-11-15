@@ -35,6 +35,13 @@ class App_Library_Title
     protected $_authorsIndex;
 
     /**
+     * Title authors
+     *
+     * @var array
+     */
+    protected $_authors;
+
+    /**
      * Array of author indices
      *
      * @var array
@@ -85,6 +92,7 @@ class App_Library_Title
      *   <li><code>lib_title_id</code>: database id (<b>int</b>)</li>
      *   <li><code>id</code>: alias for <code>lib_title_id</code> (<b>int</b>)</li>
      *   <li><code>name</code>: title string (<b>string</b>)</li>
+     *   <li><code>authors</code>: authors (<b>array</b>)</li>
      *   <li><code>authors_index</code>: index of authors (<b>string</b>)</li>
      *   <li><code>description_text_id</code>: id of description text (<b>int</b>)</li>
      *   <li><code>front_description</code>: description on front page (<b>string</b>)</li>
@@ -107,17 +115,32 @@ class App_Library_Title
             ? $construct['name']
             : '';
 
+        // Authors
+        $this->_authors = isset($construct['authors'])
+            ? $construct['authors']
+            : null;
+
         // Authors index
-        $this->_authorsIndex = isset($construct['authors_index'])
-            ? $construct['authors_index']
-            : '';
+        if (isset($construct['authors_index'])) {
+            $this->_authorsIndex = $construct['authors_index'];
+        } else if ($this->_authors !== null) {
+            $this->_authorsIndex = '';
+            foreach ($this->_authors as $author) {
+                if ($this->_authorsIndex !== '') {
+                    $this->_authorsIndex .= '#';
+                }
+                $this->_authorsIndex .= $author->getName();
+            }
+        } else {
+            $this->_authorsIndex = '';
+        }
 
         $this->_authorsIndexArray = null;
 
         // Description
         $this->_descriptionId = isset($construct['description_text_id'])
             ? $construct['description_text_id']
-            : '';
+            : null;
 
         $this->_description = null;
 
@@ -142,7 +165,53 @@ class App_Library_Title
         $db = Zend_Registry::get('db');
 
         if ($this->_libTitleId === null) {
-            // TODO write create
+            // Create new title
+
+            // Creating description
+            if ($this->_descriptionId === null) {
+                $description = new App_Text(array(
+                    'text' => ''
+                ));
+                $description->write();
+                $this->_descriptionId = $description->getId();
+                $this->_description = $description;
+            }
+
+            // Creating writeboard
+            if ($this->_writeboardId === null) {
+                $writeboard = new App_Writeboard(array(
+                    'owner_description' => 'New title'
+                ));
+                $writeboard->write();
+
+                $this->_writeboardId = $writeboard->getId();
+                $this->_writeboard = $writeboard;
+            }
+
+            $data = array(
+                'name' => $this->_name,
+                'authors_index' => $this->_authorsIndex,
+                'description_text_id' => $this->_descriptionId,
+                'front_description' => '',
+                'lib_writeboard_id' => $this->_writeboardId
+            );
+            $db->insert('lib_title', $data);
+
+            // Updating writoboard
+            $this->_libTitleId = $db->lastInsertId();
+            $writeboard->setOwnerDescription('Title ' . $this->_libTitleId);
+            $writeboard->write();
+
+            // Creating link with authors
+            if ($this->_authors !== null) {
+                foreach ($this->_authors as $author) {
+                    $data = array(
+                        'lib_author_id' => $author->getId(),
+                        'lib_title_id' => $this->_libTitleId
+                    );
+                    $db->insert('lib_author_has_title', $data);
+                }
+            }
         } else {
             $data = array(
                 'name' => $this->_name,
@@ -316,6 +385,20 @@ class App_Library_Title
             }
         }
         return $this->_writeboard;
+    }
+
+    /**
+     * Returns array of authors
+     *
+     * @return array
+     */
+    public function getAuthors()
+    {
+        if ($this->_authors === null) {
+            $this->_authors = array();
+            // TODO write reading list of authors
+        }
+        return $this->_authors;
     }
 
     /**
