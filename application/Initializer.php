@@ -306,6 +306,8 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initRoutes()
     {
+        // TODO add routes caching
+
         $router = $this->_front->getRouter();
 
         $router->removeDefaultRoutes();
@@ -334,6 +336,13 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             new Zend_Controller_Router_Route('writeboard/:action', array(
                 'controller' => 'writeboard',
                 'action' => 'index'
+            ))
+        );
+
+        $router->addRoute('bookshelf',
+            new Zend_Controller_Router_Route('bookshelf/:action', array(
+                'controller' => 'bookshelf',
+                'action' => 'show'
             ))
         );
 

@@ -1,0 +1,6 @@
+<h1>Книжная полка</h1>
+
+<?php $titles = $this->user->getBookshelf()->getTitles(); ?>
+<?php foreach ($titles as $title): ?>
+    <?= $this->titleLink($title); ?><br />
+<?php endforeach; ?>

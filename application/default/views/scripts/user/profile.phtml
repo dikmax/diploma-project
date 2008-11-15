@@ -34,11 +34,11 @@
         <div class="header">
             <?php if ($this->isAllowed("profile", "edit")): ?>
             <div class="edit">
-                <a href="<?= $this->url(array('action' => 'add')); ?>">[добавить]</a>
+                <a href="<?= $this->url(array('action' => 'add'), 'bookshelf'); ?>">[добавить]</a>
                 [редактировать]
             </div>
             <?php endif; ?>
-            Библиотека
+            Книжная полка
         </div>
         <div class="body">
             <?php $titles = $this->user->getBookshelf()->getTitles(); ?>
