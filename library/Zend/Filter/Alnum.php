@@ -17,7 +17,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Alnum.php 9266 2008-04-21 06:13:27Z yoshida@zend.co.jp $
+ * @version    $Id: Alnum.php 12501 2008-11-10 16:28:31Z matthew $
  */
 
 
@@ -80,10 +80,10 @@ class Zend_Filter_Alnum implements Zend_Filter_Interface
         }
 
         if (null === self::$_meansEnglishAlphabet) {
-        	$this->_locale = new Zend_Locale(Zend_Locale::BROWSER);
-        	self::$_meansEnglishAlphabet = in_array($this->_locale->getLanguage(),
-        											array('ja')
-									                );
+            $this->_locale = new Zend_Locale(Zend_Locale::BROWSER);
+            self::$_meansEnglishAlphabet = in_array($this->_locale->getLanguage(),
+                                                    array('ja')
+                                                    );
         }
        
     }
@@ -103,10 +103,10 @@ class Zend_Filter_Alnum implements Zend_Filter_Interface
             // POSIX named classes are not supported, use alternative a-zA-Z0-9 match
             $pattern = '/[^a-zA-Z0-9' . $whiteSpace . ']/';
         } else if (self::$_meansEnglishAlphabet) {
-        	//The Alphabet means english alphabet.
+            //The Alphabet means english alphabet.
             $pattern = '/[^a-zA-Z0-9'  . $whiteSpace . ']/u';
         } else {
-        	//The Alphabet means each language's alphabet.
+            //The Alphabet means each language's alphabet.
             $pattern = '/[^\p{L}\p{N}' . $whiteSpace . ']/u';
         }
 

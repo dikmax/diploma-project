@@ -17,7 +17,7 @@
  * @package    Zend_Session
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Session.php 11746 2008-10-08 18:33:39Z norm2782 $
+ * @version    $Id: Session.php 12385 2008-11-07 20:18:43Z thomas $
  * @since      Preview Release 0.2
  */
 
@@ -96,6 +96,7 @@ class Zend_Session extends Zend_Session_Abstract
         'cookie_path'               => null,
         'cookie_domain'             => null,
         'cookie_secure'             => null,
+        'cookie_httponly'           => null,
         'use_cookies'               => null,
         'use_only_cookies'          => 'on',
         'referer_check'             => null,
@@ -368,6 +369,17 @@ class Zend_Session extends Zend_Session_Abstract
         }
 
         return false;
+    }
+
+
+    /**
+     * Whether or not session has been destroyed via session_destroy()
+     *
+     * @return bool
+     */
+    public static function isDestroyed()
+    {
+        return self::$_destroyed;
     }
 
 

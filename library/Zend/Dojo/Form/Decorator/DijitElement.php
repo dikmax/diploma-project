@@ -38,7 +38,7 @@ require_once 'Zend/Form/Decorator/ViewHelper.php';
  * @subpackage Form_Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DijitElement.php 10198 2008-07-18 22:46:53Z matthew $
+ * @version    $Id: DijitElement.php 12374 2008-11-07 17:49:43Z matthew $
  */
 class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelper
 {
@@ -156,11 +156,6 @@ class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelp
             throw new Zend_Form_Decorator_Exception('DijitElement decorator cannot render without a registered view object');
         }
 
-        $dijitParams = $this->getDijitParams();
-        if ($element->isRequired()) {
-            $dijitParams['required'] = true;
-        }
-
         $options = null;
         if (method_exists($element, 'getMultiOptions')) {
             $options = $element->getMultiOptions();
@@ -171,6 +166,11 @@ class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelp
         $value     = $this->getValue($element);
         $attribs   = $this->getElementAttribs();
         $name      = $element->getFullyQualifiedName();
+
+        $dijitParams = $this->getDijitParams();
+        if ($element->isRequired()) {
+            $dijitParams['required'] = true;
+        }
 
         $id = $element->getId();
         if ($view->dojo()->hasDijit($id)) {
