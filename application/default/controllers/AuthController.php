@@ -54,7 +54,7 @@ class AuthController extends Zend_Controller_Action
     public function logoutAction()
     {
         Zend_Session::destroy();
-        $this->_helper->redirector->gotoAndExit('index', 'index');
+        $this->_redirect($this->_helper->url('index', 'index'));
     }
 
     /**
@@ -70,4 +70,33 @@ class AuthController extends Zend_Controller_Action
             $this->view->login = $user->getLogin();
         }
     }
+
+    /**
+     * Shows registration form
+     */
+    public function registrationAction()
+    {
+        $user = App_User_Factory::getSessionUser();
+
+        if ($user !== null) {
+            $this->_redirect($this->url->url(array(
+                'controller' => 'user',
+                'action' => 'profile',
+                'login' => $user->getLogin()
+            ), 'user'));
+        }
+
+        $form = new App_Form_Auth_Registration();
+
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+                App_User_Factory::getInstance()->registerUser($form->getValues());
+                $this->_redirect($this->_helper->url('index', 'index'));
+                // TODO show registration done message
+            }
+        }
+        $this->view->form = $form;
+    }
+
+
 }

@@ -37,8 +37,11 @@
                 <a href="<?= $this->url(array('action' => 'add'), 'bookshelf'); ?>">[добавить]</a>
                 [редактировать]
             </div>
-            <?php endif; ?>
+            <a href="<?= $this->url(array(), 'bookshelf'); ?>">Книжная полка</a>
+            <?php else: ?>
             Книжная полка
+            <?php endif; ?>
+
         </div>
         <div class="body">
             <?php $titles = $this->user->getBookshelf()->getTitles(); ?>

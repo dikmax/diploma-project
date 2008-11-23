@@ -38,6 +38,13 @@ class App_User implements Zend_Acl_Role_Interface
     protected $_password;
 
     /**
+     * User email
+     *
+     * @var string
+     */
+    protected $_email;
+
+    /**
      * User registration date
      *
      * @var App_Date
@@ -90,6 +97,7 @@ class App_User implements Zend_Acl_Role_Interface
      *   <li><code>id</code>: alias for <code>lib_user_id</code> (<b>int</b>)</li>
      *   <li><code>login</code>: user login (<b>string</b>)</li>
      *   <li><code>password</code>: user password (<b>string</b>)</li>
+     *   <li><code>email</code>: user email (<b>string</b>)</li>
      *   <li><code>registration_date</code>: user registration date
      *       (<b>int|string|array|App_Date</b>)</li>
      *   <li><code>login_date</code>: user last login date
@@ -123,6 +131,11 @@ class App_User implements Zend_Acl_Role_Interface
             $this->_password = ''; // Not current user or guest
         }
 
+        // Email
+        $this->_email = isset($construct['email'])
+                      ? $construct['email']
+                      : '';
+
         // Registration date
         if (isset($construct['registration_date'])) {
             $this->_registrationDate = new App_Date($construct['registration_date']);
@@ -151,7 +164,7 @@ class App_User implements Zend_Acl_Role_Interface
             $this->_writeboardId = null;
         }
         $this->_writeboard = null;
-        // THINK maybe it would be useful to create 'writeboard' index
+        // THINK maybe it would be useful to create 'writeboard' index in $construct
 
         // Bookshelf
         $this->_bookshelf = null;
@@ -159,9 +172,47 @@ class App_User implements Zend_Acl_Role_Interface
         $this->registerRole();
     }
 
+    /**
+     * Serialization
+     *
+     * @throws App_Exception
+     */
     public function __sleep()
     {
         throw new App_Exception("App_User serialization isn't allowed.");
+    }
+
+    public function write()
+    {
+        if ($this->_libUserId === null) {
+            // Create new user
+            $db = Zend_Registry::get('db');
+
+            if ($this->_writeboardId === null) {
+                $writeboard = new App_Writeboard(array(
+                    'owner_description' => 'New user'
+                ));
+                $writeboard->write();
+
+                $this->_writeboardId = $writeboard->getId();
+                $this->_writeboard = $writeboard;
+            }
+
+            $data = array(
+                'login' => $this->_login,
+                'password' => $this->_password,
+                'email' => $this->_email,
+                'registration_date' => $this->_registrationDate,
+                'lib_writeboard_id' => $this->_writeboardId
+            );
+            $db->insert('lib_user', $data);
+
+            $this->setLibUserId($db->lastInsertId());
+            $writeboard->setOwnerDescription('User ' . $this->_libUserId);
+            $writeboard->write();
+        } else {
+            // TODO write update user
+        }
     }
 
     /*
@@ -201,6 +252,18 @@ class App_User implements Zend_Acl_Role_Interface
     }
 
     /**
+     * Sets new database id and registers it in ACL
+     *
+     * @param int $id
+     */
+    protected function setLibUserId($id)
+    {
+        $this->unregisterRole();
+        $this->_libUserId = $id;
+        $this->registerRole();
+    }
+
+    /**
      * Returns database id (alias for <code>getLibUserId</code>)
      *
      * @return int
@@ -218,6 +281,16 @@ class App_User implements Zend_Acl_Role_Interface
     public function getLogin()
     {
         return $this->_login;
+    }
+
+    /**
+     * Returns user email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->_email;
     }
 
     /**

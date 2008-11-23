@@ -113,8 +113,9 @@ class App_User_Factory
 
         $select = $db->select();
         $select->from('lib_user',
-                      array('lib_user_id', 'login', 'password',
-                            'registration_date', 'login_date', 'login_ip', 'lib_writeboard_id'));
+                      array('lib_user_id', 'login', 'password', 'email',
+                            'registration_date', 'login_date', 'login_ip',
+                            'lib_writeboard_id'));
 
         if (is_numeric($cond)) {
             $select->where("lib_user_id = ?", $cond);
@@ -160,6 +161,17 @@ class App_User_Factory
     }
 
     /**
+     * Returns user with specified email from database
+     *
+     * @param string $login User login
+     * @return App_User
+     */
+    public function getUserByEmail($email)
+    {
+        return $this->getUser('email = ?', $email);
+    }
+
+    /**
      * Returns users by ids list
      *
      * @return array
@@ -183,7 +195,8 @@ class App_User_Factory
             $db = Zend_Registry::get('db');
 
             $newusers = $db->fetchAll('SELECT lib_user_id, login, password, '
-                      . 'registration_date, login_date, login_ip, lib_writeboard_id '
+                      . 'email, registration_date, login_date, login_ip, '
+                      . 'lib_writeboard_id '
                       . 'FROM lib_user '
                       . 'WHERE lib_user_id IN (' . implode(', ', $new). ')');
 
@@ -206,5 +219,21 @@ class App_User_Factory
         if ($userId !== null) {
             $this->_users[$userId] = $user;
         }
+    }
+
+    /**
+     * Registers new user
+     *
+     * @param array $params
+     */
+    public function registerUser(array $params)
+    {
+        $user = new App_User(array(
+            'login' => $params['login'],
+            'password' => md5($params['password']),
+            'email' => $params['email']
+        ));
+        $user->write();
+        $this->addUser($user);
     }
 }

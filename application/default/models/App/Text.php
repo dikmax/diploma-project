@@ -215,7 +215,7 @@ class App_Text extends App_Acl_Resource_Abstract {
     }
 
     /**
-     * Sets new database id and registers in ACL
+     * Sets new database id and registers it in ACL
      *
      * @param int $id
      */

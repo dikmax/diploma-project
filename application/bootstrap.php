@@ -1,19 +1,22 @@
 <?php
-define('ACL_NO_CACHE', false);
+$paths = array(
+    realpath(dirname(__FILE__) . '/../library'),
+    realpath(dirname(__FILE__) . '/../application/default/models/')
+);
 
-set_include_path('.' . PATH_SEPARATOR . '../library' . PATH_SEPARATOR . '../application/default/models/' . PATH_SEPARATOR . get_include_path());
+set_include_path(implode(PATH_SEPARATOR, $paths));
 
 // Set up autoload.
-require_once "Zend/Loader.php"; 
-Zend_Loader::registerAutoload(); 
+require_once "Zend/Loader.php";
+Zend_Loader::registerAutoload();
 
 require_once 'Initializer.php';
- 
-// Prepare the front controller. 
-$frontController = Zend_Controller_Front::getInstance(); 
 
-// Change to 'production' parameter under production environemtn
-$frontController->registerPlugin(new Initializer('development'));    
+// Prepare the front controller.
+$frontController = Zend_Controller_Front::getInstance();
 
-// Dispatch the request using the front controller. 
-$frontController->dispatch(); 
+// Change to 'production' parameter under production enviroment
+$frontController->registerPlugin(new Initializer('development'));
+
+// Dispatch the request using the front controller.
+$frontController->dispatch();
