@@ -74,34 +74,42 @@ blockquote {
  */
 
 .left-col {
-	position: absolute;
-	top: 0px;	
+    position: absolute;
+    top: 0px;
 }
 
 .login, .navigation {
-	position: relative;
-	margin-top: 20px;
-	width: 150px;	
-	overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+    width: 150px;
+    overflow: hidden;
 }
 
-.login table {
-	width: 100%;
-	padding-right: 5px;
+.full-width .login {
+    width: 500px;
 }
 
-.loginfield {
-	width: 100%;
+.login form table {
+    width: 100%;
+    padding-right: 5px;
+}
+
+.login form table input {
+    width: 100%;
+}
+
+.login form table td.label {
+    text-align: right;
 }
 
 .content {
-	position: relative;
-	margin-left: 150px;
-	padding: 5px;
-	background: white;
-	border: #000 solid 1px;
-	border-right-width: 3px;
-	border-bottom-width: 3px
+    position: relative;
+    margin-left: 150px;
+    padding: 5px;
+    background: white;
+    border: #000 solid 1px;
+    border-right-width: 3px;
+    border-bottom-width: 3px
 }
 
 .full-width {
@@ -109,8 +117,8 @@ blockquote {
 }
 
 .editor {
-	width: 100%;
-	padding: 5px;
+    width: 100%;
+    padding: 5px;
 }
 
 .error {
@@ -118,20 +126,20 @@ blockquote {
 }
 
 .photo-placeholder {
-	float: left;
-	position: relative;
-	clear: none;
-	width: 200px;
-	height: 150px;
-	border: 1px solid black;
-	text-align: center;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	background: white;
+    float: left;
+    position: relative;
+    clear: none;
+    width: 200px;
+    height: 150px;
+    border: 1px solid black;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background: white;
 }
 
 .photo-image {
-	float: left;
+    float: left;
     position: relative;
     clear: none;
     width: 200px;
@@ -148,11 +156,11 @@ blockquote {
  * Author titles block
  */
 .author-titles {
-	clear: both;
+    clear: both;
 }
 
 .author-titles .header {
-	background-color: #dddddd;
+    background-color: #dddddd;
 }
 
 .author-titles .body {
@@ -163,54 +171,54 @@ blockquote {
  */
 .profile-info {
     clear: both;
-    margin-bottom: 10px;	
+    margin-bottom: 10px;
 }
 
 .profile-info .header {
-	background-color: #dddddd;
+    background-color: #dddddd;
 }
 
 .profile-info .header .edit {
-	float: right;
+    float: right;
 }
 
 .profile-info .body {
 }
 
 .navigation-link {
-	background: white;
-	border: black solid 1px;
-	border-bottom-width: 2px;
-	border-right-width: 0px;
-	display: block;
-	margin-bottom: 1px;
-	margin-left: 3px;
-	text-align: center;
-	text-decoration: none;
-	color: black;
+    background: white;
+    border: black solid 1px;
+    border-bottom-width: 2px;
+    border-right-width: 0px;
+    display: block;
+    margin-bottom: 1px;
+    margin-left: 3px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
 }
 
 .navigation-link:hover {
-	background: #dddddd;
+    background: #dddddd;
 }
 
 .writeboard #writeboard-input {
-	display: none;
+    display: none;
 }
-	
+
 .writeboard textarea {
-	width: 100%;
+    width: 100%;
 }
 
 .writeboard .messages .message {
-	border-bottom: black solid 1px;
+    border-bottom: black solid 1px;
 }
 
 .writeboard .messages .message .message-user {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .writeboard .messages .message .message-date {
-	float: right;
-	font-weight: bold;
+    float: right;
+    font-weight: bold;
 }

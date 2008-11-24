@@ -18,19 +18,19 @@
         $login = Zend_Controller_Front::getInstance()->getRequest()->getParam('login');
     ?>
     <div class="left-col">
-    <div class="login"><?= $this->action('show-login', 'auth'); ?></div>
-    <div class="navigation">
-        <?= $this->navigationLink(null, 'Книги',
-                $this->url(array('action' => 'library'), 'default')); ?>
-        <?= $this->navigationLink('profile', 'Профиль',
-                $this->url(array('controller' => 'user',
-                                'action' => 'profile',
-                                'login' => $login), 'user')); ?>
-        <?= $this->navigationLink('blog', 'Журнал',
-                $this->url(array('controller' => 'user',
-                                'action' => 'blog',
-                                'login' => $login), 'user')); ?>
-    </div>
+        <?= $this->action('show-login', 'auth'); ?>
+        <div class="navigation">
+            <?= $this->navigationLink(null, 'Книги',
+                    $this->url(array('action' => 'library'), 'default')); ?>
+            <?= $this->navigationLink('profile', 'Профиль',
+                    $this->url(array('controller' => 'user',
+                                    'action' => 'profile',
+                                    'login' => $login), 'user')); ?>
+            <?= $this->navigationLink('blog', 'Журнал',
+                    $this->url(array('controller' => 'user',
+                                    'action' => 'blog',
+                                    'login' => $login), 'user')); ?>
+        </div>
     </div>
     <div class="content">
         <?= $this->layout()->content; ?>

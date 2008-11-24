@@ -21,31 +21,34 @@ class AuthController extends Zend_Controller_Action
      */
     public function loginAction()
     {
-        if ($this->getRequest()->getParam('login') !== null &&
-            $this->getRequest()->getParam('password') !== null) {
-            $db = Zend_Registry::get('db');
-            $auth = new Zend_Auth_Adapter_DbTable($db, 'lib_user', 'login',
-                'password', 'MD5(?)');
-            $auth->setIdentity($this->getRequest()->getParam('login'))
-                ->setCredential($this->getRequest()->getParam('password'));
-            $result = $auth->authenticate();
+        $form = new App_Form_Auth_Login($this->_helper->url('login', 'auth'));
 
-            if ($result->isValid()) {
-                $user = App_User_Factory::getInstance()->getUserByLogin($this->getRequest()->getParam('login'));
-                App_User_Factory::setSessionUser($user);
-                $this->_helper->redirector->gotoRouteAndExit(
-                    array('controller' => 'user',
-                          'action' => 'profile',
-                          'login' => $this->getRequest()->getParam('login')),
-                    'user'
-                );
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+                $db = Zend_Registry::get('db');
+                $auth = new Zend_Auth_Adapter_DbTable($db, 'lib_user', 'login',
+                    'password', 'MD5(?)');
+                $auth->setIdentity($form->getValue('login'))
+                    ->setCredential($form->getValue('password'));
+                $result = $auth->authenticate();
+
+                if ($result->isValid()) {
+                    $user = App_User_Factory::getInstance()->getUserByLogin($form->getValue('login'));
+                    App_User_Factory::setSessionUser($user);
+                    $this->_helper->redirector->gotoRouteAndExit(
+                        array('controller' => 'user',
+                            'action' => 'profile',
+                            'login' => $form->getValue('login')),
+                        'user'
+                    );
+                } else {
+                    $form->getElement('login')->addErrors($result->getMessages());
+                }
             }
-            // Login is invalid
-            // TODO Output localized string
-            $messages = $result->getMessages();
-            $this->view->reason = $messages[0];
-            $this->_helper->layout->setLayout('full-width');
+
         }
+        $this->view->form = $form;
+        $this->_helper->layout->setLayout('full-width');
     }
 
     /**
@@ -69,6 +72,7 @@ class AuthController extends Zend_Controller_Action
         if ($user !== null) {
             $this->view->login = $user->getLogin();
         }
+        $this->view->form = new App_Form_Auth_Login($this->_helper->url('login', 'auth'));
     }
 
     /**
@@ -97,6 +101,4 @@ class AuthController extends Zend_Controller_Action
         }
         $this->view->form = $form;
     }
-
-
 }

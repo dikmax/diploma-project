@@ -1,21 +1,6 @@
 <?php if (!$this->isLoggedIn): ?>
-<form action="<?= $this->url(array('action' => 'login'), 'auth'); ?>" method="post">
-    <table>
-        <tr>
-            <td style="text-align: right;"><label for="login">Логин:</label></td>
-            <td><input id="login" type="text" name="login" class="loginfield" /></td>
-        </tr>
-        <tr>
-            <td style="text-align: right;"><label for="password">Пароль:</label></td>
-            <td><input id="password" type="password" name="password" class="loginfield" /></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td style="text-align: right;"><input type="submit" value="Ага, это я" class="loginfield" /></td>
-        </tr>
-    </table>
-</form>
-<a href="<?= $this->url(array('action' => 'registration'), 'auth'); ?>">Регистрация</a>
+<?= $this->form; ?>
+Нет аккаунта? <br /><a href="<?= $this->url(array('action' => 'registration'), 'auth'); ?>">Зарегистрируйся!</a>
 <?php else: ?>
 <div align="center">
     Привет,
