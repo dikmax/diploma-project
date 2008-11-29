@@ -30,7 +30,7 @@ require_once 'Zend/Dojo/Form/Element/Slider.php';
  * @subpackage Form_Element
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: VerticalSlider.php 10012 2008-07-09 20:47:48Z matthew $
+ * @version    $Id$
  */
 class Zend_Dojo_Form_Element_VerticalSlider extends Zend_Dojo_Form_Element_Slider
 {

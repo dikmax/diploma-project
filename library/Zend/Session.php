@@ -17,7 +17,7 @@
  * @package    Zend_Session
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Session.php 12385 2008-11-07 20:18:43Z thomas $
+ * @version    $Id$
  * @since      Preview Release 0.2
  */
 

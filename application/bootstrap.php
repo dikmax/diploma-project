@@ -1,7 +1,6 @@
 <?php
 $paths = array(
-    realpath(dirname(__FILE__) . '/../library'),
-    realpath(dirname(__FILE__) . '/../application/default/models/')
+    realpath(dirname(__FILE__) . '/../library')
 );
 
 set_include_path(implode(PATH_SEPARATOR, $paths));

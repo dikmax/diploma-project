@@ -17,7 +17,7 @@
  * @subpackage Data
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Data.php 12057 2008-10-21 17:19:43Z thomas $
+ * @version    $Id$
  */
 
 /**

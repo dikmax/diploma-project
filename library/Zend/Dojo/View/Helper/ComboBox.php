@@ -17,7 +17,7 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ComboBox.php 11014 2008-08-24 21:15:31Z matthew $
+ * @version    $Id$
  */
 
 /** Zend_Dojo_View_Helper_Dijit */

@@ -30,7 +30,7 @@ require_once 'Zend/Form/Element/Xhtml.php';
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Password.php 9337 2008-04-28 18:14:48Z matthew $
+ * @version    $Id$
  */
 class Zend_Form_Element_Password extends Zend_Form_Element_Xhtml
 {

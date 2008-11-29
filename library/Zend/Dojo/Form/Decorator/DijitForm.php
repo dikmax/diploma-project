@@ -33,7 +33,7 @@ require_once 'Zend/Dojo/Form/Decorator/DijitContainer.php';
  * @subpackage Form_Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DijitForm.php 10009 2008-07-09 16:52:18Z matthew $
+ * @version    $Id$
  */
 class Zend_Dojo_Form_Decorator_DijitForm extends Zend_Dojo_Form_Decorator_DijitContainer
 {

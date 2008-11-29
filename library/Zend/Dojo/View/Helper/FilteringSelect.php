@@ -17,7 +17,7 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FilteringSelect.php 9978 2008-07-07 12:39:39Z matthew $
+ * @version    $Id$
  */
 
 /** Zend_Dojo_View_Helper_ComboBox */

@@ -17,7 +17,7 @@
  * @subpackage  View
  * @copyright   Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: UiWidget.php 12288 2008-11-04 21:56:42Z beberlei $
+ * @version     $Id$
  */
 
 require_once "Zend/Form/Element.php";

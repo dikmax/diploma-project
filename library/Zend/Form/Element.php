@@ -32,7 +32,7 @@ require_once 'Zend/Validate/Interface.php';
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 12328 2008-11-06 16:49:03Z matthew $
+ * @version    $Id$
  */
 class Zend_Form_Element implements Zend_Validate_Interface
 {

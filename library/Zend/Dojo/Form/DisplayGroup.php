@@ -30,7 +30,7 @@ require_once 'Zend/Form/DisplayGroup.php';
  * @subpackage Form
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DisplayGroup.php 10076 2008-07-13 12:58:08Z matthew $
+ * @version    $Id$
  */
 class Zend_Dojo_Form_DisplayGroup extends Zend_Form_DisplayGroup
 {

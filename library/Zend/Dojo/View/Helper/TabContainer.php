@@ -17,7 +17,7 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TabContainer.php 10067 2008-07-12 21:05:32Z matthew $
+ * @version    $Id$
  */
 
 /** Zend_Dojo_View_Helper_DijitContainer */

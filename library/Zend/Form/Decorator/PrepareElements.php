@@ -37,7 +37,7 @@ require_once 'Zend/Form/Decorator/FormElements.php';
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PrepareElements.php 12347 2008-11-06 21:45:56Z matthew $
+ * @version    $Id$
  */
 class Zend_Form_Decorator_PrepareElements extends Zend_Form_Decorator_FormElements
 {

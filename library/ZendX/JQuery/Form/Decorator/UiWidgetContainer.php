@@ -17,7 +17,7 @@
  * @subpackage  View
  * @copyright   Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: UiWidgetContainer.php 12289 2008-11-04 22:37:40Z beberlei $
+ * @version     $Id$
  */
 
 require_once "Zend/Form/Decorator/Abstract.php";
