@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -40,7 +40,17 @@ class BookshelfController extends Zend_Controller_Action
      */
     public function showAction()
     {
-        $this->view->user = $this->_user;
+        $user = $this->_user;
+        $bookshelf = $user->getBookshelf();
+
+        $cloud = new App_Tag_Cloud(array(
+            'reader' => $bookshelf,
+            'writer' => $this->view->getHelper('cloudRenderer')
+        ));
+        $cloud->process();
+
+        $this->view->user = $user;
+        $this->view->titles = $bookshelf->getTitles();
     }
 
     /**

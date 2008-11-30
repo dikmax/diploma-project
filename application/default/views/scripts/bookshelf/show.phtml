@@ -1,6 +1,9 @@
 <h1>Книжная полка</h1>
 
-<?php $titles = $this->user->getBookshelf()->getTitles(); ?>
-<?php foreach ($titles as $title): ?>
+<div class="tagCloud">
+    <?= $this->cloudRenderer(); ?>
+</div>
+
+<?php foreach ($this->titles as $title): ?>
     <?= $this->titleLink($title); ?><br />
 <?php endforeach; ?>
