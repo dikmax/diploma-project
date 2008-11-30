@@ -11,7 +11,7 @@
 /**
  * App_User_Bookshelf description
  */
-class App_User_Bookshelf implements App_Tag_Cloud_Reader_Interface
+class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cloud_Reader_Interface
 {
     /**
      * Connected user
@@ -48,7 +48,13 @@ class App_User_Bookshelf implements App_Tag_Cloud_Reader_Interface
             throw new App_User_Bookshelf_Exception('user index is obligatory');
         }
 
+        if ($this->_user->getId() === null) {
+            throw new App_User_Bookshelf_Exception('User id isn\'t set');
+        }
+
         $this->_titles = null;
+
+        $this->registerResource();
     }
 
     /**
@@ -117,5 +123,25 @@ class App_User_Bookshelf implements App_Tag_Cloud_Reader_Interface
         }
 
         return $result;
+    }
+
+    /**
+     * @see App_Acl_Resource_Abstract::getResourceParentId()
+     *
+     * @return string
+     */
+    protected function getResourceParentId()
+    {
+        return 'bookshelf';
+    }
+
+    /**
+     * @see Zend_Acl_Resource_Interface::getResourceId()
+     *
+     * @return string
+     */
+    public function getResourceId ()
+    {
+        return 'bookshelf-' . $this->_user->getId();
     }
 }

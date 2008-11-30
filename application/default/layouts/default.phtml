@@ -4,13 +4,6 @@
   <?= $this->headTitle(); ?>
   <?= $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8'); ?>
   <?= $this->headLink()->appendStylesheet('/styles/main.css'); ?>
-<?php
-    if ($this->dojo()->isEnabled()):
-        $this->dojo()->setLocalPath('/scripts/dojo/dojo/dojo.js')
-                 ->addStyleSheetModule('dijit.themes.tundra');
-        echo $this->dojo();
-    endif;
-?>
   <?= $this->headScript(); ?>
 </head>
 <body class="tundra">

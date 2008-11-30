@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -53,5 +53,24 @@ class UserController extends Zend_Controller_Action
     public function blogAction()
     {
         $this->_forward("show", "blog");
+    }
+
+    /**
+     * Writing user bookshelf
+     */
+    public function bookshelfAction()
+    {
+        $user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
+        $bookshelf = $user->getBookshelf();
+
+        $cloud = new App_Tag_Cloud(array(
+            'reader' => $bookshelf,
+            'writer' => $this->view->getHelper('cloudRenderer')
+        ));
+        $cloud->process();
+
+        $this->view->user = $user;
+        $this->view->bookshelf = $bookshelf;
+        $this->view->titles = $bookshelf->getTitles();
     }
 }

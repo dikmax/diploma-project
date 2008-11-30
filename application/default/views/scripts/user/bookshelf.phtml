@@ -1,5 +1,9 @@
 <h1>Книжная полка</h1>
 
+<?php if ($this->isAllowed($this->bookshelf, 'edit')): ?>
+    <a href="<?= $this->url(array('action' => 'add'), 'bookshelf'); ?>">Добавить книгу в библиотеку</a>
+<?php endif; ?>
+
 <div class="tagCloud">
     <?= $this->cloudRenderer(); ?>
 </div>

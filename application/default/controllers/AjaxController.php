@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -26,6 +26,7 @@ class AjaxController extends Zend_Controller_Action
     {
         //$query = $this->getRequest()->getParam('query');
 
+        /*
         $res = new Zend_Dojo_Data('author_id', array(
             array(
                 "author_id" => "1",
@@ -35,8 +36,8 @@ class AjaxController extends Zend_Controller_Action
                 "author_id" => "2",
                 "name" => "Клчтототам Сайтоже"
             )
-        ));
+        ));*/
 
-        $this->view->data = $res;
+        $this->view->data = array();
     }
 }

@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -359,6 +359,9 @@ class App_User implements Zend_Acl_Role_Interface
     {
         if ($this->_bookshelf === null) {
             $this->_bookshelf = new App_User_Bookshelf(array('user' => $this));
+
+            $acl = Zend_Registry::get('acl');
+            $acl->allow($this, $this->_bookshelf, 'edit');
         }
         return $this->_bookshelf;
     }

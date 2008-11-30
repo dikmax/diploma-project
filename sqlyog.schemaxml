@@ -141,7 +141,7 @@
   `lib_tag_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `name` varchar(255) NOT NULL COMMENT 'Tag name',
   PRIMARY KEY  (`lib_tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Tags'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Tags'</sql_create_table>
 </table>
 <table name="lib_channel_item_has_tag" view="colnames">
 <left>1215</left>
@@ -194,7 +194,7 @@
   KEY `FK_lib_writeboard_message_writeboard_id` (`lib_writeboard_id`),
   CONSTRAINT `FK_lib_writeboard_message_writeboard_id` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`),
   CONSTRAINT `FK_lib_writeboard_writer` FOREIGN KEY (`writeboard_writer`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="lib_writeboard" view="colnames">
 <left>910</left>

@@ -1,21 +1,9 @@
 <h1>Добавить произведение в библиотеку</h1>
 
-<div dojoType="dojox.data.QueryReadStore" jsId="authorStore"
-    url="/ajax/author-suggest"
-    requestMethod="get"></div>
-
 <form method="post" action="<?= $this->url(array('action' => 'add-process')); ?>">
     <span title="Достаточно указать любого из авторов, если их несколько">Автор</span>:
-    <input id="author" name="author" dojoType="dijit.form.ComboBox"
-        store="authorStore" pageSize="10" hasDownArrow="false" autoComplete="false"
-        searchDelay="300" /><br />
+    <input id="author" name="author" /><br />
 
-    Название: <input id="title" name="title" dojoType="dijit.form.ComboBox" /><br />
+    Название: <input id="title" name="title" /><br />
     <input type="submit" value="Добавить" />
 </form>
-
-<? // setup required dojo elements:
-$this->dojo()->enable()
-             ->setDjConfigOption('parseOnLoad', true)
-             ->requireModule('dijit.form.ComboBox')
-             ->requireModule('dojox.data.QueryReadStore');

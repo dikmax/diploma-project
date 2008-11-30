@@ -20,7 +20,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     /**
      * @var boolean Option for disable cacheing acl
      */
-    protected $_aclNoCache = false;
+    protected $_aclNoCache = true;
 
     /**
      * @var Zend_Cache_Core
@@ -230,7 +230,8 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             $acl->add(new Zend_Acl_Resource('profile'))
                 ->add(new Zend_Acl_Resource('writeboard'))
                 ->add(new Zend_Acl_Resource('blog'))
-                ->add(new Zend_Acl_Resource('wiki'));
+                ->add(new Zend_Acl_Resource('wiki'))
+                ->add(new Zend_Acl_Resource('bookshelf'));
 
             // Creating permissions
             $acl->allow('guest', 'profile', 'view');
@@ -238,6 +239,8 @@ class Initializer extends Zend_Controller_Plugin_Abstract
 
             $acl->allow('guest', 'writeboard', 'view');
             $acl->allow('user', 'writeboard', 'add');
+
+            $acl->allow('guest', 'bookshelf', 'view');
 
             $acl->allow('guest', 'blog', 'view');
             $acl->allow('user', 'blog', 'edit');
