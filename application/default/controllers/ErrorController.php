@@ -1,5 +1,14 @@
 <?php
 /**
+ * Books social network
+ *
+ * LICENSE: Closed source
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id:$
+ */
+
+/**
  * Errors controlles
  */
 class ErrorController extends Zend_Controller_Action

@@ -1,14 +1,14 @@
 <?php
 /**
- * My new Zend Framework project
+ * Books social network
  *
- * @author
- * @version
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id$
  */
 
 /**
  *
- * Initializes configuration depndeing on the type of environment
+ * Initializes configuration depending on the type of environment
  * (test, development, production, etc.)
  *
  * This can be used to configure environment variables, databases,
@@ -318,88 +318,92 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initRoutes()
     {
-        // TODO add routes caching
-
         $router = $this->_front->getRouter();
-
         $router->removeDefaultRoutes();
 
-        $router->addRoute('default',
-            new Zend_Controller_Router_Route(':action', array(
-                'controller' => 'index',
-                'action' => 'index'
-            ))
-        );
+        $routes = $this->_cache->load('routes');
+        if ($routes === false) {
+            $router->addRoute('default',
+                new Zend_Controller_Router_Route(':action', array(
+                    'controller' => 'index',
+                    'action' => 'index'
+                ))
+            );
 
-        $router->addRoute('auth',
-            new Zend_Controller_Router_Route('auth/:action', array(
-                'controller' => 'auth',
-                'action' => 'index'
-            ))
-        );
+            $router->addRoute('auth',
+                new Zend_Controller_Router_Route('auth/:action', array(
+                    'controller' => 'auth',
+                    'action' => 'index'
+                ))
+            );
 
-        $router->addRoute('ajax',
-            new Zend_Controller_Router_Route('ajax/:action', array(
-                'controller' => 'ajax'
-            ))
-        );
+            $router->addRoute('ajax',
+                new Zend_Controller_Router_Route('ajax/:action', array(
+                    'controller' => 'ajax'
+                ))
+            );
 
-        $router->addRoute('writeboard',
-            new Zend_Controller_Router_Route('writeboard/:action', array(
-                'controller' => 'writeboard',
-                'action' => 'index'
-            ))
-        );
+            $router->addRoute('writeboard',
+                new Zend_Controller_Router_Route('writeboard/:action', array(
+                    'controller' => 'writeboard',
+                    'action' => 'index'
+                ))
+            );
 
-        $router->addRoute('bookshelf',
-            new Zend_Controller_Router_Route('bookshelf/:action', array(
-                'controller' => 'bookshelf',
-                'action' => 'show'
-            ))
-        );
+            $router->addRoute('bookshelf',
+                new Zend_Controller_Router_Route('bookshelf/:action', array(
+                    'controller' => 'bookshelf',
+                    'action' => 'show'
+                ))
+            );
 
-        $router->addRoute('user',
-            new Zend_Controller_Router_Route('user/:login/:action', array(
-                'controller' => 'user',
-                'action' => 'profile',
-                'login' => ''
-            ))
-        );
+            $router->addRoute('user',
+                new Zend_Controller_Router_Route('user/:login/:action', array(
+                    'controller' => 'user',
+                    'action' => 'profile',
+                    'login' => ''
+                ))
+            );
 
-        $router->addRoute('librarytitle',
-            new Zend_Controller_Router_Route('library/:author/:title', array(
-                'controller' => 'title',
-                'action' => 'show'
-            ), array(
-                'title' => '^[^~].*'
-            ))
-        );
+            $router->addRoute('librarytitle',
+                new Zend_Controller_Router_Route('library/:author/:title', array(
+                    'controller' => 'title',
+                    'action' => 'show'
+                ), array(
+                    'title' => '^[^~].*'
+                ))
+            );
 
-        $router->addRoute('librarytitleaction',
-            new Zend_Controller_Router_Route_Regex('library/([^/]*)/([^/]*)/~([^/]*)', array(
-                'controller' => 'title',
-            ), array(
-                1 => 'author',
-                2 => 'title',
-                3 => 'action'
-            ), 'library/%s/%s/~%s')
-        );
+            $router->addRoute('librarytitleaction',
+                new Zend_Controller_Router_Route_Regex('library/([^/]*)/([^/]*)/~([^/]*)', array(
+                    'controller' => 'title',
+                ), array(
+                    1 => 'author',
+                    2 => 'title',
+                    3 => 'action'
+                ), 'library/%s/%s/~%s')
+            );
 
-        $router->addRoute('libraryauthor',
-            new Zend_Controller_Router_Route('library/:author', array(
-                'controller' => 'author',
-                'action' => 'show'
-            ))
-        );
+            $router->addRoute('libraryauthor',
+                new Zend_Controller_Router_Route('library/:author', array(
+                    'controller' => 'author',
+                    'action' => 'show'
+                ))
+            );
 
-        $router->addRoute('libraryauthoraction',
-            new Zend_Controller_Router_Route_Regex('library/([^/]*)/~([^/]*)', array(
-                'controller' => 'author'
-            ), array(
-                1 => 'author',
-                2 => 'action'
-            ), 'library/%s/~%s')
-        );
+            $router->addRoute('libraryauthoraction',
+                new Zend_Controller_Router_Route_Regex('library/([^/]*)/~([^/]*)', array(
+                    'controller' => 'author'
+                ), array(
+                    1 => 'author',
+                    2 => 'action'
+                ), 'library/%s/~%s')
+            );
+
+            $this->_cache->save($router->getRoutes(), 'routes', array(), 86400);
+        } else {
+            $router->addRoutes($routes);
+        }
     }
 
     /**
