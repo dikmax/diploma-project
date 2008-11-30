@@ -1,10 +1,12 @@
-<?php if (!$this->isLoggedIn): ?>
-<?= $this->form; ?>
-Нет аккаунта? <br /><a href="<?= $this->url(array('action' => 'registration'), 'auth'); ?>">Зарегистрируйся!</a>
-<?php else: ?>
-<div align="center">
-    Привет,
-    <h2><a href="<?= $this->url(array('controller' => 'user', 'action' => 'profile', 'login' => $this->login), 'user'); ?>"><?= $this->login ?></a></h2>
-    <a href="<?= $this->url(array('action' => 'logout'), 'auth'); ?>">Выйти</a>
+<div class="auth-info">
+    <?php if (!$this->isLoggedIn): ?>
+        <?= $this->form; ?>
+        Нет аккаунта? <br /><a href="<?= $this->url(array('action' => 'registration'), 'auth'); ?>">Зарегистрируйся!</a>
+    <?php else: ?>
+        <div align="center">
+            Привет,
+            <h2><a href="<?= $this->url(array('controller' => 'user', 'action' => 'profile', 'login' => $this->login), 'user'); ?>"><?= $this->login ?></a></h2>
+            <a href="<?= $this->url(array('action' => 'logout'), 'auth'); ?>">Выйти</a>
+        </div>
+    <?php endif; ?>
 </div>
-<?php endif; ?>

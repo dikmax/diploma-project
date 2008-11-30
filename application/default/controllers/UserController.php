@@ -16,12 +16,23 @@
  */
 class UserController extends Zend_Controller_Action
 {
+    const PROFILE_ACTION = 'Профиль';
+    const BOOKSHELF_ACTION = 'Книжная полка';
+    const BLOG_ACTION = 'Журнал';
+
     /**
      * Login parameter cache
      *
      * @var string
      */
     protected $_login;
+
+    /**
+     * Top menu view helper
+     *
+     * @var App_View_Helper_TopMenu
+     */
+    protected $_topMenu;
 
     /**
      * Initialization of controller
@@ -32,6 +43,12 @@ class UserController extends Zend_Controller_Action
         $this->_login = $this->getRequest()->getParam('login');
         $this->view->login = $this->_login;
         $this->view->headTitle($this->_login);
+
+        $this->_topMenu = $this->view->getHelper('topMenu');
+        $this->_topMenu
+             ->addItem(self::PROFILE_ACTION, $this->_helper->url->url(array('action' => 'profile')))
+             ->addItem(self::BOOKSHELF_ACTION, $this->_helper->url->url(array('action' => 'bookshelf')))
+             ->addItem(self::BLOG_ACTION, $this->_helper->url->url(array('action' => 'blog')));
     }
 
     /**
@@ -40,6 +57,7 @@ class UserController extends Zend_Controller_Action
     public function profileAction()
     {
         $this->view->headTitle("профиль");
+        $this->_topMenu->selectItem(self::PROFILE_ACTION);
 
         $user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
 
@@ -52,6 +70,7 @@ class UserController extends Zend_Controller_Action
      */
     public function blogAction()
     {
+        $this->_topMenu->selectItem(self::BLOG_ACTION);
         $this->_forward("show", "blog");
     }
 
@@ -60,6 +79,8 @@ class UserController extends Zend_Controller_Action
      */
     public function bookshelfAction()
     {
+        $this->_topMenu->selectItem(self::BOOKSHELF_ACTION);
+
         $user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
         $bookshelf = $user->getBookshelf();
 

@@ -102,12 +102,16 @@ blockquote {
     text-align: right;
 }
 
-.content {
+.main-container {
     position: relative;
     margin-left: 150px;
+}
+
+.content {
     padding: 5px;
     background: white;
     border: #000 solid 1px;
+    border-top-width: 0px;
     border-right-width: 3px;
     border-bottom-width: 3px
 }
@@ -150,6 +154,49 @@ blockquote {
     margin-bottom: 10px;
     background: white;
     overflow: hidden;
+}
+
+/*
+ * Auth block
+ */
+
+.auth-info {
+    padding-top: 10px;
+}
+
+/*
+ * Top menu
+ */
+
+ul.top-menu {
+    display: block;
+    position: relative;
+    padding: 6px;
+    padding-left: 10px;
+    border-bottom: black solid 1px;
+}
+
+ul.top-menu li {
+    background: white;
+    border: black solid 1px;
+    border-bottom-width: 0px;
+    display: inline;
+    padding: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: 0px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+ul.top-menu li:hover {
+    background: #eeeeee;
+}
+
+ul.top-menu li.selected {
+    background: white;
+    border-bottom: white solid 1px;
 }
 
 /*
@@ -199,7 +246,7 @@ blockquote {
 }
 
 .navigation-link:hover {
-    background: #dddddd;
+    background: #eeeeee;
 }
 
 .writeboard #writeboard-input {

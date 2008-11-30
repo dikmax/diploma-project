@@ -6,8 +6,10 @@
   <?= $this->headLink()->appendStylesheet('/styles/main.css'); ?>
 </head>
 <body>
-    <div class="content full-width">
-        <?= $this->layout()->content; ?>
+    <div id="main-container" class="main-container full-width">
+        <div class="content">
+            <?= $this->layout()->content; ?>
+        </div>
     </div>
 </body>
 </html>
