@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -61,7 +61,7 @@ class App_User_Factory
     public static function getSessionUser()
     {
         $factory = self::getInstance();
-        $session = new Zend_Session_Namespace();
+        $session = Zend_Registry::get('session');
         if (!isset($session->userId)) {
             $session->userId = false;
             return null;
@@ -79,7 +79,7 @@ class App_User_Factory
      */
     public static function setSessionUser($user)
     {
-        $session = new Zend_Session_Namespace();
+        $session = Zend_Registry::get('session');
         if ($user === false || !($user instanceof App_User)) {
             $session->userId = false;
         } else {

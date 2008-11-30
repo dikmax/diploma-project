@@ -132,6 +132,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     public function initApplication()
     {
         $this->initEnviroment();
+        $this->initSession();
         $this->initCache();
         $this->initDb();
         if (!$this->_envConsole) {
@@ -146,13 +147,24 @@ class Initializer extends Zend_Controller_Plugin_Abstract
 
     public function initEnviroment()
     {
-        Zend_Session::start();
-
         Zend_Locale::setDefault("ru_RU");
 
         // Config
         self::$_config = new Zend_Config(require 'config.php');
         Zend_Registry::set('config', self::$_config);
+    }
+
+    public function initSession()
+    {
+        Zend_Session::setOptions(self::$_config->session->toArray());
+        Zend_Session::start();
+        $session = new Zend_Session_Namespace();
+        Zend_Registry::set('session', $session);
+
+        if (!isset($session->initialized)) {
+            Zend_Session::regenerateId();
+            $session->initialized = true;
+        }
     }
 
     /**

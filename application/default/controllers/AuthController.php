@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -35,6 +35,7 @@ class AuthController extends Zend_Controller_Action
                 if ($result->isValid()) {
                     $user = App_User_Factory::getInstance()->getUserByLogin($form->getValue('login'));
                     App_User_Factory::setSessionUser($user);
+                    Zend_Session::rememberMe();
                     $this->_helper->redirector->gotoRouteAndExit(
                         array('controller' => 'user',
                             'action' => 'profile',
