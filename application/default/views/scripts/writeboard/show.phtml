@@ -1,3 +1,13 @@
+<?php
+/**
+ * Books social network
+ *
+ * LICENSE: Closed source
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id:$
+ */
+?>
 <div class="writeboard">
     <?php if ($this->isAllowed('writeboard', 'add')): ?>
         <a href="#" onclick="document.getElementById('writeboard-input').style.display = 'block'; this.style.display = 'none'; return false;">Оставить сообщение</a>
@@ -10,7 +20,7 @@
             </form>
         </div>
     <?php endif; ?>
-    
+
     <div class="messages">
         <?php foreach($this->messages as $message): ?>
             <?php $login = $message->getWriteboardWriter()->getLogin(); ?>
