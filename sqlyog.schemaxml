@@ -21,7 +21,7 @@
   KEY `FK_lib_author_writeboard` (`lib_writeboard_id`),
   CONSTRAINT `FK_lib_author_text` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_author_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Authors'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Authors'</sql_create_table>
 </table>
 <table name="lib_author_name" view="colnames">
 <left>20</left>
@@ -35,7 +35,7 @@
   PRIMARY KEY  (`lib_author_name_id`),
   KEY `FK_lib_author_name` (`lib_author_id`),
   CONSTRAINT `FK_lib_author_name` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Author different names names'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Author different names names'</sql_create_table>
 </table>
 <table name="lib_text" view="colnames">
 <left>654</left>
@@ -49,7 +49,7 @@
   PRIMARY KEY  (`lib_text_id`),
   KEY `FK_lib_text_rev_text` (`lib_text_revision_id`),
   CONSTRAINT `FK_lib_text_rev_text` FOREIGN KEY (`lib_text_revision_id`) REFERENCES `lib_text_revision` (`lib_text_revision_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Table contains text which need revisioning'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Table contains text which need revisioning'</sql_create_table>
 </table>
 <table name="lib_text_revision" view="colnames">
 <left>330</left>
@@ -71,7 +71,7 @@
   CONSTRAINT `FK_lib_text_revision` FOREIGN KEY (`lib_text_revision_content_id`) REFERENCES `lib_text_revision_content` (`lib_text_revision_content_id`),
   CONSTRAINT `FK_lib_text_revision_text` FOREIGN KEY (`lib_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_text_revision_user` FOREIGN KEY (`author_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions'</sql_create_table>
 </table>
 <table name="lib_text_revision_content" view="colnames">
 <left>16</left>
@@ -82,7 +82,7 @@
   `lib_text_revision_content_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `content` longtext NOT NULL COMMENT 'Revision content',
   PRIMARY KEY  (`lib_text_revision_content_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data'</sql_create_table>
 </table>
 <table name="lib_user" view="colnames">
 <left>652</left>
@@ -205,7 +205,7 @@
   `lib_writeboard_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `owner_description` varchar(50) NOT NULL COMMENT 'String with data to whom writeboard belongs',
   PRIMARY KEY  (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="lib_author_image" view="colnames">
 <left>39</left>
@@ -253,7 +253,7 @@
   KEY `FK_lib_author_title_description` (`description_text_id`),
   CONSTRAINT `FK_lib_author_title_description` FOREIGN KEY (`description_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_author_title_writeboard` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 <table name="lib_user_bookshelf" view="colnames">
 <left>337</left>
@@ -270,7 +270,7 @@
   KEY `FK_lib_user_bookshelf_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_user_bookshelf_title` FOREIGN KEY (`lib_title_id`) REFERENCES `lib_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_user_bookshelf_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 <table name="lib_author_name_index" view="colnames">
 <left>48</left>
@@ -316,8 +316,8 @@
   PRIMARY KEY  (`lib_user_id`,`lib_tag_id`,`lib_title_id`),
   KEY `FK_lib_title_has_tag_lib_tag` (`lib_tag_id`),
   KEY `FK_lib_title_has_tag_lib_title` (`lib_title_id`),
-  CONSTRAINT `FK_lib_title_has_tag_lib_title` FOREIGN KEY (`lib_title_id`) REFERENCES `lib_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_title_has_tag_lib_tag` FOREIGN KEY (`lib_tag_id`) REFERENCES `lib_tag` (`lib_tag_id`),
+  CONSTRAINT `FK_lib_title_has_tag_lib_title` FOREIGN KEY (`lib_title_id`) REFERENCES `lib_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_title_has_tag_lib_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>

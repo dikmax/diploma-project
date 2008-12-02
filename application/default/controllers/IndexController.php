@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -21,37 +21,30 @@ class IndexController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_helper->Breadcrumbs('/index/' ,'Index module');
     }
-    
+
     /**
      * Main page controller
      */
     public function indexAction()
     {
-        $this->_helper->Breadcrumbs('/index/index/', 'Index action');
-        
-        $config = Zend_Registry::get('config');
-        $channel = App_Channel::read($config->mainChannelId);
-        $this->view->items = $channel->getItems();
-        
-        $this->view->vars = array(
-            "title" => "Librarian",
-            "main" => "Тест!");
+        $this->view->authors = App_Library::getMostReadAuthors();
+        $this->view->titles = App_Library::getMostReadTitles();
     }
-    
+
     /**
      * Main library page
      */
     public function libraryAction()
     {
-        
+        $this->view->authors = App_Library::getMostReadAuthors();
+        $this->view->titles = App_Library::getMostReadTitles();
     }
-    
+
     public function textReadAction()
     {
         $text = App_Text::read(9);
-        
+
         echo $text->getRevision()->getText();
         die;
     }

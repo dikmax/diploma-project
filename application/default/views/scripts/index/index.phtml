@@ -5,16 +5,28 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 ?>
-<h1><?= $this->vars['main']; ?></h1>
-Сайт
-<?php foreach ($this->items as $item): ?>
-    <div>
-    <div align="center">
-        <?= $item->getItemText()->getRevision()->getMdate()->toString(null, null, 'ru') ?>
-    </div>
-    <?= $item->getItemText()->getRevision()->getText() ?>
-    </div>
+
+<p>Текст. Что-то вроде приветствия.</p>
+
+<h1><a href="<?= $this->url(array('action' => 'library')); ?>">Библиотека</a></h1>
+<h2>Наиболее читаемые авторы</h2>
+<ol>
+<?php foreach ($this->authors as $author):
+    $authorName = $author->getName();
+?>
+    <li><a href="<?= $this->url(array('author' => $authorName), 'libraryauthor'); ?>">
+        <?= $authorName; ?>
+    </a></li>
+    <?= $author->getName(); ?><br />
 <?php endforeach; ?>
+</ol>
+
+<h2>Наиболее читаемые произведения</h2>
+<ol>
+<?php foreach ($this->titles as $title): ?>
+    <li><?= $this->titleLink($title); ?></li>
+<?php endforeach; ?>
+</ol>

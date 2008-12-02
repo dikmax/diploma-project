@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 ?>
 <?php echo $this->doctype() ?>
@@ -25,14 +25,9 @@
         <div class="navigation">
             <?= $this->navigationLink(null, 'Книги',
                     $this->url(array('action' => 'library'), 'default')); ?>
-            <?= $this->navigationLink('profile', 'Профиль',
-                    $this->url(array('controller' => 'user',
-                                    'action' => 'profile',
-                                    'login' => $login), 'user')); ?>
-            <?= $this->navigationLink('blog', 'Журнал',
-                    $this->url(array('controller' => 'user',
-                                    'action' => 'blog',
-                                    'login' => $login), 'user')); ?>
+            <?= $this->navigationLink('profile', 'Люди',
+                    $this->url(array('action' => 'profile',
+                                     'login' => $login), 'user')); ?>
         </div>
     </div>
     <div id="main-container" class="main-container">

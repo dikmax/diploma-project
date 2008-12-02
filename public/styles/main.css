@@ -22,8 +22,8 @@ input, select, textarea {
     font-family: verdana, sans-serif;
 }
 
-ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,blockquote,fieldset,dl,dt,dd,caption {margin:0; padding:0;}
-ul,ol {list-style: none;}
+ul,li,h1,h2,h3,h4,h5,h6,pre,form,blockquote,fieldset,dl,dt,dd,caption {margin:0; padding:0;}
+ul {list-style: none;}
 pre,code {font-size: 1em;}
 
 h1, h2, h3, h4, h5, h6 {

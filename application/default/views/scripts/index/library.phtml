@@ -5,7 +5,27 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 ?>
-Исследуйте коллекцию
+
+<p>Исследуйте коллекцию</p>
+
+<h1>Наиболее читаемые авторы</h1>
+<ol>
+<?php foreach ($this->authors as $author):
+    $authorName = $author->getName();
+?>
+    <li><a href="<?= $this->url(array('author' => $authorName), 'libraryauthor'); ?>">
+        <?= $authorName; ?>
+    </a></li>
+    <?= $author->getName(); ?><br />
+<?php endforeach; ?>
+</ol>
+
+<h1>Наиболее читаемые произведения</h1>
+<ol>
+<?php foreach ($this->titles as $title): ?>
+    <li><?= $this->titleLink($title); ?></li>
+<?php endforeach; ?>
+</ol>
