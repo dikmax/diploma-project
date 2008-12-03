@@ -168,7 +168,7 @@ blockquote {
  * Top menu
  */
 
-ul.top-menu {
+ul.top-menu-left {
     display: block;
     position: relative;
     padding: 6px;
@@ -176,25 +176,44 @@ ul.top-menu {
     border-bottom: black solid 1px;
 }
 
-ul.top-menu li {
+ul.top-menu-right {
+    display: block;
+    position: relative;
+    padding: 2px;
+    padding-right: 10px;
+    margin-top: 8px;
+    float: right;
+    z-index: 1000;
+}
+
+ul.top-menu-left li, ul.top-menu-right li {
     background: white;
     border: black solid 1px;
     border-bottom-width: 0px;
     display: inline;
-    padding: 6px;
-    padding-left: 12px;
-    padding-right: 12px;
     margin: 0px;
     text-align: center;
     text-decoration: none;
     color: black;
 }
 
-ul.top-menu li:hover {
+ul.top-menu-left li {
+    padding: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+ul.top-menu-right li {
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+ul.top-menu-left li:hover, ul.top-menu-right li:hover {
     background: #eeeeee;
 }
 
-ul.top-menu li.selected {
+ul.top-menu-left li.selected, ul.top-menu-right li.selected {
     background: white;
     border-bottom: white solid 1px;
 }

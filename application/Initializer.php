@@ -371,7 +371,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             $router->addRoute('librarytitle',
                 new Zend_Controller_Router_Route('library/:author/:title', array(
                     'controller' => 'title',
-                    'action' => 'show'
+                    'action' => 'overview'
                 ), array(
                     'title' => '^[^~].*'
                 ))
@@ -390,7 +390,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             $router->addRoute('libraryauthor',
                 new Zend_Controller_Router_Route('library/:author', array(
                     'controller' => 'author',
-                    'action' => 'show'
+                    'action' => 'overview'
                 ))
             );
 

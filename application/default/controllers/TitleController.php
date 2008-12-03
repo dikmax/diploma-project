@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -16,7 +16,7 @@ class TitleController extends Zend_Controller_Action
     /**
      * Book title page
      */
-    public function showAction()
+    public function overviewAction()
     {
         try {
             $authorUrl = $this->getRequest()->getParam('author');
