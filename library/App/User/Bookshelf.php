@@ -89,13 +89,11 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
      */
     public function addTitle(App_Library_Title $title)
     {
-        $db = Zend_Registry::get('db');
-
-        $data = array(
+        $table = new App_Db_Table_UserBookshelf();
+        $table->insert(array(
             'lib_user_id' => $this->_user->getId(),
             'lib_title_id' => $title->getId()
-        );
-        $db->insert('lib_user_bookshelf', $data);
+        ));
 
         if ($this->_titles !== null) {
             $this->_titles[] = $title;

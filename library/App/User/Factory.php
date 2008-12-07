@@ -128,7 +128,7 @@ class App_User_Factory
             if (count($rows) == 0) {
                 throw new App_User_Exception('User with id=' . $cond . ' doesn\'t exists');
             }
-            $row = $rows[0];
+            $row = $rows->current();
         } else if (is_string($cond)) {
             $row = $this->_table->fetchRow(
                 $this->_table->select()->where($cond, $value)

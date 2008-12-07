@@ -9,22 +9,22 @@
  */
 
 /**
- * User table model
+ * Text table model
  *
  * @author dikmax
  * @version
  */
-class App_Db_Table_User extends Zend_Db_Table_Abstract
+class App_Db_Table_Text extends Zend_Db_Table_Abstract
 {
     /**
      * The default table name
      */
-    protected $_name = 'lib_user';
+    protected $_name = 'lib_text';
 
     /**
      * Primery key
      */
-    protected $_primary = 'lib_user_id';
+    protected $_primary = 'lib_text_id';
 
     /**
      * This table supports auto-incremental key
@@ -34,6 +34,6 @@ class App_Db_Table_User extends Zend_Db_Table_Abstract
     /**
      * Dependent tables
      */
-    protected $_dependentTables = array('App_Db_Table_UserBookshelf');
+    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
 
 }
