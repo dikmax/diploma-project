@@ -30,11 +30,25 @@ class App_User_Factory
      */
     protected $_users;
 
+    /**
+     * Users table
+     *
+     * @var App_Db_Table_User
+     */
+    protected $_table;
+
+    /**
+     * Constructs users factory object
+     */
     private function __construct()
     {
         $this->_users = array();
+        $this->_table = new App_Db_Table_User();
     }
 
+    /**
+     * Prevents from cloning
+     */
     private function __clone()
     {
         throw new App_User_Factory_Exception("Clone isn't allowed");
@@ -109,34 +123,25 @@ class App_User_Factory
             return $this->_users[$cond];
         }
 
-        $db = Zend_Registry::get('db');
-
-        $select = $db->select();
-        $select->from('lib_user',
-                      array('lib_user_id', 'login', 'password', 'email',
-                            'registration_date', 'login_date', 'login_ip',
-                            'lib_writeboard_id'));
-
         if (is_numeric($cond)) {
-            $select->where("lib_user_id = ?", $cond);
+            $rows = $this->_table->find((int)$cond);
+            if (count($rows) == 0) {
+                throw new App_User_Exception('User with id=' . $cond . ' doesn\'t exists');
+            }
+            $row = $rows[0];
         } else if (is_string($cond)) {
-            $select->where($cond, $value)
-                   ->limit(1);
+            $row = $this->_table->fetchRow(
+                $this->_table->select()->where($cond, $value)
+            );
+            if ($row === null) {
+                throw new App_User_Exception('User with requested condition doesn\' found.');
+            }
         } else {
             throw new App_User_Factory_Exception('First parameter to '
                 . 'App_User_Factory::get() must be int or string');
         }
 
-        $row = $db->fetchRow($select);
-
-        if ($row === false) {
-            if (is_numeric($cond)) {
-                throw new App_User_Exception('User with id=' . $cond . ' doesn\'t exists');
-            } else {
-                throw new App_User_Exception('User with requested condition doesn\' found.');
-            }
-        }
-
+        $row = $row->toArray();
         $userId = $row['lib_user_id'];
         if (isset($this->_users[$userId]) && $this->_users[$userId] instanceof App_User) {
             // User with specified condition found in cache
@@ -192,15 +197,10 @@ class App_User_Factory
         }
 
         if (count($new) > 0) {
-            $db = Zend_Registry::get('db');
+            $newUsers = $this->_table->find($new);
 
-            $newusers = $db->fetchAll('SELECT lib_user_id, login, password, '
-                      . 'email, registration_date, login_date, login_ip, '
-                      . 'lib_writeboard_id '
-                      . 'FROM lib_user '
-                      . 'WHERE lib_user_id IN (' . implode(', ', $new). ')');
-
-            foreach ($newusers as $row) {
+            foreach ($newUsers as $row) {
+                $row = $row->toArray();
                 $userId = $row['lib_user_id'];
                 $row['registration_date'] = App_Date::fromMysqlString($row['registration_date']);
                 $row['login_date'] = App_Date::fromMysqlString($row['login_date']);

@@ -186,8 +186,6 @@ class App_User implements Zend_Acl_Role_Interface
     {
         if ($this->_libUserId === null) {
             // Create new user
-            $db = Zend_Registry::get('db');
-
             if ($this->_writeboardId === null) {
                 $writeboard = new App_Writeboard(array(
                     'owner_description' => 'New user'
@@ -198,16 +196,16 @@ class App_User implements Zend_Acl_Role_Interface
                 $this->_writeboard = $writeboard;
             }
 
-            $data = array(
+            $userTable = new App_Db_Table_User();
+            $insertId = $userTable->insert(array(
                 'login' => $this->_login,
                 'password' => $this->_password,
                 'email' => $this->_email,
                 'registration_date' => $this->_registrationDate,
                 'lib_writeboard_id' => $this->_writeboardId
-            );
-            $db->insert('lib_user', $data);
+            ));
 
-            $this->setLibUserId($db->lastInsertId());
+            $this->setLibUserId($insertId);
             $writeboard->setOwnerDescription('User ' . $this->_libUserId);
             $writeboard->write();
         } else {
