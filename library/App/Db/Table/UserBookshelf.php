@@ -35,6 +35,11 @@ class App_Db_Table_UserBookshelf extends Zend_Db_Table_Abstract
      * Foreign keys
      */
     protected $_referenceMap = array(
+        'Title' => array(
+            'columns'           => 'lib_title_id',
+            'refTableClass'     => 'App_Db_Table_Title',
+            'refColumns'        => 'lib_title_id'
+        ),
         'User' => array(
             'columns'           => 'lib_user_id',
             'refTableClass'     => 'App_Db_Table_User',

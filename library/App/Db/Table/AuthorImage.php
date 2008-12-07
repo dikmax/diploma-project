@@ -32,8 +32,13 @@ class App_Db_Table_AuthorImage extends Zend_Db_Table_Abstract
     protected $_sequence = true;
 
     /**
-     * Dependent tables
+     * Foreign keys
      */
-    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
-
+    protected $_referenceMap = array(
+        'Author' => array(
+            'columns'           => 'lib_author_id',
+            'refTableClass'     => 'App_Db_Table_Author',
+            'refColumns'        => 'lib_author_id'
+        )
+    );
 }

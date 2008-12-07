@@ -34,6 +34,10 @@ class App_Db_Table_Tag extends Zend_Db_Table_Abstract
     /**
      * Dependent tables
      */
-    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
+    protected $_dependentTables = array(
+        'App_Db_Table_AuthorHasTag',
+        'App_Db_Table_ChannelItemHasTag',
+        'App_Db_Table_TitleHasTag'
+    );
 
 }

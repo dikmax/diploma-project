@@ -34,6 +34,5 @@ class App_Db_Table_TextRevisionContent extends Zend_Db_Table_Abstract
     /**
      * Dependent tables
      */
-    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
-
+    protected $_dependentTables = array('App_Db_Table_TextRevision');
 }

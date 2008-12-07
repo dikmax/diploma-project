@@ -34,8 +34,18 @@ class App_Db_Table_ChannelItemHasTag extends Zend_Db_Table_Abstract
     protected $_sequence = false;
 
     /**
-     * Dependent tables
+     * Foreign keys
      */
-    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
-
+    protected $_referenceMap = array(
+        'ChannelItem' => array(
+            'columns'           => 'lib_channel_item_id',
+            'refTableClass'     => 'App_Db_Table_Author',
+            'refColumns'        => 'lib_channel_item_id'
+        ),
+        'Tag' => array(
+            'columns'           => 'lib_tag_id',
+            'refTableClass'     => 'App_Db_Table_Tag',
+            'refColumns'        => 'lib_tag_id'
+        )
+    );
 }

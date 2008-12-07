@@ -35,8 +35,23 @@ class App_Db_Table_TitleHasTag extends Zend_Db_Table_Abstract
     protected $_sequence = false;
 
     /**
-     * Dependent tables
+     * Foreign keys
      */
-    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
-
+    protected $_referenceMap = array(
+        'Tag' => array(
+            'columns'           => 'lib_tag_id',
+            'refTableClass'     => 'App_Db_Table_Tag',
+            'refColumns'        => 'lib_tag_id'
+        ),
+        'Title' => array(
+            'columns'           => 'lib_title_id',
+            'refTableClass'     => 'App_Db_Table_Title',
+            'refColumns'        => 'lib_title_id'
+        ),
+        'User' => array(
+            'columns'           => 'lib_user_id',
+            'refTableClass'     => 'App_Db_Table_User',
+            'refColumns'        => 'lib_user_id'
+        )
+    );
 }

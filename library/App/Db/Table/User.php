@@ -32,8 +32,25 @@ class App_Db_Table_User extends Zend_Db_Table_Abstract
     protected $_sequence = true;
 
     /**
+     * Foreign keys
+     */
+    protected $_referenceMap = array(
+        'Writeboard' => array(
+            'columns'           => 'lib_writeboard_id',
+            'refTableClass'     => 'App_Db_Table_Writeboard',
+            'refColumns'        => 'lib_writeboard_id'
+        )
+    );
+
+    /**
      * Dependent tables
      */
-    protected $_dependentTables = array('App_Db_Table_UserBookshelf');
+    protected $_dependentTables = array(
+        'App_Db_Table_AuthorHasTag',
+        'App_Db_Table_TextRevision',
+        'App_Db_Table_TitleHasTag',
+        'App_Db_Table_UserBookshelf',
+        'App_Db_Table_WriteboardMessage'
+    );
 
 }

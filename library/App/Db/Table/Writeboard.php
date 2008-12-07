@@ -34,6 +34,10 @@ class App_Db_Table_Writeboard extends Zend_Db_Table_Abstract
     /**
      * Dependent tables
      */
-    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
-
+    protected $_dependentTables = array(
+        'App_Db_Table_Author',
+        'App_Db_Table_Title',
+        'App_Db_Table_User',
+        'App_Db_Table_WriteboardMessage'
+    );
 }

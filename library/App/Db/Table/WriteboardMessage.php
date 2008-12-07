@@ -32,8 +32,18 @@ class App_Db_Table_WriteboardMessage extends Zend_Db_Table_Abstract
     protected $_sequence = true;
 
     /**
-     * Dependent tables
+     * Foreign keys
      */
-    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
-
+    protected $_referenceMap = array(
+        'User' => array(
+            'columns'           => 'writeboard_writer',
+            'refTableClass'     => 'App_Db_Table_User',
+            'refColumns'        => 'lib_user_id'
+        ),
+        'Writeboard' => array(
+            'columns'           => 'lib_writeboard_id',
+            'refTableClass'     => 'App_Db_Table_Writeboard',
+            'refColumns'        => 'lib_writeboard_id'
+        )
+    );
 }

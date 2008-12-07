@@ -32,8 +32,23 @@ class App_Db_Table_ChannelItem extends Zend_Db_Table_Abstract
     protected $_sequence = true;
 
     /**
+     * Foreign keys
+     */
+    protected $_referenceMap = array(
+        'Channel' => array(
+            'columns'           => 'lib_channel_id',
+            'refTableClass'     => 'App_Db_Table_Channel',
+            'refColumns'        => 'lib_channel_id'
+        ),
+        'Text' => array(
+            'columns'           => 'item_text_id',
+            'refTableClass'     => 'App_Db_Table_Text',
+            'refColumns'        => 'lib_text_id'
+        )
+    );
+
+    /**
      * Dependent tables
      */
-    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
-
+    protected $_dependentTables = array('App_Db_Table_ChannelItemHasTag');
 }

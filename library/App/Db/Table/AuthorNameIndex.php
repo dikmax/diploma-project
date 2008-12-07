@@ -9,22 +9,22 @@
  */
 
 /**
- * Author name table model
+ * Author name index table model
  *
  * @author dikmax
  * @version
  */
-class App_Db_Table_AuthorName extends Zend_Db_Table_Abstract
+class App_Db_Table_AuthorNameIndex extends Zend_Db_Table_Abstract
 {
     /**
      * The default table name
      */
-    protected $_name = 'lib_author_name';
+    protected $_name = 'lib_author_name_index';
 
     /**
      * Primery key
      */
-    protected $_primary = 'lib_author_name_id';
+    protected $_primary = 'lib_author_name_index_id';
 
     /**
      * This table supports auto-incremental key
@@ -32,8 +32,13 @@ class App_Db_Table_AuthorName extends Zend_Db_Table_Abstract
     protected $_sequence = true;
 
     /**
-     * Dependent tables
+     * Foreign keys
      */
-    //protected $_dependentTables = array('App_Db_Table_UserBookshelf');
-
+    protected $_referenceMap = array(
+        'Author' => array(
+            'columns'           => 'lib_author_id',
+            'refTableClass'     => 'App_Db_Table_Author',
+            'refColumns'        => 'lib_author_id'
+        )
+    );
 }
