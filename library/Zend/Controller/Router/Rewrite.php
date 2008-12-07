@@ -15,7 +15,7 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id$
+ * @version    $Id: Rewrite.php 12108 2008-10-24 13:02:56Z dasprid $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 

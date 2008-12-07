@@ -16,7 +16,7 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id$
+ * @version    $Id: PartialLoop.php 12577 2008-11-12 01:31:34Z sidhighwind $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 

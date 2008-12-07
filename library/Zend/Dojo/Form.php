@@ -30,7 +30,7 @@ require_once 'Zend/Form.php';
  * @subpackage Form
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Form.php 12373 2008-11-07 16:52:44Z matthew $
  */
 class Zend_Dojo_Form extends Zend_Form
 {

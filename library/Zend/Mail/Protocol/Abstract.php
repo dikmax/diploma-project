@@ -18,7 +18,7 @@
  * @subpackage Protocol
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 12395 2008-11-07 23:58:38Z nico $
  */
 
 
@@ -44,7 +44,7 @@ require_once 'Zend/Validate/Hostname.php';
  * @subpackage Protocol
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 12395 2008-11-07 23:58:38Z nico $
  * @todo Implement proxy settings
  */
 abstract class Zend_Mail_Protocol_Abstract

@@ -17,7 +17,7 @@
  * @subpackage  View
  * @copyright   Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id$
+ * @version     $Id: AjaxLink.php 12804 2008-11-24 17:28:27Z beberlei $
  */
 
 /**
@@ -281,7 +281,7 @@ class ZendX_JQuery_View_Helper_AjaxLink extends Zend_View_Helper_HtmlElement
 
         $html = '<a'
               . $this->_htmlAttribs($attribs)
-              . $this->getClosingBracket()
+              . '>'
               . $label
               . '</a>';
         return $html;

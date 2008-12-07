@@ -16,7 +16,7 @@
  * @package    Zend_Locale
  * @subpackage Format
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id$
+ * @version    $Id: Format.php 12057 2008-10-21 17:19:43Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 

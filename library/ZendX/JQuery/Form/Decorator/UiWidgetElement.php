@@ -17,7 +17,7 @@
  * @subpackage  View
  * @copyright   Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id$
+ * @version     $Id: UiWidgetElement.php 11941 2008-10-13 19:41:38Z matthew $
  */
 
 require_once "Zend/Form/Decorator/ViewHelper.php";

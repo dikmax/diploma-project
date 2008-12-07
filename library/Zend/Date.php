@@ -16,7 +16,7 @@
  * @package   Zend_Date
  * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id$
+ * @version   $Id: Date.php 12910 2008-11-27 19:54:56Z thomas $
  */
 
 /**
@@ -696,13 +696,13 @@ class Zend_Date extends Zend_Date_DateObject
                 }
 
                 if (($output[$i][0] !== "'") and (preg_match('/A+/', $output[$i]))) {
-                    $length     = strlen($output[$i]);
-                    $seconds    = $this->get(self::TIMESTAMP,   $locale);
-                    $month      = $this->get(self::MONTH_SHORT, $locale);
-                    $day        = $this->get(self::DAY_SHORT,   $locale);
-                    $year       = $this->get(self::YEAR,        $locale);
+                    $length = strlen($output[$i]);
+                    $hour   = $this->get(self::HOUR,        $locale);
+                    $minute = $this->get(self::MINUTE,      $locale);
+                    $second = $this->get(self::SECOND,      $locale);
+                    $milli  = $this->get(self::MILLISECOND, $locale);
 
-                    $seconds   -= $this->mktime(0, 0, 0, $month, $day, $year, false);
+                    $seconds    = $milli + ($second * 1000) + ($minute * 60000) + ($hour * 3600000);
                     $output[$i] = str_pad($seconds, $length, '0', STR_PAD_LEFT);
                 }
 
@@ -4548,6 +4548,10 @@ class Zend_Date extends Zend_Date_DateObject
      */
     public static function isDate($date, $format = null, $locale = null)
     {
+        if (!is_string($date) and !is_numeric($date) and !($date instanceof Zend_Date)) {
+            return false;
+        }
+
         if (($format !== null) and (Zend_Locale::isLocale($format, null, false))) {
             $locale = $format;
             $format = null;

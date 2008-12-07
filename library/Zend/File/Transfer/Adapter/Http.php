@@ -16,7 +16,7 @@
  * @package   Zend_File_Transfer
  * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id$
+ * @version   $Id: $
  */
 
 require_once 'Zend/File/Transfer/Adapter/Abstract.php';
@@ -38,6 +38,11 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
      */
     public function __construct($options = array())
     {
+        if (ini_get('file_uploads') == false) {
+            require_once 'Zend/File/Transfer/Exception.php';
+            throw new Zend_File_Transfer_Exception('File uploads are not allowed in your php config!');
+        }
+
         $this->_files = $this->_prepareFiles($_FILES);
         $this->addValidator('Upload', null, $this->_files);
 
@@ -139,7 +144,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     public function isReceived($files = null)
     {
         $files = $this->_getFiles($files);
-        foreach ($files as $key => $content) {
+        foreach ($files as $content) {
             if ($content['received'] !== true) {
                 return false;
             }
@@ -157,7 +162,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     public function isFiltered($files = null)
     {
         $files = $this->_getFiles($files);
-        foreach ($files as $key => $content) {
+        foreach ($files as $content) {
             if ($content['filtered'] !== true) {
                 return false;
             }

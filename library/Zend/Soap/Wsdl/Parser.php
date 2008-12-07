@@ -16,7 +16,7 @@
  * @package    Zend_Soap
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Parser.php 12080 2008-10-22 16:40:33Z beberlei $
  */
 
 require_once 'Zend/Soap/Wsdl/Parser/Result.php';

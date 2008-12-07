@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_TimeSync
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id$
+ * @version    $Id: TimeSync.php 9534 2008-05-26 20:01:56Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 

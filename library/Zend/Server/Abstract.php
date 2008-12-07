@@ -53,7 +53,7 @@ require_once 'Zend/Server/Method/Parameter.php';
  * @package    Zend_Server
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 12617 2008-11-13 15:04:07Z alexander $
  */
 abstract class Zend_Server_Abstract implements Zend_Server_Interface
 {

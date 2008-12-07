@@ -17,7 +17,7 @@
  * @subpackage  View
  * @copyright   Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id$
+ * @version     $Id: Container.php 12815 2008-11-24 23:30:10Z beberlei $
  */
 
 /**
@@ -303,6 +303,16 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     public function getUiPath()
     {
     	return $this->_uiPath;
+    }
+
+    /**
+     * Proxies to getUiPath() for consistency in function naming.
+     *
+     * @return string
+     */
+    public function getUiLocalPath()
+    {
+        return $this->getUiPath();
     }
 
     /**
