@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 ?>
 <div class="auth-info">
@@ -13,7 +13,7 @@
         <?= $this->form; ?>
         Нет аккаунта? <br /><a href="<?= $this->url(array('action' => 'registration'), 'auth'); ?>">Зарегистрируйся!</a>
     <?php else: ?>
-        <div align="center">
+        <div style="text-align: center;">
             Привет,
             <h2><a href="<?= $this->url(array('controller' => 'user', 'action' => 'profile', 'login' => $this->login), 'user'); ?>"><?= $this->login ?></a></h2>
             <a href="<?= $this->url(array('action' => 'logout'), 'auth'); ?>">Выйти</a>

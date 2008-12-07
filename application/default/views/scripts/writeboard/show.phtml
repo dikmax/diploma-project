@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 ?>
 <div class="writeboard">
@@ -13,10 +13,10 @@
         <a href="#" onclick="document.getElementById('writeboard-input').style.display = 'block'; this.style.display = 'none'; return false;">Оставить сообщение</a>
         <div id="writeboard-input">
             <form action="<?= $this->url(array('action' => 'add'), 'writeboard'); ?>" method="post">
-                Еще можно написать <span id="writeboard-length">1000</span> символов.
-                <textarea rows="4" name="message"></textarea>
+                <p>Еще можно написать <span id="writeboard-length">1000</span> символов.
+                <textarea rows="4" cols="70" name="message"></textarea>
                 <input type="hidden" name="id" value="<?= $this->id; ?>" />
-                <input type="submit" value="Написать" />
+                <input type="submit" value="Написать" /></p>
             </form>
         </div>
     <?php endif; ?>
