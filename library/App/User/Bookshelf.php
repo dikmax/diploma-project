@@ -63,16 +63,9 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
     public function getTitles()
     {
         if ($this->_titles === null) {
-            $db = Zend_Registry::get('db');
+            $table = new App_Db_Table_UserBookshelf();
 
-            // TODO Delete some fields
-            $titles = $db->fetchAll('SELECT t.lib_title_id, t.name, '
-                    .     't.authors_index, t.description_text_id, '
-                    .     't.front_description, t.lib_writeboard_id '
-                    . 'FROM lib_user_bookshelf s '
-                    . 'LEFT JOIN lib_title t USING (lib_title_id) '
-                    . 'WHERE s.lib_user_id = :lib_user_id',
-                    array(':lib_user_id' => $this->_user->getId()));
+            $titles = $table->findTitlesByUserId($this->_user->getId());
 
             $this->_titles = array();
             foreach ($titles as $title) {

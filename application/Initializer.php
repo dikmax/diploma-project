@@ -58,6 +58,13 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     protected $_root;
 
     /**
+     * Application start microtime
+     *
+     * @var string
+     */
+    protected $_startMicrotime;
+
+    /**
      * Constructor
      *
      * Initialize environment, root path, and configuration.
@@ -68,6 +75,8 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function __construct($env, $root = null)
     {
+        $this->_startMicrotime = microtime(true);
+
         $this->_setEnv($env);
         if (null === $root) {
             $root = realpath(dirname(__FILE__) . '/../');
@@ -127,6 +136,20 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     public function routeStartup()
     {
         $this->initApplication();
+    }
+
+    /**
+     * @see Zend_Controller_Plugin_Abstract::dispatchLoopShutdown()
+     *
+     */
+    public function dispatchLoopShutdown ()
+    {
+        if ($this->_env == "development") {
+            Zend_Wildfire_Plugin_FirePhp::send('Execution time: '
+                . (string)round(microtime(true) - $this->_startMicrotime, 5) . ' sec');
+            Zend_Wildfire_Plugin_FirePhp::send('Memory usage: '
+                . memory_get_peak_usage(true) . ' bytes');
+        }
     }
 
     public function initApplication()
