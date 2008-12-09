@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -167,10 +167,10 @@ class App_Text_Revision {
             if (!$user) {
                 throw new App_Text_Revision_Exception('Guest user can\'t edit texts');
             }
+            $table = new App_Db_Table_TextRevision();
+            
             // Creating 'lib_text_revision_content' record
-            $data = array("content" => $this->_content);
-            $db->insert('lib_text_revision_content', $data);
-            $this->_contentId = $db->lastInsertId();
+            $this->_contentId = $table->insert(array("content" => $this->_content));
 
             if ($this->_changes === null) {
                 $this->_changes = "First revision";

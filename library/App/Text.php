@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -113,6 +113,7 @@ class App_Text extends App_Acl_Resource_Abstract {
     public function write()
     {
         $db = Zend_Registry::get('db');
+        $table = new App_Db_Table_Text();
 
         if ($this->_libTextId === null) {
             //Creates new text
@@ -121,10 +122,11 @@ class App_Text extends App_Acl_Resource_Abstract {
             try {
                 $this->_revision->write();
 
-                $data = array('lib_text_revision_id' => $this->_revision->getId(),
-                              'cdate' => $this->_cdate->toMysqlString());
-                $db->insert('lib_text', $data);
-                $this->setLibTextId($db->lastInsertId());
+                $insertId = $table->insert(array(
+                    'lib_text_revision_id' => $this->_revision->getId(),
+                    'cdate' => $this->_cdate->toMysqlString())
+                );
+                $this->setLibTextId($insertId);
 
                 $this->_revision->writeLibTextId();
 
@@ -140,9 +142,10 @@ class App_Text extends App_Acl_Resource_Abstract {
             try {
                 $this->_revision->write();
 
-                $data = array('lib_text_revision_id' => $this->_revision->getId());
-                $db->update('lib_text', $data,
-                    $db->quoteInto('lib_text_id = ?', $this->_libTextId));
+                $table->update(
+                    array('lib_text_revision_id' => $this->_revision->getId()),
+                    $db->quoteInto('lib_text_id = ?', $this->_libTextId)
+                );
 
                 $db->commit();
             } catch (Exception $e) {
@@ -165,17 +168,9 @@ class App_Text extends App_Acl_Resource_Abstract {
             throw new App_Text_Exception('First parameter to App_Text::read() must be int');
         }
 
-        $db = Zend_Registry::get('db');
+        $table = new App_Db_Table_Text();
 
-        $result = $db->fetchRow('SELECT t.lib_text_id, t.cdate, '
-            .     'lib_text_revision_id, lib_text_revision_content_id, '
-            .     'r.mdate, r.revision, r.author_id, r.changes, c.content '
-            . 'FROM lib_text t '
-            . 'LEFT JOIN lib_text_revision r USING (lib_text_revision_id) '
-            . 'LEFT JOIN lib_text_revision_content c USING (lib_text_revision_content_id) '
-            . 'WHERE t.lib_text_id = :lib_text_id',
-            array(':lib_text_id' => $id)
-        );
+        $result = $table->findTextWithRevision($id);
 
         if ($result === false) {
             throw new App_Text_Exception("Text with id=$id doesn't exists");

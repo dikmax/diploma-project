@@ -51,4 +51,24 @@ class App_Db_Table_Text extends Zend_Db_Table_Abstract
         'App_Db_Table_TextRevision',
         'App_Db_Table_Title'
     );
+
+    /**
+     * Returns text with revision
+     *
+     * @param int $textId text id
+     *
+     * @return array
+     */
+    public function findTextWithRevision($textId)
+    {
+        $select = $this->getAdapter()->select()
+            ->from($this->_name)
+            ->joinLeftUsing('lib_text_revision', 'lib_text_revision_id')
+            ->joinLeft('lib_text_revision_content',
+                'lib_text_revision.lib_text_revision_content_id = '
+                . 'lib_text_revision_content.lib_text_revision_content_id')
+            ->where('`lib_text`.`lib_text_id` = ?', $textId);
+
+        return $this->getAdapter()->fetchRow($select);
+    }
 }

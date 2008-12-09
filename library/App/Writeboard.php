@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -90,18 +90,18 @@ class App_Writeboard extends App_Acl_Resource_Abstract
      */
     public function write()
     {
-        $db = Zend_Registry::get("db");
-
         if ($this->_libWriteboardId === null) {
             // Creating new writeboard
-            $data = array('owner_description' => $this->_ownerDescription);
-            $db->insert('lib_writeboard', $data);
-            $this->setLibWriteboardId($db->lastInsertId());
+            $table = new App_Db_Table_Writeboard();
+            $insertId = $table->insert(array(
+                'owner_description' => $this->_ownerDescription
+            ));
+            $this->setLibWriteboardId($insertId);
         } else if ($this->_changed) {
             // Update writeboard
-            $data = array('owner_description' => $this->_ownerDescription);
-            $db->update('lib_writeboard', $data,
-                $db->quoteInto('lib_writeboard_id = ?', $this->_libWriteboardId));
+            $table = new App_Db_Table_Writeboard();
+            $table->update(array('owner_description' => $this->_ownerDescription),
+                $table->getAdapter()->quoteInto('lib_writeboard_id = ?', $this->_libWriteboardId));
         }
     }
 
