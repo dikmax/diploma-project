@@ -56,4 +56,16 @@ class App_Db_Table_TextRevision extends Zend_Db_Table_Abstract
      * Dependent tables
      */
     protected $_dependentTables = array('App_Db_Table_Text');
+
+    /**
+     * Returns max revision id for specified text
+     */
+    public function getMaxRevisionNumber($textId)
+    {
+        $select = $this->getAdapter()->select()
+            ->from($this->_name, array(new Zend_Db_Expr('max(revision)')))
+            ->where('lib_text_id = ?', $textId);
+
+        return $this->getAdapter()->fetchOne($select);
+    }
 }

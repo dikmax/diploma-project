@@ -21,7 +21,7 @@ class App_Text_Revision {
      * @var int
      */
     protected $_libTextRevisionId;
-    
+
     /**
      * Connected text
      *
@@ -35,21 +35,21 @@ class App_Text_Revision {
      * @var int
      */
     protected $_contentId;
-    
+
     /**
      * Revision content
      *
      * @var string
      */
     protected $_content;
-    
+
     /**
      * Date of modification
      *
      * @var App_Date
      */
     protected $_mdate;
-    
+
     /**
      * Revision number
      *
@@ -63,7 +63,7 @@ class App_Text_Revision {
      * @var string
      */
     protected $_changes;
-    
+
     /**
      * Constructs App_Text_Revision object
      *
@@ -97,7 +97,7 @@ class App_Text_Revision {
         } else {
             $this->_libTextRevisionId = null;
         }
-        
+
         // lib_text_id
         if (isset($construct['lib_text'])) {
             if (!($construct['lib_text'] instanceof App_Text)) {
@@ -107,7 +107,7 @@ class App_Text_Revision {
         } else {
             $this->_libText = null;
         }
-        
+
         // Dependent table lib_text_revision_content
         if (isset($construct['content_id'])) {
             if (!is_numeric($construct['content_id'])) {
@@ -127,7 +127,7 @@ class App_Text_Revision {
         $this->_mdate = isset($construct['mdate'])
             ? new App_Date($construct['mdate'])
             : $this->_mdate = App_Date::now();
-        
+
         // revision
         if (!isset($construct['revision'])) {
             $this->_revision = 1;
@@ -137,9 +137,9 @@ class App_Text_Revision {
             }
             $this->_revision = $construct['revision'];
         }
-        
+
         // TODO revision author ('author_id' index)
-        
+
         // changes
         if (isset($construct['changes'])) {
             if (!is_string($construct['changes'])) {
@@ -153,40 +153,34 @@ class App_Text_Revision {
 
     /**
      * Writes/updates revision into database
-     * 
+     *
      * @throws App_Text_Revision_Exception
      */
     public function write()
     {
-        $db = Zend_Registry::get('db');
-        
         if ($this->_libTextRevisionId === null) {
             // Creating revision
-            
+
             $user = App_User_Factory::getSessionUser();
             if (!$user) {
                 throw new App_Text_Revision_Exception('Guest user can\'t edit texts');
             }
             $table = new App_Db_Table_TextRevision();
-            
+            $tableContent = new App_Db_Table_TextRevisionContent();
+
             // Creating 'lib_text_revision_content' record
-            $this->_contentId = $table->insert(array("content" => $this->_content));
+            $this->_contentId = $tableContent->insert(array("content" => $this->_content));
+
 
             if ($this->_changes === null) {
                 $this->_changes = "First revision";
             }
-            
+
             // Creating 'lib_text_revision' record
             if ($this->_revision !== null) {
                 $revision = $this->_revision;
             } else if ($this->_libText !== null && $this->_libText->getId() !== null) {
-                $revision = $db->fetchOne('(SELECT max(revision) + 1 '
-                    . 'FROM lib_text_revision '
-                    . 'WHERE lib_text_id = :lib_text_id)', 
-                    array(
-                        ':lib_text_id' => $this->_libText->getId()
-                    ));
-                //$revision = new Zend_Db_Expr($db->quoteInto());
+                $revision = $table->getMaxRevisionNumber($this->_libText->getId()) + 1;
             } else {
                 $revision = 1;
             }
@@ -198,8 +192,8 @@ class App_Text_Revision {
             if ($this->_libText !== null && $this->_libText->getLibTextId() !== null) {
                 $data['lib_text_id'] = $this->_libText->getId();
             }
-            $db->insert('lib_text_revision', $data);
-            $this->_libTextRevisionId = $db->lastInsertId();
+
+            $this->_libTextRevisionId = $table->insert($data);
         } else {
             throw new App_Text_Revision_Exception('Revision could not be updated');
         }
@@ -213,8 +207,6 @@ class App_Text_Revision {
      */
     public function writeLibTextId()
     {
-        $db = Zend_Registry::get('db');
-
         if (!isset($this->_libText)) {
             throw new App_Text_Revision_Exception('$_libText isn\'t set');
         }
@@ -222,7 +214,10 @@ class App_Text_Revision {
             throw new App_Text_Exception("lib_text_id isn't set");
         }
         $data = array('lib_text_id' => $this->_libText->getId());
-        $db->update('lib_text_revision', $data,
+
+        $db = Zend_Registry::get('db');
+        $table = new App_Db_Table_TextRevision();
+        $table->update($data,
             $db->quoteInto("lib_text_revision_id = ?", $this->_libTextRevisionId));
     }
 
@@ -236,11 +231,11 @@ class App_Text_Revision {
         // TODO Write isChanged function
         return false;
     }
-    
+
     /*
      * Setters and getters
      */
-    
+
     /**
      * Returns database id
      *
@@ -250,7 +245,7 @@ class App_Text_Revision {
     {
         return $this->_libTextRevisionId;
     }
-    
+
     /**
      * Returns database id (alias for <code>getLibTextRevisionId</code>)
      *
@@ -270,7 +265,7 @@ class App_Text_Revision {
     {
         return $this->_libText;
     }
-    
+
     /**
      * Returns database id for content
      *
@@ -280,7 +275,7 @@ class App_Text_Revision {
     {
         return $this->_contentId;
     }
-    
+
     /**
      * Returns revision content
      *
@@ -290,7 +285,7 @@ class App_Text_Revision {
     {
         return $this->_content;
     }
-    
+
     /**
      * Returns revision content (alias for <code>getContent</code>)
      *
@@ -300,7 +295,7 @@ class App_Text_Revision {
     {
         return $this->_content;
     }
-    
+
     /**
      * Returns revision date
      *
@@ -310,7 +305,7 @@ class App_Text_Revision {
     {
         return $this->_mdate;
     }
-    
+
     /**
      * Returns revision number
      *
@@ -320,7 +315,7 @@ class App_Text_Revision {
     {
         return $this->_revision;
     }
-    
+
     /**
      * Return changes in this revision
      *
@@ -333,7 +328,7 @@ class App_Text_Revision {
 
     /**
      * Sets new revision content (creates new revision)
-     * 
+     *
      * @param string $content
      * @return boolean Success
      */
@@ -350,13 +345,13 @@ class App_Text_Revision {
         $this->_mdate = App_Date::now();
         $this->_revision = null;
         $this->_changes = "Update text";
-        
+
         return true;
     }
-    
+
     /**
      * Set new revision content, creates new revision (alias for <code>setContent</code>)
-     * 
+     *
      * @param string $text
      * @return boolean Success
      */
