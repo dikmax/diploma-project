@@ -71,20 +71,33 @@ class AuthorController extends Zend_Controller_Action
     }
 
     /**
+     * Returns author
+     *
+     * @return App_Library_Author
+     */
+    protected function getAuthor()
+    {
+        try {
+            return App_Library_Author::getByName($this->_author);
+        } catch (App_Library_Exception_AuthorNotFound $e) {
+            $this->_forward('author-not-found', 'error', null, array(
+                'author' => $this->_author
+            ));
+        }
+        return null;
+    }
+    /**
      * Author's page
      */
     public function overviewAction()
     {
         $this->_topMenu->selectItem('overview');
-        try {
-            $author = App_Library_Author::getByName($this->_author);
+
+        $author = $this->getAuthor();
+        if ($author) {
             $this->view->headTitle($author->getName());
             $this->view->author = $author;
             $this->view->frontImage = $author->getFrontImage();
-        } catch (App_Library_Exception_AuthorNotFound $e) {
-            $this->_forward('author-not-found', 'error', null, array(
-                'author' => $this->_author
-            ));
         }
     }
 
@@ -95,15 +108,12 @@ class AuthorController extends Zend_Controller_Action
     {
         $this->addWikiTopMenu();
         $this->_topMenu->selectItem('bio');
-        try {
-            $author = App_Library_Author::getByName($this->_author);
+
+        $author = $this->getAuthor();
+        if ($author) {
             $this->view->headTitle($author->getName())
                        ->headTitle('Информация');
             $this->view->author = $author;
-        } catch (App_Library_Exception_AuthorNotFound $e) {
-            $this->_forward('author-not-found', 'error', null, array(
-                'author' => $this->_author
-            ));
         }
     }
 
@@ -115,16 +125,13 @@ class AuthorController extends Zend_Controller_Action
         $this->addWikiTopMenu();
         $this->_topMenu->selectItem('bio');
         $this->_topMenu->selectItem('edit', true);
-        try {
-            $author = App_Library_Author::getByName($this->_author);
+
+        $author = $this->getAuthor();
+        if ($author) {
             $this->view->headTitle($author->getName())
                        ->headTitle('Информация')
                        ->headTitle('Редактирование');
             $this->view->author = $author;
-        } catch (App_Library_Exception_AuthorNotFound $e) {
-            $this->_forward('author-not-found', 'error', null, array(
-                'author' => $this->_author
-            ));
         }
     }
 
@@ -133,9 +140,8 @@ class AuthorController extends Zend_Controller_Action
      */
     public function wikiSaveAction()
     {
-        try {
-            $author = App_Library_Author::getByName($this->_author);
-
+        $author = $this->getAuthor();
+        if ($author) {
             $text = $this->getRequest()->getParam('text');
 
             if ($text == $author->getText()) {
@@ -145,10 +151,6 @@ class AuthorController extends Zend_Controller_Action
             }
             $this->_redirect($this->view->url(array(
                 'action' => 'wiki')));
-        } catch (App_Library_Exception_AuthorNotFound $e) {
-            $this->_forward('author-not-found', 'error', null, array(
-                'author' => $this->_author
-            ));
         }
     }
 
@@ -160,6 +162,11 @@ class AuthorController extends Zend_Controller_Action
         $this->addWikiTopMenu();
         $this->_topMenu->selectItem('bio');
         $this->_topMenu->selectItem('history', true);
+
+        $author = $this->getAuthor();
+        if ($author) {
+            $this->view->revisions = $author->getDescription()->getRevisionsList();
+        }
     }
 
     /**

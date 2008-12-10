@@ -195,6 +195,23 @@ class App_Text extends App_Acl_Resource_Abstract {
         return new App_Text($text);
     }
 
+    /**
+     * Returns list of revisions
+     *
+     * @return array of App_Text_Revision
+     */
+    public function getRevisionsList()
+    {
+        $table = new App_Db_Table_TextRevision();
+
+        $result = array();
+        foreach ($table->getRevisionsList($this->_libTextId) as $revision) {
+            $result[] = new App_Text_Revision($revision);
+        }
+
+        return $result;
+    }
+
     /*
      * Setters and getters
      */

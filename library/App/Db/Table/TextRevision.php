@@ -62,10 +62,21 @@ class App_Db_Table_TextRevision extends Zend_Db_Table_Abstract
      */
     public function getMaxRevisionNumber($textId)
     {
-        $select = $this->getAdapter()->select()
+        $select = $this->_db->select()
             ->from($this->_name, array(new Zend_Db_Expr('max(revision)')))
+            ->joinLeftUsing('lib_text_revision_content', 'lib_text_revision_content_id')
             ->where('lib_text_id = ?', $textId);
 
-        return $this->getAdapter()->fetchOne($select);
+        return $this->_db->fetchOne($select);
+    }
+
+    public function getRevisionsList($textId)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name)
+            ->where('lib_text_id = ?', $textId)
+            ->order(new Zend_Db_Expr('revision DESC'));
+
+        return $this->_db->fetchAll($select);
     }
 }
