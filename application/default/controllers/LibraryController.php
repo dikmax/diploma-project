@@ -99,7 +99,7 @@ class LibraryController extends Zend_Controller_Action
                 $this->_helper->url->url(array(
                     'action' => 'overview',
                     'author' => $this->_authorUrl
-                ), 'library'));
+                )));
         }
 
         if ($this->_type === self::AUTHOR_PAGE) {
@@ -107,12 +107,21 @@ class LibraryController extends Zend_Controller_Action
                 $this->_helper->url->url(array(
                     'action' => 'wiki',
                     'author' => $this->_authorUrl
-                ), 'library'));
+                )));
             $this->_topMenu->addItem('books', 'Книги',
                 $this->_helper->url->url(array(
                     'action' => 'books',
                     'author' => $this->_authorUrl
-                ), 'library'));
+                )));
+        }
+
+        if ($this->_type === self::TITLE_PAGE) {
+            $this->_topMenu->addItem('wiki', 'Описание',
+                $this->_helper->url->url(array(
+                    'action' => 'wiki',
+                    'author' => $this->_authorUrl,
+                    'title' => $this->_titleUrl
+                )));
         }
     }
     /**
@@ -124,12 +133,12 @@ class LibraryController extends Zend_Controller_Action
             $this->_helper->url->url(array(
                 'action' => 'wiki-edit',
                 'author' => $this->_authorUrl
-            ), 'libraryauthoraction'), true);
+            )), true);
         $this->_topMenu->addItem('history', 'История',
             $this->_helper->url->url(array(
                 'action' => 'wiki-history',
                 'author' => $this->_authorUrl
-            ), 'libraryauthoraction'), true);
+            )), true);
     }
 
     /**
@@ -184,6 +193,8 @@ class LibraryController extends Zend_Controller_Action
      */
     public function overviewAction()
     {
+        $this->view->type = $this->_type;
+
         if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
             $this->initAuthorAndTitle();
             if ($this->_error) {
@@ -193,14 +204,24 @@ class LibraryController extends Zend_Controller_Action
         $this->_topMenu->selectItem('overview');
 
         if ($this->_author) {
-            $this->view->headTitle($this->_author->getName());
+            $authorName = $this->_author->getName();
+            $this->view->headTitle($authorName);
             $this->view->author = $this->_author;
-            $this->view->frontImage = $this->_author->getFrontImage();
+            $this->view->authorName = $authorName;
         }
 
+        // Actual processing
         if ($this->_title) {
-            $this->view->headTitle($this->_title->getName());
+            $titleName = $this->_title->getName();
+            $this->view->headTitle($titleName);
             $this->view->title = $this->_title;
+            $this->view->titleName = $titleName;
+
+            $this->view->frontDescription = $this->_title->getFrontDescription();
+        } else if ($this->_author) {
+            $this->view->frontImage = $this->_author->getFrontImage();
+
+            $this->view->frontDescription = $this->_author->getFrontDescription();
         }
     }
 

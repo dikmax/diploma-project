@@ -8,53 +8,78 @@
  * @version    $Id$
  */
 ?>
-<?php if ($this->frontImage === false): ?>
-    <div class="photo-placeholder">
-        Здесь<br />
-        могла<br />
-        быть<br />
-        фотография<br />
-        автора<br />
-    </div>
-<?php else: ?>
-    <div class="photo-image">
-        <img src="<?= $this->frontImage->getPath(); ?>" />
-    </div>
-<?php endif; ?>
-<h1><?= $this->author->getName(); ?></h1>
-<?php if ($this->author->getFrontDescription() != ''): ?>
-<p><?= $this->author->getFrontDescription(); ?></p>
+<?php
+if ($this->type == 1): // Author
+    if ($this->frontImage === false):
+?>
+        <div class="photo-placeholder">
+            Здесь<br />
+            могла<br />
+            быть<br />
+            фотография<br />
+            автора<br />
+        </div>
+    <?php else: ?>
+        <div class="photo-image">
+            <img src="<?= $this->frontImage->getPath(); ?>" />
+        </div>
+    <?php endif; ?>
+    <h1><?= $this->authorName ?></h1>
+<?php
+else:  // Title
+?>
+    <h1><?= $this->titleName ?></h1>
+    <h2><a href="<?= $this->url(array('author' => $this->authorName)); ?>"><?= $this->authorName; ?></a></h2>
+<?php endif;?>
+
+<?php if ($this->frontDescription != ''): ?>
+<p><?= $this->frontDescription; ?></p>
 <p>
-    <a href="<?= $this->url(array('author' => $this->author->getName(), 'action' => 'wiki'), 'libraryauthoraction') ?>">
+    <a href="<?= $this->url(array('action' => 'wiki', 'author' => $this->authorName, 'title' => $this->titleName)) ?>">
         Читать далее...
     </a>
     <?php if ($this->isAllowed('wiki', 'edit')): ?>
      |
-    <a href="<?= $this->url(array('author' => $this->author->getName(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">
+    <a href="<?= $this->url(array('action' => 'wiki-edit', 'author' => $this->authorName, 'title' => $this->titleName)) ?>">
         Редактировать
     </a>
     <?php endif; ?>
 </p>
-<?php else: ?>
-<p>У нас пока нет описания этого автора.
-    <?php if ($this->isAllowed('wiki', 'edit')): ?>
-        <a href="<?= $this->url(array('author' => $this->author->getName(), 'action' => 'wiki-edit'), 'libraryauthoraction') ?>">Есть желание помочь?</a>
+<?php
+else:
+?>
+<p><?php
+    if ($this->type === 1):
+?>
+        У нас пока нет описания этого автора.
+<?php
+    else:
+?>
+        У нас пока нет описания этого произведения.
+<?php
+    endif;
+    if ($this->isAllowed('wiki', 'edit')): ?>
+        <a href="<?= $this->url(array('action' => 'wiki-edit', 'author' => $this->authorName, 'title' => $this->titleName)) ?>">
+            Есть желание помочь?
+        </a>
     <?php endif; ?>
 </p>
-<?php endif; ?>
+<?php endif;
 
-<div class="author-titles">
-    <?php $this->titles = $this->author->getTitles(); ?>
-    <div class="header">
-        Произведения (<?= count($this->titles); ?>)
+if ($this->type === 1): ?>
+    <div class="author-titles">
+        <?php $this->titles = $this->author->getTitles(); ?>
+        <div class="header">
+            Произведения (<?= count($this->titles); ?>)
+        </div>
+        <div class="body">
+            <?php foreach ($this->titles as $title): ?>
+                <a href="<?= $this->url(array('author' => $this->author->getName(),
+                    'title' => $title->getName()), 'librarytitle'); ?>"><?= $title->getName() ?></a><br />
+            <?php endforeach; ?>
+        </div>
     </div>
-    <div class="body">
-        <?php foreach ($this->titles as $title): ?>
-            <a href="<?= $this->url(array('author' => $this->author->getName(),
-                'title' => $title->getName()), 'librarytitle'); ?>"><?= $title->getName() ?></a><br />
-        <?php endforeach; ?>
-    </div>
-</div>
+<?php endif; ?>
 
 <div class="profile-info">
     <div class="header">
