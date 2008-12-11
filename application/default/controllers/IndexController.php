@@ -32,15 +32,6 @@ class IndexController extends Zend_Controller_Action
         $this->view->titles = App_Library::getMostReadTitles();
     }
 
-    /**
-     * Main library page
-     */
-    public function libraryAction()
-    {
-        $this->view->authors = App_Library::getMostReadAuthors();
-        $this->view->titles = App_Library::getMostReadTitles();
-    }
-
     public function textReadAction()
     {
         $text = App_Text::read(9);

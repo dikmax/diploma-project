@@ -426,6 +426,8 @@ class Initializer extends Zend_Controller_Plugin_Abstract
                 ), 'library/%s/~%s')
             );
 
+            $router->addRoute('library', new App_Controller_Router_Route_Library());
+
             $this->_cache->save($router->getRoutes(), 'routes', array(), 86400);
         } else {
             $router->addRoutes($routes);
