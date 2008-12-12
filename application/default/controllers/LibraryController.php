@@ -193,14 +193,15 @@ class LibraryController extends Zend_Controller_Action
      */
     public function overviewAction()
     {
-        $this->view->type = $this->_type;
-
         if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
             $this->initAuthorAndTitle();
             if ($this->_error) {
                 return;
             }
+        } else {
+            $this->_redirect($this->_helper->url->url());
         }
+        $this->view->type = $this->_type;
         $this->_topMenu->selectItem('overview');
 
         if ($this->_author) {
@@ -230,15 +231,39 @@ class LibraryController extends Zend_Controller_Action
      */
     public function wikiAction()
     {
+        if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
+            $this->initAuthorAndTitle();
+            if ($this->_error) {
+                return;
+            }
+        } else {
+            $this->_redirect($this->_helper->url->url());
+        }
+        $this->view->type = $this->_type;
+
         $this->initWikiMenu();
         $this->_topMenu->selectItem('wiki');
 
-        $author = $this->getAuthor();
-        if ($author) {
-            $this->view->headTitle($author->getName())
-                       ->headTitle('Информация');
-            $this->view->author = $author;
+        if ($this->_author) {
+            $authorName = $this->_author->getName();
+            $this->view->headTitle($authorName);
+            $this->view->author = $this->_author;
+            $this->view->authorName = $authorName;
         }
+
+        // Actual processing
+        if ($this->_title) {
+            $titleName = $this->_title->getName();
+            $this->view->headTitle($titleName);
+            $this->view->title = $this->_title;
+            $this->view->titleName = $titleName;
+
+            $this->view->text = $this->_title->getText();
+        } else if ($this->_author) {
+            $this->view->text = $this->_author->getText();
+        }
+
+        $this->view->headTitle('Информация');
     }
 
     /**
@@ -246,16 +271,25 @@ class LibraryController extends Zend_Controller_Action
      */
     public function wikiEditAction()
     {
+        if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
+            $this->initAuthorAndTitle();
+            if ($this->_error) {
+                return;
+            }
+        } else {
+            $this->_redirect($this->_helper->url->url());
+        }
+        $this->view->type = $this->_type;
+
         $this->initWikiMenu();
         $this->_topMenu->selectItem('wiki');
         $this->_topMenu->selectItem('edit', true);
 
-        $author = $this->getAuthor();
-        if ($author) {
-            $this->view->headTitle($author->getName())
+        if ($this->_author) {
+            $this->view->headTitle($this->_author->getName())
                        ->headTitle('Информация')
                        ->headTitle('Редактирование');
-            $this->view->author = $author;
+            $this->view->author = $this->_author;
         }
     }
 
@@ -264,8 +298,16 @@ class LibraryController extends Zend_Controller_Action
      */
     public function wikiSaveAction()
     {
-        $author = $this->getAuthor();
-        if ($author) {
+        if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
+            $this->initAuthorAndTitle();
+            if ($this->_error) {
+                return;
+            }
+        } else {
+            $this->_redirect($this->_helper->url->url());
+        }
+
+        if ($this->_author) {
             $text = $this->getRequest()->getParam('text');
 
             if ($text == $author->getText()) {
@@ -283,13 +325,22 @@ class LibraryController extends Zend_Controller_Action
      */
     public function wikiHistoryAction()
     {
+        if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
+            $this->initAuthorAndTitle();
+            if ($this->_error) {
+                return;
+            }
+        } else {
+            $this->_redirect($this->_helper->url->url());
+        }
+        $this->view->type = $this->_type;
+
         $this->initWikiMenu();
         $this->_topMenu->selectItem('wiki');
         $this->_topMenu->selectItem('history', true);
 
-        $author = $this->getAuthor();
-        if ($author) {
-            $this->view->revisions = $author->getDescription()->getRevisionsList();
+        if ($this->_author) {
+            $this->view->revisions = $this->_author->getDescription()->getRevisionsList();
         }
     }
 

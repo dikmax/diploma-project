@@ -1,0 +1,27 @@
+<?php
+/**
+ * Books social network
+ *
+ * LICENSE: Closed source
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id$
+ */
+?>
+
+<?php if ($this->type === 1): ?>
+    <h1><?= $this->author->getName(); ?></h1>
+<?php else: ?>
+    <h1><?= $this->titleName ?></h1>
+    <h2><a href="<?= $this->url(array('author' => $this->authorName)); ?>"><?= $this->authorName; ?></a></h2>
+<?php endif; ?>
+
+<h4>Информация</h4>
+
+<p>
+<?= $this->text; ?>
+</p>
+
+<?php if ($this->isAllowed('wiki', 'edit')): ?>
+    <a href="<?= $this->url(array('action' => 'wiki-edit', 'author' => $this->authorName, 'title' => $this->titleName)); ?>">Редактировать</a>
+<?php endif; ?>

@@ -25,9 +25,7 @@ if ($this->type == 1): // Author
         </div>
     <?php endif; ?>
     <h1><?= $this->authorName ?></h1>
-<?php
-else:  // Title
-?>
+<?php else: ?>
     <h1><?= $this->titleName ?></h1>
     <h2><a href="<?= $this->url(array('author' => $this->authorName)); ?>"><?= $this->authorName; ?></a></h2>
 <?php endif;?>
