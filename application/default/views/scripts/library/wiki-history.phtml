@@ -9,7 +9,13 @@
  */
 ?>
 
-<h1>История изменений</h1>
+<?php if ($this->type === 1): ?>
+    <h1><?= $this->author->getName(); ?></h1>
+<?php else: ?>
+    <h1><?= $this->titleName ?></h1>
+    <h2><a href="<?= $this->url(array('author' => $this->authorName)); ?>"><?= $this->authorName; ?></a></h2>
+<?php endif; ?>
+<h4>История изменений</h4>
 
 <ol>
 <?php foreach ($this->revisions as $revision):?>

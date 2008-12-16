@@ -132,12 +132,14 @@ class LibraryController extends Zend_Controller_Action
         $this->_topMenu->addItem('edit', 'Править',
             $this->_helper->url->url(array(
                 'action' => 'wiki-edit',
-                'author' => $this->_authorUrl
+                'author' => $this->_authorUrl,
+                'title' => $this->_titleUrl
             )), true);
         $this->_topMenu->addItem('history', 'История',
             $this->_helper->url->url(array(
                 'action' => 'wiki-history',
-                'author' => $this->_authorUrl
+                'author' => $this->_authorUrl,
+                'title' => $this->_titleUrl
             )), true);
     }
 
@@ -286,11 +288,23 @@ class LibraryController extends Zend_Controller_Action
         $this->_topMenu->selectItem('edit', true);
 
         if ($this->_author) {
-            $this->view->headTitle($this->_author->getName())
-                       ->headTitle('Информация')
-                       ->headTitle('Редактирование');
+            $authorName = $this->_author->getName();
+            $this->view->headTitle($authorName);
             $this->view->author = $this->_author;
+            $this->view->authorName = $authorName;
         }
+        if ($this->_title) {
+            $titleName = $this->_title->getName();
+            $this->view->headTitle($titleName);
+            $this->view->title = $this->_title;
+            $this->view->titleName = $titleName;
+
+            $this->view->text = $this->_title->getText();
+        } else {
+            $this->view->text = $this->_author->getText();
+        }
+        $this->view->headTitle('Информация')
+                   ->headTitle('Редактирование');
     }
 
     /**
@@ -307,17 +321,24 @@ class LibraryController extends Zend_Controller_Action
             $this->_redirect($this->_helper->url->url());
         }
 
-        if ($this->_author) {
-            $text = $this->getRequest()->getParam('text');
-
-            if ($text == $author->getText()) {
+        $text = $this->getRequest()->getParam('text');
+        if ($this->_title) {
+            if ($text == $this->_title->getText()) {
                 // Text doesn't change. Nothing to do
             } else {
-                $author->setText($text);
+                $this->_title->setText($text);
             }
-            $this->_redirect($this->view->url(array(
-                'action' => 'wiki')));
+        } else {
+            if ($text == $this->_author->getText()) {
+                // Text doesn't change. Nothing to do
+            } else {
+                $this->_author->setText($text);
+            }
         }
+        $this->_redirect($this->view->url(array(
+            'author' => $this->_authorUrl,
+            'title' => $this->_titleUrl
+        )));
     }
 
     /**
@@ -340,6 +361,19 @@ class LibraryController extends Zend_Controller_Action
         $this->_topMenu->selectItem('history', true);
 
         if ($this->_author) {
+            $authorName = $this->_author->getName();
+            $this->view->headTitle($authorName);
+            $this->view->author = $this->_author;
+            $this->view->authorName = $authorName;
+        }
+        if ($this->_title) {
+            $titleName = $this->_title->getName();
+            $this->view->headTitle($titleName);
+            $this->view->title = $this->_title;
+            $this->view->titleName = $titleName;
+
+            $this->view->revisions = $this->_title->getDescription()->getRevisionsList();
+        } else {
             $this->view->revisions = $this->_author->getDescription()->getRevisionsList();
         }
     }

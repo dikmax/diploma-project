@@ -8,11 +8,16 @@
  * @version    $Id$
  */
 ?>
-<h1><?= $this->author->getName(); ?></h1>
+<?php if ($this->type === 1): ?>
+    <h1><?= $this->author->getName(); ?></h1>
+<?php else: ?>
+    <h1><?= $this->titleName ?></h1>
+    <h2><a href="<?= $this->url(array('author' => $this->authorName)); ?>"><?= $this->authorName; ?></a></h2>
+<?php endif; ?>
 <h4>Информация</h4>
 
-<form method="post" action="<?= $this->url(array('action' => 'wiki-save')); ?>">
-<textarea rows="20" style="width: 100%" name="text"><?= $this->author->getText(); ?></textarea>
+<form method="post" action="<?= $this->url(array('action' => 'wiki-save', 'author' => $this->authorName, 'title' => $this->titleName)); ?>">
+<textarea rows="20" style="width: 100%" name="text"><?= $this->text; ?></textarea>
 <input type="submit" value="Сохранить" />
 </form>
 

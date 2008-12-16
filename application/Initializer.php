@@ -391,41 +391,6 @@ class Initializer extends Zend_Controller_Plugin_Abstract
                 ))
             );
 
-            $router->addRoute('librarytitle',
-                new Zend_Controller_Router_Route('library/:author/:title', array(
-                    'controller' => 'title',
-                    'action' => 'overview'
-                ), array(
-                    'title' => '^[^~].*'
-                ))
-            );
-
-            $router->addRoute('librarytitleaction',
-                new Zend_Controller_Router_Route_Regex('library/([^/]*)/([^/]*)/~([^/]*)', array(
-                    'controller' => 'title',
-                ), array(
-                    1 => 'author',
-                    2 => 'title',
-                    3 => 'action'
-                ), 'library/%s/%s/~%s')
-            );
-
-            $router->addRoute('libraryauthor',
-                new Zend_Controller_Router_Route('library/:author', array(
-                    'controller' => 'author',
-                    'action' => 'overview'
-                ))
-            );
-
-            $router->addRoute('libraryauthoraction',
-                new Zend_Controller_Router_Route_Regex('library/([^/]*)/~([^/]*)', array(
-                    'controller' => 'author'
-                ), array(
-                    1 => 'author',
-                    2 => 'action'
-                ), 'library/%s/~%s')
-            );
-
             $router->addRoute('library', new App_Controller_Router_Route_Library());
 
             $this->_cache->save($router->getRoutes(), 'routes', array(), 86400);
