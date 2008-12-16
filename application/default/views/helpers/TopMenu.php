@@ -54,27 +54,6 @@ class App_View_Helper_TopMenu extends Zend_View_Helper_Abstract
     }
 
     /**
-     * Returns string representation of single item
-     *
-     * @param array $item item description
-     *
-     * @return string
-     */
-    private function getListItem(array $item) {
-        if ($item['selected']) {
-            return '<li class="selected">'
-                   . $item['name']
-                   . '</li>';
-        } else {
-            return '<li>'
-                   . '<a href="' . $item['link'] . '">'
-                   . $item['name']
-                   . '</a>'
-                   . '</li>';
-        }
-    }
-
-    /**
      * Renders top menu
      *
      * @return string
@@ -82,19 +61,49 @@ class App_View_Helper_TopMenu extends Zend_View_Helper_Abstract
     public function topMenu()
     {
         $result = '';
+        $mainSelectedWithLink = false;
 
+        // Right submenu
         if (count($this->_itemsRight) > 0) {
             $result .= '<ul class="top-menu-right">';
             foreach ($this->_itemsRight as $item) {
-                $result .= $this->getListItem($item);
+                if ($item['selected']) {
+                    $mainSelectedWithLink = true;
+                    $result .= '<li class="selected">'
+                            . $item['name']
+                            . '</li>';
+                } else {
+                    $result .= '<li>'
+                            . '<a href="' . $item['link'] . '">'
+                            . $item['name']
+                            . '</a>'
+                            . '</li>';
+                }
             }
             $result .= '</ul>';
         }
 
+        // Left menu
         $result .= '<ul class="top-menu-left">';
 
         foreach ($this->_itemsLeft as $item) {
-            $result .= $this->getListItem($item);
+            if ($item['selected']) {
+                $result .= '<li class="selected">';
+                if ($mainSelectedWithLink) {
+                    $result .= '<a href="' . $item['link'] . '">'
+                            . $item['name']
+                            . '</a>';
+                } else {
+                    $result .= $item['name'];
+                }
+                $result .= '</li>';
+            } else {
+                $result .= '<li>'
+                        . '<a href="' . $item['link'] . '">'
+                        . $item['name']
+                        . '</a>'
+                        . '</li>';
+            }
         }
 
         $result .= '</ul>';
