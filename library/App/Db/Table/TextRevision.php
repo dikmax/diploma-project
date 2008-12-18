@@ -79,4 +79,15 @@ class App_Db_Table_TextRevision extends Zend_Db_Table_Abstract
 
         return $this->_db->fetchAll($select);
     }
+
+    public function getRevision($textId, $revisionNumber)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name)
+            ->joinLeftUsing('lib_text_revision_content', 'lib_text_revision_content_id')
+            ->where('lib_text_id = ?', $textId)
+            ->where('revision = ?', $revisionNumber);
+
+        return $this->_db->fetchRow($select);
+    }
 }

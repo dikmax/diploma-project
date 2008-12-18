@@ -98,7 +98,8 @@ class LibraryController extends Zend_Controller_Action
             $this->_topMenu->addItem('overview', 'Обзор',
                 $this->_helper->url->url(array(
                     'action' => 'overview',
-                    'author' => $this->_authorUrl
+                    'author' => $this->_authorUrl,
+                    'title' => $this->_titleUrl
                 )));
         }
 
@@ -371,10 +372,38 @@ class LibraryController extends Zend_Controller_Action
             $this->view->headTitle($titleName);
             $this->view->title = $this->_title;
             $this->view->titleName = $titleName;
+        }
 
-            $this->view->revisions = $this->_title->getDescription()->getRevisionsList();
+        $extraparams = $this->getRequest()->getParam('extraparams', array());
+
+        if (!isset($extraparams[0])) {
+            // Revisions list
+            if ($this->_title) {
+                $this->view->revisions = $this->_title->getDescription()->getRevisionsList();
+            } else {
+                $this->view->revisions = $this->_author->getDescription()->getRevisionsList();
+            }
         } else {
-            $this->view->revisions = $this->_author->getDescription()->getRevisionsList();
+            // Revision content
+            if (!is_numeric($extraparams[0])) {
+                $this->_redirect($this->_helper->url->url());
+            }
+
+            $revisionNum = (int)$extraparams[0];
+
+            if ($this->_title) {
+                $revision = $this->_title->getDescription()->getRevision($revisionNum);
+            } else {
+                $revision = $this->_author->getDescription()->getRevision($revisionNum);
+            }
+
+            if (!$revision) {
+                $this->_redirect($this->_helper->url->url());
+            }
+
+            $this->view->revisionNum = $revisionNum;
+            $this->view->revision = $revision;
+            $this->_helper->viewRenderer->setScriptAction('wiki-show-revision');
         }
     }
 

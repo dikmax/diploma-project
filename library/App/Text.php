@@ -206,6 +206,9 @@ class App_Text extends App_Acl_Resource_Abstract {
 
         $result = array();
         foreach ($table->getRevisionsList($this->_libTextId) as $revision) {
+            $revision['content_id'] = $revision['lib_text_revision_content_id'];
+            $revision['mdate'] = App_Date::fromMysqlString($revision['mdate']);
+            $revision['lib_text'] = $this;
             $result[] = new App_Text_Revision($revision);
         }
 
@@ -251,11 +254,28 @@ class App_Text extends App_Acl_Resource_Abstract {
     /**
      * Returns <code>App_Text_Revision</code> object
      *
+     * @param int $revisionNumber Revision number, returns last revision on 0
+     *
      * @return App_Text_Revision
      */
-    public function getRevision()
+    public function getRevision($revisionNumber = 0)
     {
-        return $this->_revision;
+        if ($revisionNumber === 0) {
+            return $this->_revision;
+        } else {
+            $table = new App_Db_Table_TextRevision();
+
+            $data = $table->getRevision($this->_libTextId, $revisionNumber);
+
+            if (!$data) {
+                return null;
+            }
+
+            $data['content_id'] = $data['lib_text_revision_content_id'];
+            $data['mdate'] = App_Date::fromMysqlString($data['mdate']);
+            $data['lib_text'] = $this;
+            return new App_Text_Revision($data);
+        }
     }
 
     /**
