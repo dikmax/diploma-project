@@ -20,8 +20,9 @@
 <ol>
 <?php foreach ($this->revisions as $revision):?>
     <li value="<?= $revision->getRevision(); ?>">
-        <a href="<?= $this->libraryUrl('wiki-history', null, null, array($revision->getRevision()));?>"><?= $revision->getChanges(); ?></a>
-        <small>(<?= $revision->getMdate();?>)</small>
+        <a href="<?= $this->libraryUrl('wiki-history', null, null, array($revision->getRevision()));?>"><?= $revision->getMdate(); ?></a>:
+        <?= $this->profileLink($revision->getAuthor()); ?>
+        (<?= $revision->getChanges();?>)
     </li>
 <?php endforeach; ?>
 </ol>

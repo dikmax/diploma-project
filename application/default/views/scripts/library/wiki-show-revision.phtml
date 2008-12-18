@@ -17,7 +17,7 @@
 <?php endif; ?>
 
 <h4>Ревизия <?= $this->revisionNum; ?> (<a href="<?= $this->libraryUrl('wiki-history');?>">список</a>)</h4>
-<p><small><?= $this->revision->getMdate(); ?></small></p>
+<p><small><?= $this->revision->getMdate(); ?></small>: <?= $this->profileLink($this->revision->getAuthor()); ?></p>
 
 <p>
 <?= $this->revision->getContent(); ?>

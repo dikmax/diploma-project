@@ -30,12 +30,7 @@
                 </div>
                 <div class="message-user">
                     <?php if ($this->login != $login): ?>
-                    <a href="<?= $this->url(array('controller' => 'user',
-                                                  'action' => 'profile',
-                                                  'login' => $login
-                                                 ), 'user'); ?>" title="Посмотреть профиль <?= $login; ?>">
-                        <?= $login; ?>
-                    </a>
+                        <?= $this->profileLink($login); ?>
                     <?php else: ?>
                         <?= $login; ?>
                     <?php endif; ?>

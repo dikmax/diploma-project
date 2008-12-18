@@ -58,6 +58,20 @@ class App_Text_Revision {
     protected $_revision;
 
     /**
+     * Id of author of the revision
+     *
+     * @var int
+     */
+    protected $_authorId;
+
+    /**
+     * Author of the revision
+     *
+     * @var App_User
+     */
+    protected $_author;
+
+    /**
      * Changes in this revision
      *
      * @var string
@@ -138,7 +152,22 @@ class App_Text_Revision {
             $this->_revision = $construct['revision'];
         }
 
-        // TODO revision author ('author_id' index)
+        // Revision author
+        if (isset($construct['author_id'])) {
+            $this->_authorId = $construct['author_id'];
+
+            $this->_author = isset($construct['author'])
+                ? $construct['author']
+                : null;
+        } else {
+            if ($this->_libTextRevisionId === null) {
+                $this->_author = App_User_Factory::getSessionUser();
+                $this->_authorId = $this->_author->getId();
+            } else {
+                $this->_authorId = null;
+                $this->_author = null;
+            }
+        }
 
         // changes
         if (isset($construct['changes'])) {
@@ -161,8 +190,7 @@ class App_Text_Revision {
         if ($this->_libTextRevisionId === null) {
             // Creating revision
 
-            $user = App_User_Factory::getSessionUser();
-            if (!$user) {
+            if (!$this->_authorId) {
                 throw new App_Text_Revision_Exception('Guest user can\'t edit texts');
             }
             $table = new App_Db_Table_TextRevision();
@@ -187,7 +215,7 @@ class App_Text_Revision {
             $data = array('lib_text_revision_content_id' => $this->_contentId,
                           'mdate' => $this->_mdate->toMysqlString(),
                           'revision' => $revision,
-                          'author_id' => $user->getId(),
+                          'author_id' => $this->_authorId,
                           'changes' => $this->_changes);
             if ($this->_libText !== null && $this->_libText->getLibTextId() !== null) {
                 $data['lib_text_id'] = $this->_libText->getId();
@@ -314,6 +342,34 @@ class App_Text_Revision {
     public function getRevision()
     {
         return $this->_revision;
+    }
+
+    /**
+     * Returns id of revision's author
+     *
+     * @return int
+     */
+    public function getAuthorId()
+    {
+        return $this->_authorId;
+    }
+
+    /**
+     * Returns author of revision
+     *
+     * @return App_User
+     */
+    public function getAuthor()
+    {
+        if ($this->_author === null) {
+            if ($this->_authorId === null) {
+                return null;
+            }
+
+            $this->_author = App_User_Factory::getInstance()->getUser($this->_authorId);
+        }
+
+        return $this->_author;
     }
 
     /**
