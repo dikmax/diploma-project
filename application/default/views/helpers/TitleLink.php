@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -23,13 +23,15 @@ class App_View_Helper_TitleLink extends Zend_View_Helper_Abstract
             if ($firstAuthorName === '') {
                 $firstAuthorName = $authorName;
             }
-            $authorLinks[] = '<a href="' . $this->view->url(array('author' => $authorName), 'libraryauthor') . '">'
+            $authorLinks[] = '<a href="' . $this->view->url(array('author' => $authorName), 'library') . '">'
                 . $authorName .'</a>';
         }
 
         return implode(', ', $authorLinks) . ' - '
-            . '<a href="' . $this->view->url(array('author' => $firstAuthorName,
-                'title' => $title->getName()), 'librarytitle') . '">'
+            . '<a href="' . $this->view->url(
+                array('author' => $firstAuthorName,
+                      'title' => $title->getName()
+                ), 'library') . '">'
             . $title->getName() . '</a>';
     }
 }

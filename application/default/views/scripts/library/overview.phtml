@@ -73,7 +73,7 @@ if ($this->type === 1): ?>
         <div class="body">
             <?php foreach ($this->titles as $title): ?>
                 <a href="<?= $this->url(array('author' => $this->author->getName(),
-                    'title' => $title->getName()), 'librarytitle'); ?>"><?= $title->getName() ?></a><br />
+                    'title' => $title->getName()), 'library'); ?>"><?= $title->getName() ?></a><br />
             <?php endforeach; ?>
         </div>
     </div>

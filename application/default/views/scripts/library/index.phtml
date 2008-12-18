@@ -16,7 +16,7 @@
 <?php foreach ($this->authors as $author):
     $authorName = $author->getName();
 ?>
-    <li><a href="<?= $this->url(array('author' => $authorName), 'libraryauthor'); ?>">
+    <li><a href="<?= $this->url(array('author' => $authorName), 'library'); ?>">
         <?= $authorName; ?>
     </a></li>
     <?= $author->getName(); ?><br />
