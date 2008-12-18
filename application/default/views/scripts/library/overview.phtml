@@ -27,18 +27,18 @@ if ($this->type == 1): // Author
     <h1><?= $this->authorName ?></h1>
 <?php else: ?>
     <h1><?= $this->titleName ?></h1>
-    <h2><a href="<?= $this->url(array('author' => $this->authorName)); ?>"><?= $this->authorName; ?></a></h2>
+    <h2><a href="<?= $this->libraryUrl(null, null, false); ?>"><?= $this->authorName; ?></a></h2>
 <?php endif;?>
 
 <?php if ($this->frontDescription != ''): ?>
 <p><?= $this->frontDescription; ?></p>
 <p>
-    <a href="<?= $this->url(array('action' => 'wiki', 'author' => $this->authorName, 'title' => $this->titleName)) ?>">
+    <a href="<?= $this->libraryUrl('wiki'); ?>">
         Читать далее...
     </a>
     <?php if ($this->isAllowed('wiki', 'edit')): ?>
      |
-    <a href="<?= $this->url(array('action' => 'wiki-edit', 'author' => $this->authorName, 'title' => $this->titleName)) ?>">
+    <a href="<?= $this->libraryUrl('wiki-edit'); ?>">
         Редактировать
     </a>
     <?php endif; ?>
@@ -57,7 +57,7 @@ else:
 <?php
     endif;
     if ($this->isAllowed('wiki', 'edit')): ?>
-        <a href="<?= $this->url(array('action' => 'wiki-edit', 'author' => $this->authorName, 'title' => $this->titleName)) ?>">
+        <a href="<?= $this->libraryUrl('wiki-edit'); ?>">
             Есть желание помочь?
         </a>
     <?php endif; ?>
@@ -72,8 +72,7 @@ if ($this->type === 1): ?>
         </div>
         <div class="body">
             <?php foreach ($this->titles as $title): ?>
-                <a href="<?= $this->url(array('author' => $this->author->getName(),
-                    'title' => $title->getName()), 'library'); ?>"><?= $title->getName() ?></a><br />
+                <a href="<?= $this->libraryUrl(null, null, $title->getName()); ?>"><?= $title->getName() ?></a><br />
             <?php endforeach; ?>
         </div>
     </div>

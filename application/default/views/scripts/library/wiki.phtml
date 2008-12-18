@@ -10,18 +10,21 @@
 ?>
 
 <?php if ($this->type === 1): ?>
-    <h1><?= $this->author->getName(); ?></h1>
+    <h1><a href="<?= $this->libraryUrl(); ?>"><?= $this->author->getName(); ?></a></h1>
+
+    <h4>Биография</h4>
 <?php else: ?>
-    <h1><?= $this->titleName ?></h1>
-    <h2><a href="<?= $this->url(array('author' => $this->authorName)); ?>"><?= $this->authorName; ?></a></h2>
+    <h1><a href="<?= $this->libraryUrl(); ?>"><?= $this->titleName ?></a></h1>
+    <h2><a href="<?= $this->libraryUrl(null, null, false); ?>"><?= $this->authorName; ?></a></h2>
+
+    <h4>Описание</h4>
 <?php endif; ?>
 
-<h4>Информация</h4>
 
 <p>
 <?= $this->text; ?>
 </p>
 
 <?php if ($this->isAllowed('wiki', 'edit')): ?>
-    <a href="<?= $this->url(array('action' => 'wiki-edit', 'author' => $this->authorName, 'title' => $this->titleName)); ?>">Редактировать</a>
+    <a href="<?= $this->libraryUrl('wiki-edit'); ?>">Редактировать</a>
 <?php endif; ?>

@@ -11,16 +11,15 @@
 
 <p>Текст. Что-то вроде приветствия.</p>
 
-<h1><a href="<?= $this->url(array('action' => 'index'), 'library'); ?>">Библиотека</a></h1>
+<h1><a href="<?= $this->libraryUrl(null, false, false); ?>">Библиотека</a></h1>
 <h2>Наиболее читаемые авторы</h2>
 <ol>
 <?php foreach ($this->authors as $author):
     $authorName = $author->getName();
 ?>
-    <li><a href="<?= $this->url(array('author' => $authorName), 'library'); ?>">
+    <li><a href="<?= $this->libraryUrl(null, $authorName); ?>">
         <?= $authorName; ?>
     </a></li>
-    <?= $author->getName(); ?><br />
 <?php endforeach; ?>
 </ol>
 

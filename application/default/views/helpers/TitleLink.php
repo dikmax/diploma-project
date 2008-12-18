@@ -23,15 +23,12 @@ class App_View_Helper_TitleLink extends Zend_View_Helper_Abstract
             if ($firstAuthorName === '') {
                 $firstAuthorName = $authorName;
             }
-            $authorLinks[] = '<a href="' . $this->view->url(array('author' => $authorName), 'library') . '">'
+            $authorLinks[] = '<a href="' . $this->view->libraryUrl(null, $authorName) . '">'
                 . $authorName .'</a>';
         }
 
         return implode(', ', $authorLinks) . ' - '
-            . '<a href="' . $this->view->url(
-                array('author' => $firstAuthorName,
-                      'title' => $title->getName()
-                ), 'library') . '">'
+            . '<a href="' . $this->view->libraryUrl(null, $firstAuthorName, $title->getName()) . '">'
             . $title->getName() . '</a>';
     }
 }
