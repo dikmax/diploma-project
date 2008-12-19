@@ -427,7 +427,7 @@ class App_Text_Revision {
     {
         $user = App_User_Factory::getSessionUser();
         if ($user === null) {
-            throw new App_Text_Exception("Guest users cant roll back revisions");
+            throw new App_Text_Exception("Guest users can't roll back revisions");
         }
         if ($this->_content == $revision->getContent()) {
             // Content is same. Skip

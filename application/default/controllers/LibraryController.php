@@ -402,12 +402,14 @@ class LibraryController extends Zend_Controller_Action
             }
 
             if (!isset($extraparams[1])) {
+                //show revision
                 $this->view->revisionNum = $revisionNum;
                 $this->view->revision = $revision;
                 $this->_helper->viewRenderer->setScriptAction('wiki-show-revision');
             } else {
                 switch ($extraparams[1]) {
                     case 'rollback':
+                        // Rollback revision
                         $this->wikiRollbackRevisionAction($revision);
                         break;
                     default:
@@ -417,6 +419,11 @@ class LibraryController extends Zend_Controller_Action
         }
     }
 
+    /**
+     * Revision rollback
+     *
+     * @param App_Text_Revision $revision revision to rollback
+     */
     private function wikiRollbackRevisionAction(App_Text_Revision $revision)
     {
         if ($this->_title) {
