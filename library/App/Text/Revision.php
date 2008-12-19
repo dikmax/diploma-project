@@ -197,7 +197,9 @@ class App_Text_Revision {
             $tableContent = new App_Db_Table_TextRevisionContent();
 
             // Creating 'lib_text_revision_content' record
-            $this->_contentId = $tableContent->insert(array("content" => $this->_content));
+            if ($this->_contentId === null) {
+                $this->_contentId = $tableContent->insert(array("content" => $this->_content));
+            }
 
 
             if ($this->_changes === null) {
@@ -414,6 +416,34 @@ class App_Text_Revision {
     public function setText($text)
     {
         return $this->setContent($text);
+    }
+
+    /**
+     * Rollback to specific revision
+     *
+     * @param App_Text_Revision $revision revision to rollback
+     */
+    public function rollbackToRevision(App_Text_Revision $revision)
+    {
+        $user = App_User_Factory::getSessionUser();
+        if ($user === null) {
+            throw new App_Text_Exception("Guest users cant roll back revisions");
+        }
+        if ($this->_content == $revision->getContent()) {
+            // Content is same. Skip
+            return false;
+        }
+
+        $this->_libTextRevisionId = null;
+        $this->_contentId = $revision->getContentId();
+        $this->_content = $revision->getContent();
+        $this->_mdate = App_Date::now();
+        $this->_revision = null;
+        $this->_author = $user;
+        $this->_authorId = $user->getId();
+        $this->_changes = "Rollback to revision " . $revision->getRevision() . " by " . $revision->getAuthor()->getLogin();
+
+        return true;
     }
 }
 ?>

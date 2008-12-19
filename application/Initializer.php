@@ -271,6 +271,8 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             $acl->allow('user', 'wiki', 'edit');
             $acl->allow('admin', 'wiki', 'edit');
 
+            $acl->allow('user', 'wiki', 'rollback');
+
             // Set caching
             $this->_cache->save($acl, 'acl');
         }

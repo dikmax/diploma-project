@@ -401,10 +401,41 @@ class LibraryController extends Zend_Controller_Action
                 $this->_redirect($this->_helper->url->url());
             }
 
-            $this->view->revisionNum = $revisionNum;
-            $this->view->revision = $revision;
-            $this->_helper->viewRenderer->setScriptAction('wiki-show-revision');
+            if (!isset($extraparams[1])) {
+                $this->view->revisionNum = $revisionNum;
+                $this->view->revision = $revision;
+                $this->_helper->viewRenderer->setScriptAction('wiki-show-revision');
+            } else {
+                switch ($extraparams[1]) {
+                    case 'rollback':
+                        $this->wikiRollbackRevisionAction($revision);
+                        break;
+                    default:
+                        $this->_redirect($this->_helper->url->url());
+                }
+            }
         }
+    }
+
+    private function wikiRollbackRevisionAction(App_Text_Revision $revision)
+    {
+        if ($this->_title) {
+            $text = $this->_title->getDescription();
+        } else {
+            $text = $this->_author->getDescription();
+        }
+
+        $text->rollbackToRevision($revision);
+
+        $this->_redirect($this->view->libraryUrl('wiki-history'));
+    }
+
+    /**
+     * Reserved for showing specific text revision
+     */
+    private function wikiShowRevisionAction()
+    {
+        throw new App_Exception("This method shouldn't be called directly");
     }
 
     /**

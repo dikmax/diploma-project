@@ -215,6 +215,29 @@ class App_Text extends App_Acl_Resource_Abstract {
         return $result;
     }
 
+    /**
+     * Rollbacks text to specific revision
+     *
+     * @param App_Text_Revision $revision Revision to rollback
+     * @param boolean $noWrite <code>true</code> if skip write to database
+     *
+     * @throws App_Text_Exception if revision to rollback doesn't belongs to this text
+     */
+    public function rollbackToRevision(App_Text_Revision $revision, $noWrite = false)
+    {
+        if ($revision->getLibText() !== $this) {
+            throw new App_Text_Exception("Can't rollback to revision from other text");
+        }
+        if ($this->_revision->getRevision() == $revision->getRevision()) {
+            return;
+        }
+        $this->_revision->rollbackToRevision($revision);
+
+        if (!$noWrite) {
+            $this->write();
+        }
+    }
+
     /*
      * Setters and getters
      */
@@ -302,7 +325,7 @@ class App_Text extends App_Acl_Resource_Abstract {
      * Sets new text
      *
      * @param string $text newText
-     * @param boolean $noWrite <code>true</code> if don't write to database
+     * @param boolean $noWrite <code>true</code> if skip write to database
      */
     public function setText($text, $noWrite = false)
     {

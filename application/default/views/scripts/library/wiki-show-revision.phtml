@@ -22,3 +22,10 @@
 <p>
 <?= $this->revision->getContent(); ?>
 </p>
+
+<p>
+    <a href="<?= $this->libraryUrl('wiki-history');?>">Вернуться к списку ревизий</a>
+    <?php if ($this->isAllowed('wiki', 'rollback')): ?>
+        <a href="<?= $this->libraryUrl('wiki-history', null, null, array($this->revisionNum, 'rollback')); ?>">Откатить до этой ревизии</a>
+    <?php endif; ?>
+</p>
