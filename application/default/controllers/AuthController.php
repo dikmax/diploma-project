@@ -72,8 +72,9 @@ class AuthController extends Zend_Controller_Action
         $this->view->isLoggedIn = $user !== null;
         if ($user !== null) {
             $this->view->login = $user->getLogin();
+        } else {
+            $this->view->form = new App_Form_Auth_Login($this->_helper->url('login', 'auth'));
         }
-        $this->view->form = new App_Form_Auth_Login($this->_helper->url('login', 'auth'));
     }
 
     /**

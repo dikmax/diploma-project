@@ -17,11 +17,25 @@
 class UserController extends Zend_Controller_Action
 {
     /**
+     * Showing user
+     *
+     * @var App_User
+     */
+    protected $_user;
+
+    /**
      * Login parameter cache
      *
      * @var string
      */
     protected $_login;
+
+    /**
+     * Not found error
+     *
+     * @var boolean
+     */
+    protected $_error = false;
 
     /**
      * Top menu view helper
@@ -49,18 +63,32 @@ class UserController extends Zend_Controller_Action
             $this->_helper->url->url(array('action' => 'blog')));
     }
 
+    public function initUser()
+    {
+        try {
+            $this->_user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
+        } catch (App_User_Exception $e) {
+            $this->_forward('user-not-found', 'error', null, array(
+                'login' => $this->_login
+            ));
+            $this->_error = true;
+        }
+    }
+
     /**
      * Shows user main profile page
      */
     public function profileAction()
     {
+        $this->initUser();
+        if ($this->_error) {
+            return;
+        }
         $this->view->headTitle("профиль");
         $this->_topMenu->selectItem('profile');
 
-        $user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
-
-        $this->view->user = $user;
-        $this->view->writeboard = $user->getWriteboard();
+        $this->view->user = $this->_user;
+        $this->view->writeboard = $this->_user->getWriteboard();
     }
 
     /**
@@ -77,10 +105,14 @@ class UserController extends Zend_Controller_Action
      */
     public function bookshelfAction()
     {
+        $this->initUser();
+        if ($this->_error) {
+            return;
+        }
+
         $this->_topMenu->selectItem('bookshelf');
 
-        $user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
-        $bookshelf = $user->getBookshelf();
+        $bookshelf = $this->_user->getBookshelf();
 
         $cloud = new App_Tag_Cloud(array(
             'reader' => $bookshelf,
@@ -88,8 +120,21 @@ class UserController extends Zend_Controller_Action
         ));
         $cloud->process();
 
-        $this->view->user = $user;
+        $this->view->user = $this->_user;
         $this->view->bookshelf = $bookshelf;
         $this->view->titles = $bookshelf->getTitles();
+    }
+
+    public function mailAction()
+    {
+        if (!$this->view->getHelper('isAllowed')->isAllowed('mail', 'view')) {
+            $this->_forward('not-allowed', 'error');
+            return;
+        }
+
+        $this->initUser();
+        if ($this->_error) {
+            return;
+        }
     }
 }

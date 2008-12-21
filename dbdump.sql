@@ -1,5 +1,5 @@
 /*
-SQLyog Enterprise - MySQL GUI v7.11 
+SQLyog Enterprise - MySQL GUI v7.13 
 MySQL - 5.0.67-0ubuntu6 : Database - librarian
 *********************************************************************
 */
@@ -34,7 +34,7 @@ CREATE TABLE `lib_author` (
 
 /*Data for the table `lib_author` */
 
-insert  into `lib_author`(`lib_author_id`,`name`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Саймак, Клиффорд Доналд',1,'Кли́ффорд До́налд Са́ймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.',3),(2,'New author',1,'',3),(3,'Саймак',2,'',5),(4,'author',3,'',6),(5,'author2',5,'',8),(6,'add',8,'',11),(7,'Терри Пратчетт',10,'Те́ренс Дэ́вид Джо́н Пра́тчетт (англ. Terence David John Pratchett, р. 28 апреля 1948) — популярный английский писатель. Больше известен как Терри Пратчетт (англ. Terry Pratchett). Наибольшей популярностью пользуется его цикл сатирического фэнтези про Плоский мир (англ. Discworld). Суммарный тираж его книг составляет около 50 миллионов экземпляров.',24);
+insert  into `lib_author`(`lib_author_id`,`name`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Саймак, Клиффорд Доналд',1,'Кли́ффорд До́налд Са́ймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.',3),(2,'New author',1,'',3),(3,'Саймак',2,'',5),(4,'author',3,'',6),(5,'author2',5,'',8),(6,'add',8,'',11),(7,'Терри Пратчетт',10,'ЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙййййййййййййййй',24);
 
 /*Table structure for table `lib_author_has_tag` */
 
@@ -178,6 +178,42 @@ CREATE TABLE `lib_channel_item_has_tag` (
 
 /*Data for the table `lib_channel_item_has_tag` */
 
+/*Table structure for table `lib_mail_message` */
+
+DROP TABLE IF EXISTS `lib_mail_message`;
+
+CREATE TABLE `lib_mail_message` (
+  `lib_mail_message_id` bigint(20) unsigned NOT NULL auto_increment,
+  `lib_mail_thread_id` bigint(20) unsigned NOT NULL,
+  `from_user1` tinyint(3) unsigned NOT NULL COMMENT '1 - from user1, 0 - from user2',
+  `message` text NOT NULL,
+  `date` datetime NOT NULL,
+  `is_new` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`lib_mail_message_id`),
+  KEY `FK_lib_mail_message_thread` (`lib_mail_thread_id`),
+  CONSTRAINT `FK_lib_mail_message_thread` FOREIGN KEY (`lib_mail_thread_id`) REFERENCES `lib_mail_thread` (`lib_mail_thread_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `lib_mail_message` */
+
+/*Table structure for table `lib_mail_thread` */
+
+DROP TABLE IF EXISTS `lib_mail_thread`;
+
+CREATE TABLE `lib_mail_thread` (
+  `lib_mail_thread_id` bigint(20) unsigned NOT NULL auto_increment,
+  `user1_id` int(10) unsigned NOT NULL,
+  `user2_id` int(10) unsigned NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  PRIMARY KEY  (`lib_mail_thread_id`),
+  KEY `FK_lib_mail_thread_user1` (`user1_id`),
+  KEY `FK_lib_mail_thread_user2` (`user2_id`),
+  CONSTRAINT `FK_lib_mail_thread_user2` FOREIGN KEY (`user2_id`) REFERENCES `lib_user` (`lib_user_id`),
+  CONSTRAINT `FK_lib_mail_thread_user1` FOREIGN KEY (`user1_id`) REFERENCES `lib_user` (`lib_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `lib_mail_thread` */
+
 /*Table structure for table `lib_tag` */
 
 DROP TABLE IF EXISTS `lib_tag`;
@@ -207,7 +243,7 @@ CREATE TABLE `lib_text` (
 
 /*Data for the table `lib_text` */
 
-insert  into `lib_text`(`lib_text_id`,`lib_text_revision_id`,`cdate`) values (1,6,'2008-07-16 10:51:50'),(2,7,'2008-11-14 22:24:42'),(3,8,'2008-11-15 01:56:02'),(4,9,'2008-11-15 02:00:33'),(5,10,'2008-11-15 02:00:54'),(6,11,'2008-11-15 02:00:54'),(7,12,'2008-11-15 02:02:22'),(8,13,'2008-11-15 13:20:15'),(9,14,'2008-11-15 13:20:15'),(10,22,'2008-12-02 22:48:32'),(11,16,'2008-12-02 22:48:32'),(12,17,'2008-12-02 23:06:22'),(13,18,'2008-12-02 23:09:11'),(14,19,'2008-12-02 23:12:23'),(15,20,'2008-12-02 23:16:08'),(16,21,'2008-12-02 23:20:50');
+insert  into `lib_text`(`lib_text_id`,`lib_text_revision_id`,`cdate`) values (1,6,'2008-07-16 10:51:50'),(2,7,'2008-11-14 22:24:42'),(3,8,'2008-11-15 01:56:02'),(4,9,'2008-11-15 02:00:33'),(5,10,'2008-11-15 02:00:54'),(6,11,'2008-11-15 02:00:54'),(7,12,'2008-11-15 02:02:22'),(8,13,'2008-11-15 13:20:15'),(9,14,'2008-11-15 13:20:15'),(10,28,'2008-12-02 22:48:32'),(11,26,'2008-12-02 22:48:32'),(12,17,'2008-12-02 23:06:22'),(13,18,'2008-12-02 23:09:11'),(14,19,'2008-12-02 23:12:23'),(15,20,'2008-12-02 23:16:08'),(16,21,'2008-12-02 23:20:50');
 
 /*Table structure for table `lib_text_revision` */
 
@@ -228,11 +264,11 @@ CREATE TABLE `lib_text_revision` (
   CONSTRAINT `FK_lib_text_revision` FOREIGN KEY (`lib_text_revision_content_id`) REFERENCES `lib_text_revision_content` (`lib_text_revision_content_id`),
   CONSTRAINT `FK_lib_text_revision_text` FOREIGN KEY (`lib_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_text_revision_user` FOREIGN KEY (`author_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions';
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions';
 
 /*Data for the table `lib_text_revision` */
 
-insert  into `lib_text_revision`(`lib_text_revision_id`,`lib_text_id`,`lib_text_revision_content_id`,`mdate`,`revision`,`author_id`,`changes`) values (1,1,1,'2008-07-16 10:51:50',1,1,'First revision'),(2,NULL,2,'2008-08-31 19:39:04',1,1,'Update text'),(3,NULL,3,'2008-08-31 19:44:28',1,1,'Update text'),(4,NULL,4,'2008-08-31 19:44:48',1,1,'Update text'),(6,1,12,'2008-08-31 19:57:36',2,1,'Update text'),(7,2,13,'2008-11-14 22:24:42',1,1,'First revision'),(8,3,14,'2008-11-15 01:56:02',1,1,'First revision'),(9,4,15,'2008-11-15 02:00:33',1,1,'First revision'),(10,5,16,'2008-11-15 02:00:54',1,1,'First revision'),(11,6,17,'2008-11-15 02:00:54',1,1,'First revision'),(12,7,18,'2008-11-15 02:02:22',1,1,'First revision'),(13,8,19,'2008-11-15 13:20:15',1,1,'First revision'),(14,9,20,'2008-11-15 13:20:15',1,1,'First revision'),(15,10,21,'2008-12-02 22:48:32',1,1,'First revision'),(16,11,22,'2008-12-02 22:48:32',1,1,'First revision'),(17,12,23,'2008-12-02 23:06:22',1,1,'First revision'),(18,13,24,'2008-12-02 23:09:11',1,1,'First revision'),(19,14,25,'2008-12-02 23:12:23',1,1,'First revision'),(20,15,26,'2008-12-02 23:16:08',1,1,'First revision'),(21,16,27,'2008-12-02 23:20:50',1,1,'First revision'),(22,10,28,'2008-12-03 00:20:54',2,1,'Update text');
+insert  into `lib_text_revision`(`lib_text_revision_id`,`lib_text_id`,`lib_text_revision_content_id`,`mdate`,`revision`,`author_id`,`changes`) values (1,1,1,'2008-07-16 10:51:50',1,1,'First revision'),(2,NULL,2,'2008-08-31 19:39:04',1,1,'Update text'),(3,NULL,3,'2008-08-31 19:44:28',1,1,'Update text'),(4,NULL,4,'2008-08-31 19:44:48',1,1,'Update text'),(6,1,12,'2008-08-31 19:57:36',2,1,'Update text'),(7,2,13,'2008-11-14 22:24:42',1,1,'First revision'),(8,3,14,'2008-11-15 01:56:02',1,1,'First revision'),(9,4,15,'2008-11-15 02:00:33',1,1,'First revision'),(10,5,16,'2008-11-15 02:00:54',1,1,'First revision'),(11,6,17,'2008-11-15 02:00:54',1,1,'First revision'),(12,7,18,'2008-11-15 02:02:22',1,1,'First revision'),(13,8,19,'2008-11-15 13:20:15',1,1,'First revision'),(14,9,20,'2008-11-15 13:20:15',1,1,'First revision'),(15,10,21,'2008-12-02 22:48:32',1,1,'First revision'),(16,11,22,'2008-12-02 22:48:32',1,1,'First revision'),(17,12,23,'2008-12-02 23:06:22',1,1,'First revision'),(18,13,24,'2008-12-02 23:09:11',1,1,'First revision'),(19,14,25,'2008-12-02 23:12:23',1,1,'First revision'),(20,15,26,'2008-12-02 23:16:08',1,1,'First revision'),(21,16,27,'2008-12-02 23:20:50',1,1,'First revision'),(22,10,28,'2008-12-03 00:20:54',2,1,'Update text'),(23,10,29,'2008-12-04 01:13:10',3,1,'Update text'),(24,10,30,'2008-12-16 23:17:27',4,1,'Update text'),(25,10,31,'2008-12-16 23:17:47',5,1,'Update text'),(26,11,32,'2008-12-16 23:19:25',2,1,'Update text'),(27,10,30,'2008-12-19 16:28:41',6,1,'Rollback to revision 4 by dikmax'),(28,10,31,'2008-12-19 16:29:03',7,1,'Rollback to revision 5 by dikmax');
 
 /*Table structure for table `lib_text_revision_content` */
 
@@ -242,11 +278,11 @@ CREATE TABLE `lib_text_revision_content` (
   `lib_text_revision_content_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `content` longtext NOT NULL COMMENT 'Revision content',
   PRIMARY KEY  (`lib_text_revision_content_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data';
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data';
 
 /*Data for the table `lib_text_revision_content` */
 
-insert  into `lib_text_revision_content`(`lib_text_revision_content_id`,`content`) values (1,'Тест'),(2,'Тест\r\nИ еще тест'),(3,'Тест\r\nИ еще тест +1'),(4,'Тест\r\nИ еще тест'),(12,'Кли́ффорд До́налд Са́ймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.'),(13,''),(14,''),(15,''),(16,''),(17,''),(18,''),(19,''),(20,''),(21,''),(22,''),(23,''),(24,''),(25,''),(26,''),(27,''),(28,'Те́ренс Дэ́вид Джо́н Пра́тчетт (англ. Terence David John Pratchett, р. 28 апреля 1948) — популярный английский писатель. Больше известен как Терри Пратчетт (англ. Terry Pratchett). Наибольшей популярностью пользуется его цикл сатирического фэнтези про Плоский мир (англ. Discworld). Суммарный тираж его книг составляет около 50 миллионов экземпляров.');
+insert  into `lib_text_revision_content`(`lib_text_revision_content_id`,`content`) values (1,'Тест'),(2,'Тест\r\nИ еще тест'),(3,'Тест\r\nИ еще тест +1'),(4,'Тест\r\nИ еще тест'),(12,'Кли́ффорд До́налд Са́ймак (Clifford Donald Simak) родился 3 августа 1904 года в американском городе Милвилл, штат Висконсин. Его родители — Джон Льюис и Маргарет Саймак. 13 апреля 1929 года он женился на Агнес Каченберг, у них родилось два ребенка, Скотт и Шелли. Саймак учился в Университете Висконсина, но не окончил его. Работал в различных газетах. С 1939 года (по 1976 год) он уже в «Minneapolis Star and Tribune». В них он стал редактором новостей (в «Minneapolis Star») с начала 1949 года и координатором раздела научные публичные серии (в «Minneapolis Tribune») с начала 1961.'),(13,''),(14,''),(15,''),(16,''),(17,''),(18,''),(19,''),(20,''),(21,''),(22,''),(23,''),(24,''),(25,''),(26,''),(27,''),(28,'Те́ренс Дэ́вид Джо́н Пра́тчетт (англ. Terence David John Pratchett, р. 28 апреля 1948) — популярный английский писатель. Больше известен как Терри Пратчетт (англ. Terry Pratchett). Наибольшей популярностью пользуется его цикл сатирического фэнтези про Плоский мир (англ. Discworld). Суммарный тираж его книг составляет около 50 миллионов экземпляров.'),(29,'Клевая книжка =)'),(30,'Клевая книжка =) точно-точно'),(31,'ЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙййййййййййййййй'),(32,'ывапыва');
 
 /*Table structure for table `lib_title` */
 
@@ -268,7 +304,7 @@ CREATE TABLE `lib_title` (
 
 /*Data for the table `lib_title` */
 
-insert  into `lib_title`(`lib_title_id`,`name`,`authors_index`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Город','Клиффорд Саймак',1,'City',4),(2,'title','author',4,'',7),(3,'title','author2',6,'',9),(4,'title2','author',7,'',10),(5,'asdf','add',9,'',12),(6,'Цвет Магии','Терри Пратчетт',11,'',25),(7,'Безумная звезда','Терри Пратчетт',12,'',26),(8,'Творцы Заклинаний','Терри Пратчетт',13,'',27),(9,'Мор - ученик Смерти','Терри Пратчетт',14,'',28),(10,'Посох и шляпа','Терри Пратчетт',15,'',29),(11,'Вещие Сестрички','Терри Пратчетт',16,'',30);
+insert  into `lib_title`(`lib_title_id`,`name`,`authors_index`,`description_text_id`,`front_description`,`lib_writeboard_id`) values (1,'Город','Клиффорд Саймак',1,'City',4),(2,'title','author',4,'',7),(3,'title','author2',6,'',9),(4,'title2','author',7,'',10),(5,'asdf','add',9,'',12),(6,'Цвет Магии','Терри Пратчетт',11,'ывапыва',25),(7,'Безумная звезда','Терри Пратчетт',12,'',26),(8,'Творцы Заклинаний','Терри Пратчетт',13,'',27),(9,'Мор - ученик Смерти','Терри Пратчетт',14,'',28),(10,'Посох и шляпа','Терри Пратчетт',15,'',29),(11,'Вещие Сестрички','Терри Пратчетт',16,'',30);
 
 /*Table structure for table `lib_title_has_tag` */
 
@@ -308,11 +344,11 @@ CREATE TABLE `lib_user` (
   KEY `FK_lib_user_writeboard_id` (`lib_writeboard_id`),
   KEY `user_email` (`email`),
   CONSTRAINT `FK_lib_user_writeboard_id` FOREIGN KEY (`lib_writeboard_id`) REFERENCES `lib_writeboard` (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='User accounts';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='User accounts';
 
 /*Data for the table `lib_user` */
 
-insert  into `lib_user`(`lib_user_id`,`login`,`password`,`email`,`registration_date`,`login_date`,`login_ip`,`lib_writeboard_id`) values (1,'dikmax','77122cb39a3aa48e3a6ff8df64aa93b9','','2008-07-16 11:26:52','2008-07-16 11:28:18','127.0.0.1',1),(2,'dikmax2','77122cb39a3aa48e3a6ff8df64aa93b9','','2008-08-23 02:21:05','2008-08-23 02:21:05','0.0.0.0',2),(3,'qwerty','77122cb39a3aa48e3a6ff8df64aa93b9','dikmax@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00','0.0.0.0',13),(4,'dikmax_','77122cb39a3aa48e3a6ff8df64aa93b9','dikmax1@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00','0.0.0.0',21),(5,'dikmax1','77122cb39a3aa48e3a6ff8df64aa93b9','dikmax_@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00','0.0.0.0',22),(6,'dikmax3','77122cb39a3aa48e3a6ff8df64aa93b9','dikmax3@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00','0.0.0.0',23);
+insert  into `lib_user`(`lib_user_id`,`login`,`password`,`email`,`registration_date`,`login_date`,`login_ip`,`lib_writeboard_id`) values (1,'dikmax','77122cb39a3aa48e3a6ff8df64aa93b9','','2008-07-16 11:26:52','2008-07-16 11:28:18','127.0.0.1',1),(2,'dikmax2','77122cb39a3aa48e3a6ff8df64aa93b9','','2008-08-23 02:21:05','2008-08-23 02:21:05','0.0.0.0',2),(3,'qwerty','77122cb39a3aa48e3a6ff8df64aa93b9','dikmax@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00','0.0.0.0',13),(4,'dikmax_','77122cb39a3aa48e3a6ff8df64aa93b9','dikmax1@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00','0.0.0.0',21),(5,'dikmax1','77122cb39a3aa48e3a6ff8df64aa93b9','dikmax_@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00','0.0.0.0',22),(6,'dikmax3','77122cb39a3aa48e3a6ff8df64aa93b9','dikmax3@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00','0.0.0.0',23),(7,'dikmax_test','77122cb39a3aa48e3a6ff8df64aa93b9','dikmaxq@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00','0.0.0.0',32);
 
 /*Table structure for table `lib_user_bookshelf` */
 
@@ -334,22 +370,6 @@ CREATE TABLE `lib_user_bookshelf` (
 
 insert  into `lib_user_bookshelf`(`lib_user_bookshelf_id`,`lib_user_id`,`lib_title_id`,`relation`) values (1,1,1,0),(2,1,5,0),(3,1,6,0),(4,1,7,0),(5,1,8,0),(6,1,9,0),(7,1,10,0),(8,1,10,0),(9,1,10,0),(10,1,10,0),(11,1,11,0);
 
-/*Table structure for table `lib_user_data` */
-
-DROP TABLE IF EXISTS `lib_user_data`;
-
-CREATE TABLE `lib_user_data` (
-  `lib_user_data_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
-  `lib_user_id` int(10) unsigned NOT NULL COMMENT 'User ID',
-  `variable` varchar(255) NOT NULL COMMENT 'Additional data name',
-  `value` text NOT NULL COMMENT 'Additional data value',
-  PRIMARY KEY  (`lib_user_data_id`),
-  KEY `FK_lib_user_data_user` (`lib_user_id`),
-  CONSTRAINT `FK_lib_user_data_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Additional data for user profiles (reserved for future usage';
-
-/*Data for the table `lib_user_data` */
-
 /*Table structure for table `lib_writeboard` */
 
 DROP TABLE IF EXISTS `lib_writeboard`;
@@ -358,11 +378,11 @@ CREATE TABLE `lib_writeboard` (
   `lib_writeboard_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `owner_description` varchar(50) NOT NULL COMMENT 'String with data to whom writeboard belongs',
   PRIMARY KEY  (`lib_writeboard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 /*Data for the table `lib_writeboard` */
 
-insert  into `lib_writeboard`(`lib_writeboard_id`,`owner_description`) values (1,'User 1'),(2,'User 2'),(3,'Author 1'),(4,'Title 1'),(5,'Author 3'),(6,'Author 4'),(7,'Title 2'),(8,'Author 5'),(9,'Title 3'),(10,'Title 4'),(11,'Author 6'),(12,'Title 5'),(13,'User 3'),(14,'New user'),(15,'New user'),(16,'New user'),(17,'New user'),(18,'New user'),(19,'New user'),(20,'New user'),(21,'User 4'),(22,'User 5'),(23,'User 6'),(24,'Author 7'),(25,'Title 6'),(26,'Title 7'),(27,'Title 8'),(28,'Title 9'),(29,'Title 10'),(30,'Title 11');
+insert  into `lib_writeboard`(`lib_writeboard_id`,`owner_description`) values (1,'User 1'),(2,'User 2'),(3,'Author 1'),(4,'Title 1'),(5,'Author 3'),(6,'Author 4'),(7,'Title 2'),(8,'Author 5'),(9,'Title 3'),(10,'Title 4'),(11,'Author 6'),(12,'Title 5'),(13,'User 3'),(14,'New user'),(15,'New user'),(16,'New user'),(17,'New user'),(18,'New user'),(19,'New user'),(20,'New user'),(21,'User 4'),(22,'User 5'),(23,'User 6'),(24,'Author 7'),(25,'Title 6'),(26,'Title 7'),(27,'Title 8'),(28,'Title 9'),(29,'Title 10'),(30,'Title 11'),(31,'New user'),(32,'User 7');
 
 /*Table structure for table `lib_writeboard_message` */
 

@@ -16,6 +16,7 @@
         <div style="text-align: center;">
             Привет,
             <h2><?= $this->profileLink($this->login); ?></h2>
+            <a href="<?= $this->url(array(), 'mail'); ?>">Почта</a><br />
             <a href="<?= $this->url(array('action' => 'logout'), 'auth'); ?>">Выйти</a>
         </div>
     <?php endif; ?>

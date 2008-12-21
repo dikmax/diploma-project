@@ -71,7 +71,7 @@
   CONSTRAINT `FK_lib_text_revision` FOREIGN KEY (`lib_text_revision_content_id`) REFERENCES `lib_text_revision_content` (`lib_text_revision_content_id`),
   CONSTRAINT `FK_lib_text_revision_text` FOREIGN KEY (`lib_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_text_revision_user` FOREIGN KEY (`author_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions'</sql_create_table>
 </table>
 <table name="lib_text_revision_content" view="colnames">
 <left>16</left>
@@ -304,6 +304,40 @@
   CONSTRAINT `FK_lib_title_has_tag_lib_tag` FOREIGN KEY (`lib_tag_id`) REFERENCES `lib_tag` (`lib_tag_id`),
   CONSTRAINT `FK_lib_title_has_tag_lib_title` FOREIGN KEY (`lib_title_id`) REFERENCES `lib_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_title_has_tag_lib_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+</table>
+<table name="lib_mail_thread" view="colnames">
+<left>350</left>
+<top>858</top>
+<width>143</width>
+<height>126</height>
+<sql_create_table>CREATE TABLE `lib_mail_thread` (
+  `lib_mail_thread_id` bigint(20) unsigned NOT NULL auto_increment,
+  `user1_id` int(10) unsigned NOT NULL,
+  `user2_id` int(10) unsigned NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  PRIMARY KEY  (`lib_mail_thread_id`),
+  KEY `FK_lib_mail_thread_user1` (`user1_id`),
+  KEY `FK_lib_mail_thread_user2` (`user2_id`),
+  CONSTRAINT `FK_lib_mail_thread_user2` FOREIGN KEY (`user2_id`) REFERENCES `lib_user` (`lib_user_id`),
+  CONSTRAINT `FK_lib_mail_thread_user1` FOREIGN KEY (`user1_id`) REFERENCES `lib_user` (`lib_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+</table>
+<table name="lib_mail_message" view="colnames">
+<left>105</left>
+<top>867</top>
+<width>157</width>
+<height>158</height>
+<sql_create_table>CREATE TABLE `lib_mail_message` (
+  `lib_mail_message_id` bigint(20) unsigned NOT NULL auto_increment,
+  `lib_mail_thread_id` bigint(20) unsigned NOT NULL,
+  `from_user1` tinyint(3) unsigned NOT NULL COMMENT '1 - from user1, 0 - from user2',
+  `message` text NOT NULL,
+  `date` datetime NOT NULL,
+  `is_new` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`lib_mail_message_id`),
+  KEY `FK_lib_mail_message_thread` (`lib_mail_thread_id`),
+  CONSTRAINT `FK_lib_mail_message_thread` FOREIGN KEY (`lib_mail_thread_id`) REFERENCES `lib_mail_thread` (`lib_mail_thread_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 </tables>

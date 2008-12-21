@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -20,7 +20,7 @@ class App_Form_Decorator_Label extends Zend_Form_Decorator_Label
      * @param string $content
      * @return string
      */
-    public function render ($content)
+    public function render($content)
     {
         $element = $this->getElement();
         $view    = $element->getView();

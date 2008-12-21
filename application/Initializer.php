@@ -251,6 +251,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
 
             // Creating resources
             $acl->add(new Zend_Acl_Resource('profile'))
+                ->add(new Zend_Acl_Resource('mail'))
                 ->add(new Zend_Acl_Resource('writeboard'))
                 ->add(new Zend_Acl_Resource('blog'))
                 ->add(new Zend_Acl_Resource('wiki'))
@@ -259,6 +260,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             // Creating permissions
             $acl->allow('guest', 'profile', 'view');
             $acl->allow('user', 'profile', 'edit', new App_Acl_Assert_CurrentUser());
+            $acl->allow('user', 'mail', 'view', new App_Acl_Assert_CurrentUser());
 
             $acl->allow('guest', 'writeboard', 'view');
             $acl->allow('user', 'writeboard', 'add');
@@ -312,7 +314,6 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     {
         $view = new Zend_View();
         $view->addHelperPath($this->_root . '/application/default/views/helpers', 'App_View_Helper');
-        Zend_Dojo::enableView($view);
         $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
         $viewRenderer->setView($view);
         $view->headTitle('Librarian')
@@ -385,6 +386,13 @@ class Initializer extends Zend_Controller_Plugin_Abstract
                 ))
             );
 
+            $router->addRoute('mail',
+                new Zend_Controller_Router_Route('mail/:action/:param', array(
+                    'controller' => 'mail',
+                    'action' => 'inbox',
+                    'param' => ''
+                ))
+            );
             $router->addRoute('user',
                 new Zend_Controller_Router_Route('user/:login/:action', array(
                     'controller' => 'user',

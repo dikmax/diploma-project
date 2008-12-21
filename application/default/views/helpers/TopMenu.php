@@ -46,11 +46,21 @@ class App_View_Helper_TopMenu extends Zend_View_Helper_Abstract
      */
     public function __construct()
     {
+        $this->init();
+    }
+
+    protected function init()
+    {
         $this->_itemsLeft = array();
         $this->_itemsRight = array();
 
         $this->_selectedIdLeft = null;
         $this->_selectedIdRight = null;
+    }
+
+    public function clear()
+    {
+        $this->init();
     }
 
     /**

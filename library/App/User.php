@@ -88,6 +88,13 @@ class App_User implements Zend_Acl_Role_Interface
     protected $_bookshelf;
 
     /**
+     * User mailbox
+     *
+     * @var App_Mail
+     */
+    protected $_mail;
+
+    /**
      * Constructs user object
      *
      * @param array $construct
@@ -168,6 +175,9 @@ class App_User implements Zend_Acl_Role_Interface
 
         // Bookshelf
         $this->_bookshelf = null;
+
+        // Mailbox
+        $this->_mail = null;
 
         $this->registerRole();
     }
@@ -364,7 +374,23 @@ class App_User implements Zend_Acl_Role_Interface
         return $this->_bookshelf;
     }
 
-    // Zend_Acl_Role_Interface implementation
+    /**
+     * Returns user mailbox
+     *
+     * @return App_Mail
+     */
+    public function getMail()
+    {
+        if ($this->_mail === null) {
+            $this->_mail = new App_Mail($this);
+        }
+
+        return $this->_mail;
+    }
+
+    /*
+     * Zend_Acl_Role_Interface implementation
+     */
 
     /**
      * Returns the string identifier of the Role

@@ -9,55 +9,54 @@
  */
 
 /**
- * Auth login form
+ * New mail form
  */
-class App_Form_Auth_Login extends App_Form_Table
+class App_Form_Mail_New extends App_Form_Table
 {
     /**
      * @var Zend_Form_Element_Text
      */
-    protected $_login;
+    protected $_recipient;
 
     /**
-     * @var Zend_Form_Element_Password
+     * @var Zend_Form_Element_Text
      */
-    protected $_password;
+    protected $_subject;
+
+    /**
+     * @var Zend_Form_Element_Textarea
+     */
+    protected $_message;
 
     /**
      * @var Zend_Form_Element_Submit
      */
     protected $_submit;
 
-    protected function initForm()
-    {
-        if ($this->getAction() === '') {
-            $this->setAction('/auth/login');
-        }
-        $this->setMethod('post')
-             ->setContainerClass('login');
-    }
-
     /**
      * @see App_Form_Table::initElements()
      */
     protected function initElements()
     {
-        $this->_login = new Zend_Form_Element_Text('login', array(
-            'label' => 'Логин',
-            'required' => true,
+        $this->_recipient = new Zend_Form_Element_Text('recipient', array(
+            'label' => 'Кому',
+            'required' => true
         ));
-
-        $this->_password = new Zend_Form_Element_Password('password', array(
-            'label' => 'Пароль',
-            'required' => true,
+        $this->_subject = new Zend_Form_Element_Text('subject', array(
+            'label' => 'Тема',
+            'required' => true
         ));
-
+        $this->_message = new Zend_Form_Element_Textarea('message', array(
+            'label' => 'Сообщение',
+            'required' => true
+        ));
         $this->_submit = new Zend_Form_Element_Submit('submit', array(
-            'label' => 'Ага, это я!',
+            'label' => 'Отправить'
         ));
 
-        $this->addElement($this->_login)
-             ->addElement($this->_password)
+        $this->addElement($this->_recipient)
+             ->addElement($this->_subject)
+             ->addElement($this->_message)
              ->addElement($this->_submit);
     }
 
@@ -82,4 +81,3 @@ class App_Form_Auth_Login extends App_Form_Table
         ));
     }
 }
-?>
