@@ -80,6 +80,14 @@ class MailController extends Zend_Controller_Action
 
         $form = new App_Form_Mail_New();
 
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+                //App_User_Factory::getInstance()->registerUser($form->getValues());
+                $this->_redirect($this->_helper->url->url(array('action' => 'sent')));
+                // TODO show sent done message
+            }
+        }
         $this->view->form = $form;
     }
+
 }

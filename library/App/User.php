@@ -192,6 +192,14 @@ class App_User implements Zend_Acl_Role_Interface
         throw new App_Exception("App_User serialization isn't allowed.");
     }
 
+    public function __toString()
+    {
+        return $this->_login;
+    }
+
+    /**
+     * Writes user to database
+     */
     public function write()
     {
         if ($this->_libUserId === null) {
