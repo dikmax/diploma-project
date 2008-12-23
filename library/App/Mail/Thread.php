@@ -13,6 +13,12 @@
  */
 class App_Mail_Thread
 {
+    const STATE_UNDEFINED = 0;
+    const STATE_ACTIVE = 1;
+    const STATE_SENT = 2;
+    const STATE_ARCHIVE = 3;
+    const STATE_DELETED = 4;
+
     /**
      * Index for database table <code>lib_mail_thread</code>
      *
@@ -49,6 +55,16 @@ class App_Mail_Thread
     protected $_user2Id;
 
     /**
+     * State of thread in user1 mailbox
+     */
+    protected $_stateUser1;
+
+    /**
+     * State of thread in user2 mailbox
+     */
+    protected $_stateUser2;
+
+    /**
      * Thread subject
      */
     protected $_subject;
@@ -79,6 +95,8 @@ class App_Mail_Thread
      *   <li><code>user2</code>: second user of thread (<b>App_User</b>)</li>
      *   <li><code>user1_id</code>: first user id of thread (<b>int</b>)</li>
      *   <li><code>user2_id</code>: second user id of thread (<b>int</b>)</li>
+     *   <li><code>state_user1</code>: state of thread in user1 mailbox (<b>int</b>)</li>
+     *   <li><code>state_user2</code>: state of thread in user2 mailbox (<b>int</b>)</li>
      *   <li><code>subject</code>: subject of the thread (<b>string</b>)</li>
      * </ul>
      */
@@ -113,6 +131,16 @@ class App_Mail_Thread
             throw new App_Mail_Thread_Exception('user2 not defined');
         }
 
+        // State user1
+        $this->_stateUser1 = isset($construct['state_user1'])
+                           ? $construct['state_user1']
+                           : self::STATE_UNDEFINED;
+
+        // State user2
+        $this->_stateUser2 = isset($construct['state_user2'])
+                           ? $construct['state_user2']
+                           : self::STATE_UNDEFINED;
+
         // Subject
         $this->_subject = isset($construct['subject'])
                         ? $construct['subject']
@@ -132,6 +160,8 @@ class App_Mail_Thread
             $this->_libMailThreadId = $this->_threadTable->insert(array(
                 'user1_id' => $this->_user1Id,
                 'user2_id' => $this->_user2Id,
+                'state_user1' => $this->_stateUser1,
+                'state_user2' => $this->_stateUser2,
                 'subject' => $this->_subject
             ));
        } else {

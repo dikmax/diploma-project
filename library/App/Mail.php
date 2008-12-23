@@ -38,6 +38,8 @@ class App_Mail
         $thread = new App_Mail_Thread(array(
             'user1' => $this->_user,
             'user2' => $toUser,
+            'state_user1' => App_Mail_Thread::STATE_SENT,
+            'state_user2' => App_Mail_Thread::STATE_ACTIVE,
             'subject' => $subject
         ));
         $thread->write();
