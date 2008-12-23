@@ -113,7 +113,7 @@ class App_User implements Zend_Acl_Role_Interface
      *   <li><code>lib_writeboard_id</code>: writeboard id (<b>int</b>)</li>
      * </ul>
      */
-    public function __construct($construct)
+    public function __construct(array $construct = array())
     {
         // Id
         if (isset($construct['lib_user_id'])) {

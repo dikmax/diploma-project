@@ -34,6 +34,11 @@ class App_Form_Mail_New extends App_Form_Table
     protected $_submit;
 
     /**
+     * @var App_User
+     */
+    protected $_recipientUser = false;
+
+    /**
      * @see App_Form_Table::initElements()
      */
     protected function initElements()
@@ -109,9 +114,7 @@ class App_Form_Mail_New extends App_Form_Table
                 $this->getElement('recipient')->addError('Нельзя отправить письмо себе.');
                 return false;
             }
-            try {
-                App_User_Factory::getInstance()->getUserByLogin($this->getValue('recipient'));
-            } catch (Exception $e) {
+            if ($this->getRecipientUser() === null) {
                 $this->getElement('recipient')->addError('Такого пользователя не существует');
                 return false;
             }
@@ -120,5 +123,19 @@ class App_Form_Mail_New extends App_Form_Table
         return $result;
     }
 
-
+    /**
+     * Return recipient user
+     */
+    public function getRecipientUser()
+    {
+        if ($this->_recipientUser === false) {
+            try {
+                $this->_recipientUser = App_User_Factory::getInstance()
+                    ->getUserByLogin($this->getValue('recipient'));
+            } catch (Exception $e) {
+                $this->_recipientUser = null;
+            }
+        }
+        return $this->_recipientUser;
+    }
 }

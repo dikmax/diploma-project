@@ -28,12 +28,33 @@ class App_Mail
         $this->_user = $user;
     }
 
+    /**
+     * Creates new thread and writes it to database
+     *
+     * @return App_Mail_Thread
+     */
+    public function createNewThread(App_User $toUser, $subject, $message)
+    {
+        $thread = new App_Mail_Thread(array(
+            'user1' => $this->_user,
+            'user2' => $toUser,
+            'subject' => $subject
+        ));
+        $thread->write();
+
+        $thread->addMessage(true, $message);
+
+        return $thread;
+    }
+
     /*
      * Setters and getters
      */
 
     /**
      * Returns mailbox user
+     *
+     * @return App_User
      */
     public function getUser()
     {
