@@ -17,9 +17,10 @@ a img {
     border:none;
 }
 
-input, select, textarea {
+input[type="text"], input[type="password"], select, textarea {
     font-size: 100%;
     font-family: verdana, sans-serif;
+    border: 1px black solid;
 }
 
 ul,li,h1,h2,h3,h4,h5,h6,pre,form,blockquote,fieldset,dl,dt,dd,caption {margin:0; padding:0;}
@@ -323,6 +324,21 @@ div.mail-messages div.your-message {
     background-color: #f0f0ff;
 }
 
+div.mail-messages div p {
+    padding: 5px;
+    margin: 0px;
+}
+
 div.mail-messages div p.info {
     margin: 0px;
+}
+
+.message-reply {
+    margin-top: 10px;
+}
+
+.message-reply textarea {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
 }

@@ -7,6 +7,7 @@
  * @copyright  2008 Dikun Maxim
  * @version    $Id$
  */
+$htmlFilter = new Zend_Filter_HtmlEntities(ENT_COMPAT, 'UTF-8');
 ?>
 <a href="<?= $this->url(array('param' => '')); ?>">&lt;&lt; Назад</a>
 
@@ -17,8 +18,12 @@
                 <b><?= $message['from_user1'] ? $this->name1 : $this->name2; ?></b>,
                 <i><?= $message['date']; ?></i>
             </p>
-            <p><?= nl2br($message['message']); ?></p>
+            <p><?= nl2br($htmlFilter->filter($message['message'])); ?></p>
         </div>
     <?php endforeach;?>
+
+    <form class="message-reply">
+        <label><b>Ответить</b> <textarea></textarea></label>
+    </form>
 </div>
 
