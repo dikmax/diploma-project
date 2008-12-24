@@ -186,11 +186,11 @@ class App_User_Factory
         $ids = array_unique($ids);
 
         // Assigning already retrieved
-        $res = array();
+        $result = array();
         $new = array();
         foreach ($ids as $id) {
             if (isset($this->_users[$id])) {
-                $res[$id] = $this->_users[$id];
+                $result[$id] = $this->_users[$id];
             } else {
                 $new[] = (int)$id;
             }
@@ -205,11 +205,11 @@ class App_User_Factory
                 $row['registration_date'] = App_Date::fromMysqlString($row['registration_date']);
                 $row['login_date'] = App_Date::fromMysqlString($row['login_date']);
                 $this->_users[$userId] = new App_User($row);
-                $res[$userId] = $this->_users[$userId];
+                $result[$userId] = $this->_users[$userId];
             }
         }
 
-        return $res;
+        return $result;
     }
 
     public function addUser(App_User $user)

@@ -65,19 +65,23 @@ class App_Db_Table_TextRevision extends Zend_Db_Table_Abstract
         $select = $this->_db->select()
             ->from($this->_name, array(new Zend_Db_Expr('max(revision)')))
             ->joinLeftUsing('lib_text_revision_content', 'lib_text_revision_content_id')
-            ->where('lib_text_id = ?', $textId);
+            ->where('lib_text_id = :text_id');
 
-        return $this->_db->fetchOne($select);
+        return $this->_db->fetchOne($select, array(
+            ':text_id' => $textId
+        ));
     }
 
     public function getRevisionsList($textId)
     {
         $select = $this->_db->select()
             ->from($this->_name)
-            ->where('lib_text_id = ?', $textId)
+            ->where('lib_text_id = :text_id')
             ->order(new Zend_Db_Expr('revision DESC'));
 
-        return $this->_db->fetchAll($select);
+        return $this->_db->fetchAll($select, array(
+            ':text_id' => $textId
+        ));
     }
 
     public function getRevision($textId, $revisionNumber)
@@ -85,9 +89,12 @@ class App_Db_Table_TextRevision extends Zend_Db_Table_Abstract
         $select = $this->_db->select()
             ->from($this->_name)
             ->joinLeftUsing('lib_text_revision_content', 'lib_text_revision_content_id')
-            ->where('lib_text_id = ?', $textId)
-            ->where('revision = ?', $revisionNumber);
+            ->where('lib_text_id = :text_id')
+            ->where('revision = :revision');
 
-        return $this->_db->fetchRow($select);
+        return $this->_db->fetchRow($select, array(
+            ':text_id' => $textId,
+            ':revision' => $revisionNumber
+        ));
     }
 }

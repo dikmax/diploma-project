@@ -60,16 +60,51 @@ class App_Mail
     {
         $table = new App_Db_Table_MailThread();
 
-        $list = $table->getThreadsList($this->_user->getId(), $state);
+        $userId = $this->_user->getId();
+        $list = $table->getThreadsList($userId, $state);
 
         $result = array();
         if ($list) {
+            // Prepare users
+            $users = array();
             foreach ($list as $item) {
+                $users[] = $item['user1_id'] == $userId
+                         ? $item['user2_id']
+                         : $item['user1_id'];
+            }
+            $users = App_User_Factory::getInstance()->getUsers($users);
+            $users[$userId] = $this->_user;
+
+            foreach ($list as $item) {
+                $item['date'] = App_Date::fromMysqlString($item['date']);
+                $item['user1'] = $users[$item['user1_id']];
+                $item['user2'] = $users[$item['user2_id']];
                 $result[] = new App_Mail_Thread($item);
             }
         }
 
         return $result;
+    }
+
+    /**
+     * Returns specific thread
+     *
+     * @param int $threadId id of the thread
+     *
+     * @return App_Mail_Thread or null if thread not found or not allowed
+     */
+    public function getThread($threadId)
+    {
+        $table = new App_Db_Table_MailThread();
+
+        $thread = $table->getThread($this->_user->getId(), $threadId);
+
+        if (!$thread) {
+            return null;
+        }
+
+        $thread['date'] = App_Date::fromMysqlString($thread['date']);
+        return new App_Mail_Thread($thread);
     }
 
     /*

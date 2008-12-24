@@ -56,18 +56,31 @@ class App_Mail_Thread
 
     /**
      * State of thread in user1 mailbox
+     *
+     * @var int
      */
     protected $_stateUser1;
 
     /**
      * State of thread in user2 mailbox
+     *
+     * @var int
      */
     protected $_stateUser2;
 
     /**
      * Thread subject
+     *
+     * @var string
      */
     protected $_subject;
+
+    /**
+     * Thread last update date
+     *
+     * @var App_Date
+     */
+    protected $_date;
 
     /**
      * Database table for Thread
@@ -98,6 +111,7 @@ class App_Mail_Thread
      *   <li><code>state_user1</code>: state of thread in user1 mailbox (<b>int</b>)</li>
      *   <li><code>state_user2</code>: state of thread in user2 mailbox (<b>int</b>)</li>
      *   <li><code>subject</code>: subject of the thread (<b>string</b>)</li>
+     *   <li><code>date</code>: thread last update date (<b>int|string|array|App_Date</b>)</li>
      * </ul>
      */
     public function __construct(array $construct = array())
@@ -113,6 +127,9 @@ class App_Mail_Thread
 
         // User1
         if (isset($construct['user1_id'])) {
+            $this->_user1 = isset($construct['user1']) && $construct['user1'] instanceof App_User
+                          ? $construct['user1']
+                          : null;
             $this->_user1Id = $construct['user1_id'];
         } else if (isset($construct['user1']) && $construct['user1'] instanceof App_User) {
             $this->_user1 = $construct['user1'];
@@ -123,6 +140,9 @@ class App_Mail_Thread
 
         // User2
         if (isset($construct['user2_id'])) {
+            $this->_user2 = isset($construct['user2']) && $construct['user2'] instanceof App_User
+                          ? $construct['user2']
+                          : null;
             $this->_user2Id = $construct['user2_id'];
         } else if (isset($construct['user2']) && $construct['user2'] instanceof App_User) {
             $this->_user2 = $construct['user2'];
@@ -146,6 +166,12 @@ class App_Mail_Thread
                         ? $construct['subject']
                         : '';
 
+        // Date
+        $this->_date = isset($construct['date'])
+                     ? new App_Date($construct['date'])
+                     : App_Date::now();
+
+        // Initialize private variables
         $this->_threadTable = new App_Db_Table_MailThread();
         $this->_messageTable = new App_Db_Table_MailMessage();
     }
@@ -162,7 +188,8 @@ class App_Mail_Thread
                 'user2_id' => $this->_user2Id,
                 'state_user1' => $this->_stateUser1,
                 'state_user2' => $this->_stateUser2,
-                'subject' => $this->_subject
+                'subject' => $this->_subject,
+                'date' => $this->_date->toMysqlString()
             ));
        } else {
            // Update
@@ -187,11 +214,97 @@ class App_Mail_Thread
             'date' => new Zend_Db_Expr('NOW()'),
             'is_new' => 1
         ));
+        $this->_threadTable->update(
+            array('date' => new Zend_Db_Expr('NOW()')),
+            $this->_threadTable->getAdapter()->quoteInto('lib_mail_thread_id = ?', $this->_libMailThreadId)
+        );
+    }
+
+    /**
+     * Returns messages of thread
+     */
+    public function getMessages() {
+        if ($this->_libMailThreadId === null) {
+            throw new App_Mail_Thread_Exception('This thread isn\'t saved');
+        }
+
+        $messages = $this->_messageTable->getThreadMessages($this->_libMailThreadId);
+
+        if (!$messages) {
+            return array();
+        }
+        return $messages;
     }
 
     /*
      * Setters and getters
      */
+
+    /**
+     * Returns database id
+     *
+     * @return int
+     */
+    public function getLibMailThreadId()
+    {
+        return $this->_libMailThreadId;
+    }
+
+    /**
+     * Returns database id (alias for <code>getLibMailThreadId</code>)
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->_libMailThreadId;
+    }
+
+    /**
+     * Returns id of user1
+     *
+     * @return int
+     */
+    public function getUser1Id()
+    {
+        return $this->_user1Id;
+    }
+
+    /**
+     * Returns user1
+     *
+     * @return App_User
+     */
+    public function getUser1()
+    {
+        if ($this->_user1 === null) {
+            $this->_user1 = App_User_Factory::getInstance()->getUser($this->_user1Id);
+        }
+        return $this->_user1;
+    }
+
+    /**
+     * Returns id of user2
+     *
+     * @return int
+     */
+    public function getUser2Id()
+    {
+        return $this->_user2Id;
+    }
+
+    /**
+     * Returns user2
+     *
+     * @return App_User
+     */
+    public function getUser2()
+    {
+        if ($this->_user2 === null) {
+            $this->_user2 = App_User_Factory::getInstance()->getUser($this->_user2Id);
+        }
+        return $this->_user2;
+    }
 
     /**
      * Returns thread subject
@@ -201,5 +314,15 @@ class App_Mail_Thread
     public function getSubject()
     {
         return $this->_subject;
+    }
+
+    /**
+     * Returns thread last modification date
+     *
+     * @return App_Date
+     */
+    public function getDate()
+    {
+        return $this->_date;
     }
 }

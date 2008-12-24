@@ -310,7 +310,7 @@
 <left>350</left>
 <top>858</top>
 <width>143</width>
-<height>151</height>
+<height>166</height>
 <sql_create_table>CREATE TABLE `lib_mail_thread` (
   `lib_mail_thread_id` bigint(20) unsigned NOT NULL auto_increment,
   `user1_id` int(10) unsigned NOT NULL,
@@ -318,6 +318,7 @@
   `state_user1` int(10) unsigned NOT NULL default '0' COMMENT 'State of thread user1: 1 - active, 2 - sent, 3 - archive',
   `state_user2` int(10) unsigned NOT NULL default '0' COMMENT 'State of thread user2: 1 - active, 2 - sent, 3 - archive',
   `subject` varchar(255) NOT NULL,
+  `date` datetime NOT NULL COMMENT 'Date of last thread update',
   PRIMARY KEY  (`lib_mail_thread_id`),
   KEY `FK_lib_mail_thread_user1` (`user1_id`),
   KEY `FK_lib_mail_thread_user2` (`user2_id`),
@@ -325,7 +326,7 @@
   KEY `state_user2` (`state_user2`),
   CONSTRAINT `FK_lib_mail_thread_user1` FOREIGN KEY (`user1_id`) REFERENCES `lib_user` (`lib_user_id`),
   CONSTRAINT `FK_lib_mail_thread_user2` FOREIGN KEY (`user2_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 <table name="lib_mail_message" view="colnames">
 <left>105</left>
@@ -342,7 +343,7 @@
   PRIMARY KEY  (`lib_mail_message_id`),
   KEY `FK_lib_mail_message_thread` (`lib_mail_thread_id`),
   CONSTRAINT `FK_lib_mail_message_thread` FOREIGN KEY (`lib_mail_thread_id`) REFERENCES `lib_mail_thread` (`lib_mail_thread_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 </tables>
 </canvas>

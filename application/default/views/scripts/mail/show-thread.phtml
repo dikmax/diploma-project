@@ -1,0 +1,19 @@
+<?php
+/**
+ * Books social network
+ *
+ * LICENSE: Closed source
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id$
+ */
+?>
+<a href="<?= $this->url(array('param' => '')); ?>">&lt;&lt; Назад</a>
+
+<table class="mail">
+    <?php foreach ($this->thread->getMessages() as $message): ?>
+        <tr>
+            <td><?= $message['message']; ?></td>
+        </tr>
+    <?php endforeach;?>
+</table>

@@ -288,3 +288,19 @@ ul.top-menu-left li.selected, ul.top-menu-right li.selected {
     float: right;
     font-weight: bold;
 }
+
+/*
+ * Mail
+ */
+table.mail {
+    width: 100%;
+}
+
+table.mail tr {
+    border-top: 1px #000000 solid;
+    border-bottom: 1px #000000 solid;
+}
+
+table.mail tr:hover {
+    background-color: #eeeeee;
+}

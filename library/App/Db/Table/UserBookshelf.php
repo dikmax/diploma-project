@@ -55,11 +55,13 @@ class App_Db_Table_UserBookshelf extends Zend_Db_Table_Abstract
      */
     public function findTitlesByUserId($userId)
     {
-        $select = $this->getAdapter()->select()
+        $select = $this->_db->select()
             ->from($this->_name, array())
             ->joinLeftUsing('lib_title', '`lib_title_id`')
-            ->where('`lib_user_bookshelf`.`lib_user_id` = ?', $userId);
+            ->where('`lib_user_bookshelf`.`lib_user_id` = :user_id');
 
-        return $this->getAdapter()->fetchAll($select);
+        return $this->_db->fetchAll($select, array(
+            ':user_id' => $userId
+        ));
     }
 }

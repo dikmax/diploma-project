@@ -36,8 +36,15 @@ class MailController extends Zend_Controller_Action
     public function init()
     {
         $this->_user = App_User_Factory::getSessionUser();
+        if (!$this->_user) {
+            // Not logged in. Redirect to login page
+            $this->_redirect($this->_helper->url->url(array('action' => 'login'), 'auth'));
+            return;
+        }
 
-        $this->initMenu();
+        if ($this->_user) {
+            $this->initMenu();
+        }
     }
 
     /**
@@ -62,6 +69,10 @@ class MailController extends Zend_Controller_Action
      */
     public function activeAction()
     {
+        if ($this->getRequest()->getParam('param')) {
+            $this->showThreadAction($this->getRequest()->getParam('param'));
+            return;
+        }
         $this->_topMenu->selectItem('active');
 
         $mail = $this->_user->getMail();
@@ -73,6 +84,10 @@ class MailController extends Zend_Controller_Action
      */
     public function sentAction()
     {
+        if ($this->getRequest()->getParam('param')) {
+            $this->showThreadAction($this->getRequest()->getParam('param'));
+            return;
+        }
         $this->_topMenu->selectItem('sent');
 
         $mail = $this->_user->getMail();
@@ -84,6 +99,10 @@ class MailController extends Zend_Controller_Action
      */
     public function archiveAction()
     {
+        if ($this->getRequest()->getParam('param')) {
+            $this->showThreadAction($this->getRequest()->getParam('param'));
+            return;
+        }
         $this->_topMenu->selectItem('archive');
 
         $mail = $this->_user->getMail();
@@ -110,5 +129,25 @@ class MailController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
+    }
+
+    /**
+     * Shows specific thread
+     *
+     * @param int $threadId
+     */
+    protected function showThreadAction($threadId)
+    {
+        $mail = $this->_user->getMail();
+
+        $thread = $mail->getThread($threadId);
+        if (!$thread) {
+            $this->_forward('not-allowed', 'error');
+            return;
+        }
+
+        $this->view->thread = $thread;
+
+        $this->_helper->viewRenderer->setScriptAction('show-thread');
     }
 }

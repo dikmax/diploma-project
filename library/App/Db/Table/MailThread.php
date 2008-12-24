@@ -54,15 +54,52 @@ class App_Db_Table_MailThread extends Zend_Db_Table_Abstract
         'App_Db_Table_MailMessage'
     );
 
+    /**
+     * Returns list of threads
+     *
+     * @param int $userId user
+     * @param int $state thread state
+     *
+     * @return array
+     */
     public function getThreadsList($userId, $state)
     {
-        $select = $this->getAdapter()->select()
+        $select = $this->_db->select()
             ->from($this->_name)
-            ->where('user1_id = ?', $userId)
-            ->where('state_user1 = ?', $state)
-            ->orWhere('user2_id = ?', $userId)
-            ->where('state_user2 = ?', $state);
+            ->where('user1_id = :user1_id')
+            ->where('state_user1 = :state_user1')
+            ->orWhere('user2_id = :user2_id')
+            ->where('state_user2 = :state_user2')
+            ->order(new Zend_Db_Expr('`date` DESC'));
 
-        return $this->getAdapter()->fetchAll($select);
+
+        return $this->_db->fetchAll($select, array(
+            ':user1_id' => $userId,
+            ':state_user1' => $state,
+            ':user2_id' => $userId,
+            ':state_user2' => $state
+        ));
+    }
+
+    /**
+     * Return specific thread id
+     *
+     * @param int $userId
+     * @param int $threadId
+     *
+     * @return array
+     */
+    public function getThread($userId, $threadId)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name)
+            ->where('lib_mail_thread_id = :thread_id')
+            ->where('user1_id = :user1_id OR user2_id = :user2_id');
+
+        return $this->_db->fetchRow($select, array(
+            ':user1_id' => $userId,
+            ':user2_id' => $userId,
+            ':thread_id' => $threadId
+        ));
     }
 }
