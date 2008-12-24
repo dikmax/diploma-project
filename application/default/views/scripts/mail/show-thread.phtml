@@ -10,10 +10,15 @@
 ?>
 <a href="<?= $this->url(array('param' => '')); ?>">&lt;&lt; Назад</a>
 
-<table class="mail">
+<div class="mail-messages">
     <?php foreach ($this->thread->getMessages() as $message): ?>
-        <tr>
-            <td><?= $message['message']; ?></td>
-        </tr>
+        <div<?= $message['from_user1'] == $this->youFirst ? ' class="your-message"' : ''; ?>>
+            <p class="info">
+                <b><?= $message['from_user1'] ? $this->name1 : $this->name2; ?></b>,
+                <i><?= $message['date']; ?></i>
+            </p>
+            <p><?= nl2br($message['message']); ?></p>
+        </div>
     <?php endforeach;?>
-</table>
+</div>
+

@@ -109,6 +109,7 @@ blockquote {
 
 .content {
     padding: 5px;
+    position: relative;
     background: white;
     border: #000 solid 1px;
     border-top-width: 0px;
@@ -303,4 +304,25 @@ table.mail tr {
 
 table.mail tr:hover {
     background-color: #eeeeee;
+}
+
+div.mail-messages {
+    padding: 5px;
+}
+
+div.mail-messages div {
+    clear: both;
+    width: 100%;
+    border: #000 solid 1px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    background-color: #f0fff0;
+}
+
+div.mail-messages div.your-message {
+    background-color: #f0f0ff;
+}
+
+div.mail-messages div p.info {
+    margin: 0px;
 }

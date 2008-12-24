@@ -55,13 +55,25 @@ class MailController extends Zend_Controller_Action
         $this->_topMenu = $this->view->getHelper('topMenu');
 
         $this->_topMenu->addItem('active', 'Активные',
-            $this->_helper->url->url(array('action' => 'active')));
+            $this->_helper->url->url(array(
+                'action' => 'active',
+                'param' => ''
+            )));
         $this->_topMenu->addItem('sent', 'Отправленые',
-            $this->_helper->url->url(array('action' => 'sent')));
+            $this->_helper->url->url(array(
+                'action' => 'sent',
+                'param' => ''
+            )));
         $this->_topMenu->addItem('archive', 'Архив',
-            $this->_helper->url->url(array('action' => 'archive')));
+            $this->_helper->url->url(array(
+                'action' => 'archive',
+                'param' => ''
+            )));
         $this->_topMenu->addItem('new', 'Новое сообщение',
-            $this->_helper->url->url(array('action' => 'new')));
+            $this->_helper->url->url(array(
+                'action' => 'new',
+                'param' => ''
+            )));
     }
 
     /**
@@ -146,6 +158,9 @@ class MailController extends Zend_Controller_Action
             return;
         }
 
+        $this->view->youFirst = $thread->getUser1Id() == $this->_user->getId();
+        $this->view->name1 = $thread->getUser1()->getLogin();
+        $this->view->name2 = $thread->getUser2()->getLogin();
         $this->view->thread = $thread;
 
         $this->_helper->viewRenderer->setScriptAction('show-thread');
