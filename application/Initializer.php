@@ -389,10 +389,11 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             $router->addRoute('mail',
                 new Zend_Controller_Router_Route('mail/:action/:param', array(
                     'controller' => 'mail',
-                    'action' => 'inbox',
+                    'action' => 'active',
                     'param' => ''
                 ))
             );
+
             $router->addRoute('user',
                 new Zend_Controller_Router_Route('user/:login/:action', array(
                     'controller' => 'user',

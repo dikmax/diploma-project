@@ -188,4 +188,18 @@ class App_Mail_Thread
             'is_new' => 1
         ));
     }
+
+    /*
+     * Setters and getters
+     */
+
+    /**
+     * Returns thread subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->_subject;
+    }
 }

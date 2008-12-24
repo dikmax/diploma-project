@@ -49,6 +49,29 @@ class App_Mail
         return $thread;
     }
 
+    /**
+     * Returns list of threads with specific state
+     *
+     * @param int $state
+     *
+     * @return array
+     */
+    public function getThreadsList($state)
+    {
+        $table = new App_Db_Table_MailThread();
+
+        $list = $table->getThreadsList($this->_user->getId(), $state);
+
+        $result = array();
+        if ($list) {
+            foreach ($list as $item) {
+                $result[] = new App_Mail_Thread($item);
+            }
+        }
+
+        return $result;
+    }
+
     /*
      * Setters and getters
      */

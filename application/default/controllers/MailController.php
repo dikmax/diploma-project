@@ -47,28 +47,47 @@ class MailController extends Zend_Controller_Action
     {
         $this->_topMenu = $this->view->getHelper('topMenu');
 
-        $this->_topMenu->addItem('inbox', 'Входящие',
-            $this->_helper->url->url(array('action' => 'inbox')));
+        $this->_topMenu->addItem('active', 'Активные',
+            $this->_helper->url->url(array('action' => 'active')));
         $this->_topMenu->addItem('sent', 'Отправленые',
             $this->_helper->url->url(array('action' => 'sent')));
+        $this->_topMenu->addItem('archive', 'Архив',
+            $this->_helper->url->url(array('action' => 'archive')));
         $this->_topMenu->addItem('new', 'Новое сообщение',
             $this->_helper->url->url(array('action' => 'new')));
     }
 
     /**
-     * Show inbox action
+     * Show active threads action
      */
-    public function inboxAction()
+    public function activeAction()
     {
-        $this->_topMenu->selectItem('inbox');
+        $this->_topMenu->selectItem('active');
+
+        $mail = $this->_user->getMail();
+        $this->view->threads = $mail->getThreadsList(App_Mail_Thread::STATE_ACTIVE);
     }
 
     /**
-     * Show sent action
+     * Show sent threads action
      */
     public function sentAction()
     {
         $this->_topMenu->selectItem('sent');
+
+        $mail = $this->_user->getMail();
+        $this->view->threads = $mail->getThreadsList(App_Mail_Thread::STATE_SENT);
+    }
+
+    /**
+     * Show archive threads action
+     */
+    public function archiveAction()
+    {
+        $this->_topMenu->selectItem('archive');
+
+        $mail = $this->_user->getMail();
+        $this->view->threads = $mail->getThreadsList(App_Mail_Thread::STATE_ARCHIVE);
     }
 
     /**
