@@ -29,7 +29,7 @@ require_once 'Zend/Form/Element/Xhtml.php';
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 12868 2008-11-26 11:04:41Z thomas $
+ * @version    $Id: File.php 13240 2008-12-14 17:35:56Z thomas $
  */
 class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
 {
@@ -531,6 +531,21 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     }
 
     /**
+     * Get internal file informations
+     *
+     * @param  string $value (Optional) Element or file to return
+     * @return array
+     */
+    public function getFileInfo($value = null)
+    {
+        if (empty($value)) {
+            $value = $this->getName();
+        }
+
+        return $this->getTransferAdapter()->getFileInfo($value);
+    }
+
+    /**
      * Set a multifile element
      *
      * @param integer $count Number of file elements
@@ -640,8 +655,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             return $this->_value;
         }
 
-        $content = current($this->getTransferAdapter()->getFileInfo($this->getName()));
-        if (!isset($content['name'])) {
+        $content = $this->getTransferAdapter()->getFileName($this->getName());
+        if (empty($content)) {
             return null;
         }
 
@@ -653,9 +668,18 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             return null;
         }
 
-        $filename     = basename($this->getFileName());
-        $this->_value = $filename;
-        return $filename;
+        $filenames = $this->getFileName();
+        if (count($filenames) == 1) {
+            $this->_value = basename($filenames);
+            return $this->_value;
+        }
+
+        $this->_value = array();
+        foreach($filenames as $filename) {
+            $this->_value[] = basename($filename);
+        }
+
+        return $this->_value;
     }
 
     /**
@@ -752,5 +776,44 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     {
         $adapter = $this->getTransferAdapter();
         return $adapter->isFiltered($this->getName());
+    }
+
+    /**
+     * Returns the hash for this file element
+     *
+     * @param string $hash (Optional) Hash algorithm to use
+     * @return string|array Hashstring
+     */
+    public function getHash($hash = 'crc32')
+    {
+        $adapter = $this->getTransferAdapter();
+        return $adapter->getHash($hash, $this->getName());
+    }
+
+    /**
+     * Retrieve error messages and perform translation and value substitution
+     *
+     * @return array
+     */
+    protected function _getErrorMessages()
+    {
+        $translator = $this->getTranslator();
+        $messages   = $this->getErrorMessages();
+        $value      = $this->getFileName();
+        foreach ($messages as $key => $message) {
+            if (null !== $translator) {
+                $message = $translator->translate($message);
+            }
+            if ($this->isArray() || is_array($value)) {
+                $aggregateMessages = array();
+                foreach ($value as $val) {
+                    $aggregateMessages[] = str_replace('%value%', $val, $message);
+                }
+                $messages[$key] = $aggregateMessages;
+            } else {
+                $messages[$key] = str_replace('%value%', $value, $message);
+            }
+        }
+        return $messages;
     }
 }

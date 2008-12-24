@@ -17,7 +17,7 @@
  * @subpackage  View
  * @copyright   Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: Container.php 12815 2008-11-24 23:30:10Z beberlei $
+ * @version     $Id: Container.php 13110 2008-12-09 08:40:43Z beberlei $
  */
 
 /**
@@ -548,6 +548,17 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     public function getOnLoadActions()
     {
         return $this->_onLoadActions;
+    }
+
+    /**
+     * Clear the onLoadActions stack.
+     *
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
+    public function clearOnLoadActions()
+    {
+        $this->_onLoadActions = array();
+        return $this;
     }
 
 	/**

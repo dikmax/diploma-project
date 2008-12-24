@@ -863,6 +863,10 @@ abstract class Zend_File_Transfer_Adapter_Abstract
         $result    = array();
         $directory = "";
         foreach($files as $file) {
+            if (empty($this->_files[$file]['name'])) {
+                continue;
+            }
+
             if ($path === true) {
                 $directory = $this->getDestination($file) . DIRECTORY_SEPARATOR;
             }
@@ -946,6 +950,11 @@ abstract class Zend_File_Transfer_Adapter_Abstract
         if (!is_dir($destination)) {
             require_once 'Zend/File/Transfer/Exception.php';
             throw new Zend_File_Transfer_Exception('The given destination is no directory or does not exist');
+        }
+
+        if (!is_writable($destination)) {
+            require_once 'Zend/File/Transfer/Exception.php';
+            throw new Zend_File_Transfer_Exception('The given destination is not writeable');
         }
 
         if ($files === null) {
@@ -1063,8 +1072,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
      */
     public function getHash($hash = 'crc32', $files = null)
     {
-        $algorithms = hash_algos();
-        if (!isset($algorithms[$hash])) {
+        if (!in_array($hash, hash_algos())) {
             require_once 'Zend/File/Transfer/Exception.php';
             throw new Zend_File_Transfer_Exception('Unknown hash algorithm');
         }
@@ -1159,7 +1167,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
                 // Attemp to detect by creating a temporary file
                 $tempFile = tempnam(md5(uniqid(rand(), TRUE)), '');
                 if ($tempFile) {
-                    $tmpdir = realpath(dirname($tempFile));
+                    $this->_tmpDir = realpath(dirname($tempFile));
                     unlink($tempFile);
                 } else {
                     require_once 'Zend/File/Transfer/Exception.php';
