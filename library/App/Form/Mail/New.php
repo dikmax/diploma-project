@@ -106,16 +106,17 @@ class App_Form_Mail_New extends App_Form_Table
         $result = parent::isValid($data);
 
         if ($result === true) {
+            // TODO rewrite on validators
             $currentUser = App_User_Factory::getSessionUser();
             if (!$currentUser) {
                 return false;
             }
             if ($this->getValue('recipient') === $currentUser->getLogin()) {
-                $this->getElement('recipient')->addError('Нельзя отправить письмо себе.');
+                $this->_recipient->addError('Нельзя отправить письмо себе.');
                 return false;
             }
             if ($this->getRecipientUser() === null) {
-                $this->getElement('recipient')->addError('Такого пользователя не существует');
+                $this->_recipient->addError('Такого пользователя не существует');
                 return false;
             }
         }

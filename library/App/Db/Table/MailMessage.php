@@ -61,10 +61,24 @@ class App_Db_Table_MailMessage extends Zend_Db_Table_Abstract
         $select = $this->_db->select()
             ->from($this->_name)
             ->where('lib_mail_thread_id = :thread_id')
-            ->order(new Zend_Db_Expr('`date` DESC'));
+            ->order(new Zend_Db_Expr('`date` ASC'));
 
         return $this->_db->fetchAll($select, array(
             ':thread_id' => $threadId
         ));
+    }
+
+    /**
+     * Mark messages as read for specific user
+     *
+     * @param int $threadId
+     * @param boolean $first mark messages of first user
+     */
+    public function markAsRead($threadId, $first) {
+        $threadId = (int)$threadId;
+        $first = (int)$first;
+        $this->update(array(
+            'is_new' => 0
+        ), "lib_mail_thread_id = $threadId AND from_user1 = $first AND is_new = 1");
     }
 }

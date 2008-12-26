@@ -314,6 +314,7 @@ div.mail-messages {
 div.mail-messages div {
     clear: both;
     width: 100%;
+    margin-top: 5px;
     border: #000 solid 1px;
     border-right-width: 2px;
     border-bottom-width: 2px;

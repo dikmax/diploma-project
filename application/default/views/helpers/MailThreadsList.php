@@ -32,7 +32,7 @@ class App_View_Helper_MailThreadsList extends Zend_View_Helper_Abstract
                 $result .= '<tr>'
                         . '<td>' . $this->view->profileLink($user) . '</td>'
                         . '<td>'
-                        .     '<a href="'. $this->view->url(array('param' => $thread->getId())) . '">'
+                        .     '<a href="'. $this->view->url(array('param' => $thread->getId())) . '#new-message">'
                         .     $filter->filter($thread->getSubject())
                         .     '</a>'
                         . '</td>'

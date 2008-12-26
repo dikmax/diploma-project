@@ -326,7 +326,7 @@
   KEY `state_user2` (`state_user2`),
   CONSTRAINT `FK_lib_mail_thread_user1` FOREIGN KEY (`user1_id`) REFERENCES `lib_user` (`lib_user_id`),
   CONSTRAINT `FK_lib_mail_thread_user2` FOREIGN KEY (`user2_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 <table name="lib_mail_message" view="colnames">
 <left>105</left>
@@ -343,7 +343,7 @@
   PRIMARY KEY  (`lib_mail_message_id`),
   KEY `FK_lib_mail_message_thread` (`lib_mail_thread_id`),
   CONSTRAINT `FK_lib_mail_message_thread` FOREIGN KEY (`lib_mail_thread_id`) REFERENCES `lib_mail_thread` (`lib_mail_thread_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 </tables>
 </canvas>

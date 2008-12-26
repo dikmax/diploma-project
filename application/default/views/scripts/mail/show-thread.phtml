@@ -12,8 +12,21 @@ $htmlFilter = new Zend_Filter_HtmlEntities(ENT_COMPAT, 'UTF-8');
 <a href="<?= $this->url(array('param' => '')); ?>">&lt;&lt; Назад</a>
 
 <div class="mail-messages">
-    <?php foreach ($this->thread->getMessages() as $message): ?>
+    <?php
+    $messagesCount = count($this->messages);
+    $i = 0;
+    $newFound = false;
+    foreach ($this->messages as $message):
+        ++$i; ?>
         <div<?= $message['from_user1'] == $this->youFirst ? ' class="your-message"' : ''; ?>>
+            <?php // Show anchor 'new-message' on first new (but not your) or last message
+            if (($i == $messagesCount || ($message['is_new'] && $message['from_user1'] == $this->youFirst))
+                && !$newFound ): ?>
+                <a name="new-message"></a>
+            <?php
+                $newFound = true;
+            endif;
+            ?>
             <p class="info">
                 <b><?= $message['from_user1'] ? $this->name1 : $this->name2; ?></b>,
                 <i><?= $message['date']; ?></i>
@@ -22,8 +35,6 @@ $htmlFilter = new Zend_Filter_HtmlEntities(ENT_COMPAT, 'UTF-8');
         </div>
     <?php endforeach;?>
 
-    <form class="message-reply">
-        <label><b>Ответить</b> <textarea></textarea></label>
-    </form>
+    <?= $this->form; ?>
 </div>
 

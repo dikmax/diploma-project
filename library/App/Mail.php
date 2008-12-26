@@ -44,7 +44,7 @@ class App_Mail
         ));
         $thread->write();
 
-        $thread->addMessage(true, $message);
+        $thread->addMessage(true, $message, false);
 
         return $thread;
     }

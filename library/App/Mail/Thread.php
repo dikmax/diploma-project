@@ -201,8 +201,9 @@ class App_Mail_Thread
      *
      * @param boolean $isFirstUser is message from first user to second
      * @param string $message
+     * @param boolean $setActive move thread to active folder
      */
-    public function addMessage($isFirstUser, $message)
+    public function addMessage($isFirstUser, $message, $setActive = true)
     {
         if ($this->_libMailThreadId === null) {
             throw new App_Mail_Thread_Exception('This thread isn\'t saved');
@@ -214,8 +215,18 @@ class App_Mail_Thread
             'date' => new Zend_Db_Expr('NOW()'),
             'is_new' => 1
         ));
+
+        // Updating thread
+        $this->_date = App_Date::now();
+        $data = array('date' => $this->_date->toMysqlString());
+        if ($setActive) {
+             $data['state_user1'] = self::STATE_ACTIVE;
+             $data['state_user2'] = self::STATE_ACTIVE;
+             $this->_stateUser1 = self::STATE_ACTIVE;
+             $this->_stateUser2 = self::STATE_ACTIVE;
+        }
         $this->_threadTable->update(
-            array('date' => new Zend_Db_Expr('NOW()')),
+            $data,
             $this->_threadTable->getAdapter()->quoteInto('lib_mail_thread_id = ?', $this->_libMailThreadId)
         );
     }
@@ -234,6 +245,19 @@ class App_Mail_Thread
             return array();
         }
         return $messages;
+    }
+
+    /**
+     * Mark messages as read
+     *
+     * @param boolean $first mark messages from first user
+     */
+    public function markAsRead($first) {
+        if ($this->_libMailThreadId === null) {
+            throw new App_Mail_Thread_Exception('This thread isn\'t saved');
+        }
+
+        $this->_messageTable->markAsRead($this->_libMailThreadId, $first);
     }
 
     /*

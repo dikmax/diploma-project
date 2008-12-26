@@ -136,7 +136,10 @@ class MailController extends Zend_Controller_Action
                 $mail->createNewThread($form->getRecipientUser(),
                     $form->getValue('subject'), $form->getValue('message'));
 
-                $this->_redirect($this->_helper->url->url(array('action' => 'sent')));
+                $this->_redirect($this->_helper->url->url(array(
+                    'action' => 'sent',
+                    'param' => ''
+                )));
                 // TODO show sent done message
             }
         }
@@ -158,10 +161,38 @@ class MailController extends Zend_Controller_Action
             return;
         }
 
-        $this->view->youFirst = $thread->getUser1Id() == $this->_user->getId();
+        $form = new App_Form_Mail_Reply();
+        $youFirst = $thread->getUser1Id() == $this->_user->getId();
+
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+                // If thread contains only your messages do not move it to active folder
+                $messages = $thread->getMessages();
+                $yourMessagesOnly = true;
+                foreach ($messages as $message) {
+                    if ($message['from_user1'] != $youFirst) {
+                        $yourMessagesOnly = false;
+                        break;
+                    }
+                }
+                $thread->addMessage($youFirst,
+                    $form->getValue('message'), !$yourMessagesOnly);
+
+                $this->_redirect($this->_helper->url->url(array(
+                    'action' => $yourMessagesOnly ? 'sent' : 'active',
+                    'param' => ''
+                )));
+            }
+        }
+
+        $this->view->youFirst = $youFirst;
         $this->view->name1 = $thread->getUser1()->getLogin();
         $this->view->name2 = $thread->getUser2()->getLogin();
         $this->view->thread = $thread;
+        $this->view->messages = $thread->getMessages();
+
+        $thread->markAsRead(!$youFirst);
+        $this->view->form = $form;
 
         $this->_helper->viewRenderer->setScriptAction('show-thread');
     }

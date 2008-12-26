@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -14,99 +14,79 @@
 class App_Form_Auth_Registration extends Zend_Form
 {
     /**
-     * Constructs registration form
+     * @var Zend_Form_Element_Text
      */
-    public function __construct()
-    {
-        parent::__construct();
+    protected $_login;
 
+    /**
+     * @var Zend_Form_Element_Password
+     */
+    protected $_password;
+
+    /**
+     * @var Zend_Form_Element_Password
+     */
+    protected $_passwordConfirmation;
+
+    /**
+     * @var Zend_Form_Element_Text
+     */
+    protected $_email;
+
+    /**
+     * @var Zend_Form_Element_Submit
+     */
+    protected $_submit;
+
+    /**
+     * Initializes form
+     */
+    public function init()
+    {
         $this->setMethod('post');
 
         // Login
-        $login = new Zend_Form_Element_Text('login', array(
+        $this->_login = new Zend_Form_Element_Text('login', array(
             'label' => 'Логин',
             'required' => true
         ));
-        $login->addFilter(new Zend_Filter_StringToLower())
-              ->addValidator(new Zend_Validate_StringLength(6, 30));
+        $this->_login->addFilter(new Zend_Filter_StringToLower())
+             ->addValidator(new Zend_Validate_StringLength(6, 30))
+             ->addValidator(new App_Validate_UserNotExists());
 
         // Password
-        $password = new Zend_Form_Element_Password('password', array(
+        $this->_password = new Zend_Form_Element_Password('password', array(
             'label' => 'Пароль',
             'required' => true
         ));
-        $password->addValidator(new Zend_Validate_StringLength(6));
+        $this->_password->addValidator(new Zend_Validate_StringLength(6));
 
         // Password retype
-        $passwordRetype = new Zend_Form_Element_Password('passwordretype', array(
+        $this->_passwordConfirmation = new Zend_Form_Element_Password('password-confirmation', array(
             'label' => 'Еще раз',
             'required' => true
         ));
-        $password->addValidator(new Zend_Validate_StringLength(6));
+        $this->_passwordConfirmation->addValidator(new Zend_Validate_StringLength(6))
+             ->addValidator(new App_Validate_PasswordConfirmation());
 
-        $email = new Zend_Form_Element_Text('email', array(
+        $this->_email = new Zend_Form_Element_Text('email', array(
             'label' => 'E-mail',
             'required' => true
         ));
-        $email->addValidator(new Zend_Validate_EmailAddress(Zend_Validate_Hostname::ALLOW_DNS, true));
+        $this->_email->addValidator(new Zend_Validate_EmailAddress(Zend_Validate_Hostname::ALLOW_DNS, true))
+             ->addValidator(new App_Validate_EmailNotExists());
 
         // Submit
-        $submit = new Zend_Form_Element_Submit('submit', array(
+        $this->_submit = new Zend_Form_Element_Submit('submit', array(
             'label' => 'Зарегистрироваться'
         ));
 
         // Form
-        $this->addElement($login)
-             ->addElement($password)
-             ->addElement($passwordRetype)
-             ->addElement($email)
-             ->addElement($submit);
-    }
-
-    /**
-     * @see Zend_Form::isValid()
-     *
-     * @param array $data
-     * @return boolean
-     */
-    public function isValid($data)
-    {
-        $result = parent::isValid($data);
-
-        if ($result === true) {
-            // Checking for duplicate login
-            $userFactory = App_User_Factory::getInstance();
-            try {
-                echo $this->getValue('login');
-                $userFactory->getUserByLogin($this->getValue('login'));
-                $exists = true;
-            } catch (App_User_Exception $e) {
-                $exists = false;
-            }
-            if ($exists) {
-                $this->getElement('login')->addError('Пользователь с таким логином уже существует');
-                $result = false;
-            }
-
-            // Checking for duplicate email
-            try {
-                $userFactory->getUserByEmail($this->getValue('email'));
-                $exists = true;
-            } catch (App_User_Exception $e) {
-                $exists = false;
-            }
-
-            if ($exists) {
-                $this->getElement('email')->addError('Данный email уже используется');
-                $result = false;
-            }
-
-            if ($this->getValue('password') !== $this->getValue('passwordretype')) {
-                $this->getElement('passwordretype')->addError('Введеные пароли не совпадают.');
-                $result = false;
-            }
-        }
-        return $result;
+        $this->addElement($this->_login)
+             ->addElement($this->_password)
+             ->addElement($this->_passwordConfirmation)
+             ->addElement($this->_email)
+             ->addElement($this->_submit);
     }
 }
 ?>
