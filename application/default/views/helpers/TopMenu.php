@@ -49,6 +49,9 @@ class App_View_Helper_TopMenu extends Zend_View_Helper_Abstract
         $this->init();
     }
 
+    /**
+     * Initializes menu
+     */
     protected function init()
     {
         $this->_itemsLeft = array();
@@ -58,9 +61,22 @@ class App_View_Helper_TopMenu extends Zend_View_Helper_Abstract
         $this->_selectedIdRight = null;
     }
 
+    /**
+     * Clears top menu
+     */
     public function clear()
     {
         $this->init();
+    }
+
+    /**
+     * Returns <code>true</code> if menu is empty
+     *
+     * @return boolean
+     */
+    public function isEmpty()
+    {
+        return count($this->_itemsLeft) == 0 && count($this->_itemsRight) == 0;
     }
 
     /**
@@ -175,6 +191,10 @@ class App_View_Helper_TopMenu extends Zend_View_Helper_Abstract
      */
     public function selectItem($index, $isRight = false) {
         if ($isRight) {
+            if (!isset($this->_itemsRight[$index])) {
+                return;
+            }
+
             if ($this->_selectedIdRight === $index) {
                 return;
             }
@@ -186,6 +206,10 @@ class App_View_Helper_TopMenu extends Zend_View_Helper_Abstract
             $this->_itemsRight[$index]['selected'] = true;
             $this->_selectedIdRight = $index;
         } else {
+            if (!isset($this->_itemsLeft[$index])) {
+                return;
+            }
+
             if ($this->_selectedIdLeft === $index) {
                 return;
             }

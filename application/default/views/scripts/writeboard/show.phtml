@@ -37,9 +37,11 @@
                 </div>
                     <?php if ($this->isAllowed($message, 'delete')): ?>
                         <form action="<?= $this->url(array('action' => 'delete'), 'writeboard'); ?>" method="post">
-                            <input type="hidden" name="id" value="<?= $this->id ?>" />
-                            <input type="hidden" name="messageid" value="<?= $message->getId() ?>" />
-                            <input type="submit" value="удалить" />
+                            <fieldset>
+                                <input type="hidden" name="id" value="<?= $this->id ?>" />
+                                <input type="hidden" name="messageid" value="<?= $message->getId() ?>" />
+                                <input type="submit" value="удалить" />
+                            </fieldset>
                         </form>
                     <?php endif; ?>
                 <div class="message-content">

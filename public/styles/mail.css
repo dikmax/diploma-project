@@ -1,0 +1,55 @@
+/*
+ * Mail related stylesheet
+ */
+
+@CHARSET "UTF-8";
+
+table.mail {
+    width: 100%;
+}
+
+table.mail tr {
+    border-top: 1px #000000 solid;
+    border-bottom: 1px #000000 solid;
+}
+
+table.mail tr:hover {
+    background-color: #eeeeee;
+}
+
+div.mail-messages {
+    padding: 5px;
+}
+
+div.mail-messages div {
+    clear: both;
+    width: 100%;
+    margin-bottom: 5px;
+    border: #000 solid 1px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    background-color: #f0fff0;
+}
+
+div.mail-messages div.your-message {
+    background-color: #f0f0ff;
+}
+
+div.mail-messages div p {
+    padding: 5px;
+    margin: 0px;
+}
+
+div.mail-messages div p.info {
+    margin: 0px;
+}
+
+.message-reply {
+    margin-top: 10px;
+}
+
+.message-reply textarea {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}

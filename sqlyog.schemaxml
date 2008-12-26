@@ -326,7 +326,7 @@
   KEY `state_user2` (`state_user2`),
   CONSTRAINT `FK_lib_mail_thread_user1` FOREIGN KEY (`user1_id`) REFERENCES `lib_user` (`lib_user_id`),
   CONSTRAINT `FK_lib_mail_thread_user2` FOREIGN KEY (`user2_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 <table name="lib_mail_message" view="colnames">
 <left>105</left>
@@ -343,7 +343,22 @@
   PRIMARY KEY  (`lib_mail_message_id`),
   KEY `FK_lib_mail_message_thread` (`lib_mail_thread_id`),
   CONSTRAINT `FK_lib_mail_message_thread` FOREIGN KEY (`lib_mail_thread_id`) REFERENCES `lib_mail_thread` (`lib_mail_thread_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+</table>
+<table name="lib_user_friendship" view="colnames">
+<left>919</left>
+<top>911</top>
+<width>112</width>
+<height>110</height>
+<sql_create_table>CREATE TABLE `lib_user_friendship` (
+  `user1_id` int(10) unsigned NOT NULL,
+  `user2_id` int(10) unsigned NOT NULL,
+  `state` tinyint(3) unsigned NOT NULL default '0' COMMENT '1 - approved, 2 - request sent, 3 - request received, 4 - declined',
+  PRIMARY KEY  (`user1_id`,`user2_id`),
+  KEY `FK_lib_user_friendship_user2` (`user2_id`),
+  CONSTRAINT `FK_lib_user_friendship_user2` FOREIGN KEY (`user2_id`) REFERENCES `lib_user` (`lib_user_id`),
+  CONSTRAINT `FK_lib_user_friendship_user1` FOREIGN KEY (`user1_id`) REFERENCES `lib_user` (`lib_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 </tables>
 </canvas>

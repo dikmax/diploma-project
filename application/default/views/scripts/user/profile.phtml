@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 ?>
     <div class="photo-placeholder">
@@ -17,6 +17,12 @@
     </div>
     <div class="profile-stats">
         Чего-то сделал... Еще чего-то... Ничего важного и интересного
+    </div>
+    <div class="profile-actions">
+        <ul>
+            <li><a href="<?= $this->url(array('action' => 'new'), 'mail')?>?to=<?= $this->user->getLogin()?>">Оправить сообщение</a></li>
+            <li>Добавить в друзья</li>
+        </ul>
     </div>
     <div class="profile-info">
         <div class="header">

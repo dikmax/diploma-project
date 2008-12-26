@@ -18,6 +18,9 @@ abstract class App_Form_Table extends Zend_Form
      */
     protected $_containerClass;
 
+    /**
+     * Main initialize function
+     */
     public function init()
     {
         $this->initForm();
@@ -26,13 +29,22 @@ abstract class App_Form_Table extends Zend_Form
         $this->initCustomLayout();
     }
 
+    /**
+     * Initialize form itself
+     */
     protected function initForm()
     {
 
     }
 
+    /**
+     * Initialize form elements
+     */
     abstract protected function initElements();
 
+    /**
+     * Initialize layout
+     */
     protected function initLayout()
     {
         $containerOptions = array('tag' => 'div');
@@ -74,11 +86,21 @@ abstract class App_Form_Table extends Zend_Form
         ));
     }
 
+    /**
+     * Custom changes to layout
+     */
     protected function initCustomLayout()
     {
 
     }
 
+    /**
+     * Set class to container
+     *
+     * @param string $containerClass
+     *
+     * @return App_Form_Table
+     */
     public function setContainerClass($containerClass)
     {
         $this->_containerClass = $containerClass;

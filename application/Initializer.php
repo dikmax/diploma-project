@@ -394,6 +394,13 @@ class Initializer extends Zend_Controller_Plugin_Abstract
                 ))
             );
 
+            $router->addRoute('friends',
+                new Zend_Controller_Router_Route('friends/:action', array(
+                    'controller' => 'friends',
+                    'action' => 'list'
+                ))
+            );
+
             $router->addRoute('user',
                 new Zend_Controller_Router_Route('user/:login/:action', array(
                     'controller' => 'user',

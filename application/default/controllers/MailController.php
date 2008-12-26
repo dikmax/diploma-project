@@ -69,6 +69,11 @@ class MailController extends Zend_Controller_Action
                 'action' => 'archive',
                 'param' => ''
             )));
+        $this->_topMenu->addItem('friend-requests', 'Предложения дружбы',
+            $this->_helper->url->url(array(
+                'action' => 'friend-requests',
+                'param' => ''
+            )));
         $this->_topMenu->addItem('new', 'Новое сообщение',
             $this->_helper->url->url(array(
                 'action' => 'new',
@@ -129,6 +134,7 @@ class MailController extends Zend_Controller_Action
         $this->_topMenu->selectItem('new');
 
         $form = new App_Form_Mail_New();
+        $form->setAction($this->_helper->url->url());
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($_POST)) {
@@ -142,6 +148,9 @@ class MailController extends Zend_Controller_Action
                 )));
                 // TODO show sent done message
             }
+        }
+        if (isset($_GET['to'])) {
+            $form->getElement('recipient')->setValue($_GET['to']);
         }
         $this->view->form = $form;
     }
@@ -195,5 +204,15 @@ class MailController extends Zend_Controller_Action
         $this->view->form = $form;
 
         $this->_helper->viewRenderer->setScriptAction('show-thread');
+    }
+
+    /**
+     * Redirect to friend requests
+     */
+    public function friendRequestsAction()
+    {
+        $this->_topMenu->selectItem('friend-requests');
+
+        $this->_forward('list', 'friends');
     }
 }

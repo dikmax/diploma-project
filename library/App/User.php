@@ -95,6 +95,13 @@ class App_User implements Zend_Acl_Role_Interface
     protected $_mail;
 
     /**
+     * User friends
+     *
+     * @var App_User_Friends
+     */
+    protected $_friends;
+
+    /**
      * Constructs user object
      *
      * @param array $construct
@@ -178,6 +185,9 @@ class App_User implements Zend_Acl_Role_Interface
 
         // Mailbox
         $this->_mail = null;
+
+        // Friends
+        $this->_friends = null;
 
         $this->registerRole();
     }
@@ -394,6 +404,20 @@ class App_User implements Zend_Acl_Role_Interface
         }
 
         return $this->_mail;
+    }
+
+    /**
+     * Returns user friends
+     *
+     * @return App_User_Friends
+     */
+    public function getFriends()
+    {
+        if ($this->_friends === null) {
+            $this->_friends = new App_User_Friends($this);
+        }
+
+        return $this->_friends;
     }
 
     /*
