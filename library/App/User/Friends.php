@@ -18,6 +18,7 @@ class App_User_Friends
     const STATE_REQUEST_SENT = 2;
     const STATE_REQUEST_RECEIVED = 3;
     const STATE_DECLINED = 4;
+    const STATE_CANCELED = 5;
 
     /**
      * User
@@ -58,6 +59,91 @@ class App_User_Friends
         }
 
         return App_User_Factory::getInstance()->getUsers($ids);
+    }
+
+    /**
+     * Sends request
+     *
+     * @param App_User $user
+     */
+    public function sendRequest(App_User $user)
+    {
+        $current = $this->_table->find($user->getId(), $this->_user->getId());
+        if (count($current) === 0) {
+            $state = 0;
+        } else {
+            $state = $current[0]['state'];
+        }
+        if ($state == self::STATE_APPROVED || $state == self::STATE_REQUEST_RECEIVED) {
+            return;
+        }
+        if ($state == self::STATE_REQUEST_SENT) {
+            $this->_table->setState($this->_user->getId(), $user->getId(),
+                self::STATE_APPROVED, self::STATE_APPROVED);
+            return;
+        }
+        $this->_table->setState($this->_user->getId(), $user->getId(),
+            self::STATE_REQUEST_SENT, self::STATE_REQUEST_RECEIVED);
+    }
+
+    /**
+     * Accepts request
+     *
+     * @param App_User $user
+     */
+    public function acceptRequest(App_User $user)
+    {
+        $current = $this->_table->find($this->_user->getId(), $user->getId());
+        if (count($current) === 0) {
+            $state = 0;
+        } else {
+            $state = $current[0]['state'];
+        }
+        if ($state != self::STATE_REQUEST_RECEIVED) {
+            return;
+        }
+        $this->_table->setState($this->_user->getId(), $user->getId(),
+            self::STATE_APPROVED, self::STATE_APPROVED);
+    }
+
+    /**
+     * Declines request
+     *
+     * @param App_User $user
+     */
+    public function declineRequest(App_User $user)
+    {
+        $current = $this->_table->find($this->_user->getId(), $user->getId());
+        if (count($current) === 0) {
+            $state = 0;
+        } else {
+            $state = $current[0]['state'];
+        }
+        if ($state != self::STATE_REQUEST_RECEIVED) {
+            return;
+        }
+        $this->_table->setState($this->_user->getId(), $user->getId(),
+            self::STATE_DECLINED, self::STATE_DECLINED);
+    }
+
+    /**
+     * Cancels request
+     *
+     * @param App_User $user
+     */
+    public function cancelRequest(App_User $user)
+    {
+        $current = $this->_table->find($this->_user->getId(), $user->getId());
+        if (count($current) === 0) {
+            $state = 0;
+        } else {
+            $state = $current[0]['state'];
+        }
+        if ($state != self::STATE_REQUEST_SENT) {
+            return;
+        }
+        $this->_table->setState($this->_user->getId(), $user->getId(),
+            self::STATE_CANCELED, self::STATE_CANCELED);
     }
 
     /*

@@ -320,6 +320,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             ->setSeparator(' / ');
         $doctypeHelper = new Zend_View_Helper_Doctype();
         $doctypeHelper->doctype('XHTML1_STRICT');
+        $view->getPluginLoader('helper')->load('UsersList');
         Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
 
         // Bootstrap layouts
@@ -395,9 +396,10 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             );
 
             $router->addRoute('friends',
-                new Zend_Controller_Router_Route('friends/:action', array(
+                new Zend_Controller_Router_Route('friends/:action/:user', array(
                     'controller' => 'friends',
-                    'action' => 'list'
+                    'action' => 'list',
+                    'user' => ''
                 ))
             );
 

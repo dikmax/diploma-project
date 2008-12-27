@@ -213,6 +213,6 @@ class MailController extends Zend_Controller_Action
     {
         $this->_topMenu->selectItem('friend-requests');
 
-        $this->_forward('list', 'friends');
+        $this->_forward('requests', 'friends');
     }
 }

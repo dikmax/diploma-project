@@ -5,13 +5,10 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
+
 ?>
 <h1>Друзья</h1>
 
-<ol>
-    <?php foreach ($this->friends as $friend): ?>
-        <li><?= $this->profileLink($friend); ?></li>
-    <?php endforeach; ?>
-</ol>
+<?= $this->usersList($this->friends); ?>

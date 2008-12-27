@@ -67,4 +67,32 @@ class App_Db_Table_UserFriendship extends Zend_Db_Table_Abstract
             ':state' => $state
         ));
     }
+
+    /**
+     * Update status between users
+     *
+     * @param int $user1Id
+     * @param int $user2Id
+     * @param int $state1 Status user1 -> user2
+     * @param int $state2 Status user2 -> user1
+     */
+    public function setState($user1Id, $user2Id, $state1, $state2)
+    {
+        $user1Id = (int)$user1Id;
+        $user2Id = (int)$user2Id;
+        $state1 = (int)$state1;
+        $state2 = (int)$state2;
+        $replace = $this->_db->prepare('REPLACE INTO ' . $this->_name . ' (user1_id, user2_id, state) '
+                 . 'VALUES (:user1, :user2, :state)');
+        $replace->execute(array(
+            ':user1' => $user1Id,
+            ':user2' => $user2Id,
+            ':state' => $state1
+        ));
+        $replace->execute(array(
+            ':user1' => $user2Id,
+            ':user2' => $user1Id,
+            ':state' => $state2
+        ));
+    }
 }

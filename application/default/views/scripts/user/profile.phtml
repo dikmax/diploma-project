@@ -20,8 +20,11 @@
     </div>
     <div class="profile-actions">
         <ul>
-            <li><a href="<?= $this->url(array('action' => 'new'), 'mail')?>?to=<?= $this->user->getLogin()?>">Оправить сообщение</a></li>
-            <li>Добавить в друзья</li>
+            <li><a href="<?= $this->url(array('action' => 'new'), 'mail')?>?to=<?= $this->user->getLogin()?>">Написать сообщение</a></li>
+            <li><a href="<?= $this->url(array(
+                              'action' => 'confirm',
+                              'user' => $this->user->getLogin()
+                          ), 'friends'); ?>">Добавить в друзья</a></li>
         </ul>
     </div>
     <div class="profile-info">

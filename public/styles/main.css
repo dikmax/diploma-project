@@ -167,6 +167,17 @@ blockquote {
 }
 
 /*
+ * Form
+ */
+ul.buttons-list {
+    display: inline;
+}
+
+ul.buttons-list li {
+    display: inline;
+}
+
+/*
  * Top menu
  */
 
@@ -289,4 +300,11 @@ ul.top-menu-left li.selected, ul.top-menu-right li.selected {
 .writeboard .messages .message .message-date {
     float: right;
     font-weight: bold;
+}
+
+/*
+ * Users
+ */
+table.users > tbody > tr > td {
+    border: 1px solid black;
 }
