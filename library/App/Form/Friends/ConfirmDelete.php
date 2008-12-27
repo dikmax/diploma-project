@@ -9,9 +9,9 @@
  */
 
 /**
- * Send friendship request confirmation
+ * Delete friend request confirmation
  */
-class App_Form_Friends_Confirm extends Zend_Form
+class App_Form_Friends_ConfirmDelete extends Zend_Form
 {
     /**
      * Should we disable loading the default decorators?
@@ -22,30 +22,28 @@ class App_Form_Friends_Confirm extends Zend_Form
     /**
      * @var Zend_Form_Element_Submit
      */
-    protected $_confirm;
+    protected $_delete;
 
     /**
      * @var Zend_Form_Element_Submit
      */
-    protected $_decline;
-
-
+    protected $_cancel;
 
     /**
      * Initialize form
      */
     public function init()
     {
-        $this->_confirm = new Zend_Form_Element_Submit('confirm', array(
-            'label' => 'Продолжить'
+        $this->_delete = new Zend_Form_Element_Submit('delete', array(
+            'label' => 'Удалить'
         ));
 
-        $this->_decline = new Zend_Form_Element_Submit('decline', array(
+        $this->_cancel = new Zend_Form_Element_Submit('cancel', array(
             'label' => 'Отменить'
         ));
 
-        $this->addElement($this->_confirm)
-             ->addElement($this->_decline);
+        $this->addElement($this->_delete)
+             ->addElement($this->_cancel);
 
         $this->setElementDecorators(array(
             array('ViewHelper'),

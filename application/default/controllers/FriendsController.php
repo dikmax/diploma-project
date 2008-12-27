@@ -145,6 +145,44 @@ class FriendsController extends Zend_Controller_Action
     }
 
     /**
+     * Show delete confirm
+     */
+    public function confirmDeleteAction()
+    {
+        $confirmUser = $this->getRequest()->getParam('user');
+
+        if (!$confirmUser) {
+            $this->redirectToList();
+            return;
+        }
+
+        $form = new App_Form_Friends_ConfirmDelete();
+
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+                if ($form->getValue('delete')) {
+                    $friends = $this->_user->getFriends();
+                    try {
+                        $user = App_User_Factory::getInstance()->getUserByLogin($confirmUser);
+                    } catch (Exception $e) {
+                        $this->redirectToList();
+                        return;
+                    }
+                    $friends->deleteFriend($user);
+                    $this->redirectToList();
+                    return;
+                } else if ($form->getValue('cancel')) {
+                    $this->redirectToList();
+                    return;
+                }
+            }
+        }
+
+        $this->view->confirmUser = $confirmUser;
+        $this->view->form = $form;
+    }
+
+    /**
      * Accept request
      */
     public function acceptAction()

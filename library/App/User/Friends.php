@@ -19,6 +19,7 @@ class App_User_Friends
     const STATE_REQUEST_RECEIVED = 3;
     const STATE_DECLINED = 4;
     const STATE_CANCELED = 5;
+    const STATE_DELETED = 6;
 
     /**
      * User
@@ -58,7 +59,12 @@ class App_User_Friends
             $ids[] = $item['user2_id'];
         }
 
-        return App_User_Factory::getInstance()->getUsers($ids);
+        $users = App_User_Factory::getInstance()->getUsers($ids);
+        foreach ($users as $user) {
+            $user->setFriendState($state);
+        }
+
+        return $users;
     }
 
     /**
@@ -70,7 +76,7 @@ class App_User_Friends
     {
         $current = $this->_table->find($user->getId(), $this->_user->getId());
         if (count($current) === 0) {
-            $state = 0;
+            $state = self::STATE_UNDEFINED;
         } else {
             $state = $current[0]['state'];
         }
@@ -95,7 +101,7 @@ class App_User_Friends
     {
         $current = $this->_table->find($this->_user->getId(), $user->getId());
         if (count($current) === 0) {
-            $state = 0;
+            $state = self::STATE_UNDEFINED;
         } else {
             $state = $current[0]['state'];
         }
@@ -115,7 +121,7 @@ class App_User_Friends
     {
         $current = $this->_table->find($this->_user->getId(), $user->getId());
         if (count($current) === 0) {
-            $state = 0;
+            $state = self::STATE_UNDEFINED;
         } else {
             $state = $current[0]['state'];
         }
@@ -135,7 +141,7 @@ class App_User_Friends
     {
         $current = $this->_table->find($this->_user->getId(), $user->getId());
         if (count($current) === 0) {
-            $state = 0;
+            $state = self::STATE_UNDEFINED;
         } else {
             $state = $current[0]['state'];
         }
@@ -144,6 +150,27 @@ class App_User_Friends
         }
         $this->_table->setState($this->_user->getId(), $user->getId(),
             self::STATE_CANCELED, self::STATE_CANCELED);
+    }
+
+    /**
+     * Deletes friend
+     *
+     * @param App_User $user
+     */
+    public function deleteFriend(App_User $user)
+    {
+        $current = $this->_table->find($this->_user->getId(), $user->getId());
+        if (count($current) === 0) {
+            $state = self::STATE_UNDEFINED;
+        } else {
+            $state = $current[0]['state'];
+        }
+        echo $state;
+        if ($state != self::STATE_APPROVED) {
+            return;
+        }
+        $this->_table->setState($this->_user->getId(), $user->getId(),
+            self::STATE_DELETED, self::STATE_DELETED);
     }
 
     /*

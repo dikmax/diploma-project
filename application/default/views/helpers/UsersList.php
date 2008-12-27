@@ -31,6 +31,7 @@ class App_View_Helper_UsersList extends Zend_View_Helper_Abstract
 
         $i = 0;
         foreach ($users as $user) {
+            $userFriendState = $user->getFriendState();
             if ($i%3 === 0) {
                 $result .= '<tr>';
             }
@@ -38,14 +39,21 @@ class App_View_Helper_UsersList extends Zend_View_Helper_Abstract
                     .  '<table><tr><td>'
                     .  $this->view->profileLink($user) . '</td><td><ul>';
 
-            if ($listType !== self::LIST_SENT_REQUESTS && $listType !== self::LIST_RECEIVED_REQUESTS) {
-                // TODO if user is already a friend write different action
+
+            if ($listType !== self::LIST_SENT_REQUESTS && $listType !== self::LIST_RECEIVED_REQUESTS
+                && $userFriendState !== null && $userFriendState !== App_User_Friends::STATE_REQUEST_RECEIVED
+                && $userFriendState !== App_User_Friends::STATE_REQUEST_SENT) {
+
                 $result .= '<li><a href="'
                         . $this->view->url(array(
-                              'action' => 'confirm',
+                              'action' => ($userFriendState === App_User_Friends::STATE_APPROVED
+                                    ? 'confirm-delete' : 'confirm'),
                               'user' => $user->getLogin()
                           ), 'friends')
-                        . '">Добваить в друзья</a></li>';
+                        . '">'
+                        . ($userFriendState === App_User_Friends::STATE_APPROVED
+                            ? 'Убрать из друзей' : 'Добваить в друзья')
+                        . '</a></li>';
             }
             if ($listType === self::LIST_RECEIVED_REQUESTS) {
                 $result .= '<li><a href="'
