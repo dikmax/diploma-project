@@ -65,9 +65,8 @@ class UserController extends Zend_Controller_Action
 
     public function initUser()
     {
-        try {
-            $this->_user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
-        } catch (App_User_Exception $e) {
+        $this->_user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
+        if ($this->_user === null) {
             $this->_forward('user-not-found', 'error', null, array(
                 'login' => $this->_login
             ));

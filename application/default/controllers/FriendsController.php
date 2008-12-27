@@ -124,9 +124,8 @@ class FriendsController extends Zend_Controller_Action
             if ($form->isValid($_POST)) {
                 if ($form->getValue('confirm')) {
                     $friends = $this->_user->getFriends();
-                    try {
-                        $user = App_User_Factory::getInstance()->getUserByLogin($confirmUser);
-                    } catch (Exception $e) {
+                    $user = App_User_Factory::getInstance()->getUserByLogin($confirmUser);
+                    if ($user === null) {
                         $this->redirectToList();
                         return;
                     }
@@ -162,9 +161,8 @@ class FriendsController extends Zend_Controller_Action
             if ($form->isValid($_POST)) {
                 if ($form->getValue('delete')) {
                     $friends = $this->_user->getFriends();
-                    try {
-                        $user = App_User_Factory::getInstance()->getUserByLogin($confirmUser);
-                    } catch (Exception $e) {
+                    $user = App_User_Factory::getInstance()->getUserByLogin($confirmUser);
+                    if ($user === null) {
                         $this->redirectToList();
                         return;
                     }
@@ -194,9 +192,8 @@ class FriendsController extends Zend_Controller_Action
             return;
         }
         $friends = $this->_user->getFriends();
-        try {
-            $user = App_User_Factory::getInstance()->getUserByLogin($userLogin);
-        } catch (Exception $e) {
+        $user = App_User_Factory::getInstance()->getUserByLogin($userLogin);
+        if ($user === null) {
             $this->redirectToList();
             return;
         }
@@ -219,9 +216,8 @@ class FriendsController extends Zend_Controller_Action
             return;
         }
         $friends = $this->_user->getFriends();
-        try {
-            $user = App_User_Factory::getInstance()->getUserByLogin($userLogin);
-        } catch (Exception $e) {
+        $user = App_User_Factory::getInstance()->getUserByLogin($userLogin);
+        if ($user === null) {
             $this->redirectToList();
             return;
         }
@@ -244,9 +240,8 @@ class FriendsController extends Zend_Controller_Action
             return;
         }
         $friends = $this->_user->getFriends();
-        try {
-            $user = App_User_Factory::getInstance()->getUserByLogin($userLogin);
-        } catch (Exception $e) {
+        $user = App_User_Factory::getInstance()->getUserByLogin($userLogin);
+        if ($user === null) {
             $this->redirectToList();
             return;
         }

@@ -109,9 +109,8 @@ class App_User_Factory
      *     more than one row in result, it returns first one.
      * @param string $value value to quote into condition
      *
-     * @return App_User
+     * @return App_User or <code>null</code> if not found
      *
-     * @throws App_User_Exception
      * @throws App_User_Factory_Exception
      */
     public function getUser($cond, $value = null)
@@ -126,7 +125,7 @@ class App_User_Factory
         if (is_numeric($cond)) {
             $rows = $this->_table->find((int)$cond);
             if (count($rows) == 0) {
-                throw new App_User_Exception('User with id=' . $cond . ' doesn\'t exists');
+                return null;
             }
             $row = $rows->current();
         } else if (is_string($cond)) {
@@ -134,7 +133,7 @@ class App_User_Factory
                 $this->_table->select()->where($cond, $value)
             );
             if ($row === null) {
-                throw new App_User_Exception('User with requested condition doesn\' found.');
+                return null;
             }
         } else {
             throw new App_User_Factory_Exception('First parameter to '

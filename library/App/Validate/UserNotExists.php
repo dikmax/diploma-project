@@ -24,14 +24,7 @@ class App_Validate_UserNotExists extends Zend_Validate_Abstract
         $value = (string) $value;
         $this->_setValue($value);
 
-        try {
-            App_User_Factory::getInstance()->getUserByLogin($value);
-            $exists = true;
-        } catch (App_User_Exception $e) {
-            $exists = false;
-        }
-
-        if ($exists) {
+        if (App_User_Factory::getInstance()->getUserByLogin($value) !== null) {
             $this->_error(self::EXISTS);
             return false;
         }

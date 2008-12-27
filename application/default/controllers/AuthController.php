@@ -29,7 +29,7 @@ class AuthController extends Zend_Controller_Action
                 $auth = new Zend_Auth_Adapter_DbTable($db, 'lib_user', 'login',
                     'password', 'MD5(?)');
                 $auth->setIdentity($form->getValue('login'))
-                    ->setCredential($form->getValue('password'));
+                     ->setCredential($form->getValue('password'));
                 $result = $auth->authenticate();
 
                 if ($result->isValid()) {

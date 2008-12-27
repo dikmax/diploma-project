@@ -130,12 +130,8 @@ class App_Form_Mail_New extends App_Form_Table
     public function getRecipientUser()
     {
         if ($this->_recipientUser === false) {
-            try {
-                $this->_recipientUser = App_User_Factory::getInstance()
-                    ->getUserByLogin($this->getValue('recipient'));
-            } catch (Exception $e) {
-                $this->_recipientUser = null;
-            }
+            $this->_recipientUser = App_User_Factory::getInstance()
+                ->getUserByLogin($this->getValue('recipient'));
         }
         return $this->_recipientUser;
     }
