@@ -158,6 +158,40 @@ blockquote {
     overflow: hidden;
 }
 
+.cover-border-left {
+    border: 0px;
+    border-left: 5px solid black;
+    border-top: 5px solid white;
+    position: absolute;
+    right: -5px;
+    top: -1px;
+    width: 0px;
+    bottom: -5px;
+}
+.cover-border-bottom {
+    border: 0px;
+    border-left: 5px solid white;
+    border-top: 5px solid black;
+    position: absolute;
+    bottom: -5px;
+    left: -1px;
+    height: 0px;
+    right: -5px;
+}
+
+.cover-placeholder {
+    float: left;
+    position: relative;
+    clear: none;
+    width: 148px;
+    height: 210px;
+    border: 1px solid black;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background: #f0f0ff;
+}
+
 /*
  * Auth block
  */

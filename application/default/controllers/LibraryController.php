@@ -452,4 +452,23 @@ class LibraryController extends Zend_Controller_Action
     {
         $this->_topMenu->selectItem('books');
     }
+
+    /**
+     * Generates image and redirects to it
+     */
+    /*public function imageAction()
+    {
+        if ($this->_type !== self::TITLE_PAGE) {
+            die;
+        }
+        $this->initAuthorAndTitle();
+        if ($this->_error) {
+            return;
+        }
+
+        $image = imagecreatetruecolor(80, 120);
+        $colorBlack = imagecolorallocate($image, 0, 0, 0);
+        imagerectangle($image, 0, 0, 80, 120, $colorBlack);
+        is_dir()
+    }*/
 }

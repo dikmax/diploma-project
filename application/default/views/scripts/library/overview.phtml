@@ -26,6 +26,26 @@ if ($this->type == 1): // Author
     <?php endif; ?>
     <h1><?= $this->authorName ?></h1>
 <?php else: ?>
+    <div class="cover-placeholder">
+        <div class="cover-border-left"></div>
+        <div class="cover-border-bottom"></div>
+        <p><small>
+            <?php $this->authorName;
+                $authors = $this->title->getAuthorsIndex();
+
+                $firstAuthor = true;
+                foreach($authors as $authorName) {
+                    if ($firstAuthor) {
+                        $firstAuthor = false;
+                    } else {
+                        echo '<br />';
+                    }
+                    echo $authorName;
+                }
+            ?>
+        </small></p>
+        <p><small><b><?= $this->titleName; ?></b></small></p>
+    </div>
     <h1><?= $this->titleName ?></h1>
     <h2><a href="<?= $this->libraryUrl(null, null, false); ?>"><?= $this->authorName; ?></a></h2>
 <?php endif;?>
