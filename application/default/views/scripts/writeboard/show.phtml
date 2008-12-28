@@ -8,13 +8,33 @@
  * @version    $Id$
  */
 ?>
+<?php $this->jQuery()->onLoadCaptureStart(); ?>
+
+    $('#writeboard-message').keyup(function () {
+        var val = $('#writeboard-message').val();
+        var maxLength = 1000 - val.length;
+        if (maxLength <= 0) {
+            $('#writeboard-message').val(val.substr(0, 1000));
+            maxLength = 0;
+        }
+        $('#writeboard-length').text(maxLength);
+    });
+
+    $('#writeboard-write-link').click(function () {
+        $('#writeboard-write-link').hide();
+        $('#writeboard-input').show("fold");
+        return false;
+    });
+
+<?php $this->jQuery()->onLoadCaptureEnd(); ?>
+
 <div class="writeboard">
     <?php if ($this->isAllowed('writeboard', 'add')): ?>
-        <a href="#" onclick="document.getElementById('writeboard-input').style.display = 'block'; this.style.display = 'none'; return false;">Оставить сообщение</a>
+        <a id="writeboard-write-link" href="#">Оставить сообщение</a>
         <div id="writeboard-input">
             <form action="<?= $this->url(array('action' => 'add'), 'writeboard'); ?>" method="post">
                 <p>Еще можно написать <span id="writeboard-length">1000</span> символов.
-                <textarea rows="4" cols="70" name="message"></textarea>
+                <textarea id="writeboard-message" rows="4" cols="70" name="message"></textarea>
                 <input type="hidden" name="id" value="<?= $this->id; ?>" />
                 <input type="submit" value="Написать" /></p>
             </form>

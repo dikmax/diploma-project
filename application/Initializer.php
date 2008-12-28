@@ -322,6 +322,11 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         $doctypeHelper->doctype('XHTML1_STRICT');
         $view->getPluginLoader('helper')->load('UsersList');
         Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+        ZendX_JQuery::enableView($view);
+        $jQuery = $view->jQuery();
+
+        $jQuery->setLocalPath('/scripts/jquery.js')
+            ->setUiLocalPath('/scripts/jquery.ui.js');
 
         // Bootstrap layouts
         Zend_Layout::startMvc(array(
