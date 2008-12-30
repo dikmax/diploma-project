@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -19,42 +19,42 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
      * @var int
      */
     protected $_libWriteboardMessageId;
-    
+
     /**
      * Id of writeboard
      *
      * @var int
      */
     protected $_writeboardId;
-    
+
     /**
      * Instance of writeboard
      *
      * @var App_Writeboard
      */
     protected $_writeboard;
-    
+
     /**
      * Message content
      *
      * @var string
      */
     protected $_message;
-    
+
     /**
      * Date and time of message
      *
      * @var App_Date
      */
     protected $_messageDate;
-    
+
     /**
      * User who leave message
      *
      * @var App_User
      */
     protected $_writeboardWriter;
-    
+
     /**
      * Constructs writeboard object
      *
@@ -85,7 +85,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
         } else {
             $this->_libWriteboardMessageId = null;
         }
-        
+
         // Writeboard
         if (isset($construct['lib_writeboard_id'])) {
             $this->_writeboardId = $construct['lib_writeboard_id'];
@@ -109,24 +109,24 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
             throw new App_Writeboard_Message_Exception("Can't create message "
                 . "deattached from writeboard.");
         }
-        
+
         // Message
         $this->_message = isset($construct['message']) ? $construct['message'] : '';
-        
+
         // Message date and time
         if (isset($construct['message_date'])) {
             $this->_messageDate = new App_Date($construct['message_date']);
         } else {
             $this->_messageDate = App_Date::now();
         }
-        
+
         // Writer
         if (isset($construct['writeboard_writer'])) {
             if ($construct['writeboard_writer'] instanceof App_User) {
                 $this->_writeboardWriter = $construct['writeboard_writer'];
             } else if (is_numeric($construct['writeboard_writer'])) {
                 // TODO this paramerer must accept array instead of int
-                
+
                 // TODO allow to create simplified instances or smth
                 $this->_writeboardWriter = App_User_Factory::getInstance()->getUser($construct['writeboard_writer']);
                 /*
@@ -141,7 +141,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
         } else {
             $this->_writeboardWriter = null;
         }
-        
+
         $this->registerResource();
     }
 
@@ -151,7 +151,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
     public function write()
     {
         $db = Zend_Registry::get("db");
-        
+
         if ($this->_libWriteboardMessageId === null) {
             // Creating new writeboard message
             $data = array('lib_writeboard_id' => $this->_writeboardId,
@@ -167,9 +167,9 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
             // TODO Write update writeboard message
         }
     }
-    
+
     // Setters and getters
-    
+
     /**
      * Returns database id
      *
@@ -179,7 +179,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
     {
         return $this->_libWriteboardMessageId;
     }
-    
+
     /**
      * Sets new database id and registers in ACL
      *
@@ -191,7 +191,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
         $this->_libWriteboardMessageId = $id;
         $this->registerResource();
     }
-    
+
     /**
      * Returns database id (alias for <code>getLibWriteboardMessageId</code>)
      *
@@ -201,7 +201,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
     {
         return $this->_libWriteboardMessageId;
     }
-    
+
     /**
      * Return id of writeboard
      *
@@ -211,7 +211,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
     {
         return $this->_writeboardId;
     }
-    
+
     /**
      * Returns writeboard
      *
@@ -221,7 +221,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
     {
         return $this->_writeboard;
     }
-    
+
     /**
      * Returns message content
      *
@@ -231,7 +231,12 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
     {
         return $this->_message;
     }
-    
+
+    public function getHtml()
+    {
+        return App_Markup::render($this->_message);
+    }
+
     /**
      * Returns message date/time
      *
@@ -241,7 +246,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
     {
         return $this->_messageDate;
     }
-    
+
     /**
      * Return message creator
      *
@@ -251,9 +256,9 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
     {
         return $this->_writeboardWriter;
     }
-    
+
     // Zend_Acl_Resource_Interface implementation
-    
+
     /**
      * Returns the string identifier of the Resource
      *
@@ -266,7 +271,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
         }
         return  "writeboard-message-new";
     }
-    
+
     /**
      * Returns resource parent (for registering)
      *

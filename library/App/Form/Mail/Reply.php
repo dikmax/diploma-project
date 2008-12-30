@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -54,4 +54,3 @@ class App_Form_Mail_Reply extends Zend_Form
         ));
     }
 }
-?>

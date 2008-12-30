@@ -89,4 +89,3 @@ class App_Form_Auth_Registration extends Zend_Form
              ->addElement($this->_submit);
     }
 }
-?>
