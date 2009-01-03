@@ -141,6 +141,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
         $acl = Zend_Registry::get('acl');
         $aclRole = Zend_Registry::get('aclRole');
 
+        // TODO Don't get all messages. Fetch only needed
         $messages = $this->getMessages();
         if (!isset($messages[$messageid])) {
             throw new App_Writeboard_Exception("Message with id=$messageid doesn't exists");

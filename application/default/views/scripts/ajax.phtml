@@ -1,0 +1,15 @@
+<?php
+/**
+ * Books social network
+ *
+ * LICENSE: Closed source
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id$
+ */
+
+if (is_string($this->ajax)) {
+    echo $this->ajax;
+} else {
+    echo Zend_Json::encode($this->ajax);
+}

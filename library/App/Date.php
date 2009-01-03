@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -55,7 +55,7 @@ class App_Date extends Zend_Date
     public function toRelativeString() {
         $date = new App_Date($this);
         $dateNow = new App_Date();
-        $diff = -$date->sub($dateNow);
+        $diff = -$date->sub($dateNow, Zend_Date::TIMESTAMP);
         if ($diff < 60) {
             return "только что";
         } elseif ($diff < 120) {
@@ -82,7 +82,7 @@ class App_Date extends Zend_Date
             // TODO Неправильно начиная отсюда
             return "позавчера";
         } else {
-            return "Еще старше";
+            return $this->toString();
         }
         //return $diff." ".$this->toString();
     }

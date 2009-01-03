@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -14,7 +14,7 @@
  * @copyright  2008 Maxim Dikun
  * @version    Release: 0.0.1
  */
-class WriteboardController extends Zend_Controller_Action
+class WriteboardController extends App_Controller_AjaxAction
 {
     /**
      * Prepares and shows writeboard
@@ -22,11 +22,11 @@ class WriteboardController extends Zend_Controller_Action
     public function showAction()
     {
         $writeboard = $this->getRequest()->getParam('writeboard');
-        
+
         $this->view->id = $writeboard->getId();
         $this->view->messages = $writeboard->getMessages();
     }
-    
+
     /**
      * Adds new message to writeboard
      */
@@ -34,22 +34,37 @@ class WriteboardController extends Zend_Controller_Action
     {
         $id = $this->getRequest()->getParam('id');
         $message = $this->getRequest()->getParam('message');
-        
+
         $writeboard = new App_Writeboard(array('lib_writeboard_id' => $id));
-        
+
         $writeboard->addMessage($message);
     }
-    
+
     /**
-     * Removes message from writeboard
+     * Ajax delete
      */
-    public function deleteAction()
+    public function ajaxDeleteAction()
     {
-        $id = $this->getRequest()->getParam('id');
-        $messageid = $this->getRequest()->getParam('messageid');
-        
-        $writeboard = new App_Writeboard(array('lib_writeboard_id' => $id));
-        
-        $writeboard->removeMessage($messageid);
+        $this->initAjax();
+
+        try {
+            $id = $this->getRequest()->getParam('id');
+            $messageid = $this->getRequest()->getParam('messageid');
+
+            if (is_numeric($id) && is_numeric($messageid)) {
+                $writeboard = new App_Writeboard(array('lib_writeboard_id' => $id));
+
+                $writeboard->removeMessage($messageid);
+
+                $this->view->ajax = array('success' => true);
+            } else {
+                $this->view->ajax = array('success' => false);
+            }
+        } catch (Exception $e) {
+            $this->view->ajax = array(
+                'success' => false,
+                'message' => $e->getMessage()
+            );
+        }
     }
 }

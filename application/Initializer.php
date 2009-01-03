@@ -326,7 +326,15 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         $jQuery = $view->jQuery();
 
         $jQuery->setLocalPath('/scripts/jquery.js')
-            ->setUiLocalPath('/scripts/jquery.ui.js');
+            ->setUiLocalPath('/scripts/jquery.ui.js')
+            ->uiDisable();
+        // Add default ajax settings
+        $jQuery->addOnLoad(
+            '$.ajaxSetup({' . "\n" .
+            '        type: "post",' . "\n" .
+            '        dataType: "json"' . "\n" .
+            '    });'
+        );
 
         // Bootstrap layouts
         Zend_Layout::startMvc(array(
