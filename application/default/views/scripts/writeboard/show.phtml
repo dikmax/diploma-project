@@ -20,39 +20,16 @@ $this->jQuery()->onLoadCaptureStart(); ?>
             $('#writeboard-message').keyup(Writeboard.textareaKeyupHandler);
             $('#writeboard-write-link').click(Writeboard.showTextareaHandler);
             $('#writeboard-submit').click(Writeboard.addHandler);
-
         <?php $this->jQuery()->onLoadCaptureEnd(); ?>
 
         <a id="writeboard-write-link" href="#">Оставить сообщение</a>
         <div id="writeboard-input">
-                <p>Еще можно написать <span id="writeboard-length">1000</span> символов.
-                <textarea id="writeboard-message" rows="4" cols="70" name="message"></textarea>
-                <input type="hidden" name="id" value="<?= $this->id; ?>" />
-                <input id="writeboard-submit" type="button" value="Написать" /></p>
+            <p>Еще можно написать <span id="writeboard-length">1000</span> символов.
+            <textarea id="writeboard-message" rows="4" cols="70" name="message"></textarea>
+            <input type="hidden" name="id" value="<?= $this->id; ?>" />
+            <input id="writeboard-submit" type="button" value="Написать" /></p>
         </div>
     <?php endif; ?>
 
-    <div class="messages" id="writeboard-<?= $this->id; ?>">
-        <?php foreach($this->messages as $message): ?>
-            <?php $login = $message->getWriteboardWriter()->getLogin(); ?>
-            <div class="message">
-                <div class="message-date">
-                    <?= $message->getMessageDate()->toRelativeString(); ?>
-                </div>
-                <div class="message-user">
-                    <?php if ($this->isAllowed($message, 'delete')): ?>
-                        <a id="delete-<?= $message->getId(); ?>" href="#" class="delete"><img src="/images/close.png" /></a>
-                    <?php endif; ?>
-                    <?php if ($this->login != $login): ?>
-                        <?= $this->profileLink($login); ?>
-                    <?php else: ?>
-                        <?= $login; ?>
-                    <?php endif; ?>
-                </div>
-                <div class="message-content">
-                    <?= $message->getHtml(); ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+    <div class="messages" id="writeboard-<?= $this->id; ?>"></div>
 </div>

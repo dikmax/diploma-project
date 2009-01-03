@@ -1,5 +1,5 @@
 /**
- * @version    $Id:$
+ * @version    $Id$
  */
 var Writeboard = {
     id: 0,
@@ -76,13 +76,17 @@ var Writeboard = {
 
     addHandler: function() {
         $.ajax({
-            url: '/writeboard/ajax-delete/',
+            url: '/writeboard/ajax-add/',
             data: {
                 id: Writeboard.id,
                 message: $('#writeboard-message').val()
             },
-            success: function() {
-
+            success: function(response) {
+                if (response.success) {
+                    $('.messages').prepend(Writeboard.getMessage(response.message));
+                    $('#writeboard-message').val('');
+                    $('#writeboard-length').text(1000);
+                }
             }
         });
     },

@@ -24,22 +24,11 @@ class WriteboardController extends App_Controller_AjaxAction
         $writeboard = $this->getRequest()->getParam('writeboard');
 
         $this->view->id = $writeboard->getId();
-        $this->view->messages = $writeboard->getMessages();
     }
 
     /**
-     * Adds new message to writeboard
+     * Returns writeboard messages
      */
-    public function addAction()
-    {
-        $id = $this->getRequest()->getParam('id');
-        $message = $this->getRequest()->getParam('message');
-
-        $writeboard = new App_Writeboard(array('lib_writeboard_id' => $id));
-
-        $writeboard->addMessage($message);
-    }
-
     public function ajaxGetAction()
     {
         $this->initAjax();
@@ -73,6 +62,39 @@ class WriteboardController extends App_Controller_AjaxAction
         $this->view->ajax = array(
             'success' => true,
             'messages' => $result
+        );
+    }
+
+    public function ajaxAddAction()
+    {
+        $this->initAjax();
+
+        $id = $this->getRequest()->getParam('id');
+        if (!is_numeric($id)) {
+            $this->view->ajax = array('success' => false);
+            return;
+        }
+        $messageText = $this->getRequest()->getParam('message');
+
+        $user = App_User_Factory::getSessionUser();
+        if ($user) {
+            $writeboard = $user->getWriteboard();
+            if ($writeboard->getId() != $id) {
+                $writeboard = new App_Writeboard(array('id' => $id));
+            }
+        }
+
+        $message = $writeboard->addMessage($messageText);
+
+        $this->view->ajax = array(
+            'success' => true,
+            'message' => array (
+                'id' => $message->getId(),
+                'login' => $message->getWriteboardWriter()->getLogin(),
+                'deleteAllowed' => $this->view->isAllowed($message, 'delete'),
+                'date' => $message->getMessageDate()->toRelativeString(),
+                'message' => $message->getHtml()
+            )
         );
     }
 

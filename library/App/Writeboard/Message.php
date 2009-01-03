@@ -160,7 +160,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
                           'message_date' => $this->_messageDate->toMysqlString());
             $insertId = $table->insert($data);
             $this->unregisterResource();
-            $this->_libWriteboardId = $insertId;
+            $this->_libWriteboardMessageId = $insertId;
             $this->registerResource();
         } else {
             // Update writeboard message

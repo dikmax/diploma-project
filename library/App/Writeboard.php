@@ -118,6 +118,8 @@ class App_Writeboard extends App_Acl_Resource_Abstract
      * Add new message to writeboard
      *
      * @param string $message Message content
+     *
+     * @return App_Writeboard_Message new message
      */
     public function addMessage($message)
     {
@@ -138,6 +140,8 @@ class App_Writeboard extends App_Acl_Resource_Abstract
         ));
 
         $writeboardMessage->write();
+
+        return $writeboardMessage;
     }
 
     /**
