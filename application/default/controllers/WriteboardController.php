@@ -40,6 +40,42 @@ class WriteboardController extends App_Controller_AjaxAction
         $writeboard->addMessage($message);
     }
 
+    public function ajaxGetAction()
+    {
+        $this->initAjax();
+
+        $id = $this->getRequest()->getParam('id');
+        if (!is_numeric($id)) {
+            $this->view->ajax = array('success' => false);
+            return;
+        }
+
+        $user = App_User_Factory::getSessionUser();
+        if ($user) {
+            $writeboard = $user->getWriteboard();
+            if ($writeboard->getId() != $id) {
+                $writeboard = new App_Writeboard(array('id' => $id));
+            }
+        }
+        $messages = $writeboard->getMessages();
+
+        $result = array();
+        foreach ($messages as $message) {
+            $result[] = array(
+                'id' => $message->getId(),
+                'login' => $message->getWriteboardWriter()->getLogin(),
+                'deleteAllowed' => $this->view->isAllowed($message, 'delete'),
+                'date' => $message->getMessageDate()->toRelativeString(),
+                'message' => $message->getHtml()
+            );
+        }
+
+        $this->view->ajax = array(
+            'success' => true,
+            'messages' => $result
+        );
+    }
+
     /**
      * Ajax delete
      */
