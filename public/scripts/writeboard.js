@@ -12,12 +12,11 @@ var Writeboard = {
             },
             success: function(response) {
                 if (response.success) {
-                    $('.messages').children().remove();
+                    $('.messages').text('').children().remove();
                     for (message in response.messages) {
                         $('.messages').append(Writeboard.getMessage(response.messages[message]));
                     }
                 }
-                //console.log(response);
             }
         });
     },
@@ -75,6 +74,7 @@ var Writeboard = {
     },
 
     addHandler: function() {
+        this.disabled = true;
         $.ajax({
             url: '/writeboard/ajax-add/',
             data: {
@@ -87,7 +87,12 @@ var Writeboard = {
                     $('#writeboard-message').val('');
                     $('#writeboard-length').text(1000);
                 }
-            }
+            },
+            complete: function(scope) {
+                return function() {
+                    scope.disabled = false;
+                };
+            }(this)
         });
     },
 
