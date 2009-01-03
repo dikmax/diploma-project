@@ -35,7 +35,7 @@ class WriteboardController extends App_Controller_AjaxAction
 
         $id = $this->getRequest()->getParam('id');
         if (!is_numeric($id)) {
-            $this->view->ajax = array('success' => false);
+            $this->fail();
             return;
         }
 
@@ -59,10 +59,9 @@ class WriteboardController extends App_Controller_AjaxAction
             );
         }
 
-        $this->view->ajax = array(
-            'success' => true,
+        $this->success(array(
             'messages' => $result
-        );
+        ));
     }
 
     public function ajaxAddAction()
@@ -71,10 +70,16 @@ class WriteboardController extends App_Controller_AjaxAction
 
         $id = $this->getRequest()->getParam('id');
         if (!is_numeric($id)) {
-            $this->view->ajax = array('success' => false);
+            $this->fail();
             return;
         }
         $messageText = $this->getRequest()->getParam('message');
+        $messageText = Zend_Filter::get($messageText, 'StringTrim');
+        $lengthValidator = new Zend_Validate_StringLength(1,1000);
+        if (!$lengthValidator->isValid($messageText)) {
+            $this->fail();
+            return;
+        }
 
         $user = App_User_Factory::getSessionUser();
         if ($user) {
@@ -86,8 +91,7 @@ class WriteboardController extends App_Controller_AjaxAction
 
         $message = $writeboard->addMessage($messageText);
 
-        $this->view->ajax = array(
-            'success' => true,
+        $this->success(array(
             'message' => array (
                 'id' => $message->getId(),
                 'login' => $message->getWriteboardWriter()->getLogin(),
@@ -95,7 +99,7 @@ class WriteboardController extends App_Controller_AjaxAction
                 'date' => $message->getMessageDate()->toRelativeString(),
                 'message' => $message->getHtml()
             )
-        );
+        ));
     }
 
     /**
@@ -114,15 +118,12 @@ class WriteboardController extends App_Controller_AjaxAction
 
                 $writeboard->removeMessage($messageid);
 
-                $this->view->ajax = array('success' => true);
+                $this->success();
             } else {
-                $this->view->ajax = array('success' => false);
+                $this->fail();
             }
         } catch (Exception $e) {
-            $this->view->ajax = array(
-                'success' => false,
-                'message' => $e->getMessage()
-            );
+            $this->fail($e->getMessage());
         }
     }
 }

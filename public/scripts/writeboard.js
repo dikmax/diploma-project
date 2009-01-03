@@ -70,10 +70,16 @@ var Writeboard = {
             $('#writeboard-message').val(val.substr(0, 1000));
             maxLength = 0;
         }
+
         $('#writeboard-length').text(maxLength);
     },
 
     addHandler: function() {
+        var message = $('#writeboard-message').val();
+        if (message.match(/^\s*$/)) {
+            alert('Сообщение не должно быть пустым');
+            return false;
+        }
         this.disabled = true;
         $.ajax({
             url: '/writeboard/ajax-add/',
