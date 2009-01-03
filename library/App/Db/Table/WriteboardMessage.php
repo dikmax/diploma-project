@@ -46,4 +46,37 @@ class App_Db_Table_WriteboardMessage extends Zend_Db_Table_Abstract
             'refColumns'        => 'lib_writeboard_id'
         )
     );
+
+    /**
+     * Returns messages from writeboard
+     *
+     * @param int $writeboardId
+     *
+     * @return array
+     */
+    public function getMessages($writeboardId)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name)
+            ->where('lib_writeboard_id = :lib_writeboard_id')
+            ->order(new Zend_Db_Expr('message_date DESC'));
+
+        return $this->_db->fetchAll($select, array(
+            ':lib_writeboard_id' => $writeboardId
+        ));
+    }
+
+    /**
+     * Return messages count for writeboard
+     */
+    public function getMessagesCount($writeboardId)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name, new Zend_Db_Expr('count(*)'))
+            ->where('lib_writeboard_id = :lib_writeboard_id');
+
+        return $this->_db->fetchOne($select, array(
+            ':lib_writeboard_id' => $writeboardId
+        ));
+    }
 }

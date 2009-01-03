@@ -49,6 +49,13 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     protected $_changed = false;
 
     /**
+     * lib_writeboard_message table
+     *
+     * @var App_Db_Table_WriteboardMessage
+     */
+    protected $_table;
+
+    /**
      * Constructs writeboard object
      *
      * @param array $construct
@@ -81,6 +88,8 @@ class App_Writeboard extends App_Acl_Resource_Abstract
             }
             $this->_ownerDescription = '';
         }
+
+        $this->_table = new App_Db_Table_WriteboardMessage();
 
         $this->registerResource();
     }
@@ -136,25 +145,43 @@ class App_Writeboard extends App_Acl_Resource_Abstract
      *
      * @param int $messageid Id of message
      */
-    public function removeMessage($messageid)
+    public function removeMessage($messageId)
     {
         $acl = Zend_Registry::get('acl');
         $aclRole = Zend_Registry::get('aclRole');
 
-        // TODO Don't get all messages. Fetch only needed
-        $messages = $this->getMessages();
-        if (!isset($messages[$messageid])) {
-            throw new App_Writeboard_Exception("Message with id=$messageid doesn't exists");
+        if ($this->_messages !== null) {
+            $message = isset($this->_messages[$messageId])
+                ? $this->_messages[$messageId]
+                : null;
+        } else {
+            $messages = $this->_table->find($messageId);
+            if (!$messages->offsetExists(0)
+                || $messages[0]['lib_writeboard_id'] != $this->_libWriteboardId) {
+                $message = null;
+            } else {
+                $item = $messages[0]->toArray();
+                $item['writeboard'] = $this;
+                $item['writeboard_writer'] = App_User_Factory::getInstance()->getUser($item['writeboard_writer']);
+                $item['message_date'] = App_Date::fromMysqlString($item['message_date']);
+                $message = new App_Writeboard_Message($item);
+            }
+        }
+        if (!$message) {
+            throw new App_Writeboard_Exception("Message with id=$messageId doesn't exists");
         }
 
-        if (!$acl->isAllowed($aclRole, $messages[$messageid], 'delete')) {
-            throw new App_Writeboard_Exception("You have no permission for delete message $messageid");
+        if (!$acl->isAllowed($aclRole, $message, 'delete')) {
+            throw new App_Writeboard_Exception("You have no permission for delete message $messageId");
         }
 
-        $db = Zend_Registry::get('db');
+        $this->_table->delete(
+            $this->_table->getAdapter()->quoteInto('lib_writeboard_message_id = ?', $messageId)
+        );
 
-        $db->delete('lib_writeboard_message',
-            $db->quoteInto('lib_writeboard_message_id = ?', $messageid));
+        if ($this->_messages !== null) {
+            unset($this->_messages[$messageId]);
+        }
     }
 
     // Setters and getters
@@ -227,14 +254,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     public function getMessages()
     {
         if ($this->_messages === null) {
-            $db = Zend_Registry::get('db');
-
-            $items = $db->fetchAll('SELECT lib_writeboard_message_id, '
-                   . 'writeboard_writer, message, message_date '
-                   . 'FROM lib_writeboard_message '
-                   . 'WHERE lib_writeboard_id = :lib_writeboard_id '
-                   . 'ORDER BY message_date DESC',
-                   array(':lib_writeboard_id' => $this->_libWriteboardId));
+            $items = $this->_table->getMessages($this->_libWriteboardId);
             $this->_messagesCount = count($items);
 
             // Extracting users
@@ -265,13 +285,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     public function getMessagesCount()
     {
         if ($this->_messagesCount === null) {
-            $db = Zend_Registry::get('db');
-
-            $count = $db->fetchOne('SELECT count(*) '
-                   . 'FROM lib_writeboard_message '
-                   . 'WHERE lib_writeboard_id = :lib_writeboard_id',
-                   array(':lib_writeboard_id' => $this->_libWriteboardId));
-            $this->_messagesCount = $count;
+            $this->_messagesCount = $this->_table->getMessagesCount($this->_libWriteboardId);
         }
         return $this->_messagesCount;
     }

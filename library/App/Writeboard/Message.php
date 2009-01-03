@@ -150,7 +150,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
      */
     public function write()
     {
-        $db = Zend_Registry::get("db");
+        $table = new App_Db_Table_WriteboardMessage();
 
         if ($this->_libWriteboardMessageId === null) {
             // Creating new writeboard message
@@ -158,9 +158,9 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
                           'writeboard_writer' => $this->_writeboardWriter->getId(),
                           'message' => $this->_message,
                           'message_date' => $this->_messageDate->toMysqlString());
-            $db->insert('lib_writeboard_message', $data);
+            $insertId = $table->insert($data);
             $this->unregisterResource();
-            $this->_libWriteboardId = $db->lastInsertId();
+            $this->_libWriteboardId = $insertId;
             $this->registerResource();
         } else {
             // Update writeboard message
