@@ -117,6 +117,25 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
     }
 
     /**
+     * Sets mark for title
+     *
+     * @param App_Library_Title|int $title
+     * @param int $mark
+     */
+    public function setMark($title, $mark) {
+        if ($title instanceof App_Library_Title) {
+            $titleId = $title->getId();
+        } else if (is_numeric($title)) {
+            $titleId = (int)$title;
+        } else {
+            throw new App_User_Bookshelf_Exception('$title mustbe instance of App_Library_Title or int');
+        }
+
+        $table = new App_Db_Table_UserBookshelf();
+        $table->setMark($this->_user->getId(), $titleId, $mark);
+    }
+
+    /**
      * @see App_Acl_Resource_Abstract::getResourceParentId()
      *
      * @return string
@@ -131,7 +150,7 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
      *
      * @return string
      */
-    public function getResourceId ()
+    public function getResourceId()
     {
         return 'bookshelf-' . $this->_user->getId();
     }

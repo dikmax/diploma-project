@@ -25,7 +25,9 @@ if ($this->type == 1): // Author
         </div>
     <?php endif; ?>
     <h1><?= $this->authorName ?></h1>
-<?php else: ?>
+<?php
+else: // Title
+?>
     <div class="cover-placeholder">
         <div class="cover-border-left"></div>
         <div class="cover-border-bottom"></div>
@@ -67,15 +69,12 @@ if ($this->type == 1): // Author
 else:
 ?>
 <p><?php
-    if ($this->type === 1):
-?>
-        У нас пока нет описания этого автора.
-<?php
-    else:
-?>
-        У нас пока нет описания этого произведения.
-<?php
-    endif;
+    if ($this->type === 1) {
+        echo "У нас пока нет описания этого автора.";
+    } else {
+        echo "У нас пока нет описания этого произведения.";
+    }
+
     if ($this->isAllowed('wiki', 'edit')): ?>
         <a href="<?= $this->libraryUrl('wiki-edit'); ?>">
             Есть желание помочь?
@@ -84,7 +83,12 @@ else:
 </p>
 <?php endif;
 
-if ($this->type === 1): ?>
+if ($this->type === 2): // Title
+    echo $this->titleMark($this->title);
+endif;
+
+if ($this->type === 1): // Author
+?>
     <div class="author-titles">
         <?php $this->titles = $this->author->getTitles(); ?>
         <div class="header">

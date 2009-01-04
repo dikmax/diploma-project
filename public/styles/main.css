@@ -1,3 +1,8 @@
+/*
+ * Main stylesheet
+ *
+ * @version $Id:$
+ */
 @CHARSET "UTF-8";
 
 /* common */
@@ -334,6 +339,39 @@ ul.top-menu-left li.selected, ul.top-menu-right li.selected {
 .writeboard .messages .message .message-date {
     float: right;
     font-weight: bold;
+}
+
+/*
+ * Title marks
+ */
+.title-mark a {
+    text-decoration: none;
+    color: black;
+}
+
+.title-mark a.mark-2:hover, .title-mark a.mark-2.selected {
+    background-color: #800000;
+    color: white;
+}
+
+.title-mark a.mark-1:hover, .title-mark a.mark-1.selected {
+    background-color: #804000;
+    color: white;
+}
+
+.title-mark a.mark0:hover, .title-mark a.mark0.selected {
+    background-color: #808000;
+    color: white;
+}
+
+.title-mark a.mark1:hover, .title-mark a.mark1.selected {
+    background-color: #408000;
+    color: white;
+}
+
+.title-mark a.mark2:hover, .title-mark a.mark2.selected {
+    background-color: #008000;
+    color: white;
 }
 
 /*

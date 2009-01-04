@@ -64,4 +64,39 @@ class App_Db_Table_UserBookshelf extends Zend_Db_Table_Abstract
             ':user_id' => $userId
         ));
     }
+
+    public function setMark($userId, $titleId, $mark)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name, 'lib_user_bookshelf_id')
+            ->where('lib_user_id = :lib_user_id')
+            ->where('lib_title_id = :lib_title_id')
+            ->where('relation BETWEEN 1 AND 5');
+        $marks = $this->_db->fetchAll($select, array(
+            ':lib_user_id' => $userId,
+            ':lib_title_id' => $titleId
+        ));
+        if (!$marks) {
+            // New mark
+            $this->insert(array(
+                'lib_user_id' => $userId,
+                'lib_title_id' => $titleId,
+                'relation' => $mark + 3
+            ));
+        } else if (count($marks) == 1) {
+            // Old mark
+            $this->update(array('relation' => $mark + 3),
+                $this->_db->quoteInto('lib_user_bookshelf_id = ?', $marks[0]['lib_user_bookshelf_id']));
+        } else if (count($marks) > 1) {
+            // Hmmm. We have some extra marks. Removing
+            $ids = array();
+            for ($i = 1; $i < count($marks); ++$i) {
+                $ids[] = $marks[$i]['lib_user_bookshelf_id'];
+            }
+            $this->delete('lib_user_bookshelf_id IN (' . implode(', ', $ids) . ')');
+
+            $this->update(array('relation' => $mark + 3),
+                $this->_db->quoteInto('lib_user_bookshelf_id = ?', $marks[0]['lib_user_bookshelf_id']));
+        }
+    }
 }

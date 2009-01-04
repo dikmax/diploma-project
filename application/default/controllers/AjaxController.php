@@ -11,33 +11,29 @@
 /**
  * Controller for different ajax actions
  */
-class AjaxController extends Zend_Controller_Action
+class AjaxController extends App_Controller_AjaxAction
 {
     public function init()
     {
-        $response = $this->getResponse();
-        $response->setHeader('Content-Type', 'text/json-comment-filtered');
-
-        $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setScriptAction('json-comment-filtered');
+        $this->initAjax();
     }
 
-    public function authorSuggestAction()
+    public function setMarkAction()
     {
-        //$query = $this->getRequest()->getParam('query');
+        $user = App_User_Factory::getSessionUser();
+        if (!$user) {
+            $this->fail();
+            return;
+        }
+        $titleId = $this->_request->getParam('title_id');
+        $mark = $this->_request->getParam('mark');
 
-        /*
-        $res = new Zend_Dojo_Data('author_id', array(
-            array(
-                "author_id" => "1",
-                "name" => "Клиффорд Саймак"
-            ),
-            array(
-                "author_id" => "2",
-                "name" => "Клчтототам Сайтоже"
-            )
-        ));*/
+        if (!is_numeric($titleId) || !is_numeric($mark)) {
+            $this->fail();
+            return;
+        }
 
-        $this->view->data = array();
+        $user->getBookshelf()->setMark($titleId, $mark);
+        $this->success();
     }
 }
