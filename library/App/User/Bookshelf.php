@@ -117,6 +117,34 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
     }
 
     /**
+     * Gets title mark from database
+     *
+     * @param App_Library_Title|int $title
+     *
+     * @return App_Library_Title|int
+     */
+    public function getMark($title)
+    {
+        if ($title instanceof App_Library_Title) {
+            $titleId = $title->getId();
+        } else if (is_numeric($title)) {
+            $titleId = (int)$title;
+        } else {
+            throw new App_User_Bookshelf_Exception('$title mustbe instance of App_Library_Title or int');
+        }
+
+        $table = new App_Db_Table_UserBookshelf();
+        $mark = $table->getMark($this->_user->getId(), $titleId);
+
+        if ($title instanceof App_Library_Title) {
+            $title->setMark($mark);
+            return $title;
+        } else {
+            return $mark;
+        }
+    }
+
+    /**
      * Sets mark for title
      *
      * @param App_Library_Title|int $title

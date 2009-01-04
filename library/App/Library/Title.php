@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -84,6 +84,13 @@ class App_Library_Title
     protected $_description;
 
     /**
+     * Mark for temporary use
+     *
+     * @var int
+     */
+    protected $_mark;
+
+    /**
      * Constructs title object
      *
      * @param array $construct
@@ -97,6 +104,7 @@ class App_Library_Title
      *   <li><code>description_text_id</code>: id of description text (<b>int</b>)</li>
      *   <li><code>front_description</code>: description on front page (<b>string</b>)</li>
      *   <li><code>lib_writeboard_id</code>: writeboard id (<b>int</b>)</li>
+     *   <li><code>mark</code>: mark (<b>int</b>)</li>
      * </ul>
      */
     public function __construct($construct)
@@ -155,6 +163,11 @@ class App_Library_Title
             : null;
 
         $this->_writeboard = null;
+
+        // Mark
+        $this->_mark = isset($construct['mark'])
+            ? $construct['mark']
+            : null;
     }
 
     /**
@@ -420,5 +433,25 @@ class App_Library_Title
             }
         }
         return $this->_authorsIndexArray;
+    }
+
+    /**
+     * Returns mark
+     *
+     * @return int
+     */
+    public function getMark()
+    {
+        return $this->_mark;
+    }
+
+    /**
+     * Sets mark
+     *
+     * @param int $_mark
+     */
+    public function setMark($mark)
+    {
+        $this->_mark = $mark;
     }
 }

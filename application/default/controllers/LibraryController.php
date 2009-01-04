@@ -216,6 +216,11 @@ class LibraryController extends Zend_Controller_Action
 
         // Actual processing
         if ($this->_title) {
+            $user = App_User_Factory::getSessionUser();
+            if ($user instanceof App_User) {
+                $user->getBookshelf()->getMark($this->_title);
+            }
+
             $titleName = $this->_title->getName();
             $this->view->headTitle($titleName);
             $this->view->title = $this->_title;

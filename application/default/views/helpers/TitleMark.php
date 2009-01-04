@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -35,10 +35,17 @@ class App_View_Helper_TitleMark extends Zend_View_Helper_Abstract
      */
     public function titleMark(App_Library_Title $title)
     {
+        $titleMark = $title->getMark();
+        if ($titleMark === null) {
+            return '';
+        }
+
         $result = '<p id="title-mark-' . $title->getId() . '"class="title-mark">Оценка: ';
 
         foreach (self::$_marks as $mark => $markName) {
-            $result .= '<a href="#" class="mark' . $mark . '" title="' . $markName . '">&nbsp;'
+            $result .= '<a href="#" class="mark' . $mark
+                . ($titleMark !== false && $titleMark == $mark ? ' selected' : '')
+                . '" title="' . $markName . '">&nbsp;'
                 . $mark . '&nbsp;</a>';
         }
 

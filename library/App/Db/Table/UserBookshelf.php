@@ -65,6 +65,30 @@ class App_Db_Table_UserBookshelf extends Zend_Db_Table_Abstract
         ));
     }
 
+    public function getMark($userId, $titleId)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name, 'relation')
+            ->where('lib_user_id = :lib_user_id')
+            ->where('lib_title_id = :lib_title_id')
+            ->where('relation BETWEEN 1 AND 5');
+        $mark = $this->_db->fetchOne($select, array(
+            ':lib_user_id' => $userId,
+            ':lib_title_id' => $titleId
+        ));
+        if ($mark !== false) {
+            $mark = (int)$mark - 3;
+        }
+        return $mark;
+    }
+
+    /**
+     * Sets mark for specific user
+     *
+     * @param int $userId
+     * @param int $titleId
+     * @param int $mark
+     */
     public function setMark($userId, $titleId, $mark)
     {
         $select = $this->_db->select()
