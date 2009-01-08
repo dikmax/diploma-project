@@ -1,7 +1,7 @@
 /*
  * Main stylesheet
  *
- * @version $Id:$
+ * @version $Id$
  */
 @CHARSET "UTF-8";
 
@@ -371,6 +371,15 @@ ul.top-menu-left li.selected, ul.top-menu-right li.selected {
 
 .title-mark a.mark2:hover, .title-mark a.mark2.selected {
     background-color: #008000;
+    color: white;
+}
+
+.title-mark a.markremove {
+    display: none;
+}
+
+.title-mark a.markremove:hover {
+    background-color: black;
     color: white;
 }
 

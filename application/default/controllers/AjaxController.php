@@ -13,11 +13,17 @@
  */
 class AjaxController extends App_Controller_AjaxAction
 {
+    /**
+     * Initializes ajax controller
+     */
     public function init()
     {
         $this->initAjax();
     }
 
+    /**
+     * Set mark
+     */
     public function setMarkAction()
     {
         $user = App_User_Factory::getSessionUser();
@@ -34,6 +40,27 @@ class AjaxController extends App_Controller_AjaxAction
         }
 
         $user->getBookshelf()->setMark($titleId, $mark);
+        $this->success();
+    }
+
+    /**
+     * Remove mark
+     */
+    public function removeMarkAction()
+    {
+        $user = App_User_Factory::getSessionUser();
+        if (!$user) {
+            $this->fail();
+            return;
+        }
+        $titleId = $this->_request->getParam('title_id');
+
+        if (!is_numeric($titleId)) {
+            $this->fail();
+            return;
+        }
+
+        $user->getBookshelf()->removeMark($titleId);
         $this->success();
     }
 }

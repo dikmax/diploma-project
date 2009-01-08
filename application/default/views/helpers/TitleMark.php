@@ -49,7 +49,7 @@ class App_View_Helper_TitleMark extends Zend_View_Helper_Abstract
                 . $mark . '&nbsp;</a>';
         }
 
-        $result .= '</p>';
+        $result .= '<a href="#" class="markremove" title="Удалить оценку">&nbsp;x&nbsp;</a></p>';
 
         return $result;
     }

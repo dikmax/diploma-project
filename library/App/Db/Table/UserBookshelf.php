@@ -83,7 +83,7 @@ class App_Db_Table_UserBookshelf extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Sets mark for specific user
+     * Sets mark for specific user and title
      *
      * @param int $userId
      * @param int $titleId
@@ -122,5 +122,18 @@ class App_Db_Table_UserBookshelf extends Zend_Db_Table_Abstract
             $this->update(array('relation' => $mark + 3),
                 $this->_db->quoteInto('lib_user_bookshelf_id = ?', $marks[0]['lib_user_bookshelf_id']));
         }
+    }
+
+    /**
+     * Removes mark for specific user and title
+     *
+     * @param int $userId
+     * @param int $titleId
+     */
+    public function removeMark($userId, $titleId)
+    {
+        $this->delete($this->_db->quoteInto('lib_user_id = ? ', $userId)
+            . $this->_db->quoteInto('AND lib_title_id = ? ', $titleId)
+            . 'AND relation BETWEEN 1 AND 5');
     }
 }
