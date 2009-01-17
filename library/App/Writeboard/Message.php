@@ -14,6 +14,13 @@
 class App_Writeboard_Message extends App_Acl_Resource_Abstract
 {
     /**
+     * Instances counter for detecting memory leaks
+     *
+     * @var int
+     */
+    public static $instancesCount = 0;
+
+    /**
      * Index for database table <code>lib_writeboard_message</code>
      *
      * @var int
@@ -143,6 +150,18 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
         }
 
         $this->registerResource();
+
+        self::$instancesCount++;
+    }
+
+    public function __destruct()
+    {
+        $this->unregisterResource();
+        $this->_writeboard = null;
+        unset($this->_messageDate);
+        $this->_writeboardWriter = null;
+
+        self::$instancesCount--;
     }
 
     /**

@@ -236,7 +236,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
 
         Zend_Registry::set('db', $db);
 
-        if ($this->_envDevelopment) {
+        if ($this->_envDevelopment && !$this->_envConsole) {
             $profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
             $profiler->setEnabled(true);
             $db->setProfiler($profiler);

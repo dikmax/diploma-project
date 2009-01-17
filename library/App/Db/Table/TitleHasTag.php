@@ -14,7 +14,7 @@
  * @author dikmax
  * @version
  */
-class App_Db_Table_TitleHasTag extends Zend_Db_Table_Abstract
+class App_Db_Table_TitleHasTag extends App_Db_Table_Abstractss
 {
     /**
      * The default table name

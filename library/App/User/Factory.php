@@ -167,7 +167,7 @@ class App_User_Factory
     /**
      * Returns user with specified email from database
      *
-     * @param string $login User login
+     * @param string $email User login
      * @return App_User
      */
     public function getUserByEmail($email)

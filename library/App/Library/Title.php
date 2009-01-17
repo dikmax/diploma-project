@@ -14,6 +14,13 @@
 class App_Library_Title
 {
     /**
+     * Instances counter for detecting memory leaks
+     *
+     * @var int
+     */
+    public static $instancesCount = 0;
+
+    /**
      * Index for database table <code>lib_title</code>
      *
      * @var int
@@ -168,6 +175,8 @@ class App_Library_Title
         $this->_mark = isset($construct['mark'])
             ? $construct['mark']
             : null;
+
+        self::$instancesCount++;
     }
 
     /**
@@ -178,6 +187,8 @@ class App_Library_Title
         unset($this->_authors);
         unset($this->_writeboard);
         unset($this->_description);
+
+        self::$instancesCount--;
     }
 
     /**

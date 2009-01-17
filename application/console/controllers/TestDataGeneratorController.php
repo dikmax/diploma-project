@@ -3,7 +3,7 @@
  * Books social network
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -11,9 +11,11 @@
  */
 class TestDataGeneratorController extends App_Console_Controller_Action_Abstract
 {
-    const AUTHORS_COUNT = 128;
+    const AUTHORS_COUNT = 512;
 
     const TITLES_COUNT = 32;
+
+    const USERS_COUNT = 1024;
 
     /**
      *
@@ -25,6 +27,7 @@ class TestDataGeneratorController extends App_Console_Controller_Action_Abstract
 
         try {
             $this->generateAuthorsAndBooks();
+            $this->generateUsers();
         } catch (Exception $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTraceAsString();
@@ -69,13 +72,35 @@ class TestDataGeneratorController extends App_Console_Controller_Action_Abstract
 
             unset($author);
 
-            if (($authorNum & 31) == 0) {
-                echo ($authorNum + 1) . " authors generated\n";
-            }
+            //if (($authorNum & 31) == 0) {
+                echo "\r" . ($authorNum + 1) . " authors generated";
+                //echo 'Memory usage: ' . memory_get_usage(true) . " bytes\n";
+            //}
         }
 
-        echo self::AUTHORS_COUNT . " authors generated\n";
+        //echo self::AUTHORS_COUNT . " authors generated\n";
+        echo "\n";
     }
+
+    protected function generateUsers()
+    {
+        $userFactory = App_User_Factory::getInstance();
+        for ($i = 0; $i < self::USERS_COUNT; ++$i) {
+            $login = 'user' . $i;
+            if ($userFactory->getUserByLogin($login) === null) {
+                $userFactory->registerUser(array(
+                    'login' => $login,
+                    'password' => 'lipton',
+                    'email' => $login . '@librarian'
+                ));
+            }
+
+            echo "\r" . ($i + 1) . " users generated";
+        }
+
+        echo "\n";
+    }
+
     /**
      *
      * @return string

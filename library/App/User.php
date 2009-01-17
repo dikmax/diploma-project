@@ -17,6 +17,13 @@
 class App_User implements Zend_Acl_Role_Interface
 {
     /**
+     * Instances counter for detecting memory leaks
+     *
+     * @var int
+     */
+    public static $instancesCount = 0;
+
+    /**
      * Index for database table <code>lib_user</code>
      *
      * @var int
@@ -200,6 +207,13 @@ class App_User implements Zend_Acl_Role_Interface
         $this->_friendState = null;
 
         $this->registerRole();
+
+        self::$instancesCount++;
+    }
+
+    public function __destruct()
+    {
+        self::$instancesCount--;
     }
 
     /**

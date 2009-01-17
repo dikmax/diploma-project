@@ -14,7 +14,15 @@
  * @copyright  2008 Maxim Dikun
  * @version    Release: 0.0.1
  */
-class App_Text extends App_Acl_Resource_Abstract {
+class App_Text extends App_Acl_Resource_Abstract
+{
+    /**
+     * Instances counter for detecting memory leaks
+     *
+     * @var int
+     */
+    public static $instancesCount = 0;
+
     /**
      * Index for database table <code>lib_text</code>
      *
@@ -105,6 +113,8 @@ class App_Text extends App_Acl_Resource_Abstract {
         $this->_text = null;
 
         $this->registerResource();
+
+        self::$instancesCount++;
     }
 
     /**
@@ -112,8 +122,11 @@ class App_Text extends App_Acl_Resource_Abstract {
      */
     public function __destruct()
     {
+        $this->unregisterResource();
         unset($this->_revision);
         unset($this->_cdate);
+
+        self::$instancesCount--;
     }
 
     /**

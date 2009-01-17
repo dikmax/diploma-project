@@ -14,6 +14,13 @@
 class App_Writeboard extends App_Acl_Resource_Abstract
 {
     /**
+     * Instances counter for detecting memory leaks
+     *
+     * @var int
+     */
+    public static $instancesCount = 0;
+
+    /**
      * Index for database table <code>lib_writeboard</code>
      *
      * @var int
@@ -92,6 +99,16 @@ class App_Writeboard extends App_Acl_Resource_Abstract
         $this->_table = new App_Db_Table_WriteboardMessage();
 
         $this->registerResource();
+
+        self::$instancesCount++;
+    }
+
+    public function __destruct()
+    {
+        $this->unregisterResource();
+        unset($this->_messages);
+        unset($this->_table);
+        self::$instancesCount--;
     }
 
     /**

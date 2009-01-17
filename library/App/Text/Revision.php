@@ -14,7 +14,15 @@
  * @copyright  2008 Maxim Dikun
  * @version    Release: 0.0.1
  */
-class App_Text_Revision {
+class App_Text_Revision
+{
+    /**
+     * Instances counter for detecting memory leaks
+     *
+     * @var int
+     */
+    public static $instancesCount = 0;
+
     /**
      * Index for database table <code>lib_text_revision</code>
      *
@@ -178,6 +186,8 @@ class App_Text_Revision {
         } else {
             $this->_changes = null;
         }
+
+        self::$instancesCount++;
     }
 
     /**
@@ -189,6 +199,8 @@ class App_Text_Revision {
         unset($this->_content);
         unset($this->_mdate);
         $this->_author = null;
+
+        self::$instancesCount--;
     }
 
     /**

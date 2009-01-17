@@ -14,7 +14,7 @@
  * @author dikmax
  * @version
  */
-class App_Db_Table_TextRevision extends Zend_Db_Table_Abstract
+class App_Db_Table_TextRevision extends App_Db_Table_Abstractv
 {
     /**
      * The default table name

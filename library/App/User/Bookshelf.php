@@ -57,6 +57,13 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
         $this->registerResource();
     }
 
+    public function __destruct()
+    {
+        $this->unregisterResource();
+        $this->_user = null;
+        unset($this->_titles);
+    }
+
     /**
      * Returns title objects
      */

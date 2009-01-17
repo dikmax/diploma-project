@@ -14,7 +14,7 @@
  * @author dikmax
  * @version
  */
-class App_Db_Table_AuthorName extends Zend_Db_Table_Abstract
+class App_Db_Table_AuthorName extends App_Db_Table_Abstract
 {
     /**
      * The default table name

@@ -14,6 +14,13 @@
 class App_Library_Author
 {
     /**
+     * Instances counter for detecting memory leaks
+     *
+     * @var int
+     */
+    public static $instancesCount = 0;
+
+    /**
      * Index for database table <code>lib_author</code>
      *
      * @var int
@@ -129,6 +136,8 @@ class App_Library_Author
         $this->_frontImage = null;
 
         $this->_titles = null;
+
+        self::$instancesCount++;
     }
 
     /**
@@ -139,6 +148,8 @@ class App_Library_Author
         unset($this->_writeboard);
         unset($this->_description);
         unset($this->_frontImage);
+
+        self::$instancesCount--;
     }
 
     /**

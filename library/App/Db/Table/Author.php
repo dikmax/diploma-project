@@ -14,7 +14,7 @@
  * @author dikmax
  * @version
  */
-class App_Db_Table_Author extends Zend_Db_Table_Abstract
+class App_Db_Table_Author extends App_Db_Table_Abstract
 {
     /**
      * The default table name
@@ -57,5 +57,4 @@ class App_Db_Table_Author extends Zend_Db_Table_Abstract
         'App_Db_Table_AuthorHasTitle',
         'App_Db_Table_AuthorHasTag'
     );
-
 }
