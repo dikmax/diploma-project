@@ -337,7 +337,6 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         $jQuery->setLocalPath('/scripts/jquery.js')
             ->setUiLocalPath('/scripts/jquery.ui.js')
             ->uiDisable()
-            ->addJavascriptFile('/scripts/jquery.livequery.js')
             ->addJavascriptFile('/scripts/init.js');
 
         // Bootstrap layouts

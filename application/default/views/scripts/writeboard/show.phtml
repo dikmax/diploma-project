@@ -11,7 +11,7 @@ $this->jQuery()->addJavascriptFile('/scripts/writeboard.js');
 $this->jQuery()->onLoadCaptureStart(); ?>
     Writeboard.id = <?= $this->id; ?>;
     Writeboard.load();
-    $('.message .delete').livequery("click", Writeboard.deleteHandler);
+    $('.message .delete').live("click", Writeboard.deleteHandler);
 <?php $this->jQuery()->onLoadCaptureEnd(); ?>
 
 <div class="writeboard">
