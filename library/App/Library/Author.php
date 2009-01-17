@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -132,6 +132,16 @@ class App_Library_Author
     }
 
     /**
+     * Releases pointers for garbage collection
+     */
+    public function __destruct()
+    {
+        unset($this->_writeboard);
+        unset($this->_description);
+        unset($this->_frontImage);
+    }
+
+    /**
      * Writes/updates author into database
      */
     public function write()
@@ -196,7 +206,6 @@ class App_Library_Author
      * @return App_Library_Author
      *
      * @throws App_Library_Exception
-     * @throws App_Library_Exception_AuthorNotFound
      */
     public static function getByName($authorName)
     {
@@ -214,7 +223,7 @@ class App_Library_Author
             . 'WHERE n.name = :name', array(':name' => $authorName));
 
         if ($row === false) {
-            throw new App_Library_Exception_AuthorNotFound('Author ' . $authorName . ' not found');
+            return null;
         }
         return new self($row);
     }

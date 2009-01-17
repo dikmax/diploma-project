@@ -181,6 +181,17 @@ class App_Text_Revision {
     }
 
     /**
+     * Releases pointers for garbage collection
+     */
+    public function __destruct()
+    {
+        $this->_libText = null;
+        unset($this->_content);
+        unset($this->_mdate);
+        $this->_author = null;
+    }
+
+    /**
      * Writes/updates revision into database
      *
      * @throws App_Text_Revision_Exception

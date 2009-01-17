@@ -144,7 +144,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function dispatchLoopShutdown ()
     {
-        if ($this->_env == "development") {
+        if ($this->_envDevelopment) {
             Zend_Wildfire_Plugin_FirePhp::send('Execution time: '
                 . (string)round(microtime(true) - $this->_startMicrotime, 5) . ' sec');
             Zend_Wildfire_Plugin_FirePhp::send('Memory usage: '
@@ -158,8 +158,13 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         $this->initSession();
         $this->initCache();
         $this->initDb();
+        if ($this->_envConsole) {
+            // Set user with id 1 as session user
+            $user = App_User_Factory::getInstance()->getUser(1);
+            App_User_Factory::setSessionUser($user);
+        }
+        $this->initAcl();
         if (!$this->_envConsole) {
-            $this->initAcl();
             $this->initHelpers();
             $this->initView();
             $this->initPlugins();
@@ -188,6 +193,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             Zend_Session::regenerateId();
             $session->initialized = true;
         }
+
     }
 
     /**
@@ -203,6 +209,9 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         $backendOptions  = array(
             'cache_dir' => $this->_root . '/cache/'
         );
+        if ($this->_envDevelopment) {
+            $backendOptions['cache_file_umask'] = 0666;
+        }
         $this->_cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
         // TODO delete this registry key
         Zend_Registry::set('cache', $this->_cache);
@@ -227,7 +236,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
 
         Zend_Registry::set('db', $db);
 
-        if ($this->_env == "development") {
+        if ($this->_envDevelopment) {
             $profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
             $profiler->setEnabled(true);
             $db->setProfiler($profiler);

@@ -1,4 +1,14 @@
 <?php
+/**
+ * Books social network
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id:$
+ */
+
+/**
+ * Rebuilding authors index controller
+ */
 class AuthorIndexController extends App_Console_Controller_Action_Abstract
 {
     /**
@@ -57,4 +67,3 @@ class AuthorIndexController extends App_Console_Controller_Action_Abstract
         return 'Update authors name index';
     }
 }
-?>

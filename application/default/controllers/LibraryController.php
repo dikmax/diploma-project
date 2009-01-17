@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id: AuthorController.php 71 2008-12-10 21:03:29Z dikmax $
+ * @version    $Id$
  */
 
 /**
@@ -155,25 +155,27 @@ class LibraryController extends Zend_Controller_Action
         $this->_title = null;
 
         if ($this->_authorUrl !== null) {
-            try {
-                $this->_author = App_Library_Author::getByName($this->_authorUrl);
-            } catch (App_Library_Exception_AuthorNotFound $e) {
+            $this->_author = App_Library_Author::getByName($this->_authorUrl);
+
+            if ($this->_author === null) {
                 $this->_forward('author-not-found', 'error', null, array(
                     'author' => $this->_authorUrl
                 ));
                 $this->_error = true;
+                return;
             }
         }
 
         if ($this->_titleUrl !== null) {
-            try {
-                $this->_title = App_Library_Title::getByName($this->_author, $this->_titleUrl);
-            } catch (App_Library_Exception_TitleNotFound $e) {
+            $this->_title = App_Library_Title::getByName($this->_author, $this->_titleUrl);
+
+            if ($this->_title === null) {
                 $this->_forward('title-not-found', 'error', null, array(
                     'author' => $this->_authorUrl,
                     'title' => $this->_titleUrl
                 ));
                 $this->_error = true;
+                return;
             }
         }
     }

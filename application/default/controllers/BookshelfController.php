@@ -51,11 +51,7 @@ class BookshelfController extends Zend_Controller_Action
         $authorName = $this->getRequest()->getParam('author');
         $titleName = $this->getRequest()->getParam('title');
 
-        try {
-            $author = App_Library_Author::getByName($authorName);
-        } catch (App_Library_Exception_AuthorNotFound $e) {
-            $author = null;
-        }
+        $author = App_Library_Author::getByName($authorName);
 
         if ($author === null) {
             // New author: creating
@@ -66,11 +62,7 @@ class BookshelfController extends Zend_Controller_Action
             $author->write();
         }
 
-        try {
-            $title = App_Library_Title::getByName($author, $titleName);
-        } catch (App_Library_Exception_TitleNotFound $e) {
-            $title = null;
-        }
+        $title = App_Library_Title::getByName($author, $titleName);
 
         if ($title === null) {
             // New title: creating

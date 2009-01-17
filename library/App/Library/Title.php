@@ -171,6 +171,16 @@ class App_Library_Title
     }
 
     /**
+     * Releases pointers for garbage collection
+     */
+    public function __destruct()
+    {
+        unset($this->_authors);
+        unset($this->_writeboard);
+        unset($this->_description);
+    }
+
+    /**
      * Writes/updates title into database
      */
     public function write()
@@ -242,8 +252,6 @@ class App_Library_Title
      * @param string $titleName title
      *
      * @return App_Library_Title
-     *
-     * @throws App_Library_Exception_TitleNotFound
      */
     public static function getByName($authorName, $titleName)
     {
@@ -270,7 +278,7 @@ class App_Library_Title
         );
 
         if ($row === false) {
-            throw new App_Library_Exception_TitleNotFound('Title ' . $titleName . ' not found');
+            return null;
         }
 
         return new self($row);

@@ -1,15 +1,28 @@
 <?php
-// Setup enviroment for commandline processing
+/**
+ * Books social network
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id:$
+ */
 
-set_include_path('.' . PATH_SEPARATOR . '../../library' . PATH_SEPARATOR . '../../application/default/models/' . PATH_SEPARATOR . get_include_path());
+// Setup environment for command-line processing
+
+$paths = array(
+    dirname(__FILE__),
+    realpath(dirname(__FILE__) . '/../../library')
+);
+
+set_include_path(implode(PATH_SEPARATOR, $paths));
 
 // Set up autoload.
 require_once "Zend/Loader.php";
+
 Zend_Loader::registerAutoload();
 
-require_once '../Initializer.php';
+require_once dirname(__FILE__) . '/../Initializer.php';
 
-// Change to 'production' parameter under production environemtn
+// Change to 'production' parameter under production environment
 $init = new Initializer('console development');
 
 $init->initApplication();

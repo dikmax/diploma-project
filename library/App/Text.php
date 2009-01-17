@@ -108,6 +108,15 @@ class App_Text extends App_Acl_Resource_Abstract {
     }
 
     /**
+     * Releases pointers for garbage collection
+     */
+    public function __destruct()
+    {
+        unset($this->_revision);
+        unset($this->_cdate);
+    }
+
+    /**
      * Writes/updates text into database
      */
     public function write()
