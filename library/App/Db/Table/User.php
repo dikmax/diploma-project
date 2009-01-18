@@ -50,7 +50,21 @@ class App_Db_Table_User extends App_Db_Table_Abstract
         'App_Db_Table_TextRevision',
         'App_Db_Table_TitleHasTag',
         'App_Db_Table_UserBookshelf',
+        'App_Db_Table_UserFriendship',
+        'App_Db_Table_UserNeighborhood',
         'App_Db_Table_WriteboardMessage'
     );
 
+    /**
+     * Return max user id
+     *
+     * @return int
+     */
+    public function getMaxUserId()
+    {
+        $select = $this->_db->select()
+            ->from($this->_name, new Zend_Db_Expr('max(lib_user_id)'));
+
+        return $this->_db->fetchOne($select);
+    }
 }

@@ -38,12 +38,20 @@ class App_User_Factory
     protected $_table;
 
     /**
+     * Max user id
+     *
+     * @var int
+     */
+    protected $_maxUserId;
+
+    /**
      * Constructs users factory object
      */
     private function __construct()
     {
         $this->_users = array();
         $this->_table = new App_Db_Table_User();
+        $this->_maxUserId = null;
     }
 
     /**
@@ -238,5 +246,19 @@ class App_User_Factory
         $this->addUser($user);
 
         return $user;
+    }
+
+    /**
+     * Return max user id
+     *
+     * @return int
+     */
+    public function getMaxUserId()
+    {
+        if ($this->_maxUserId === null) {
+             $this->_maxUserId = $this->_table->getMaxUserId();
+        }
+
+        return $this->_maxUserId;
     }
 }

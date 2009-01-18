@@ -65,6 +65,14 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
         ));
     }
 
+    /**
+     * Returns mark for specific user and title
+     *
+     * @param int $userId
+     * @param int $titleId
+     *
+     * @return int
+     */
     public function getMark($userId, $titleId)
     {
         $select = $this->_db->select()
@@ -135,5 +143,80 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
         $this->delete($this->_db->quoteInto('lib_user_id = ? ', $userId)
             . $this->_db->quoteInto('AND lib_title_id = ? ', $titleId)
             . 'AND relation BETWEEN 1 AND 5');
+    }
+
+    /**
+     * Returns list of all marks by user
+     *
+     * @param int $userId
+     * @param boolean $markCast convert mark from range 1 to 5 to range -2 to 2
+     *
+     * @return array ($titleId => $mark)
+     */
+    public function getMarks($userId, $markCast = true)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name, array('lib_title_id', 'relation'))
+            ->where('lib_user_id = :lib_user_id')
+            ->where('relation BETWEEN 1 AND 5');
+
+        $pairs = $this->_db->fetchPairs($select, array(':lib_user_id' => $userId));
+
+        if ($markCast) {
+            $keys = array_keys($pairs);
+            $size = sizeof($keys);
+            for ($i=0; $i < $size; ++$i) {
+                $pairs[$keys[$i]] -= 3;
+            }
+        }
+
+        return $pairs;
+    }
+
+    /**
+     * Returns list of user neighbors (very slow)
+     *
+     * @param int $userId
+     *
+     * @return array
+     */
+    public function getNeigbors($userId)
+    {
+        /*
+         * Desired result
+         *
+         * SELECT b.lib_user_id, count(*) `count`, AVG(ABS(ub.relation - b.relation)) `avg`
+         * FROM lib_user_bookshelf ub
+         * INNER JOIN lib_user_bookshelf b ON b.lib_title_id = ub.lib_title_id
+         *     AND b.lib_user_id <> ub.lib_user_id AND b.relation BETWEEN 1 AND 5
+         * WHERE ub.lib_user_id = :lib_user_id
+         *     AND ub.relation BETWEEN 1 AND 5
+         * GROUP BY b.lib_user_id
+         * HAVING `count` > 10
+         * ORDER BY `avg` ASC, `count` DESC
+         * LIMIT 100
+         */
+
+        $select = $this->_db->select()
+            ->from(array('ub' => $this->_name), array(
+                'count' => new Zend_Db_Expr('count(*)'),
+                'avg' => new Zend_Db_Expr('AVG(ABS(ub.relation - b.relation))')));
+        $select->joinInner(array('b' => $this->_name), 'b.lib_title_id = ub.lib_title_id '
+                . 'AND b.lib_user_id <> ub.lib_user_id AND b.relation BETWEEN 1 AND 5',
+                array('b.lib_user_id'))
+            ->where('ub.lib_user_id = :lib_user_id')
+            ->where('ub.relation BETWEEN 1 AND 5')
+            ->group('b.lib_user_id')
+            ->having('`count` > 10')
+            ->order('avg ASC')
+            ->order('count DESC')
+            ->limit(50);
+        // In realworld data We will need to remove limit and add having `avg` < 1
+
+        $result = $this->_db->fetchAll($select, array(
+            ':lib_user_id' => $userId
+        ));
+
+        return $result;
     }
 }

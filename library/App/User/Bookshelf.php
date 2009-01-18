@@ -64,6 +64,7 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
         unset($this->_titles);
     }
 
+
     /**
      * Returns title objects
      */
@@ -80,6 +81,20 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
             }
         }
         return $this->_titles;
+    }
+
+    /**
+     * Returns all marks for user
+     *
+     * @param boolean $markCast convert mark from range 1 to 5 to range -2 to 2
+     *
+     * @return array $titleId => $mark
+     */
+    public function getTitlesMarks($markCast = true)
+    {
+        $table = new App_Db_Table_UserBookshelf();
+
+        return $table->getMarks($this->_user->getId(), $markCast);
     }
 
     /**

@@ -116,6 +116,11 @@ class App_User implements Zend_Acl_Role_Interface
     protected $_friendState;
 
     /**
+     * User neighbors
+     */
+    protected $_neighbors;
+
+    /**
      * Constructs user object
      *
      * @param array $construct
@@ -205,6 +210,9 @@ class App_User implements Zend_Acl_Role_Interface
 
         // Friend state
         $this->_friendState = null;
+
+        // Neighbord
+        $this->_neighbors = null;
 
         $this->registerRole();
 
@@ -464,6 +472,19 @@ class App_User implements Zend_Acl_Role_Interface
         $this->_friendState = $friendState;
     }
 
+    /**
+     * Returns user neighbors
+     *
+     * @return App_User_Neighbors
+     */
+    public function getNeighbors()
+    {
+        if ($this->_neighbors === null) {
+            $this->_neighbors = new App_User_Neighbors($this);
+        }
+
+        return $this->_neighbors;
+    }
     /*
      * Zend_Acl_Role_Interface implementation
      */
