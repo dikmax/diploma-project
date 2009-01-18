@@ -12,7 +12,6 @@
 class StatisticsUpdateController extends App_Console_Controller_Action_Abstract
 {
     /**
-     *
      * @see App_Console_Controller_Action_Abstract::process()
      */
     public function process()
@@ -21,6 +20,7 @@ class StatisticsUpdateController extends App_Console_Controller_Action_Abstract
 
         try {
             $this->updateNeighbors();
+            $this->updateSuggestedBooks();
         } catch (Exception $e) {
             echo $e->getMessage() . "\n";
             echo $e->getTraceAsString();
@@ -43,6 +43,24 @@ class StatisticsUpdateController extends App_Console_Controller_Action_Abstract
             if ($user !== null) {
                 echo "Update user " . $user->getLogin() . "(" . $id . " of " . $maxId . ")...\n";
                 $user->getNeighbors()->updateNeighborsList();
+            }
+        }
+    }
+
+    /**
+     * Update lists of suggested books
+     */
+    protected function updateSuggestedBooks()
+    {
+        $userFactory = App_User_Factory::getInstance();
+
+        $maxId = $userFactory->getMaxUserId();
+
+        for ($id = 1; $id <= $maxId; ++$id) {
+            $user = $userFactory->getUser($id);
+            if ($user !== null) {
+                echo "Update suggested books for " . $user->getLogin() . "(" . $id . " of " . $maxId . ")...\n";
+                $user->getBookshelf()->updateSuggestedBooks();
             }
         }
     }

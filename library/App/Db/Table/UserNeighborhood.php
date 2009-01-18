@@ -73,7 +73,7 @@ class App_Db_Table_UserNeighborhood extends App_Db_Table_Abstract
     public function updateNeighborsList($userId)
     {
         $table = new App_Db_Table_UserBookshelf();
-        $neighbors = $table->getNeigbors($userId);
+        $neighbors = $table->getNeighbors($userId);
 
         $this->delete($this->_db->quoteInto('user1_id = ?', $userId));
 

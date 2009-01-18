@@ -14,6 +14,31 @@
 class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cloud_Reader_Interface
 {
     /**
+     * -2 mark
+     */
+    const RELATION_MARK_2 = 1;
+    /**
+     * -1 mark
+     */
+    const RELATION_MARK_1 = 2;
+    /**
+     * 0 mark
+     */
+    const RELATION_MARK0 = 3;
+    /**
+     * 1 mark
+     */
+    const RELATION_MARK1 = 4;
+    /**
+     * 2 mark
+     */
+    const RELATION_MARK2 = 5;
+    /**
+     * Suggested book
+     */
+    const RELATION_SUGGESTED_BOOK = 6;
+
+    /**
      * Connected user
      *
      * @var App_User
@@ -203,6 +228,15 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
 
         $table = new App_Db_Table_UserBookshelf();
         $table->removeMark($this->_user->getId(), $titleId);
+    }
+
+    /**
+     * Update suggested books
+     */
+    public function updateSuggestedBooks()
+    {
+        $table = new App_Db_Table_UserBookshelf();
+        $table->updateSuggestedBooks($this->_user->getId());
     }
 
     /**

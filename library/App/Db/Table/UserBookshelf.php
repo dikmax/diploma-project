@@ -174,13 +174,30 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
     }
 
     /**
+     * Returns marks count by user
+     *
+     * @param int $userId
+     *
+     * @return int
+     */
+    public function getMarksCount($userId)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name, new Zend_Db_Expr('count(*)'))
+            ->where('lib_user_id = :lib_user_id')
+            ->where('relation BETWEEN 1 AND 5');
+
+        return $this->_db->fetchOne($select, array(':lib_user_id' => $userId));
+    }
+
+    /**
      * Returns list of user neighbors (very slow)
      *
      * @param int $userId
      *
      * @return array
      */
-    public function getNeigbors($userId)
+    public function getNeighbors($userId)
     {
         /*
          * Desired result
@@ -218,5 +235,64 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
         ));
 
         return $result;
+    }
+
+    /**
+     * Updates suggested books
+     *
+     * @param int $userId
+     */
+    public function updateSuggestedBooks($userId)
+    {
+        $this->delete($this->_db->quoteInto('lib_user_id = ?', $userId)
+            . $this->_db->quoteInto(' AND relation = ?', App_User_Bookshelf::RELATION_SUGGESTED_BOOK));
+
+        $marks = $this->getMarks($userId, false);
+        $marksCount = count($marks);
+
+        /*
+         * Desired result
+         *
+         * SELECT b.lib_title_id, count(*) `count`, AVG(b.relation) `avg`
+         * FROM lib_user_neighborhood n
+         * INNER JOIN lib_user_bookshelf b ON b.lib_user_id = n.user2_id AND relation BETWEEN 1 AND 5
+         * WHERE user1_id = 8
+         * GROUP BY b.lib_title_id
+         * ORDER BY `avg` DESC, `count` DESC
+         * LIMIT 3500
+         */
+        $select = $this->_db->select()
+            ->from(array('n' => 'lib_user_neighborhood'),
+                array(
+                    'count' => new Zend_Db_Expr('count(*)'),
+                    'avg' => new Zend_Db_Expr('AVG(b.relation)')));
+        $select->joinInner(array('b' => $this->_name),
+                'b.lib_user_id = n.user2_id AND b.relation BETWEEN 1 AND 5',
+                'b.lib_title_id')
+            ->where('user1_id = :user_id')
+            ->group('b.lib_title_id')
+            ->having('`count` > 1')
+            ->order('avg DESC')
+            ->order('count DESC')
+            ->limit($marksCount + 100);
+        $stmt = $this->_db->prepare($select);
+        $stmt->execute(array(
+            ':user_id' => $userId
+        ));
+        $addedCount = 0;
+        while (($row = $stmt->fetch(Zend_Db::FETCH_ASSOC)) !== false) {
+            if (!isset($marks[$row['lib_title_id']])) {
+                $this->insert(array(
+                    'lib_user_id' => $userId,
+                    'lib_title_id' => $row['lib_title_id'],
+                    'relation' => App_User_Bookshelf::RELATION_SUGGESTED_BOOK
+                ));
+                ++$addedCount;
+                if ($addedCount === 100) {
+                    $stmt->closeCursor();
+                    break;
+                }
+            }
+        }
     }
 }
