@@ -224,6 +224,8 @@ class App_User_Factory
      * Registers new user
      *
      * @param array $params
+     *
+     * @return App_User
      */
     public function registerUser(array $params)
     {
@@ -234,5 +236,7 @@ class App_User_Factory
         ));
         $user->write();
         $this->addUser($user);
+
+        return $user;
     }
 }
