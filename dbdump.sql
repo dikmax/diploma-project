@@ -1,5 +1,5 @@
 /*
-SQLyog Enterprise - MySQL GUI v7.13 
+SQLyog Enterprise - MySQL GUI v7.15 
 MySQL - 5.0.67-0ubuntu6 : Database - librarian
 *********************************************************************
 */
@@ -271,6 +271,21 @@ CREATE TABLE `lib_title_has_tag` (
   CONSTRAINT `FK_lib_title_has_tag_lib_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
+/*Table structure for table `lib_title_similar` */
+
+DROP TABLE IF EXISTS `lib_title_similar`;
+
+CREATE TABLE `lib_title_similar` (
+  `title1_id` int(10) unsigned NOT NULL,
+  `title2_id` int(10) unsigned NOT NULL,
+  `avg` float NOT NULL,
+  `count` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`title1_id`,`title2_id`),
+  KEY `FK_lib_title_similar_title2` (`title2_id`),
+  CONSTRAINT `FK_lib_title_similar_title1` FOREIGN KEY (`title1_id`) REFERENCES `lib_title` (`lib_title_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_lib_title_similar_title2` FOREIGN KEY (`title2_id`) REFERENCES `lib_title` (`lib_title_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
 /*Table structure for table `lib_user` */
 
 DROP TABLE IF EXISTS `lib_user`;
@@ -296,7 +311,7 @@ CREATE TABLE `lib_user` (
 DROP TABLE IF EXISTS `lib_user_bookshelf`;
 
 CREATE TABLE `lib_user_bookshelf` (
-  `lib_user_bookshelf_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
+  `lib_user_bookshelf_id` bigint(20) unsigned NOT NULL auto_increment COMMENT 'ID',
   `lib_user_id` int(10) unsigned NOT NULL COMMENT 'User ID',
   `lib_title_id` int(10) unsigned NOT NULL COMMENT 'Title ID',
   `relation` int(11) NOT NULL COMMENT 'Don''t know yet',
@@ -305,7 +320,7 @@ CREATE TABLE `lib_user_bookshelf` (
   KEY `FK_lib_user_bookshelf_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_user_bookshelf_title` FOREIGN KEY (`lib_title_id`) REFERENCES `lib_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_user_bookshelf_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3241180 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3343980 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Table structure for table `lib_user_friendship` */
 
@@ -329,11 +344,11 @@ CREATE TABLE `lib_user_neighborhood` (
   `user1_id` int(10) unsigned NOT NULL,
   `user2_id` int(11) unsigned NOT NULL,
   `avg` float NOT NULL,
-  `count` int(11) NOT NULL,
+  `count` int(11) unsigned NOT NULL,
   PRIMARY KEY  (`user1_id`,`user2_id`),
   KEY `FK_lib_user_neighborhood_user2` (`user2_id`),
-  CONSTRAINT `FK_lib_user_neighborhood_user2` FOREIGN KEY (`user2_id`) REFERENCES `lib_user` (`lib_user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_lib_user_neighborhood_user1` FOREIGN KEY (`user1_id`) REFERENCES `lib_user` (`lib_user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_lib_user_neighborhood_user1` FOREIGN KEY (`user1_id`) REFERENCES `lib_user` (`lib_user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_lib_user_neighborhood_user2` FOREIGN KEY (`user2_id`) REFERENCES `lib_user` (`lib_user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Table structure for table `lib_writeboard` */
@@ -351,7 +366,7 @@ CREATE TABLE `lib_writeboard` (
 DROP TABLE IF EXISTS `lib_writeboard_message`;
 
 CREATE TABLE `lib_writeboard_message` (
-  `lib_writeboard_message_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
+  `lib_writeboard_message_id` bigint(20) unsigned NOT NULL auto_increment COMMENT 'ID',
   `lib_writeboard_id` int(10) unsigned NOT NULL COMMENT 'Writeboard ID',
   `writeboard_writer` int(10) unsigned NOT NULL COMMENT 'Message author',
   `message` text NOT NULL COMMENT 'Message',

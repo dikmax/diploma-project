@@ -238,6 +238,53 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
     }
 
     /**
+     * Returns list of similar titles (very slow)
+     *
+     * @param int $titleId
+     *
+     * @return array
+     */
+    public function getSimilarTitles($titleId)
+    {
+        /*
+         * Desired result
+         *
+         * SELECT b.lib_title_id, count(*) `count`, AVG(ABS(ub.relation - b.relation)) `avg`
+         * FROM lib_user_bookshelf ub
+         * INNER JOIN lib_user_bookshelf b ON b.lib_user_id = ub.lib_user_id
+         *     AND b.lib_title_id <> ub.lib_title_id AND b.relation BETWEEN 1 AND 5
+         * WHERE ub.lib_title_id = 13
+         *     AND ub.relation BETWEEN 1 AND 5
+         * GROUP BY b.lib_title_id
+         * HAVING `count` > 10
+         * ORDER BY `avg` ASC, `count` DESC
+         * LIMIT 100
+         */
+
+        $select = $this->_db->select()
+            ->from(array('ub' => $this->_name), array(
+                'count' => new Zend_Db_Expr('count(*)'),
+                'avg' => new Zend_Db_Expr('AVG(ABS(ub.relation - b.relation))')));
+        $select->joinInner(array('b' => $this->_name), 'b.lib_user_id = ub.lib_user_id '
+                . 'AND b.lib_title_id <> ub.lib_title_id AND b.relation BETWEEN 1 AND 5',
+                array('b.lib_title_id'))
+            ->where('ub.lib_title_id = :lib_title_id')
+            ->where('ub.relation BETWEEN 1 AND 5')
+            ->group('b.lib_title_id')
+            ->having('`count` > 10')
+            ->order('avg ASC')
+            ->order('count DESC')
+            ->limit(50);
+        // In realworld data We will need to remove limit and add having `avg` < 1
+
+        $result = $this->_db->fetchAll($select, array(
+            ':lib_title_id' => $titleId
+        ));
+
+        return $result;
+    }
+
+    /**
      * Updates suggested books
      *
      * @param int $userId

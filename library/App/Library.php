@@ -85,4 +85,15 @@ class App_Library
 
         return $result;
     }
+
+    /**
+     * Returns max title id
+     *
+     * @return int
+     */
+    public static function getMaxTitleId()
+    {
+        $table = new App_Db_Table_Title();
+        return $table->getMaxTitleId();
+    }
 }

@@ -53,6 +53,20 @@ class App_Db_Table_Title extends App_Db_Table_Abstract
     protected $_dependentTables = array(
         'App_Db_Table_AuthorHasTitle',
         'App_Db_Table_TitleHasTag',
+        'App_Db_Table_TitleSimilar',
         'App_Db_Table_UserBookshelf'
     );
+
+    /**
+     * Returns max title id
+     *
+     * @return int
+     */
+    public function getMaxTitleId()
+    {
+        $select = $this->_db->select()
+            ->from($this->_name, new Zend_Db_Expr('max(lib_title_id)'));
+
+        return $this->_db->fetchOne($select);
+    }
 }

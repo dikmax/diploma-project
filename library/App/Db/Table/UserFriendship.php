@@ -37,12 +37,12 @@ class App_Db_Table_UserFriendship extends App_Db_Table_Abstract
      * Foreign keys
      */
     protected $_referenceMap = array(
-        'ChannelItem' => array(
+        'User' => array(
             'columns'           => 'user1_id',
             'refTableClass'     => 'App_Db_Table_User',
             'refColumns'        => 'lib_user_id'
         ),
-        'Tag' => array(
+        'Friend' => array(
             'columns'           => 'user2_id',
             'refTableClass'     => 'App_Db_Table_User',
             'refColumns'        => 'lib_user_id'

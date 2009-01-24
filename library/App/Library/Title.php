@@ -295,6 +295,35 @@ class App_Library_Title
         return new self($row);
     }
 
+    /**
+     * Returns title by id
+     *
+     * @param int $titleId
+     *
+     * @return App_Library_Title
+     */
+    public static function getById($titleId)
+    {
+        if (!is_numeric($titleId)) {
+            throw new App_Library_Exception('Id must be a number');
+        }
+
+        $table = new App_Db_Table_Title();
+        $row = $table->find($titleId);
+        if ($row === false) {
+            return null;
+        }
+
+        $title = new self($row[0]->toArray());
+        return $title;
+    }
+
+    public function updateSimilar()
+    {
+        $similarTable = new App_Db_Table_TitleSimilar();
+        $similarTable->updateSimilar($this->_libTitleId);
+    }
+
     /*
      * Setters and getters
      */
