@@ -17,7 +17,7 @@
  * @subpackage  View
  * @copyright   Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: Container.php 13110 2008-12-09 08:40:43Z beberlei $
+ * @version     $Id: Container.php 13638 2009-01-14 21:45:19Z beberlei $
  */
 
 /**
@@ -550,17 +550,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         return $this->_onLoadActions;
     }
 
-    /**
-     * Clear the onLoadActions stack.
-     *
-     * @return ZendX_JQuery_View_Helper_JQuery_Container
-     */
-    public function clearOnLoadActions()
-    {
-        $this->_onLoadActions = array();
-        return $this;
-    }
-
 	/**
 	 * Set which parts of the jQuery enviroment should be rendered.
 	 *
@@ -699,7 +688,11 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         $content = '';
 
         if (!empty($onLoadActions)) {
-            $content .= '$(document).ready(function() {'."\n    ";
+            if(ZendX_JQuery_View_Helper_JQuery::getNoConflictMode() == true) {
+                $content .= '$j(document).ready(function() {'."\n    ";
+            } else {
+                $content .= '$(document).ready(function() {'."\n    ";
+            }
             $content .= implode("\n    ", $onLoadActions) . "\n";
             $content .= '});'."\n";
         }
