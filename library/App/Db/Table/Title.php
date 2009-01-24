@@ -69,4 +69,27 @@ class App_Db_Table_Title extends App_Db_Table_Abstract
 
         return $this->_db->fetchOne($select);
     }
+
+    /**
+     * Returns title by name
+     *
+     * @param int $authorId
+     * @param string $titleName
+     *
+     * @return array
+     */
+    public function getTitleByName($authorId, $titleName)
+    {
+        $row = $this->_db->fetchRow('SELECT t.lib_title_id, t.name, '
+             .     't.authors_index, t.description_text_id, t.front_description, '
+             .     't.lib_writeboard_id '
+             . 'FROM lib_title t '
+             . 'LEFT JOIN lib_author_has_title h USING (lib_title_id) '
+             . 'WHERE h.lib_author_id = :lib_author_id AND t.name = :name',
+             array(':lib_author_id' => $authorId,
+                   ':name' => $titleName)
+        );
+
+        return $row;
+    }
 }

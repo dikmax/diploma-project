@@ -96,4 +96,15 @@ class App_Library
         $table = new App_Db_Table_Title();
         return $table->getMaxTitleId();
     }
+
+    /**
+     * Returns max author id
+     *
+     * @return int
+     */
+    public static function getMaxAuthorId()
+    {
+        $table = new App_Db_Table_Author();
+        return $table->getMaxAuthorId();
+    }
 }

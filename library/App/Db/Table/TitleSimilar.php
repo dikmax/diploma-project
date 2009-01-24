@@ -5,11 +5,11 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
- * User friendship table model
+ * Similar titles table model
  *
  * @author dikmax
  * @version
@@ -40,38 +40,39 @@ class App_Db_Table_TitleSimilar extends App_Db_Table_Abstract
         'Title' => array(
             'columns'           => 'title1_id',
             'refTableClass'     => 'App_Db_Table_Title',
-            'refColumns'        => 'lib_user_id'
+            'refColumns'        => 'lib_title_id'
         ),
         'Similar' => array(
             'columns'           => 'title2_id',
             'refTableClass'     => 'App_Db_Table_Title',
-            'refColumns'        => 'lib_user_id'
+            'refColumns'        => 'lib_title_id'
         )
     );
 
     /**
-     * Updates titles similar to selected
+     * Updates titles similar to specified
      *
      * @param int $titleId
      */
     public function updateSimilar($titleId)
     {
         if (!is_numeric($titleId)) {
-            throw new App_Exception('titleId is not defined');
+            throw new App_Exception('titleId is not numeric');
         }
         $table = new App_Db_Table_UserBookshelf();
         $titles = $table->getSimilarTitles($titleId);
 
         $this->delete($this->_db->quoteInto('title1_id = ?', $titleId));
 
-        foreach ($titles as $title) {
-            $this->insert(array(
-                'title1_id' => $titleId,
-                'title2_id' => $title['lib_title_id'],
-                'avg' => $title['avg'],
-                'count' => $title['count']
-            ));
+        if (is_array($titles)) {
+            foreach ($titles as $title) {
+                $this->insert(array(
+                    'title1_id' => $titleId,
+                    'title2_id' => $title['lib_title_id'],
+                    'avg' => $title['avg'],
+                    'count' => $title['count']
+                ));
+            }
         }
-
     }
 }

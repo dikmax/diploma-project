@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 /**
@@ -60,7 +60,7 @@ class App_Console
 
             $this->processOptions($opts->getOptions());
         } catch (Zend_Console_Getopt_Exception $e) {
-            echo $e->getUsageMessage();
+            echo "Exception: " . $e->getMessage() . "\n";
         }
     }
 

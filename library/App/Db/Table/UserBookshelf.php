@@ -285,6 +285,19 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
     }
 
     /**
+     * Returns list of similar titles (very slow)
+     *
+     * @param int $titleId
+     *
+     * @return array
+     */
+    public function getSimilarAuthors($titleId)
+    {
+        // TODO
+        return false;
+    }
+
+    /**
      * Updates suggested books
      *
      * @param int $userId

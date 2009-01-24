@@ -57,4 +57,34 @@ class App_Db_Table_Author extends App_Db_Table_Abstract
         'App_Db_Table_AuthorHasTitle',
         'App_Db_Table_AuthorHasTag'
     );
+
+    /**
+     * Returns max author id
+     *
+     * @return int
+     */
+    public function getMaxAuthorId()
+    {
+        $select = $this->_db->select()
+            ->from($this->_name, new Zend_Db_Expr('max(lib_author_id)'));
+
+        return $this->_db->fetchOne($select);
+    }
+
+    /**
+     * Returns author by name
+     *
+     * @param string $authorName
+     *
+     * @return array
+     */
+    public function getAuthorByName($authorName)
+    {
+        return $this->_db->fetchRow('SELECT a.`lib_author_id`, a.`name`, '
+            .     'a.`description_text_id`, a.`front_description`, '
+            .     'a.`lib_writeboard_id` '
+            . 'FROM `lib_author_name` n '
+            . 'LEFT JOIN `lib_author` a USING (lib_author_id) '
+            . 'WHERE n.name = :name', array(':name' => $authorName));
+    }
 }

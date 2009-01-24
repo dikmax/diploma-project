@@ -277,16 +277,8 @@ class App_Library_Title
         }
         $authorId = $author->getId();
 
-        $db = Zend_Registry::get('db');
-        $row = $db->fetchRow('SELECT t.lib_title_id, t.name, '
-             .     't.authors_index, t.description_text_id, t.front_description, '
-             .     't.lib_writeboard_id '
-             . 'FROM lib_title t '
-             . 'LEFT JOIN lib_author_has_title h USING (lib_title_id) '
-             . 'WHERE h.lib_author_id = :lib_author_id AND t.name = :name',
-             array(':lib_author_id' => $authorId,
-                   ':name' => $titleName)
-        );
+        $table = new App_Db_Table_Title();
+        $row = $table->getTitleByName($authorId, $titleName);
 
         if ($row === false) {
             return null;
@@ -314,10 +306,12 @@ class App_Library_Title
             return null;
         }
 
-        $title = new self($row[0]->toArray());
-        return $title;
+        return new self($row[0]->toArray());
     }
 
+    /**
+     * Update list of similar titles
+     */
     public function updateSimilar()
     {
         $similarTable = new App_Db_Table_TitleSimilar();

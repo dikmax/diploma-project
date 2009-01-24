@@ -224,19 +224,44 @@ class App_Library_Author
             throw new App_Library_Exception('Author name must be a string');
         }
 
-        $db = Zend_Registry::get('db');
-
-        $row = $db->fetchRow('SELECT a.`lib_author_id`, a.`name`, '
-            .     'a.`description_text_id`, a.`front_description`, '
-            .     'a.`lib_writeboard_id` '
-            . 'FROM `lib_author_name` n '
-            . 'LEFT JOIN `lib_author` a USING (lib_author_id) '
-            . 'WHERE n.name = :name', array(':name' => $authorName));
-
+        $table = new App_Db_Table_Author();
+        $row = $table->getAuthorByName($authorName);
         if ($row === false) {
             return null;
         }
+
         return new self($row);
+    }
+
+    /**
+     * Returns author by id
+     *
+     * @param int $authorId
+     *
+     * @return App_Library_Author
+     */
+    public static function getById($authorId)
+    {
+        if (!is_numeric($authorId)) {
+            throw new App_Library_Exception('Id must be a number');
+        }
+
+        $table = new App_Db_Table_Author();
+        $row = $table->find($authorId);
+        if ($row === false) {
+            return null;
+        }
+
+        return new self($row[0]->toArray());
+    }
+
+    /**
+     * Update list of similar authors
+     */
+    public function updateSimilar()
+    {
+        $similarTable = new App_Db_Table_AuthorSimilar();
+        $similarTable->updateSimilar($this->_libAuthorId);
     }
 
     /*
