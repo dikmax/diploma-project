@@ -52,7 +52,7 @@ class App_View_Helper_UsersList extends Zend_View_Helper_Abstract
                           ), 'friends')
                         . '">'
                         . ($userFriendState === App_User_Friends::STATE_APPROVED
-                            ? 'Убрать из друзей' : 'Добваить в друзья')
+                            ? 'Убрать из друзей' : 'Добавить в друзья')
                         . '</a></li>';
             }
             if ($listType === self::LIST_RECEIVED_REQUESTS) {

@@ -69,6 +69,34 @@ class App_Db_Table_UserFriendship extends App_Db_Table_Abstract
     }
 
     /**
+     * Returns list of friends for not current user and their relation to current
+     */
+    public function getOtherFriendsList($userId, $currentUserId)
+    {
+        if (is_numeric($currentUserId)) {
+            // We have current user id
+            $select = "SELECT f.user2_id user_id, f2.state "
+                . "FROM lib_user_friendship f "
+                . "LEFT JOIN lib_user_friendship f2 ON f.user2_id = f2.user2_id AND f2.user1_id = :current_user_id "
+                . "WHERE f.user1_id = :user_id AND f.state = :state";
+            return $this->_db->fetchAll($select, array(
+                ':user_id' => $userId,
+                ':current_user_id' => $currentUserId,
+                ':state' => App_User_Friends::STATE_APPROVED
+            ));
+        } else {
+            // We haven't current user id
+            $select = "SELECT f.user2_id user_id "
+                . "FROM lib_user_friendship f "
+                . "WHERE f.user1_id = :user_id AND f.state = :state";
+            return $this->_db->fetchAll($select, array(
+                ':user_id' => $userId,
+                ':state' => App_User_Friends::STATE_APPROVED
+            ));
+        }
+    }
+
+    /**
      * Update status between users
      *
      * @param int $user1Id

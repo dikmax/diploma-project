@@ -17,13 +17,6 @@
 class App_User implements Zend_Acl_Role_Interface
 {
     /**
-     * Instances counter for detecting memory leaks
-     *
-     * @var int
-     */
-    public static $instancesCount = 0;
-
-    /**
      * Index for database table <code>lib_user</code>
      *
      * @var int
@@ -107,6 +100,13 @@ class App_User implements Zend_Acl_Role_Interface
      * @var App_User_Friends
      */
     protected $_friends;
+
+    /**
+     * Friends of not current user
+     *
+     * @var App_User_OtherFriends
+     */
+    protected $_otherFriends;
 
     /**
      * Users friend state
@@ -208,6 +208,9 @@ class App_User implements Zend_Acl_Role_Interface
         // Friends
         $this->_friends = null;
 
+        // Friends of not current user
+        $this->_otherFriends = null;
+
         // Friend state
         $this->_friendState = null;
 
@@ -215,13 +218,6 @@ class App_User implements Zend_Acl_Role_Interface
         $this->_neighbors = null;
 
         $this->registerRole();
-
-        self::$instancesCount++;
-    }
-
-    public function __destruct()
-    {
-        self::$instancesCount--;
     }
 
     /**
@@ -450,6 +446,20 @@ class App_User implements Zend_Acl_Role_Interface
         }
 
         return $this->_friends;
+    }
+
+    /**
+     * Returns user friends (as not current user)
+     *
+     * @return App_User_OtherFriends
+     */
+    public function getOtherFriends()
+    {
+        if ($this->_otherFriends === null) {
+            $this->_otherFriends = new App_User_OtherFriends($this);
+        }
+
+        return $this->_otherFriends;
     }
 
     /**

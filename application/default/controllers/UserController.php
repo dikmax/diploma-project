@@ -57,6 +57,8 @@ class UserController extends Zend_Controller_Action
         $this->_topMenu = $this->view->getHelper('topMenu');
         $this->_topMenu->addItem('profile', 'Профиль',
             $this->_helper->url->url(array('action' => 'profile')));
+        $this->_topMenu->addItem('friends', 'Друзья',
+            $this->_helper->url->url(array('action' => 'friends')));
         $this->_topMenu->addItem('bookshelf', 'Книжная полка',
             $this->_helper->url->url(array('action' => 'bookshelf')));
         $this->_topMenu->addItem('blog', 'Блог',
@@ -71,6 +73,8 @@ class UserController extends Zend_Controller_Action
                 'login' => $this->_login
             ));
             $this->_error = true;
+        } else {
+            $this->view->user = $this->_user;
         }
     }
 
@@ -86,8 +90,19 @@ class UserController extends Zend_Controller_Action
         $this->view->headTitle("профиль");
         $this->_topMenu->selectItem('profile');
 
-        $this->view->user = $this->_user;
         $this->view->writeboard = $this->_user->getWriteboard();
+    }
+
+    public function friendsAction()
+    {
+        $this->initUser();
+        if ($this->_error) {
+            return;
+        }
+        $this->view->headTitle('друзья');
+        $this->_topMenu->selectItem('friends');
+
+        $this->view->friends = $this->_user->getOtherFriends()->getFriendsList();
     }
 
     /**
@@ -119,7 +134,6 @@ class UserController extends Zend_Controller_Action
         ));
         $cloud->process();
 
-        $this->view->user = $this->_user;
         $this->view->bookshelf = $bookshelf;
         $this->view->titles = $bookshelf->getTitles();
     }
