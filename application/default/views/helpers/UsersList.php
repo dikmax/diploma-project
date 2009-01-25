@@ -9,7 +9,7 @@
  */
 
 /**
- * model
+ * Helper for writing users list
  */
 class App_View_Helper_UsersList extends Zend_View_Helper_Abstract
 {

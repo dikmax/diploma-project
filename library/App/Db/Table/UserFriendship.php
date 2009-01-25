@@ -54,6 +54,8 @@ class App_Db_Table_UserFriendship extends App_Db_Table_Abstract
      *
      * @param int $userId
      * @param int $state
+     *
+     * @return array
      */
     public function getFriendsList($userId, $state)
     {
@@ -70,6 +72,11 @@ class App_Db_Table_UserFriendship extends App_Db_Table_Abstract
 
     /**
      * Returns list of friends for not current user and their relation to current
+     *
+     * @param int $userId
+     * @param int $currentUserId
+     *
+     * @return array
      */
     public function getOtherFriendsList($userId, $currentUserId)
     {

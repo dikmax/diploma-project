@@ -53,22 +53,37 @@ class App_Db_Table_UserNeighborhood extends App_Db_Table_Abstract
      * Returns list of friends
      *
      * @param int $userId
+     * @param int $currentUserId
+     *
+     * @return array
      */
-    public function getNeighborsList($userId)
+    public function getNeighborsList($userId, $currentUserId)
     {
-        $select = $this->_db->select()
-            ->from($this->_name)
-            ->where('user1_id = :user_id')
-            ->order('avg ASC')
-            ->order('count DESC');
-
-        return $this->_db->fetchAll($select, array(
-            ':user_id' => $userId
-        ));
+        if (is_numeric($currentUserId)) {
+            // We have current user id
+            $select = "SELECT n.user2_id user_id, f.state "
+                . "FROM lib_user_neighborhood n "
+                . "LEFT JOIN lib_user_friendship f ON n.user2_id = f.user2_id AND f.user1_id = :current_user_id "
+                . "WHERE n.user1_id = :user_id";
+            return $this->_db->fetchAll($select, array(
+                ':user_id' => $userId,
+                ':current_user_id' => $currentUserId
+            ));
+        } else {
+            // We haven't current user id
+            $select = "SELECT user2_id user_id "
+                . "FROM lib_user_neighborhood n "
+                . "WHERE n.user1_id = :user_id";
+            return $this->_db->fetchAll($select, array(
+                ':user_id' => $userId
+            ));
+        }
     }
 
     /**
      * Updates list of neightbors list for specified user
+     *
+     * @param int $userId
      */
     public function updateNeighborsList($userId)
     {

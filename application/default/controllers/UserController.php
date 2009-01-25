@@ -59,12 +59,17 @@ class UserController extends Zend_Controller_Action
             $this->_helper->url->url(array('action' => 'profile')));
         $this->_topMenu->addItem('friends', 'Друзья',
             $this->_helper->url->url(array('action' => 'friends')));
+        $this->_topMenu->addItem('neighbors', 'Соседи',
+            $this->_helper->url->url(array('action' => 'neighbors')));
         $this->_topMenu->addItem('bookshelf', 'Книжная полка',
             $this->_helper->url->url(array('action' => 'bookshelf')));
         $this->_topMenu->addItem('blog', 'Блог',
             $this->_helper->url->url(array('action' => 'blog')));
     }
 
+    /**
+     * Initializes user from url
+     */
     public function initUser()
     {
         $this->_user = App_User_Factory::getInstance()->getUserByLogin($this->_login);
@@ -93,6 +98,9 @@ class UserController extends Zend_Controller_Action
         $this->view->writeboard = $this->_user->getWriteboard();
     }
 
+    /**
+     * Shows user friends page
+     */
     public function friendsAction()
     {
         $this->initUser();
@@ -103,6 +111,21 @@ class UserController extends Zend_Controller_Action
         $this->_topMenu->selectItem('friends');
 
         $this->view->friends = $this->_user->getOtherFriends()->getFriendsList();
+    }
+
+    /**
+     * Shows user neighbors page
+     */
+    public function neighborsAction()
+    {
+        $this->initUser();
+        if ($this->_error) {
+            return;
+        }
+        $this->view->headTitle('соседи');
+        $this->_topMenu->selectItem('neighbors');
+
+        $this->view->neighbors = $this->_user->getNeighbors()->getNeightborsList();
     }
 
     /**

@@ -38,27 +38,31 @@ class App_User_Neighbors
     /**
      * Returns list of friends
      *
-     * @param int $state
-     *
      * @return array of App_User
      */
-    /*
-    public function getFriendsList($state)
+    public function getNeightborsList()
     {
-        $list = $this->_table->getFriendsList($this->_user->getId(), $state);
+        $currentUser = App_User_Factory::getSessionUser();
+
+        $list = $this->_table->getNeighborsList($this->_user->getId(),
+            $currentUser === null ? null : $currentUser->getId());
 
         $ids = array();
         foreach ($list as $item) {
-            $ids[] = $item['user2_id'];
+            $ids[] = $item['user_id'];
         }
 
         $users = App_User_Factory::getInstance()->getUsers($ids);
-        foreach ($users as $user) {
-            $user->setFriendState($state);
+
+        // Updating relations to current user
+        if ($currentUser !== null) {
+            foreach ($list as $item) {
+                $users[$item['user_id']]->setFriendState((int)$item['state']);
+            }
         }
 
         return $users;
-    }*/
+    }
 
     /**
      * Updates neighbors list
