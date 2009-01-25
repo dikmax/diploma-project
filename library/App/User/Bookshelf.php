@@ -89,9 +89,10 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
         unset($this->_titles);
     }
 
-
     /**
      * Returns title objects
+     *
+     * @return array of App_Library_Title
      */
     public function getTitles()
     {
@@ -106,6 +107,20 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
             }
         }
         return $this->_titles;
+    }
+
+    public function getSuggestedTitles()
+    {
+        $table = new App_Db_Table_UserBookshelf();
+
+        $titles = $table->getSuggestedTitles($this->_user->getId());
+
+        $result = array();
+        foreach ($titles as $title) {
+            $result[] = new App_Library_Title($title);
+        }
+
+        return $result;
     }
 
     /**

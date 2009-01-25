@@ -9,6 +9,6 @@
  */
 
 ?>
-<h1>Друзья</h1>
+<h1>Соседи <?= $this->user->getLogin(); ?></h1>
 
 <?= $this->usersList($this->neighbors); ?>

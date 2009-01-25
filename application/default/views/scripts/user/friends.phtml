@@ -5,10 +5,10 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 
 ?>
-<h1>Друзья</h1>
+<h1>Друзья <?= $this->user->getLogin(); ?></h1>
 
 <?= $this->usersList($this->friends); ?>

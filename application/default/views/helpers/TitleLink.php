@@ -23,6 +23,7 @@ class App_View_Helper_TitleLink extends Zend_View_Helper_Abstract
             if ($firstAuthorName === '') {
                 $firstAuthorName = $authorName;
             }
+            // TODO Link generation is very slow
             $authorLinks[] = '<a href="' . $this->view->libraryUrl(null, $authorName) . '">'
                 . $authorName .'</a>';
         }

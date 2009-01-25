@@ -5,10 +5,10 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 ?>
-<h1>Книжная полка</h1>
+<h1>Книжная полка <?= $this->user->getLogin(); ?></h1>
 
 <?php if ($this->isAllowed($this->bookshelf, 'edit')): ?>
     <a href="<?= $this->url(array('action' => 'add'), 'bookshelf'); ?>">Добавить книгу в библиотеку</a>

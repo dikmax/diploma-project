@@ -63,6 +63,8 @@ class UserController extends Zend_Controller_Action
             $this->_helper->url->url(array('action' => 'neighbors')));
         $this->_topMenu->addItem('bookshelf', 'Книжная полка',
             $this->_helper->url->url(array('action' => 'bookshelf')));
+        $this->_topMenu->addItem('suggestions', 'Рекоммендации',
+            $this->_helper->url->url(array('action' => 'suggestions')));
         $this->_topMenu->addItem('blog', 'Блог',
             $this->_helper->url->url(array('action' => 'blog')));
     }
@@ -138,7 +140,7 @@ class UserController extends Zend_Controller_Action
     }
 
     /**
-     * Writing user bookshelf
+     * Shows user bookshelf
      */
     public function bookshelfAction()
     {
@@ -161,16 +163,18 @@ class UserController extends Zend_Controller_Action
         $this->view->titles = $bookshelf->getTitles();
     }
 
-    public function mailAction()
+    /**
+     * Shows user bookshelf
+     */
+    public function suggestionsAction()
     {
-        if (!$this->view->getHelper('isAllowed')->isAllowed('mail', 'view')) {
-            $this->_forward('not-allowed', 'error');
-            return;
-        }
-
         $this->initUser();
         if ($this->_error) {
             return;
         }
+
+        $this->_topMenu->selectItem('suggestions');
+
+        $this->view->titles = $this->_user->getBookshelf()->getSuggestedTitles();
     }
 }

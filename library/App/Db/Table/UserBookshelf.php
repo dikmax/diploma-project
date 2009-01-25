@@ -52,17 +52,42 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
      *
      * @param int $userId
      *
+     * @return array
      */
     public function findTitlesByUserId($userId)
     {
         $select = $this->_db->select()
             ->from($this->_name, array())
             ->joinLeftUsing('lib_title', '`lib_title_id`')
-            ->where('`lib_user_bookshelf`.`lib_user_id` = :user_id');
+            ->where('`lib_user_bookshelf`.`lib_user_id` = :user_id')
+            ->where('`lib_user_bookshelf`.`relation` <> :relation');
 
         return $this->_db->fetchAll($select, array(
-            ':user_id' => $userId
+            ':user_id' => $userId,
+            ':relation' => App_User_Bookshelf::RELATION_SUGGESTED_BOOK
         ));
+    }
+
+    /**
+     * Returns suggested titles
+     *
+     * @param int $userId
+     *
+     * @return array
+     */
+    public function getSuggestedTitles($userId)
+    {
+        $select = $this->_db->select()
+            ->from($this->_name, array())
+            ->joinLeftUsing('lib_title', '`lib_title_id`')
+            ->where('`lib_user_bookshelf`.`lib_user_id` = :user_id')
+            ->where('`lib_user_bookshelf`.`relation` = :relation');
+
+        return $this->_db->fetchAll($select, array(
+            ':user_id' => $userId,
+            ':relation' => App_User_Bookshelf::RELATION_SUGGESTED_BOOK
+        ));
+
     }
 
     /**
