@@ -9,6 +9,13 @@ set_include_path(implode(PATH_SEPARATOR, $paths));
 require_once "Zend/Loader.php";
 Zend_Loader::registerAutoload();
 
+// Set plugin caching
+$classFileIncCache = dirname(__FILE__) .  '/../cache/pluginLoaderCache.php';
+if (file_exists($classFileIncCache)) {
+    include_once $classFileIncCache;
+}
+Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
+
 require_once 'Initializer.php';
 
 // Prepare the front controller.

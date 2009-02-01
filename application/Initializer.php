@@ -329,7 +329,6 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             ->setSeparator(' / ');
         $doctypeHelper = new Zend_View_Helper_Doctype();
         $doctypeHelper->doctype('XHTML1_STRICT');
-        $view->getPluginLoader('helper')->load('UsersList');
         Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
         ZendX_JQuery::enableView($view);
         $jQuery = $view->jQuery();
