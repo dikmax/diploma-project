@@ -123,8 +123,15 @@ class LibraryController extends Zend_Controller_Action
                     'author' => $this->_authorUrl,
                     'title' => $this->_titleUrl
                 )));
+            $this->_topMenu->addItem('similar', 'Похожие книги',
+                $this->_helper->url->url(array(
+                    'action' => 'similar',
+                    'author' => $this->_authorUrl,
+                    'title' => $this->_titleUrl
+                )));
         }
     }
+
     /**
      * Add top right wiki menu
      */
@@ -198,7 +205,7 @@ class LibraryController extends Zend_Controller_Action
      */
     public function overviewAction()
     {
-        if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
+        if ($this->_type === self::AUTHOR_PAGE || $this->_type === self::TITLE_PAGE) {
             $this->initAuthorAndTitle();
             if ($this->_error) {
                 return;
@@ -237,11 +244,43 @@ class LibraryController extends Zend_Controller_Action
     }
 
     /**
+     * Shows similar titles page
+     */
+    public function similarAction()
+    {
+        if ($this->_type === self::TITLE_PAGE) {
+            $this->initAuthorAndTitle();
+            if ($this->_error) {
+                return;
+            }
+        } else {
+            $this->_redirect($this->_helper->url->url());
+        }
+        $this->view->type = $this->_type;
+
+        $this->_topMenu->selectItem('similar');
+
+        $authorName = $this->_author->getName();
+        $this->view->headTitle($authorName);
+        $this->view->author = $this->_author;
+        $this->view->authorName = $authorName;
+
+        $titleName = $this->_title->getName();
+        $this->view->headTitle($titleName);
+        $this->view->title = $this->_title;
+        $this->view->titleName = $titleName;
+
+        $this->view->similarTitles = $this->_title->getSimilarTitles();
+
+        $this->view->headTitle('Похожие книги');
+    }
+
+    /**
      * Shows full wiki page
      */
     public function wikiAction()
     {
-        if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
+        if ($this->_type === self::AUTHOR_PAGE || $this->_type === self::TITLE_PAGE) {
             $this->initAuthorAndTitle();
             if ($this->_error) {
                 return;
@@ -281,7 +320,7 @@ class LibraryController extends Zend_Controller_Action
      */
     public function wikiEditAction()
     {
-        if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
+        if ($this->_type === self::AUTHOR_PAGE || $this->_type === self::TITLE_PAGE) {
             $this->initAuthorAndTitle();
             if ($this->_error) {
                 return;
@@ -320,7 +359,7 @@ class LibraryController extends Zend_Controller_Action
      */
     public function wikiSaveAction()
     {
-        if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
+        if ($this->_type === self::AUTHOR_PAGE || $this->_type === self::TITLE_PAGE) {
             $this->initAuthorAndTitle();
             if ($this->_error) {
                 return;
@@ -354,7 +393,7 @@ class LibraryController extends Zend_Controller_Action
      */
     public function wikiHistoryAction()
     {
-        if ($this->_type == self::AUTHOR_PAGE || $this->_type == self::TITLE_PAGE) {
+        if ($this->_type === self::AUTHOR_PAGE || $this->_type === self::TITLE_PAGE) {
             $this->initAuthorAndTitle();
             if ($this->_error) {
                 return;
@@ -459,23 +498,4 @@ class LibraryController extends Zend_Controller_Action
     {
         $this->_topMenu->selectItem('books');
     }
-
-    /**
-     * Generates image and redirects to it
-     */
-    /*public function imageAction()
-    {
-        if ($this->_type !== self::TITLE_PAGE) {
-            die;
-        }
-        $this->initAuthorAndTitle();
-        if ($this->_error) {
-            return;
-        }
-
-        $image = imagecreatetruecolor(80, 120);
-        $colorBlack = imagecolorallocate($image, 0, 0, 0);
-        imagerectangle($image, 0, 0, 80, 120, $colorBlack);
-        is_dir()
-    }*/
 }

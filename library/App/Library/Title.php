@@ -14,13 +14,6 @@
 class App_Library_Title
 {
     /**
-     * Instances counter for detecting memory leaks
-     *
-     * @var int
-     */
-    public static $instancesCount = 0;
-
-    /**
      * Index for database table <code>lib_title</code>
      *
      * @var int
@@ -96,6 +89,13 @@ class App_Library_Title
      * @var int
      */
     protected $_mark;
+
+    /**
+     * Similar titles
+     *
+     * @var array of App_Library_Title
+     */
+    protected $_similarTitles;
 
     /**
      * Constructs title object
@@ -176,7 +176,8 @@ class App_Library_Title
             ? $construct['mark']
             : null;
 
-        self::$instancesCount++;
+        // Similar titles
+        $this->_similarTitles = null;
     }
 
     /**
@@ -187,8 +188,6 @@ class App_Library_Title
         unset($this->_authors);
         unset($this->_writeboard);
         unset($this->_description);
-
-        self::$instancesCount--;
     }
 
     /**
@@ -495,5 +494,25 @@ class App_Library_Title
     public function setMark($mark)
     {
         $this->_mark = $mark;
+    }
+
+    /**
+     * Returns similar titles
+     *
+     * @return array of App_Library_Titles
+     */
+    public function getSimilarTitles()
+    {
+        if ($this->_similarTitles === null) {
+            $table = new App_Db_Table_TitleSimilar();
+            $titles = $table->getTitles($this->_libTitleId);
+
+            $this->_similarTitles = array();
+            foreach ($titles as $row) {
+                $this->_similarTitles[] = new App_Library_Title($row);
+            }
+        }
+
+        return $this->_similarTitles;
     }
 }

@@ -44,7 +44,7 @@ class App_Controller_Router_Route_Library extends Zend_Controller_Router_Route_A
     {
         $path = trim($request->getRequestUri(), '/');
 
-        if (strstr($path, 'library') == false) {
+        if (strstr($path, 'library') === false) {
             return false;
         }
 

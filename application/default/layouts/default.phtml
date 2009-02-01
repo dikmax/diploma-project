@@ -22,7 +22,9 @@
         $login = Zend_Controller_Front::getInstance()->getRequest()->getParam('login');
     ?>
     <div class="left-col">
-        <?= $this->action('show-login', 'auth'); ?>
+        <?php
+            echo $this->action('show-login', 'auth'); // TODO Rewrite with helper
+        ?>
         <div class="navigation">
             <?= $this->navigationLink(null, 'Книги',
                     $this->libraryUrl(null, false, false)); ?>

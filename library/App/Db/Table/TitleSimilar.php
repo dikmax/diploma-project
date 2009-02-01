@@ -75,4 +75,23 @@ class App_Db_Table_TitleSimilar extends App_Db_Table_Abstract
             }
         }
     }
+
+    /**
+     * Returns similar titles
+     *
+     * @param int $titlesId
+     *
+     * @return array
+     */
+    public function getTitles($titleId)
+    {
+        $select = 'SELECT t.lib_title_id, t.name, '
+            .     't.authors_index, t.description_text_id, t.front_description, '
+            .     't.lib_writeboard_id '
+            . 'FROM lib_title_similar s '
+            . 'LEFT JOIN lib_title t ON t.lib_title_id = s.title2_id '
+            . 'WHERE s.title1_id = :title_id';
+        return $this->_db->fetchAll($select,
+            array(':title_id' => $titleId));
+    }
 }

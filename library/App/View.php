@@ -182,11 +182,11 @@ class App_View extends Zend_View
                 $firstAuthorName = $authorName;
             }
             // TODO Link generation is very slow
-            $authorLinks[] = '<a href="' . $this->libraryUrl(null, $authorName) . '">'
+            $authorLinks[] = '<a href="' . $this->libraryUrl(null, $authorName, false) . '">'
                 . $authorName .'</a>';
         }
 
-        return implode(', ', $authorLinks) . ' - '
+        return implode(', ', $authorLinks) . ' &mdash; '
             . '<a href="' . $this->libraryUrl(null, $firstAuthorName, $title->getName()) . '">'
             . $title->getName() . '</a>';
     }
