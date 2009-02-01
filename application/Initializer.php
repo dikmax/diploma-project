@@ -321,7 +321,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initView()
     {
-        $view = new Zend_View();
+        $view = new App_View();
         $view->addHelperPath($this->_root . '/application/default/views/helpers', 'App_View_Helper');
         $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
         $viewRenderer->setView($view);
