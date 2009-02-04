@@ -11,9 +11,9 @@
 <h1>Предложения дружбы</h1>
 
 <h2>Полученые запросы</h2>
-<?= $this->usersList($this->receivedRequests, App_View_Helper_UsersList::LIST_RECEIVED_REQUESTS,
+<?= $this->usersList($this->receivedRequests, App_View::LIST_RECEIVED_REQUESTS,
     'Нет полученых запросов'); ?>
 
 <h2>Отправленые запросы</h2>
-<?= $this->usersList($this->sentRequests, App_View_Helper_UsersList::LIST_SENT_REQUESTS,
+<?= $this->usersList($this->sentRequests, App_View::LIST_SENT_REQUESTS,
     'Нет отправленых запросов'); ?>

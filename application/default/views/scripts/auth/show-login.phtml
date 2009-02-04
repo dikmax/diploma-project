@@ -11,15 +11,15 @@
 <div class="auth-info">
     <?php if (!$this->isLoggedIn): ?>
         <?= $this->form; ?>
-        Нет аккаунта? <br /><a href="<?= $this->url(array('action' => 'registration'), 'auth'); ?>">Зарегистрируйся!</a>
+        Нет аккаунта? <br /><a href="<?= $this->url(array('controller' => 'auth', 'action' => 'registration')); ?>">Зарегистрируйся!</a>
     <?php else: ?>
         <div style="text-align: center;">
             Привет,
             <h2><?= $this->profileLink($this->login); ?></h2>
             <ul>
-                <li><a href="<?= $this->url(array(), 'mail'); ?>">Почта</a></li>
-                <li><a href="<?= $this->url(array(), 'friends'); ?>">Друзья</a></li>
-                <li><a href="<?= $this->url(array('action' => 'logout'), 'auth'); ?>">Выйти</a></li>
+                <li><a href="<?= $this->url(array('controller' => 'mail'), null, true); ?>">Почта</a></li>
+                <li><a href="<?= $this->url(array('controller' => 'friends'), null, true); ?>">Друзья</a></li>
+                <li><a href="<?= $this->url(array('controller' => 'auth', 'action' => 'logout'), null, true); ?>">Выйти</a></li>
             </ul>
         </div>
     <?php endif; ?>

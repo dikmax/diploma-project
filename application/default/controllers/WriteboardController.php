@@ -45,6 +45,8 @@ class WriteboardController extends App_Controller_AjaxAction
             if ($writeboard->getId() != $id) {
                 $writeboard = new App_Writeboard(array('id' => $id));
             }
+        } else {
+            $writeboard = new App_Writeboard(array('id' => $id));
         }
         $messages = $writeboard->getMessages();
 

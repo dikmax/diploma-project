@@ -31,7 +31,9 @@ class BookshelfController extends Zend_Controller_Action
         $this->_user = App_User_Factory::getSessionUser();
 
         if ($this->_user === null) {
-            $this->_redirect($this->view->url(array('action' => 'show-login'), 'auth'));
+            $this->_redirect($this->view->url(array(
+                'controller' => 'auth',
+                'action' => 'show-login')));
         }
     }
 

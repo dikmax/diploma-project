@@ -18,9 +18,6 @@
   <?= $this->jQuery(); ?>
 </head>
 <body>
-    <?php
-        $login = Zend_Controller_Front::getInstance()->getRequest()->getParam('login');
-    ?>
     <div class="left-col">
         <?php
             echo $this->action('show-login', 'auth'); // TODO Rewrite with helper
@@ -28,9 +25,6 @@
         <div class="navigation">
             <?= $this->navigationLink(null, 'Книги',
                     $this->libraryUrl(null, false, false)); ?>
-            <?= $this->navigationLink('profile', 'Люди',
-                    $this->url(array('action' => 'profile',
-                                     'login' => $login), 'user')); ?>
         </div>
     </div>
     <div id="main-container" class="main-container">

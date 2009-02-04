@@ -58,7 +58,7 @@ class App_View extends Zend_View
      */
     public function libraryUrl($action = null, $author = null, $title = null, $extraparams = null)
     {
-        $params = array();
+        $params = array('controller' => 'library');
 
         if ($action !== null) {
             $params['action'] = $action;
@@ -83,7 +83,7 @@ class App_View extends Zend_View
         if ($extraparams !== null) {
             $params['extraparams'] = $extraparams;
         }
-        return $this->url($params, 'library');
+        return $this->url($params);
     }
 
     /**
@@ -152,14 +152,17 @@ class App_View extends Zend_View
      */
     public function profileLink($user)
     {
-        $params = array('action' => 'profile');
+        $params = array(
+            'controller' => 'user',
+            'action' => 'profile'
+        );
 
         $login = $user instanceof App_User
             ? $user->getLogin()
             : $user;
         $params['login'] = $login;
 
-        return '<a href="' . $this->url($params, 'user') . '" title="Посмотреть профиль ' . $login . '">'
+        return '<a href="' . $this->url($params) . '" title="Посмотреть профиль ' . $login . '">'
             . $login
             . '</a>';
     }
@@ -253,10 +256,11 @@ class App_View extends Zend_View
 
                 $result .= '<li><a href="'
                         . $this->url(array(
+                              'controller' => 'friends',
                               'action' => ($userFriendState === App_User_Friends::STATE_APPROVED
                                     ? 'confirm-delete' : 'confirm'),
                               'user' => $user->getLogin()
-                          ), 'friends')
+                          ))
                         . '">'
                         . ($userFriendState === App_User_Friends::STATE_APPROVED
                             ? 'Убрать из друзей' : 'Добавить в друзья')
@@ -265,29 +269,33 @@ class App_View extends Zend_View
             if ($listType === self::LIST_RECEIVED_REQUESTS) {
                 $result .= '<li><a href="'
                         . $this->url(array(
+                              'controller' => 'friends',
                               'action' => 'accept',
                               'user' => $user->getLogin()
-                          ), 'friends')
+                          ))
                         . '">Подтвердить</a></li>'
                         . '<li><a href="'
                         . $this->url(array(
+                              'controller' => 'friends',
                               'action' => 'decline',
                               'user' => $user->getLogin()
-                          ), 'friends')
+                          ))
                         . '">Отменить</a></li>';
             }
             if ($listType === self::LIST_SENT_REQUESTS) {
                 $result .= '<li><a href="'
                         . $this->url(array(
+                              'controller' => 'friends',
                               'action' => 'cancel',
                               'user' => $user->getLogin()
-                          ), 'friends')
+                          ))
                         . '">Отменить</a></li>';
             }
             $result .= '<li><a href="'
                     . $this->url(array(
+                          'controller' => 'mail',
                           'action' => 'new'
-                      ), 'mail')
+                      ))
                     . '?to=' . $user->getLogin() . '">Написать сообщение</a></li>'
                     .  '</ul></td></tr></table>'
                     .  '</td>';

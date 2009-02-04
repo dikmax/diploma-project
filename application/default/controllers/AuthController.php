@@ -39,9 +39,7 @@ class AuthController extends Zend_Controller_Action
                     $this->_helper->redirector->gotoRouteAndExit(
                         array('controller' => 'user',
                             'action' => 'profile',
-                            'login' => $form->getValue('login')),
-                        'user'
-                    );
+                            'login' => $form->getValue('login')));
                 } else {
                     $form->getElement('login')->addErrors($result->getMessages());
                 }
@@ -89,7 +87,7 @@ class AuthController extends Zend_Controller_Action
                 'controller' => 'user',
                 'action' => 'profile',
                 'login' => $user->getLogin()
-            ), 'user'));
+            )));
         }
 
         $form = new App_Form_Auth_Registration();

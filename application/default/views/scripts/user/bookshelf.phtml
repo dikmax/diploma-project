@@ -11,7 +11,7 @@
 <h1>Книжная полка <?= $this->user->getLogin(); ?></h1>
 
 <?php if ($this->isAllowed($this->bookshelf, 'edit')): ?>
-    <a href="<?= $this->url(array('action' => 'add'), 'bookshelf'); ?>">Добавить книгу в библиотеку</a>
+    <a href="<?= $this->url(array('controller' => 'bookshelf', 'action' => 'add')); ?>">Добавить книгу в библиотеку</a>
 <?php endif; ?>
 
 <div class="tagCloud">

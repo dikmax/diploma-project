@@ -38,7 +38,9 @@ class MailController extends Zend_Controller_Action
         $this->_user = App_User_Factory::getSessionUser();
         if (!$this->_user) {
             // Not logged in. Redirect to login page
-            $this->_redirect($this->_helper->url->url(array('action' => 'login'), 'auth'));
+            $this->_redirect($this->_helper->url->url(array(
+                'controller' => 'auth',
+                'action' => 'login')));
             return;
         }
 

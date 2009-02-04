@@ -366,72 +366,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         $router = $this->_front->getRouter();
         $router->removeDefaultRoutes();
 
-        $routes = $this->_cache->load('routes');
-        if ($routes === false) {
-            $router->addRoute('default',
-                new Zend_Controller_Router_Route(':action', array(
-                    'controller' => 'index',
-                    'action' => 'index'
-                ))
-            );
-
-            $router->addRoute('auth',
-                new Zend_Controller_Router_Route('auth/:action', array(
-                    'controller' => 'auth',
-                    'action' => 'index'
-                ))
-            );
-
-            $router->addRoute('ajax',
-                new Zend_Controller_Router_Route('ajax/:action', array(
-                    'controller' => 'ajax'
-                ))
-            );
-
-            $router->addRoute('writeboard',
-                new Zend_Controller_Router_Route('writeboard/:action', array(
-                    'controller' => 'writeboard',
-                    'action' => 'index'
-                ))
-            );
-
-            $router->addRoute('bookshelf',
-                new Zend_Controller_Router_Route('bookshelf/:action', array(
-                    'controller' => 'bookshelf',
-                    'action' => 'show'
-                ))
-            );
-
-            $router->addRoute('mail',
-                new Zend_Controller_Router_Route('mail/:action/:param', array(
-                    'controller' => 'mail',
-                    'action' => 'active',
-                    'param' => ''
-                ))
-            );
-
-            $router->addRoute('friends',
-                new Zend_Controller_Router_Route('friends/:action/:user', array(
-                    'controller' => 'friends',
-                    'action' => 'list',
-                    'user' => ''
-                ))
-            );
-
-            $router->addRoute('user',
-                new Zend_Controller_Router_Route('user/:login/:action', array(
-                    'controller' => 'user',
-                    'action' => 'profile',
-                    'login' => ''
-                ))
-            );
-
-            $router->addRoute('library', new App_Controller_Router_Route_Library());
-
-            $this->_cache->save($router->getRoutes(), 'routes', array(), 86400);
-        } else {
-            $router->addRoutes($routes);
-        }
+        $router->addRoute('default', new App_Controller_Router_Route());
     }
 
     /**

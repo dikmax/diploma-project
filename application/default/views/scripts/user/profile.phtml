@@ -20,11 +20,14 @@
     </div>
     <div class="profile-actions">
         <ul>
-            <li><a href="<?= $this->url(array('action' => 'new'), 'mail')?>?to=<?= $this->user->getLogin()?>">Написать сообщение</a></li>
             <li><a href="<?= $this->url(array(
+                              'controller' => 'mail',
+                              'action' => 'new')); ?>?to=<?= $this->user->getLogin()?>">Написать сообщение</a></li>
+            <li><a href="<?= $this->url(array(
+                              'controller' => 'friends',
                               'action' => 'confirm',
                               'user' => $this->user->getLogin()
-                          ), 'friends'); ?>">Добавить в друзья</a></li>
+                          )); ?>">Добавить в друзья</a></li>
         </ul>
     </div>
     <div class="profile-info">
@@ -53,7 +56,7 @@
         <div class="header">
             <?php if ($this->isAllowed("profile", "edit")): ?>
             <div class="edit">
-                <a href="<?= $this->url(array('action' => 'add'), 'bookshelf'); ?>">[добавить]</a>
+                <a href="<?= $this->url(array('controller' => 'bookshelf', 'action' => 'add')); ?>">[добавить]</a>
                 [редактировать]
             </div>
             <a href="<?= $this->url(array('action' => 'bookshelf')); ?>">Книжная полка</a>
