@@ -18,6 +18,11 @@ class App_View extends Zend_View
     const LIST_RECEIVED_REQUESTS = 2;
 
     /**
+     * @var App_Controller_Router_Route
+     */
+    protected  $_route = null;
+
+    /**
      * Array with all available marks
      *
      * @var array
@@ -312,5 +317,33 @@ class App_View extends Zend_View
         $result .= '</table>';
 
         return $result;
+    }
+
+    /**
+     * Generates an url (by using route directly).
+     *
+     * @access public
+     *
+     * @param  array $urlOptions Options passed to the assemble method of the Route object.
+     * @param  bool $reset Whether or not to reset the route defaults with those provided
+     * @return string Url for the link href attribute.
+     */
+    public function url(array $urlOptions = array(), $reset = false, $encode = true)
+    {
+        return $this->_route->assemble($urlOptions, $reset, $encode);
+    }
+
+    /*
+     * Setters and getters
+     */
+
+    /**
+     * Sets route
+     *
+     * @param App_Controller_Router_Route $route
+     */
+    public function setRoute(App_Controller_Router_Route $route)
+    {
+        $this->_route = $route;
     }
 }

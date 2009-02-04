@@ -17,9 +17,9 @@
             Привет,
             <h2><?= $this->profileLink($this->login); ?></h2>
             <ul>
-                <li><a href="<?= $this->url(array('controller' => 'mail'), null, true); ?>">Почта</a></li>
-                <li><a href="<?= $this->url(array('controller' => 'friends'), null, true); ?>">Друзья</a></li>
-                <li><a href="<?= $this->url(array('controller' => 'auth', 'action' => 'logout'), null, true); ?>">Выйти</a></li>
+                <li><a href="<?= $this->url(array('controller' => 'mail'), true); ?>">Почта</a></li>
+                <li><a href="<?= $this->url(array('controller' => 'friends'), true); ?>">Друзья</a></li>
+                <li><a href="<?= $this->url(array('controller' => 'auth', 'action' => 'logout'), true); ?>">Выйти</a></li>
             </ul>
         </div>
     <?php endif; ?>

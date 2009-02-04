@@ -65,6 +65,13 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     protected $_startMicrotime;
 
     /**
+     * View
+     *
+     * @var App_View
+     */
+    protected $_view;
+
+    /**
      * Constructor
      *
      * Initialize environment, root path, and configuration.
@@ -321,17 +328,17 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initView()
     {
-        $view = new App_View();
-        $view->addHelperPath($this->_root . '/application/default/views/helpers', 'App_View_Helper');
+        $this->_view = new App_View();
+        $this->_view->addHelperPath($this->_root . '/application/default/views/helpers', 'App_View_Helper');
         $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
-        $viewRenderer->setView($view);
-        $view->headTitle('Librarian')
-            ->setSeparator(' / ');
+        $viewRenderer->setView($this->_view);
+        $this->_view->headTitle('Librarian')
+             ->setSeparator(' / ');
         $doctypeHelper = new Zend_View_Helper_Doctype();
         $doctypeHelper->doctype('XHTML1_STRICT');
         Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
-        ZendX_JQuery::enableView($view);
-        $jQuery = $view->jQuery();
+        ZendX_JQuery::enableView($this->_view);
+        $jQuery = $this->_view->jQuery();
 
         $jQuery->setLocalPath('/scripts/jquery.js')
             ->setUiLocalPath('/scripts/jquery.ui.js')
@@ -366,7 +373,10 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         $router = $this->_front->getRouter();
         $router->removeDefaultRoutes();
 
-        $router->addRoute('default', new App_Controller_Router_Route());
+        $route = new App_Controller_Router_Route();
+        $this->_view->setRoute($route);
+
+        $router->addRoute('default', $route);
     }
 
     /**
