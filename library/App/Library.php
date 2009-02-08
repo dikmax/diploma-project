@@ -8,6 +8,9 @@
  * @version    $Id$
  */
 
+require_once 'App/Library/Author.php';
+require_once 'App/Library/Title.php';
+
 /**
  * App_Library class contains static methods for working with library
  */
@@ -22,6 +25,7 @@ class App_Library
     public static function getMostReadAuthors($count = 10)
     {
         if (!is_numeric($count)) {
+            require_once 'App/Library/Exception.php';
             throw new App_Library_Exception('Count of authors must be integer');
         }
         $count = (int)$count;
@@ -59,6 +63,7 @@ class App_Library
     public static function getMostReadTitles($count = 10)
     {
         if (!is_numeric($count)) {
+            require_once 'App/Library/Exception.php';
             throw new App_Library_Exception('Count of titles must be integer');
         }
         $count = (int)$count;
@@ -93,6 +98,7 @@ class App_Library
      */
     public static function getMaxTitleId()
     {
+        require_once 'App/Db/Table/Title.php';
         $table = new App_Db_Table_Title();
         return $table->getMaxTitleId();
     }
@@ -104,6 +110,7 @@ class App_Library
      */
     public static function getMaxAuthorId()
     {
+        require_once 'App/Db/Table/Author.php';
         $table = new App_Db_Table_Author();
         return $table->getMaxAuthorId();
     }

@@ -8,6 +8,10 @@
  * @version    $Id$
  */
 
+require_once 'App/Acl/Resource/Abstract.php';
+require_once 'App/Db/Table/WriteboardMessage.php';
+require_once 'App/Writeboard/Message.php';
+
 /**
  * Writeboard model
  */
@@ -107,6 +111,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     {
         if ($this->_libWriteboardId === null) {
             // Creating new writeboard
+            require_once 'App/Db/Table/Writeboard.php';
             $table = new App_Db_Table_Writeboard();
             $insertId = $table->insert(array(
                 'owner_description' => $this->_ownerDescription
@@ -114,6 +119,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
             $this->setLibWriteboardId($insertId);
         } else if ($this->_changed) {
             // Update writeboard
+            require_once 'App/Db/Table/Writeboard.php';
             $table = new App_Db_Table_Writeboard();
             $table->update(array('owner_description' => $this->_ownerDescription),
                 $table->getAdapter()->quoteInto('lib_writeboard_id = ?', $this->_libWriteboardId));
@@ -131,11 +137,13 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     {
         $user = App_User_Factory::getSessionUser();
         if ($user === null) {
+            require_once 'App/Writeboard/Message/Exception.php';
             throw new App_Writeboard_Message_Exception('Can\'t create writeboard message without user');
         }
         $acl = Zend_Registry::get('acl');
         $aclRole = Zend_Registry::get('aclRole');
         if (!($acl->isAllowed($aclRole, $this, 'add'))) {
+            require_once 'App/Writeboard/Exception.php';
             throw new App_Writeboard_Exception('You have no permission to write in writeboard');
         }
 
@@ -247,6 +255,7 @@ class App_Writeboard extends App_Acl_Resource_Abstract
     public function setOwnerDescription($ownerDescription)
     {
         if (!is_string($ownerDescription)) {
+            require_once 'App/Writeboard/Exception.php';
             throw new App_Writeboard_Exception('Owner description must be string');
         }
 

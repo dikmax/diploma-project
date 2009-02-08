@@ -8,6 +8,18 @@
  * @version    $Id$
  */
 
+require_once 'App/Validate/EmailNotExists.php';
+require_once 'App/Validate/PasswordConfirmation.php';
+require_once 'App/Validate/UserNotExists.php';
+require_once 'Zend/Filter/StringToLower.php';
+require_once 'Zend/Validate/EmailAddress.php';
+require_once 'Zend/Validate/Hostname.php';
+require_once 'Zend/Validate/StringLength.php';
+require_once 'Zend/Form.php';
+require_once 'Zend/Form/Element/Password.php';
+require_once 'Zend/Form/Element/Submit.php';
+require_once 'Zend/Form/Element/Text.php';
+
 /**
  * Auth registration form
  */

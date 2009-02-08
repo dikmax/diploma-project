@@ -8,6 +8,8 @@
  * @version    $Id$
  */
 
+require_once 'Zend/Controller/Action.php';
+
 /**
  * Action controller with ajax support
  */

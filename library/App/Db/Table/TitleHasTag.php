@@ -8,6 +8,8 @@
  * @version    $Id$
  */
 
+require_once 'App/Db/Table/Abstract.php';
+
 /**
  * Title has tag table model
  *

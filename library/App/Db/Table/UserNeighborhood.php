@@ -8,6 +8,8 @@
  * @version    $Id$
  */
 
+require_once 'App/Db/Table/Abstract.php';
+
 /**
  * User neighborhood table model
  *
@@ -87,6 +89,7 @@ class App_Db_Table_UserNeighborhood extends App_Db_Table_Abstract
      */
     public function updateNeighborsList($userId)
     {
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
         $neighbors = $table->getNeighbors($userId);
 

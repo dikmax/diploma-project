@@ -8,6 +8,9 @@
  * @version    $Id$
  */
 
+require_once 'App/Acl/Resource/Abstract.php';
+require_once 'App/Text/Revision.php';
+
 /**
  * Text model class
  *
@@ -82,6 +85,7 @@ class App_Text extends App_Acl_Resource_Abstract
         // Revision
         if ($this->_libTextId !== null) {
             if (!isset($construct['revision'])) {
+                require_once 'App/Text/Exception.php';
                 throw new App_Text_Exception("'revision' index must be set");
             }
             if ($construct['revision'] instanceof App_Text_Revision) {
@@ -92,6 +96,7 @@ class App_Text extends App_Acl_Resource_Abstract
                 $revision_params['lib_text'] = $this;
                 $this->_revision = new App_Text_Revision($revision_params);
             } else {
+                require_once 'App/Text/Exception.php';
                 throw new App_Text_Exception("'revision' index must be App_Text_Revision or array");
             }
         } else {
@@ -135,6 +140,7 @@ class App_Text extends App_Acl_Resource_Abstract
     public function write()
     {
         $db = Zend_Registry::get('db');
+        require_once 'App/Db/Table/Text.php';
         $table = new App_Db_Table_Text();
 
         if ($this->_libTextId === null) {
@@ -182,14 +188,16 @@ class App_Text extends App_Acl_Resource_Abstract
      *
      * @param int $id
      * @return App_Text
-     * @throws App_Text_Excaption
+     * @throws App_Text_Exception
      */
     public static function read($id)
     {
         if (!is_numeric($id)) {
+            require_once 'App/Text/Exception.php';
             throw new App_Text_Exception('First parameter to App_Text::read() must be int');
         }
 
+        require_once 'App/Db/Table/Text.php';
         $table = new App_Db_Table_Text();
 
         $result = $table->findTextWithRevision($id);
@@ -224,6 +232,7 @@ class App_Text extends App_Acl_Resource_Abstract
      */
     public function getRevisionsList()
     {
+        require_once 'App/Db/Table/TextRevision.php';
         $table = new App_Db_Table_TextRevision();
 
         $result = array();
@@ -248,6 +257,7 @@ class App_Text extends App_Acl_Resource_Abstract
     public function rollbackToRevision(App_Text_Revision $revision, $noWrite = false)
     {
         if ($revision->getLibText() !== $this) {
+            require_once 'App/Text/Exception.php';
             throw new App_Text_Exception("Can't rollback to revision from other text");
         }
         if ($this->_revision->getRevision() == $revision->getRevision()) {
@@ -308,6 +318,7 @@ class App_Text extends App_Acl_Resource_Abstract
         if ($revisionNumber === 0) {
             return $this->_revision;
         } else {
+            require_once 'App/Db/Table/TextRevision.php';
             $table = new App_Db_Table_TextRevision();
 
             $data = $table->getRevision($this->_libTextId, $revisionNumber);

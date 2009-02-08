@@ -8,6 +8,10 @@
  * @version    $Id$
  */
 
+require_once 'App/Date.php';
+require_once 'App/Mail/Thread.php';
+require_once 'App/User.php';
+
 /**
  * Mail model
  */

@@ -8,6 +8,9 @@
  * @version    $Id$
  */
 
+require_once 'App/Db/Table/UserNeighborhood.php';
+require_once 'App/User.php';
+
 /**
  * User neighbors model
  */

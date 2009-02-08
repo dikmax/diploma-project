@@ -8,6 +8,9 @@
  * @version    $Id$
  */
 
+require_once 'App/Db/Table/UserFriendship.php';
+require_once 'App/User.php';
+
 /**
  * Not current user friends model
  */

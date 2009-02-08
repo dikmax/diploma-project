@@ -5,8 +5,11 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
+
+require_once 'App/Library/Author.php';
+require_once 'App/Date.php';
 
 /**
  * Author image model
@@ -19,28 +22,28 @@ class App_Library_Author_Image
      * @var int
      */
     protected $_libAuthorImageId;
-    
+
     /**
      * Image author (who's painted)
      *
      * @var App_Library_Author
      */
     protected $_author;
-    
+
     /**
      * Path to image
      *
      * @var string
      */
     protected $_path;
-    
+
     /**
      * Image adding date
      *
      * @var App_Date
      */
     protected $_imageDate;
-    
+
     /**
      * Constructs image object
      * @param array $construct
@@ -61,7 +64,7 @@ class App_Library_Author_Image
         } else if (isset($construct['id'])) {
             $this->_libAuthorImageId = $construct['id'];
         }
-        
+
         // Author
         if (!isset($construct['author'])) {
             throw new App_Library_Author_Image_Exception('author index is required');
@@ -71,24 +74,24 @@ class App_Library_Author_Image
                 . 'instance of App_Library_Author');
         }
         $this->_author = $construct['author'];
-        
+
         // Path
         if (!isset($construct['path']) || !is_string($construct['path'])) {
             throw new App_Library_Author_Image_Exception('path index is required '
                 . 'and must be of a string type');
         }
         $this->_path = $construct['path'];
-        
+
         // Image date
         $this->_imageDate = isset($construct['image_date'])
             ? new App_Date($construct['image_date'])
             : App_Date::now();
     }
-    
+
     /*
      * Setters and getters
      */
-    
+
     /**
      * Returns database id.
      *
@@ -98,7 +101,7 @@ class App_Library_Author_Image
     {
         return $this->_libAuthorImageId;
     }
-    
+
     /**
      * Returns database id (alias for <code>getLibAuthorImageId</code>).
      *
@@ -108,7 +111,7 @@ class App_Library_Author_Image
     {
         return $this->_libAuthorImageId;
     }
-    
+
     /**
      * Returns App_Library_Author
      *
@@ -118,7 +121,7 @@ class App_Library_Author_Image
     {
         return $this->_author;
     }
-    
+
     /**
      * Returns image path
      *
@@ -128,7 +131,7 @@ class App_Library_Author_Image
     {
         return $this->_path;
     }
-    
+
     /**
      * Returns image add date
      *

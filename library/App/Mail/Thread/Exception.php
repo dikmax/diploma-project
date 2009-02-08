@@ -8,6 +8,8 @@
  * @version    $Id$
  */
 
+require_once 'App/Exception.php';
+
 /**
  * App_Mail_Thread exceptions class
  *

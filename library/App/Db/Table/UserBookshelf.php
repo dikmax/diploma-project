@@ -8,6 +8,8 @@
  * @version    $Id$
  */
 
+require_once 'App/Db/Table/Abstract.php';
+
 /**
  * User bookshelf table model
  *
@@ -56,6 +58,7 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
      */
     public function findTitlesByUserId($userId)
     {
+        require_once 'App/User/Bookshelf.php';
         $select = $this->_db->select()
             ->from($this->_name, array())
             ->joinLeftUsing('lib_title', '`lib_title_id`')
@@ -77,6 +80,7 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
      */
     public function getSuggestedTitles($userId)
     {
+        require_once 'App/User/Bookshelf.php';
         $select = $this->_db->select()
             ->from($this->_name, array())
             ->joinLeftUsing('lib_title', '`lib_title_id`')
@@ -329,6 +333,7 @@ class App_Db_Table_UserBookshelf extends App_Db_Table_Abstract
      */
     public function updateSuggestedBooks($userId)
     {
+        require_once 'App/User/Bookshelf.php';
         $this->delete($this->_db->quoteInto('lib_user_id = ?', $userId)
             . $this->_db->quoteInto(' AND relation = ?', App_User_Bookshelf::RELATION_SUGGESTED_BOOK));
 

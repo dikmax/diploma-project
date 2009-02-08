@@ -8,6 +8,8 @@
  * @version    $Id$
  */
 
+require 'Zend/Validate/Abstract.php';
+
 /**
  * User not exists validator
  */

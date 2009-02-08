@@ -8,6 +8,9 @@
  * @version    $Id$
  */
 
+require_once 'Zend/Controller/Router/Route/Abstract.php';
+require_once 'Zend/Config.php';
+
 /**
  * Route for library
  *
@@ -179,6 +182,7 @@ class App_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
 
             case 'ajax':
                 if (!isset($data['action'])) {
+                    require_once 'Zend/Controller/Router/Exception.php';
                     throw new Zend_Controller_Router_Exception('action is not specified');
                 }
                 $result[] = $data['action'];
@@ -210,6 +214,7 @@ class App_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
 
             case 'user':
                 if (!$data['login']) {
+                    require_once 'Zend/Controller/Router/Exception.php';
                     throw new Zend_Controller_Router_Exception('login is not specified');
                 }
                 $result[] = $data['login'];
@@ -249,10 +254,10 @@ class App_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
                 break;
 
             default:
+                require_once 'Zend/Controller/Router/Exception.php';
                 throw new Zend_Controller_Router_Exception('Unknown controller ' . $data['controller']);
-                $result = array('');
         }
 
-        return implode('/', $result);
+        return '/' . implode('/', $result);
     }
 }

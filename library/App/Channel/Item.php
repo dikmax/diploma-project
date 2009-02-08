@@ -5,8 +5,12 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
+
+require_once 'App/Channel.php';
+require_once 'App/Text.php';
+require_once 'App/Date.php';
 
 /**
  * Channel item model
@@ -22,37 +26,37 @@ class App_Channel_Item
      * @var int
      */
     protected $_libChannelItemId;
-    
+
     /**
      * Channel to which item belongs
      *
      * @var App_Channel
      */
     protected $_libChannel;
-    
+
     /**
      * Item text
      *
      * @var App_Text
      */
     protected $_itemText;
-    
+
     /**
      * Item datetime
      *
      * @var App_Date
      */
     protected $_itemDate;
-    
+
     // TODO add author field here
-    
+
     /**
      * <code>true</code> if item is published
      *
      * @var boolean
      */
     protected $_published;
-    
+
     /**
      * Constructs new App_Channel_Item object
      *
@@ -81,17 +85,19 @@ class App_Channel_Item
         } else {
             $this->_libChannelItemId = null;
         }
-        
+
         // libChannel
         if (!isset($construct['lib_channel'])) {
+            require_once 'App/Channel/Item/Exception.php';
             throw new App_Channel_Item_Exception("'lib_channel' index is required.");
         }
         if ($construct['lib_channel'] instanceof App_Channel) {
             $this->_libChannel = $construct['lib_channel'];
         } else {
+            require_once 'App/Channel/Item/Exception.php';
             throw new App_Channel_Item_Exception("'lib_channel' must be instance of App_Channel");
         }
-        
+
         // itemText
         if (isset($construct['item_text'])) {
             if ($construct['item_text'] instanceof App_Text) {
@@ -99,22 +105,23 @@ class App_Channel_Item
             } elseif (is_array($construct['item_text'])) {
                 $this->_itemText = new App_Text($construct['item_text']);
             } else {
+                require_once 'App/Channel/Item/Exception.php';
                 throw new App_Channel_Item_Exception("'item_text' must be '
                     . 'instance of App_Text or array or null");
             }
         } else {
             $this->_itemText = new App_Text(array("text" => ""));
         }
-        
+
         // itemDate
         if (isset($construct['item_date'])) {
             $this->_itemDate = new App_Date($construct['item_date']);
         } else {
             $this->_itemDate = App_Date::now();
         }
-        
+
         // TODO author must be here.
-        
+
         // published
         if (isset($construct['published'])) {
             $this->_published = $construct['published'];
@@ -122,15 +129,16 @@ class App_Channel_Item
             $this->_published = false;
         }
     }
-    
+
     public function write()
     {
         $db = Zend_Registry::get("db");
-        
+
         if ($this->_libChannelItemId === null) {
             // Create new
-            
+
             if ($this->_libChannel === null) {
+                require_once 'App/Channel/Item/Exception.php';
                 throw new App_Channel_Item_Exception("'\$_libChannel' isn't defined.");
             }
             $data = array("lib_channel_id" => $this->_libChannel->getId(),
@@ -145,11 +153,11 @@ class App_Channel_Item
             // TODO write update
         }
     }
-    
+
     /*
      * Setters and getters
      */
-    
+
     /**
      * Returns database id
      *
@@ -159,7 +167,7 @@ class App_Channel_Item
     {
         return $this->_libChannelItemId;
     }
-    
+
     /**
      * Returns database id (alias for <code>getLibChannelItemId</code>)
      *
@@ -169,7 +177,7 @@ class App_Channel_Item
     {
         return $this->_libChannelItemId;
     }
-    
+
     /**
      * Returns channel to which item belongs
      *
@@ -179,7 +187,7 @@ class App_Channel_Item
     {
         return $this->_libChannel;
     }
-    
+
     /**
      * Returns item text
      *
@@ -189,7 +197,7 @@ class App_Channel_Item
     {
         return $this->_itemText;
     }
-    
+
     /**
      * Returns item date
      *
@@ -199,7 +207,7 @@ class App_Channel_Item
     {
         return $this->_itemDate;
     }
-    
+
     /**
      * Returns item published state
      *

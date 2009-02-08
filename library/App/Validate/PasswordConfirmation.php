@@ -8,6 +8,8 @@
  * @version    $Id$
  */
 
+require 'Zend/Validate/Abstract.php';
+
 /**
  * Password confirmation validator
  */

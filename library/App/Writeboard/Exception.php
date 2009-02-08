@@ -5,8 +5,10 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
+
+require_once 'App/Exception.php';
 
 /**
  * App_Writeboard exceptions class
@@ -16,5 +18,5 @@
  */
 class App_Writeboard_Exception extends App_Exception
 {
-    
+
 }

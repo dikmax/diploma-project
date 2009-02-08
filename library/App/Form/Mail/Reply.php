@@ -8,6 +8,14 @@
  * @version    $Id$
  */
 
+require_once 'Zend/Form.php';
+require_once 'Zend/Form/Decorator/Description.php';
+require_once 'Zend/Form/Decorator/Errors.php';
+require_once 'Zend/Form/Decorator/HtmlTag.php';
+require_once 'Zend/Form/Decorator/ViewHelper.php';
+require_once 'Zend/Form/Element/Submit.php';
+require_once 'Zend/Form/Element/Textarea.php';
+
 /**
  * Mail reply form
  */

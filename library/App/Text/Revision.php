@@ -8,6 +8,10 @@
  * @version    $Id$
  */
 
+require_once 'App/Date.php';
+require_once 'App/Text.php';
+require_once 'App/User.php';
+
 /**
  * Text revision model class. Internal use only
  *
@@ -123,6 +127,7 @@ class App_Text_Revision
         // lib_text_id
         if (isset($construct['lib_text'])) {
             if (!($construct['lib_text'] instanceof App_Text)) {
+                require_once 'App/Text/Revision/Exception.php';
                 throw new App_Text_Revision_Exception("'lib_text' index must be instance of App_Text or null");
             }
             $this->_libText = $construct['lib_text'];
@@ -133,6 +138,7 @@ class App_Text_Revision
         // Dependent table lib_text_revision_content
         if (isset($construct['content_id'])) {
             if (!is_numeric($construct['content_id'])) {
+                require_once 'App/Mail/Thread/Exception.php';
                 throw new App_Text_Revision_Exception("'content_id' index must be int or null");
             }
             $this->_contentId = $construct['content_id'];
@@ -155,6 +161,7 @@ class App_Text_Revision
             $this->_revision = 1;
         } else {
             if (!is_numeric($construct['revision'])) {
+                require_once 'App/Mail/Thread/Exception.php';
                 throw new App_Text_Revision_Exception("'revision' index must be integer");
             }
             $this->_revision = $construct['revision'];
@@ -180,6 +187,7 @@ class App_Text_Revision
         // changes
         if (isset($construct['changes'])) {
             if (!is_string($construct['changes'])) {
+                require_once 'App/Mail/Thread/Exception.php';
                 throw new App_Text_Revision_Exception("'changes' index must be string or null");
             }
             $this->_changes = $construct['changes'];
@@ -214,9 +222,12 @@ class App_Text_Revision
             // Creating revision
 
             if (!$this->_authorId) {
+                require_once 'App/Mail/Thread/Exception.php';
                 throw new App_Text_Revision_Exception('Guest user can\'t edit texts');
             }
+            require_once 'App/Db/Table/TextRevision.php';
             $table = new App_Db_Table_TextRevision();
+            require_once 'App/Db/Table/TextRevisionContent.php';
             $tableContent = new App_Db_Table_TextRevisionContent();
 
             // Creating 'lib_text_revision_content' record
@@ -248,6 +259,7 @@ class App_Text_Revision
 
             $this->_libTextRevisionId = $table->insert($data);
         } else {
+            require_once 'App/Text/Revision/Exception.php';
             throw new App_Text_Revision_Exception('Revision could not be updated');
         }
     }
@@ -261,14 +273,17 @@ class App_Text_Revision
     public function writeLibTextId()
     {
         if (!isset($this->_libText)) {
+            require_once 'App/Db/Table/TextRevision.php';
             throw new App_Text_Revision_Exception('$_libText isn\'t set');
         }
         if ($this->_libText->getId() === null) {
+            require_once 'App/Db/Table.php';
             throw new App_Text_Exception("lib_text_id isn't set");
         }
         $data = array('lib_text_id' => $this->_libText->getId());
 
         $db = Zend_Registry::get('db');
+        require_once 'App/Db/Table/TextRevision.php';
         $table = new App_Db_Table_TextRevision();
         $table->update($data,
             $db->quoteInto("lib_text_revision_id = ?", $this->_libTextRevisionId));

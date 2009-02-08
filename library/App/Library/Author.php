@@ -8,6 +8,10 @@
  * @version    $Id$
  */
 
+require_once 'App/Library/Author/Image.php';
+require_once 'App/Text.php';
+require_once 'App/Writeboard.php';
+
 /**
  * Library Author model
  */
@@ -221,9 +225,11 @@ class App_Library_Author
     public static function getByName($authorName)
     {
         if (!is_string($authorName)) {
+            require_once 'App/Library/Exception.php';
             throw new App_Library_Exception('Author name must be a string');
         }
 
+        require_once 'App/Db/Table/Author.php';
         $table = new App_Db_Table_Author();
         $row = $table->getAuthorByName($authorName);
         if ($row === false) {
@@ -243,9 +249,11 @@ class App_Library_Author
     public static function getById($authorId)
     {
         if (!is_numeric($authorId)) {
+            require_once 'App/Library/Exception.php';
             throw new App_Library_Exception('Id must be a number');
         }
 
+        require_once 'App/Db/Table/Author.php';
         $table = new App_Db_Table_Author();
         $row = $table->find($authorId);
         if ($row === false) {
@@ -260,6 +268,7 @@ class App_Library_Author
      */
     public function updateSimilar()
     {
+        require_once 'App/Db/Table/AuthorSimilar.php';
         $similarTable = new App_Db_Table_AuthorSimilar();
         $similarTable->updateSimilar($this->_libAuthorId);
     }
@@ -397,6 +406,7 @@ class App_Library_Author
     {
         if ($this->_frontImage === null) {
             if ($this->_libAuthorId === null) {
+                require_once 'App/Library/Author/Exception.php';
                 throw new App_Library_Author_Exception('_libAuthorId isn\'t defined');
             }
             $db = Zend_Registry::get('db');

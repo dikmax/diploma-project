@@ -55,12 +55,12 @@ class FriendsController extends Zend_Controller_Action
 
         if ($this->_topMenu->isEmpty()) {
             $this->_topMenu->addItem('list', 'Друзья',
-                $this->_helper->url->url(array(
+                $this->view->url(array(
                     'action' => 'list',
                     'user' => ''
                 )));
             $this->_topMenu->addItem('friend-requests', 'Предложения дружбы',
-                $this->_helper->url->url(array(
+                $this->view->url(array(
                     'action' => 'requests',
                     'user' => ''
                 )));
@@ -72,7 +72,7 @@ class FriendsController extends Zend_Controller_Action
      */
     protected function redirectToList()
     {
-        $this->_redirect($this->_helper->url->url(array(
+        $this->_redirect($this->view->url(array(
             'action' => 'list',
             'user' => ''
         )));

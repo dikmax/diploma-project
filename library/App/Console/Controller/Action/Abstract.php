@@ -1,4 +1,19 @@
 <?php
+/**
+ * Books social network
+ *
+ * LICENSE: Closed source
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id:$
+ */
+
+/**
+ * Console controller action abstract
+ *
+ * @copyright  2008 Maxim Dikun
+ * @version    Release: 0.0.1
+ */
 abstract class App_Console_Controller_Action_Abstract
 {
     /**
@@ -50,4 +65,3 @@ abstract class App_Console_Controller_Action_Abstract
         return '';
     }
 }
-?>

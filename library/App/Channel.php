@@ -5,8 +5,10 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
+
+require_once 'App/Channel/Item.php';
 
 /**
  * Channel model
@@ -22,21 +24,21 @@ class App_Channel
      * @var int
      */
     protected $_libChannelId;
-    
+
     /**
      * Channel name
      *
      * @var string
      */
     protected $_name;
-    
+
     /**
      * Channel description
      *
      * @var string
      */
     protected $_desctipion;
-    
+
     /**
      * Constructs new channel object
      *
@@ -60,14 +62,14 @@ class App_Channel
         } else {
             $this->_libChannelId = null;
         }
-        
+
         // Name
         if (isset($construct['name'])) {
             $this->_name = $construct['name'];
         } else {
             $this->_name = '';
         }
-        
+
         // Description
         if (isset($construct['description'])) {
             $this->_desctipion = $construct['description'];
@@ -75,7 +77,7 @@ class App_Channel
             $this->_desctipion = '';
         }
     }
-    
+
     /**
      * Get channel with specified id from db
      *
@@ -91,28 +93,29 @@ class App_Channel
             throw new App_Channel_Exception('First parameter to '
                 . 'App_Channel::read() must be int');
         }
-        
+
         $db = Zend_Registry::get("db");
-        
+
         $row = $db->fetchRow('SELECT lib_channel_id, name, description '
              . 'FROM lib_channel '
              . 'WHERE lib_channel_id = :lib_channel_id',
             array(':lib_channel_id' => $id));
 
         if ($row === false) {
+            require_once 'App/Channel/Exception.php';
             throw new App_Channel_Exception('Channel with id=' . $id
                 . ' doesn\'t exists');
         }
-        
+
         return new App_Channel($row);
     }
-    
+
     /**
      * Writes channel to database
      */
     public function write() {
         $db = Zend_Registry::get("db");
-        
+
         if ($this->_libChannelId === null) {
             // Creating new channel
             $data = array("name" => $this->_name,
@@ -124,7 +127,7 @@ class App_Channel
             // TODO write update channel
         }
     }
-    
+
     /**
      * Return all items from channel
      *
@@ -144,7 +147,7 @@ class App_Channel
             . 'LEFT JOIN lib_text_revision_content c USING (lib_text_revision_content_id) '
             . 'WHERE i.lib_channel_id = :lib_channel_id',
             array(':lib_channel_id' => $this->_libChannelId));
-        
+
         $result = array();
         foreach ($items as $i) {
             $revision = array(
@@ -170,14 +173,14 @@ class App_Channel
             );
             $result[] = new App_Channel_Item($item);
         }
-        
+
         return $result;
     }
-    
+
     /*
      * Setters and getters
      */
-    
+
     /**
      * Returns database id
      *
@@ -187,7 +190,7 @@ class App_Channel
     {
         return $this->_libChannelId;
     }
-    
+
     /**
      * Returns database id (alias for <code>getLibChannelId</code>
      *
@@ -197,7 +200,7 @@ class App_Channel
     {
         return $this->_libChannelId;
     }
-    
+
     /**
      * Returns channel name
      *
@@ -207,7 +210,7 @@ class App_Channel
     {
         return $this->_name;
     }
-    
+
     /**
      * Returns channel description
      *

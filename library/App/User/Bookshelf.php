@@ -8,6 +8,11 @@
  * @version    $Id$
  */
 
+require_once 'App/Acl/Resource/Abstract.php';
+require_once 'App/Library/Title.php';
+require_once 'App/Tag/Cloud/Reader/Interface.php';
+require_once 'App/User.php';
+
 /**
  * App_User_Bookshelf description
  */
@@ -67,13 +72,16 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
             if ($construct['user'] instanceof App_User) {
                 $this->_user = $construct['user'];
             } else {
+                require_once 'App/User/Bookshelf/Exception.php';
                 throw new App_User_Bookshelf_Exception('user index must be instance of App_User');
             }
         } else {
+            require_once 'App/Db/Table/TextRevision.php';
             throw new App_User_Bookshelf_Exception('user index is obligatory');
         }
 
         if ($this->_user->getId() === null) {
+            require_once 'App/Db/Table/TextRevision.php';
             throw new App_User_Bookshelf_Exception('User id isn\'t set');
         }
 
@@ -97,6 +105,7 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
     public function getTitles()
     {
         if ($this->_titles === null) {
+            require_once 'App/Db/Table/UserBookshelf.php';
             $table = new App_Db_Table_UserBookshelf();
 
             $titles = $table->findTitlesByUserId($this->_user->getId());
@@ -111,6 +120,7 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
 
     public function getSuggestedTitles()
     {
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
 
         $titles = $table->getSuggestedTitles($this->_user->getId());
@@ -132,6 +142,7 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
      */
     public function getTitlesMarks($markCast = true)
     {
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
 
         return $table->getMarks($this->_user->getId(), $markCast);
@@ -144,6 +155,7 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
      */
     public function addTitle(App_Library_Title $title)
     {
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
         $table->insert(array(
             'lib_user_id' => $this->_user->getId(),
@@ -170,6 +182,7 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
             . 'GROUP BY lib_tag_id',
             array(':lib_user_id' => $this->_user->getId()));
 
+        require_once 'App/Tag/Cloud/Collection.php';
         $result = new App_Tag_Cloud_Collection();
         foreach ($tags as $tag) {
             $result[$tag['lib_tag_id']] = new App_Tag_Data($tag['lib_tag_id'], $tag['name'], $tag['count']);
@@ -195,6 +208,7 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
             throw new App_User_Bookshelf_Exception('$title mustbe instance of App_Library_Title or int');
         }
 
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
         $mark = $table->getMark($this->_user->getId(), $titleId);
 
@@ -219,9 +233,11 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
         } else if (is_numeric($title)) {
             $titleId = (int)$title;
         } else {
+            require_once 'App/User/Bookshelf/Exception.php';
             throw new App_User_Bookshelf_Exception('$title mustbe instance of App_Library_Title or int');
         }
 
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
         $table->setMark($this->_user->getId(), $titleId, $mark);
     }
@@ -238,9 +254,11 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
         } else if (is_numeric($title)) {
             $titleId = (int)$title;
         } else {
+            require_once 'App/User/Bookshelf/Exception.php';
             throw new App_User_Bookshelf_Exception('$title mustbe instance of App_Library_Title or int');
         }
 
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
         $table->removeMark($this->_user->getId(), $titleId);
     }
@@ -250,6 +268,7 @@ class App_User_Bookshelf extends App_Acl_Resource_Abstract implements App_Tag_Cl
      */
     public function updateSuggestedBooks()
     {
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
         $table->updateSuggestedBooks($this->_user->getId());
     }

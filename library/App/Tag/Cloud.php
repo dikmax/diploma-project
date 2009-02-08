@@ -5,8 +5,11 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
+
+require_once 'App/Tag/Cloud/Reader/Interface.php';
+require_once 'App/Tag/Cloud/Writer/Interface.php';
 
 /**
  * App_Tag_Cloud description

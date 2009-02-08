@@ -8,6 +8,9 @@
  * @version    $Id$
  */
 
+require_once 'App/Db/Table/User.php';
+require_once 'App/User.php';
+
 /**
  * Factory for saving users for later reuse
  *
@@ -56,9 +59,12 @@ class App_User_Factory
 
     /**
      * Prevents from cloning
+     *
+     * @throws App_User_Factory_Exception
      */
     private function __clone()
     {
+        require_once 'App/User/Factory/Exception.php';
         throw new App_User_Factory_Exception("Clone isn't allowed");
     }
 
@@ -144,6 +150,7 @@ class App_User_Factory
                 return null;
             }
         } else {
+            require_once 'App/User/Factory/Exception.php';
             throw new App_User_Factory_Exception('First parameter to '
                 . 'App_User_Factory::get() must be int or string');
         }

@@ -1,4 +1,21 @@
 <?php
+/**
+ * Books social network
+ *
+ * LICENSE: Closed source
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id:$
+ */
+
+require_once 'App/Console/Controller/Action/Abstract.php';
+
+/**
+ * Console controller
+ *
+ * @copyright  2008 Maxim Dikun
+ * @version    Release: 0.0.1
+ */
 class App_Console_Controller
 {
     /**
@@ -52,7 +69,9 @@ class App_Console_Controller
 
                     if (!$reflectionClass->isSubclassOf(
                             new ReflectionClass('App_Console_Controller_Action_Abstract')
-                        )) {
+                        ))
+                    {
+                        require_once 'App/Console/Controller/Exception.php';
                         throw new App_Console_Controller_Exception($className
                             . ' must be subclass of App_Console_Controller_Action_Abstract');
                     }
@@ -79,6 +98,7 @@ class App_Console_Controller
         $result = array();
         foreach ($registeredControllers as $controller => $params) {
             if (!$controller['long']) {
+                require_once 'App/Console/Controller/Exception.php';
                 throw new App_Console_Controller_Exception('Long description for '
                     . $controller . ' must be defined.');
             }
@@ -116,6 +136,7 @@ class App_Console_Controller
         }
 
         if (!$found) {
+            require_once 'App/Console/Controller/Exception.php';
             throw new App_Console_Controller_Exception('Action ' . $longAction
                 . ' isn\'t registered');
         }
@@ -155,4 +176,3 @@ class App_Console_Controller
         return $this->_registeredControllers;
     }
 }
-?>

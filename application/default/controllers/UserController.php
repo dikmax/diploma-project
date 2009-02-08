@@ -56,17 +56,17 @@ class UserController extends Zend_Controller_Action
 
         $this->_topMenu = $this->view->getHelper('topMenu');
         $this->_topMenu->addItem('profile', 'Профиль',
-            $this->_helper->url->url(array('action' => 'profile')));
+            $this->view->url(array('action' => 'profile')));
         $this->_topMenu->addItem('friends', 'Друзья',
-            $this->_helper->url->url(array('action' => 'friends')));
+            $this->view->url(array('action' => 'friends')));
         $this->_topMenu->addItem('neighbors', 'Соседи',
-            $this->_helper->url->url(array('action' => 'neighbors')));
+            $this->view->url(array('action' => 'neighbors')));
         $this->_topMenu->addItem('bookshelf', 'Книжная полка',
-            $this->_helper->url->url(array('action' => 'bookshelf')));
+            $this->view->url(array('action' => 'bookshelf')));
         $this->_topMenu->addItem('suggestions', 'Рекоммендации',
-            $this->_helper->url->url(array('action' => 'suggestions')));
+            $this->view->url(array('action' => 'suggestions')));
         $this->_topMenu->addItem('blog', 'Блог',
-            $this->_helper->url->url(array('action' => 'blog')));
+            $this->view->url(array('action' => 'blog')));
     }
 
     /**

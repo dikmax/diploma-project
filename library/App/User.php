@@ -8,6 +8,15 @@
  * @version    $Id$
  */
 
+require_once 'App/Date.php';
+require_once 'App/Mail.php';
+require_once 'App/User/Bookshelf.php';
+require_once 'App/User/Friends.php';
+require_once 'App/User/Neighbors.php';
+require_once 'App/User/OtherFriends.php';
+require_once 'App/Writeboard.php';
+require_once 'Zend/Acl/Role/Interface.php';
+
 /**
  * User model
  *
@@ -117,6 +126,8 @@ class App_User implements Zend_Acl_Role_Interface
 
     /**
      * User neighbors
+     *
+     * @var App_User_Neighbors
      */
     protected $_neighbors;
 
@@ -227,6 +238,7 @@ class App_User implements Zend_Acl_Role_Interface
      */
     public function __sleep()
     {
+        require_once 'App/Exception.php';
         throw new App_Exception("App_User serialization isn't allowed.");
     }
 
@@ -252,6 +264,7 @@ class App_User implements Zend_Acl_Role_Interface
                 $this->_writeboard = $writeboard;
             }
 
+            require_once 'App/Db/Table/User.php';
             $userTable = new App_Db_Table_User();
             $insertId = $userTable->insert(array(
                 'login' => $this->_login,

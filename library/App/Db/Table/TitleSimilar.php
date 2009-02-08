@@ -8,6 +8,8 @@
  * @version    $Id$
  */
 
+require_once 'App/Db/Table/Abstract.php';
+
 /**
  * Similar titles table model
  *
@@ -57,8 +59,10 @@ class App_Db_Table_TitleSimilar extends App_Db_Table_Abstract
     public function updateSimilar($titleId)
     {
         if (!is_numeric($titleId)) {
+            require_once 'App/Exception.php';
             throw new App_Exception('titleId is not numeric');
         }
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
         $titles = $table->getSimilarTitles($titleId);
 

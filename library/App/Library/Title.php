@@ -8,6 +8,10 @@
  * @version    $Id$
  */
 
+require_once 'App/Library/Author.php';
+require_once 'App/Text.php';
+require_once 'App/Writeboard.php';
+
 /**
  * Library Title model
  */
@@ -266,6 +270,7 @@ class App_Library_Title
     public static function getByName($authorName, $titleName)
     {
         if (!is_string($titleName)) {
+            require_once 'App/Library/Exception.php';
             throw new App_Library_Exception('Title url must be string');
         }
 
@@ -276,6 +281,7 @@ class App_Library_Title
         }
         $authorId = $author->getId();
 
+        require_once 'App/Db/Table/Title.php';
         $table = new App_Db_Table_Title();
         $row = $table->getTitleByName($authorId, $titleName);
 
@@ -296,9 +302,11 @@ class App_Library_Title
     public static function getById($titleId)
     {
         if (!is_numeric($titleId)) {
+            require_once 'App/Library/Exception.php';
             throw new App_Library_Exception('Id must be a number');
         }
 
+        require_once 'App/Db/Table/Title.php';
         $table = new App_Db_Table_Title();
         $row = $table->find($titleId);
         if ($row === false) {
@@ -313,6 +321,7 @@ class App_Library_Title
      */
     public function updateSimilar()
     {
+        require_once 'App/Db/Table/TitleSimilar.php';
         $similarTable = new App_Db_Table_TitleSimilar();
         $similarTable->updateSimilar($this->_libTitleId);
     }
@@ -504,6 +513,7 @@ class App_Library_Title
     public function getSimilarTitles()
     {
         if ($this->_similarTitles === null) {
+            require_once 'App/Db/Table/TitleSimilar.php';
             $table = new App_Db_Table_TitleSimilar();
             $titles = $table->getTitles($this->_libTitleId);
 

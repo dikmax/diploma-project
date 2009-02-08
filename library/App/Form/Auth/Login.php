@@ -8,6 +8,13 @@
  * @version    $Id$
  */
 
+require_once 'App/Form/Table.php';
+require_once 'Zend/Form/Decorator/ViewHelper.php';
+require_once 'Zend/Form/Decorator/HtmlTag.php';
+require_once 'Zend/Form/Element/Text.php';
+require_once 'Zend/Form/Element/Password.php';
+require_once 'Zend/Form/Element/Submit.php';
+
 /**
  * Auth login form
  */

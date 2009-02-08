@@ -5,8 +5,10 @@
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
+
+require_once 'Zend/Acl/Assert/Interface.php';
 
 /**
  * Class for checking is current page belongs to current user

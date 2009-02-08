@@ -8,6 +8,10 @@
  * @version    $Id$
  */
 
+require_once 'App/Db/Table/MailMessage.php';
+require_once 'App/Db/Table/MailThread.php';
+require_once 'App/User.php';
+
 /**
  * Mail thread model
  */
@@ -135,6 +139,7 @@ class App_Mail_Thread
             $this->_user1 = $construct['user1'];
             $this->_user1Id = $this->_user1->getId();
         } else {
+            require_once 'App/Mail/Thread/Exception.php';
             throw new App_Mail_Thread_Exception('user1 not defined');
         }
 
@@ -148,6 +153,7 @@ class App_Mail_Thread
             $this->_user2 = $construct['user2'];
             $this->_user2Id = $this->_user2->getId();
         } else {
+            require_once 'App/Mail/Thread/Exception.php';
             throw new App_Mail_Thread_Exception('user2 not defined');
         }
 
@@ -206,6 +212,7 @@ class App_Mail_Thread
     public function addMessage($isFirstUser, $message, $setActive = true)
     {
         if ($this->_libMailThreadId === null) {
+            require_once 'App/Mail/Thread/Exception.php';
             throw new App_Mail_Thread_Exception('This thread isn\'t saved');
         }
         $this->_messageTable->insert(array(
@@ -236,6 +243,7 @@ class App_Mail_Thread
      */
     public function getMessages() {
         if ($this->_libMailThreadId === null) {
+            require_once 'App/Mail/Thread/Exception.php';
             throw new App_Mail_Thread_Exception('This thread isn\'t saved');
         }
 
@@ -254,6 +262,7 @@ class App_Mail_Thread
      */
     public function markAsRead($first) {
         if ($this->_libMailThreadId === null) {
+            require_once 'App/Mail/Thread/Exception.php';
             throw new App_Mail_Thread_Exception('This thread isn\'t saved');
         }
 

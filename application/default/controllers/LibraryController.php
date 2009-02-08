@@ -96,7 +96,7 @@ class LibraryController extends Zend_Controller_Action
 
         if ($this->_type === self::AUTHOR_PAGE || $this->_type === self::TITLE_PAGE) {
             $this->_topMenu->addItem('overview', 'Обзор',
-                $this->_helper->url->url(array(
+                $this->view->url(array(
                     'action' => 'overview',
                     'author' => $this->_authorUrl,
                     'title' => $this->_titleUrl
@@ -105,12 +105,12 @@ class LibraryController extends Zend_Controller_Action
 
         if ($this->_type === self::AUTHOR_PAGE) {
             $this->_topMenu->addItem('wiki', 'Биография',
-                $this->_helper->url->url(array(
+                $this->view->url(array(
                     'action' => 'wiki',
                     'author' => $this->_authorUrl
                 )));
             $this->_topMenu->addItem('books', 'Книги',
-                $this->_helper->url->url(array(
+                $this->view->url(array(
                     'action' => 'books',
                     'author' => $this->_authorUrl
                 )));
@@ -118,13 +118,13 @@ class LibraryController extends Zend_Controller_Action
 
         if ($this->_type === self::TITLE_PAGE) {
             $this->_topMenu->addItem('wiki', 'Описание',
-                $this->_helper->url->url(array(
+                $this->view->url(array(
                     'action' => 'wiki',
                     'author' => $this->_authorUrl,
                     'title' => $this->_titleUrl
                 )));
             $this->_topMenu->addItem('similar', 'Похожие книги',
-                $this->_helper->url->url(array(
+                $this->view->url(array(
                     'action' => 'similar',
                     'author' => $this->_authorUrl,
                     'title' => $this->_titleUrl

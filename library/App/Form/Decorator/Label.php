@@ -8,6 +8,9 @@
  * @version    $Id$
  */
 
+require_once 'Zend/Form/Decorator/HtmlTag.php';
+require_once 'Zend/Form/Decorator/Label.php';
+
 /**
  * Custom label decorator with ability to apply custom class to block tag
  */

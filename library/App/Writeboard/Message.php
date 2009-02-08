@@ -8,6 +8,10 @@
  * @version    $Id$
  */
 
+require_once 'App/Acl/Resource/Abstract.php';
+require_once 'App/User.php';
+require_once 'App/Writeboard.php';
+
 /**
  * Writeboard message model
  */
@@ -109,10 +113,12 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
                 $this->_writeboardId = $construct['writeboard'];
                 $this->_writeboard = null;
             } else {
+                require_once 'App/Writeboard/Message/Exception.php';
                 throw new App_Writeboard_Message_Exception("'writeboard' index "
                     . "must be int or instance of App_Writeboard");
             }
         } else {
+            require_once 'App/Writeboard/Message/Exception.php';
             throw new App_Writeboard_Message_Exception("Can't create message "
                 . "deattached from writeboard.");
         }
@@ -142,6 +148,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
                     "readonly" => true
                 ));*/
             } else {
+                require_once 'App/Writeboard/Message/Exception.php';
                 throw new App_Writeboard_Message_Exception("'writeboard_writer' "
                     . "index must be intanceof App_User or int");
             }
@@ -169,6 +176,7 @@ class App_Writeboard_Message extends App_Acl_Resource_Abstract
      */
     public function write()
     {
+        require_once 'App/Db/Table/WriteboardMessage.php';
         $table = new App_Db_Table_WriteboardMessage();
 
         if ($this->_libWriteboardMessageId === null) {

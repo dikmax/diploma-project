@@ -8,6 +8,9 @@
  * @version    $Id$
  */
 
+require_once 'App/Library/Title.php';
+require_once 'Zend/View.php';
+
 /**
  * View with integrated helpers
  */
@@ -88,7 +91,7 @@ class App_View extends Zend_View
         if ($extraparams !== null) {
             $params['extraparams'] = $extraparams;
         }
-        return $this->url($params);
+        return $this->url($params, true);
     }
 
     /**

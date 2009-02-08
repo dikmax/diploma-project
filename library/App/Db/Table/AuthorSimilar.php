@@ -1,12 +1,14 @@
-<?php
+v<?php
 /**
  * Books social network
  *
  * LICENSE: Closed source
  *
  * @copyright  2008 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
+
+require_once 'App/Db/Table/Abstract.php';
 
 /**
  * Similar authors table model
@@ -59,6 +61,7 @@ class App_Db_Table_AuthorSimilar extends App_Db_Table_Abstract
         if (!is_numeric($authorId)) {
             throw new App_Exception('authorId must be numeric');
         }
+        require_once 'App/Db/Table/UserBookshelf.php';
         $table = new App_Db_Table_UserBookshelf();
         $authors = $table->getSimilarAuthors($authorId);
 

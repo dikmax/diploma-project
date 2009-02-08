@@ -6,6 +6,9 @@
  * @version    $Id$
  */
 
+require_once 'App/User/Factory.php';
+require_once 'Zend/Registry.php';
+
 /**
  *
  * Initializes configuration depending on the type of environment
@@ -152,6 +155,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     public function dispatchLoopShutdown ()
     {
         if ($this->_envDevelopment) {
+            require_once 'Zend/Wildfire/Plugin/FirePhp.php';
             Zend_Wildfire_Plugin_FirePhp::send('Execution time: '
                 . (string)round(microtime(true) - $this->_startMicrotime, 5) . ' sec');
             Zend_Wildfire_Plugin_FirePhp::send('Memory usage: '
@@ -185,12 +189,15 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         Zend_Locale::setDefault("ru_RU");
 
         // Config
+        require_once 'Zend/Config.php';
         self::$_config = new Zend_Config(require 'config.php');
         Zend_Registry::set('config', self::$_config);
     }
 
     public function initSession()
     {
+        require_once 'Zend/Session.php';
+        require_once 'Zend/Session/Namespace.php';
         Zend_Session::setOptions(self::$_config->session->toArray());
         Zend_Session::start();
         $session = new Zend_Session_Namespace();
@@ -219,9 +226,17 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         if ($this->_envDevelopment) {
             $backendOptions['cache_file_umask'] = 0666;
         }
+
+        require_once 'Zend/Cache/Backend/File.php';
+        require_once 'Zend/Cache/Core.php';
+        require_once 'Zend/Cache.php';
         $this->_cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
         // TODO delete this registry key
         Zend_Registry::set('cache', $this->_cache);
+
+        // App_Date speedup
+        require_once 'App/Date.php';
+        App_Date::setOptions(array('cache' => $this->_cache));
     }
 
     /**
@@ -231,10 +246,10 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initDb()
     {
-        // App_Date speedup
-        App_Date::setOptions(array('cache' => $this->_cache));
-
         // Connection to database
+        require_once 'Zend/Db.php';
+        require_once 'Zend/Db/Adapter/Pdo/Mysql.php';
+        require_once 'Zend/Db/Table/Abstract.php';
         $db = Zend_Db::factory(self::$_config->database);
         Zend_Db_Table_Abstract::setDefaultAdapter($db);
         Zend_Db_Table_Abstract::setDefaultMetadataCache($this->_cache);
@@ -244,6 +259,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         Zend_Registry::set('db', $db);
 
         if ($this->_envDevelopment && !$this->_envConsole) {
+            require_once 'Zend/Db/Profiler/Firebug.php';
             $profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
             $profiler->setEnabled(true);
             $db->setProfiler($profiler);
@@ -257,6 +273,11 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initAcl()
     {
+        require_once 'Zend/Acl.php';
+        require_once 'Zend/Acl/Role.php';
+        require_once 'Zend/Acl/Resource.php';
+        require_once 'App/Acl/Assert/CurrentUser.php';
+
         if ($this->_aclNoCache || !($acl = $this->_cache->load('acl'))) {
             $acl = new Zend_Acl();
 
@@ -316,6 +337,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initHelpers()
     {
+        require_once 'Zend/Controller/Action/HelperBroker.php';
         // register the default action helpers
         Zend_Controller_Action_HelperBroker::addPath('../application/default/helpers',
             'App_Controller_Action_Helper');
@@ -328,15 +350,22 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initView()
     {
+        require_once 'App/View.php';
         $this->_view = new App_View();
         $this->_view->addHelperPath($this->_root . '/application/default/views/helpers', 'App_View_Helper');
+
+        require_once 'Zend/Controller/Action/Helper/ViewRenderer.php';
         $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
         $viewRenderer->setView($this->_view);
         $this->_view->headTitle('Librarian')
              ->setSeparator(' / ');
+
+        require_once 'Zend/View/Helper/Doctype.php';
         $doctypeHelper = new Zend_View_Helper_Doctype();
         $doctypeHelper->doctype('XHTML1_STRICT');
         Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+
+        require_once 'ZendX/JQuery.php';
         ZendX_JQuery::enableView($this->_view);
         $jQuery = $this->_view->jQuery();
 
@@ -346,6 +375,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             ->addJavascriptFile('/scripts/init.js');
 
         // Bootstrap layouts
+        require_once 'Zend/Layout.php';
         Zend_Layout::startMvc(array(
             'layoutPath' => $this->_root .  '/application/default/layouts',
             'layout' => 'default'
@@ -373,6 +403,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         $router = $this->_front->getRouter();
         $router->removeDefaultRoutes();
 
+        require_once 'App/Controller/Router/Route.php';
         $route = new App_Controller_Router_Route();
         $this->_view->setRoute($route);
 

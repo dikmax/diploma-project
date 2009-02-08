@@ -8,6 +8,9 @@
  * @version    $Id$
  */
 
+require_once 'App/Console/Controller.php';
+require_once 'Zend/Console/Getopt.php';
+
 /**
  * Object for controll console actions
  *

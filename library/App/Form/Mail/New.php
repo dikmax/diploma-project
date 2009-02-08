@@ -8,6 +8,14 @@
  * @version    $Id$
  */
 
+require_once 'App/Form/Table.php';
+require_once 'Zend/Filter/StringTrim.php';
+require_once 'Zend/Form/Decorator/HtmlTag.php';
+require_once 'Zend/Form/Decorator/ViewHelper.php';
+require_once 'Zend/Form/Element/Submit.php';
+require_once 'Zend/Form/Element/Text.php';
+require_once 'Zend/Form/Element/Textarea.php';
+
 /**
  * New mail form
  */

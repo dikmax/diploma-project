@@ -8,6 +8,8 @@
  * @version    $Id$
  */
 
+require_once 'Zend/Date.php';
+
 /**
  * Date object with additional methods
  *
@@ -47,6 +49,7 @@ class App_Date extends Zend_Date
      */
     public static function fromMysqlString($string) {
         if (!is_string($string)) {
+            require_once 'App/Date/Exception.php';
             throw new App_Date_Exception("fromMysqlString must be used with string");
         }
         return new App_Date($string, 'Y-M-d H:m:s');

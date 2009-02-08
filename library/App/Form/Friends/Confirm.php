@@ -8,6 +8,13 @@
  * @version    $Id$
  */
 
+require_once 'Zend/Form.php';
+require_once 'Zend/Form/Decorator/Form.php';
+require_once 'Zend/Form/Decorator/FormElements.php';
+require_once 'Zend/Form/Decorator/HtmlTag.php';
+require_once 'Zend/Form/Decorator/ViewHelper.php';
+require_once 'Zend/Form/Element/Submit.php';
+
 /**
  * Send friendship request confirmation
  */

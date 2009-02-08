@@ -8,6 +8,14 @@
  * @version    $Id$
  */
 
+require_once 'Zend/Form.php';
+require_once 'Zend/Form/Decorator/Abstract.php';
+require_once 'Zend/Form/Decorator/FormElements.php';
+require_once 'Zend/Form/Decorator/FormErrors.php';
+require_once 'Zend/Form/Decorator/HtmlTag.php';
+require_once 'Zend/Form/Decorator/Label.php';
+require_once 'Zend/Form/Decorator/ViewHelper.php';
+
 /**
  * Form with table layout
  */
