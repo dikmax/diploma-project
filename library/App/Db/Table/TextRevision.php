@@ -16,7 +16,7 @@ require_once 'App/Db/Table/Abstract.php';
  * @author dikmax
  * @version
  */
-class App_Db_Table_TextRevision extends App_Db_Table_Abstractv
+class App_Db_Table_TextRevision extends App_Db_Table_Abstract
 {
     /**
      * The default table name

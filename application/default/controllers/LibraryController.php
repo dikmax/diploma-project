@@ -138,13 +138,13 @@ class LibraryController extends Zend_Controller_Action
     protected function initWikiMenu()
     {
         $this->_topMenu->addItem('edit', 'Править',
-            $this->_helper->url->url(array(
+            $this->view->url(array(
                 'action' => 'wiki-edit',
                 'author' => $this->_authorUrl,
                 'title' => $this->_titleUrl
             )), true);
         $this->_topMenu->addItem('history', 'История',
-            $this->_helper->url->url(array(
+            $this->view->url(array(
                 'action' => 'wiki-history',
                 'author' => $this->_authorUrl,
                 'title' => $this->_titleUrl

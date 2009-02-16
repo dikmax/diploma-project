@@ -99,7 +99,7 @@ class App_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
                 break;
 
             case 'library':
-                if ($path == '') {
+                if (count($parts) === 0) {
                     $result['action'] = 'index';
                     $result['extraparams'] = array();
                 } else {
@@ -206,10 +206,14 @@ class App_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
             case 'mail':
                 if (isset($data['action']) && $data['action'] !== 'active') {
                     $result[] = $data['action'];
-                    if (isset($data['param']) && $data['param'] !== '') {
-                        $result[] = $data['param'];
-                    }
                 }
+                if (isset($data['param']) && $data['param'] !== '') {
+                    if ($data['action'] === 'active') {
+                        $result[] = 'active';
+                    }
+                    $result[] = $data['param'];
+                }
+
                 break;
 
             case 'user':
