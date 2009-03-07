@@ -170,7 +170,7 @@ class App_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
 
         switch ($data['controller']) {
             case 'index':
-                $result = array($data['action']);
+                $result = $data['action'] === 'index' ? array() : array($data['action']);
                 break;
 
             case 'auth':

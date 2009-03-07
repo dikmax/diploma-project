@@ -36,10 +36,13 @@ class AuthController extends Zend_Controller_Action
                     $user = App_User_Factory::getInstance()->getUserByLogin($form->getValue('login'));
                     App_User_Factory::setSessionUser($user);
                     Zend_Session::rememberMe();
-                    $this->_helper->redirector->gotoRouteAndExit(
-                        array('controller' => 'user',
+                    $this->_redirect(
+                        $this->view->url(array(
+                            'controller' => 'user',
                             'action' => 'profile',
-                            'login' => $form->getValue('login')));
+                            'login' => $form->getValue('login')
+                        ))
+                    );
                 } else {
                     $form->getElement('login')->addErrors($result->getMessages());
                 }
@@ -56,7 +59,13 @@ class AuthController extends Zend_Controller_Action
     public function logoutAction()
     {
         Zend_Session::destroy();
-        $this->_redirect($this->_helper->url('index', 'index'));
+        //$this->_redirect($this->_helper->url('index', 'index'));
+        $this->_redirect(
+            $this->view->url(array(
+                'controller' => 'index',
+                'action' => 'index'
+            ))
+        );
     }
 
     /**
