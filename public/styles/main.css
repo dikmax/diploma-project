@@ -389,3 +389,31 @@ ul.top-menu-left li.selected, ul.top-menu-right li.selected {
 table.users > tbody > tr > td {
     border: 1px solid black;
 }
+
+/*
+ * Wiki
+ */
+
+table.compare-revision {
+    width:100%;
+    border-spacing: 1px;
+    border-collapse: separate;
+}
+
+table.compare-revision td {
+    background-color: #f0f0f0;
+}
+
+table.compare-revision td.line-number {
+    background-color: #c0c0c0;
+}
+
+
+table.compare-revision td.changes-add {
+    background-color: #008000;
+}
+
+
+table.compare-revision td.changes-delete {
+    background-color: #800000;
+}

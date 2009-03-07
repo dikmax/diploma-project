@@ -158,7 +158,7 @@ class App_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
     public function assemble($data = array(), $reset = false, $encode = false)
     {
         // Add values from initial state
-        if (!$reset) {
+        if (!$reset && is_array($this->_values)) {
             foreach ($this->_values as $key => $value) {
                 if (!isset($data[$key])) {
                     $data[$key] = $value;

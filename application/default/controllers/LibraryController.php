@@ -384,7 +384,8 @@ class LibraryController extends Zend_Controller_Action
         }
         $this->_redirect($this->view->url(array(
             'author' => $this->_authorUrl,
-            'title' => $this->_titleUrl
+            'title' => $this->_titleUrl,
+            'action' => 'overview'
         )));
     }
 
@@ -459,7 +460,21 @@ class LibraryController extends Zend_Controller_Action
                         $this->wikiRollbackRevisionAction($revision);
                         break;
                     default:
-                        $this->_redirect($this->_helper->url->url());
+                        if (is_numeric(($extraparams[1]))) {
+                            // Compare revisions
+                            $oldRevisionNum = (int)$extraparams[1];
+
+                            if ($this->_title) {
+                                $oldRevision = $this->_title->getDescription()->getRevision($oldRevisionNum);
+                            } else {
+                                $oldRevision = $this->_author->getDescription()->getRevision($oldRevisionNum);
+                            }
+
+                            $this->wikiRevisionCompareAction($revision, $oldRevision);
+                        } else {
+                            // TODO redirect to 404
+                            $this->_redirect($this->view->url());
+                        }
                 }
             }
         }
@@ -481,6 +496,23 @@ class LibraryController extends Zend_Controller_Action
         $text->rollbackToRevision($revision);
 
         $this->_redirect($this->view->libraryUrl('wiki-history'));
+    }
+
+    /**
+     * Compare revisions
+     *
+     * @param App_Text_Revision $newRevision
+     * @param App_Text_Revision $oldRevision
+     */
+    private function wikiRevisionCompareAction(App_Text_Revision $newRevision, App_Text_Revision $oldRevision)
+    {
+        $result = App_Diff::diff($oldRevision->getContent(), $newRevision->getContent());
+
+        $this->view->compareResult = $result;
+        $this->view->oldRevisionNum = $oldRevision->getRevision();
+        $this->view->newRevisionNum = $newRevision->getRevision();
+
+        $this->_helper->viewRenderer->setScriptAction('wiki-compare-revision');
     }
 
     /**

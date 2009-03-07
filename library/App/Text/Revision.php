@@ -273,11 +273,11 @@ class App_Text_Revision
     public function writeLibTextId()
     {
         if (!isset($this->_libText)) {
-            require_once 'App/Db/Table/TextRevision.php';
+            require_once 'App/Text/Revision/Exception.php';
             throw new App_Text_Revision_Exception('$_libText isn\'t set');
         }
         if ($this->_libText->getId() === null) {
-            require_once 'App/Db/Table.php';
+            require_once 'App/Text/Exception.php';
             throw new App_Text_Exception("lib_text_id isn't set");
         }
         $data = array('lib_text_id' => $this->_libText->getId());
@@ -440,6 +440,8 @@ class App_Text_Revision
         $this->_content = $content;
         $this->_mdate = App_Date::now();
         $this->_revision = null;
+        $this->_author = App_User_Factory::getSessionUser();
+        $this->_authorId = $this->_author->getId();
         $this->_changes = "Update text";
 
         return true;

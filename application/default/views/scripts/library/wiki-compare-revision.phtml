@@ -1,0 +1,43 @@
+<?php
+/**
+ * Books social network
+ *
+ * LICENSE: Closed source
+ *
+ * @copyright  2008 Dikun Maxim
+ * @version    $Id$
+ */
+?>
+
+<?php if ($this->type === 1): ?>
+    <h1><a href="<?= $this->libraryUrl(); ?>"><?= $this->author->getName(); ?></a></h1>
+<?php else: ?>
+    <h1><a href="<?= $this->libraryUrl(); ?>"><?= $this->titleName ?></a></h1>
+    <h2><a href="<?= $this->libraryUrl(null, null, false); ?>"><?= $this->authorName; ?></a></h2>
+<?php endif; ?>
+
+<h4>Сравнение ревизий <?= $this->newRevisionNum; ?> и <?= $this->oldRevisionNum; ?> (<a href="<?= $this->libraryUrl('wiki-history');?>">список</a>)</h4>
+
+<table class="compare-revision">
+    <?php
+    foreach ($this->compareResult as $line):
+    ?>
+    <tr>
+        <td class="line-number"><?= $line['y']; ?></td>
+        <td class="line-number"><?= $line['x']; ?></td>
+    <?php
+        switch ($line['type']) {
+            case App_Diff::DIFF_ADD:
+                echo "<td class=\"changes-add\">" . $line['l'] . "</td><td class=\"changes-add\"></td>";
+                break;
+            case App_Diff::DIFF_DELETE:
+                echo "<td class=\"changes-delete\"></td><td class=\"changes-delete\">" . $line['l'] . "</td>";
+                break;
+            default:
+                echo "<td>" . $line['l'] . "</td><td>" . $line['l'] . "</td>";
+        }
+    ?>
+    </tr>
+    <?php
+    endforeach; ?>
+</table>

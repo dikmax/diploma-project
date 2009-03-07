@@ -7,6 +7,8 @@
  * @copyright  2008 Dikun Maxim
  * @version    $Id$
  */
+
+$this->jQuery()->addJavascriptFile('/scripts/wiki-history.js');
 ?>
 
 <?php if ($this->type === 1): ?>
@@ -18,11 +20,17 @@
 <h4>Список ревизий</h4>
 
 <ol>
-<?php foreach ($this->revisions as $revision):?>
-    <li value="<?= $revision->getRevision(); ?>">
-        <a href="<?= $this->libraryUrl('wiki-history', null, null, array($revision->getRevision()));?>"><?= $revision->getMdate(); ?></a>:
+<?php foreach ($this->revisions as $revision):
+    $revisionNum = $revision->getRevision();
+?>
+    <li value="<?= $revisionNum; ?>">
+        <input id="revision-old-<?=$revisionNum;?>" type="radio" class="wiki-history-revision-old-radio" name="revision-old" value="<?= $revisionNum; ?>" />
+        <input id="revision-new-<?=$revisionNum;?>" type="radio" class="wiki-history-revision-new-radio" name="revision-new" value="<?= $revisionNum; ?>" />
+        <a href="<?= $this->libraryUrl('wiki-history', null, null, array($revisionNum));?>"><?= $revision->getMdate(); ?></a>:
         <?= $this->profileLink($revision->getAuthor()); ?>
         (<?= $revision->getChanges();?>)
     </li>
 <?php endforeach; ?>
 </ol>
+
+<input class="wiki-compare-button" type="button" value="Сравнить выбраные ревизии" />
