@@ -5,7 +5,7 @@
  * LICENSE: Closed source
  *
  * @copyright  2008-2009 Dikun Maxim
- * @version    $Id:$
+ * @version    $Id$
  */
 /**
     Diff implemented in pure php, written from scratch.
@@ -144,7 +144,6 @@ class App_Diff
         $x0 = $x1 = 0;
         $y0 = $y1 = 0;
         $out = array();
-        var_dump($actions);
         foreach ($actions as $act) {
             if ($act == 1) {
                 $op |= $act;
