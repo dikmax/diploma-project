@@ -61,6 +61,7 @@ class App_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
 
         switch ($head) {
             case 'auth':
+            case 'settings':
             case 'writeboard':
                 if (count($parts) > 1) {
                     return false;
@@ -174,6 +175,7 @@ class App_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
                 break;
 
             case 'auth':
+            case 'settings':
             case 'writeboard':
                 if (isset($data['action']) && $data['action'] !== 'index') {
                     $result[] = $data['action'];
