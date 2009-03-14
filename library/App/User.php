@@ -25,6 +25,13 @@ require_once 'Zend/Acl/Role/Interface.php';
  */
 class App_User implements Zend_Acl_Role_Interface
 {
+    /*
+     * Sex constants
+     */
+    const SEX_UNDEFINED = 0;
+    const SEX_MALE = 1;
+    const SEX_FEMALE = 2;
+
     /**
      * Index for database table <code>lib_user</code>
      *
@@ -52,6 +59,27 @@ class App_User implements Zend_Acl_Role_Interface
      * @var string
      */
     protected $_email;
+
+    /**
+     * Real name
+     *
+     * @var string
+     */
+    protected $_realName;
+
+    /**
+     * User's sex
+     *
+     * @var int
+     */
+    protected $_sex;
+
+    /**
+     * About
+     *
+     * @var string
+     */
+    protected $_about;
 
     /**
      * User registration date
@@ -142,6 +170,9 @@ class App_User implements Zend_Acl_Role_Interface
      *   <li><code>login</code>: user login (<b>string</b>)</li>
      *   <li><code>password</code>: user password (<b>string</b>)</li>
      *   <li><code>email</code>: user email (<b>string</b>)</li>
+     *   <li><code>real_name</code>: real name (<b>string</>)</li>
+     *   <li><code>sex</code>: sex (<b>int</b>)</li>
+     *   <li><code>about</code>: about (<b>string</b>)</li>
      *   <li><code>registration_date</code>: user registration date
      *       (<b>int|string|array|App_Date</b>)</li>
      *   <li><code>login_date</code>: user last login date
@@ -178,6 +209,21 @@ class App_User implements Zend_Acl_Role_Interface
         // Email
         $this->_email = isset($construct['email'])
                       ? $construct['email']
+                      : '';
+
+        // Real name
+        $this->_realName = isset($construct['real_name'])
+                         ? $construct['real_name']
+                         : '';
+
+        // Sex
+        $this->_sex = isset($construct['sex'])
+                    ? $construct['sex']
+                    : self::SEX_UNDEFINED;
+
+        // About
+        $this->_about = isset($construct['about'])
+                      ? $construct['about']
                       : '';
 
         // Registration date
@@ -278,7 +324,14 @@ class App_User implements Zend_Acl_Role_Interface
             $writeboard->setOwnerDescription('User ' . $this->_libUserId);
             $writeboard->write();
         } else {
-            // TODO write update user
+            require_once 'App/Db/Table/User.php';
+            $userTable = new App_Db_Table_User();
+
+            $userTable->update(array(
+                'real_name' => $this->_realName,
+                'sex' => $this->_sex,
+                'about' => $this->_about
+            ), $userTable->getAdapter()->quoteInto('lib_user_id = ?', $this->_libUserId));
         }
     }
 
@@ -358,6 +411,70 @@ class App_User implements Zend_Acl_Role_Interface
     public function getEmail()
     {
         return $this->_email;
+    }
+
+    /**
+     * Returns user real name
+     *
+     * @return string
+     */
+    public function getRealName()
+    {
+        return $this->_realName;
+    }
+
+    /**
+     * Sets user real name
+     *
+     * @param string $realName
+     */
+    public function setRealName($realName)
+    {
+        $this->_realName = $realName;
+    }
+
+    /**
+     * Returns user sex
+     *
+     * @return int
+     */
+    public function getSex()
+    {
+        return $this->_sex;
+    }
+
+    /**
+     * Sets user sex
+     *
+     * @param int $sex
+     */
+    public function setSex($sex)
+    {
+        if ($sex == self::SEX_UNDEFINED || $sex == self::SEX_MALE
+            || $sex == self::SEX_FEMALE)
+        {
+            $this->_sex = $sex;
+        }
+    }
+
+    /**
+     * Return user about info
+     *
+     * @return string
+     */
+    public function getAbout()
+    {
+        return $this->_about;
+    }
+
+    /**
+     * Sets user about info
+     *
+     * @param string $about
+     */
+    public function setAbout($about)
+    {
+        $this->_about = $about;
     }
 
     /**

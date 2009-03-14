@@ -71,7 +71,7 @@
   CONSTRAINT `FK_lib_text_revision` FOREIGN KEY (`lib_text_revision_content_id`) REFERENCES `lib_text_revision_content` (`lib_text_revision_content_id`),
   CONSTRAINT `FK_lib_text_revision_text` FOREIGN KEY (`lib_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_text_revision_user` FOREIGN KEY (`author_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55710 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=55714 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions'</sql_create_table>
 </table>
 <table name="lib_text_revision_content" view="colnames">
 <left>16</left>
@@ -82,18 +82,21 @@
   `lib_text_revision_content_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `content` longtext NOT NULL COMMENT 'Revision content',
   PRIMARY KEY  (`lib_text_revision_content_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55715 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data'</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=55719 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data'</sql_create_table>
 </table>
 <table name="lib_user" view="colnames">
 <left>652</left>
 <top>687</top>
 <width>145</width>
-<height>178</height>
+<height>223</height>
 <sql_create_table>CREATE TABLE `lib_user` (
   `lib_user_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `login` varchar(255) NOT NULL COMMENT 'User login',
   `password` varchar(32) NOT NULL COMMENT 'MD5 of user password',
   `email` varchar(32) NOT NULL COMMENT 'User''s email',
+  `real_name` varchar(100) NOT NULL COMMENT 'User''s real name',
+  `sex` tinyint(3) unsigned NOT NULL default '0' COMMENT '0 - Undefined, 1 - Male, 2 - Female',
+  `about` text NOT NULL COMMENT 'About info',
   `registration_date` datetime NOT NULL COMMENT 'User registration date',
   `login_date` datetime NOT NULL COMMENT 'User last login date',
   `login_ip` varchar(15) NOT NULL default '0.0.0.0' COMMENT 'User last login IP',
@@ -253,9 +256,10 @@
   PRIMARY KEY  (`lib_user_bookshelf_id`),
   KEY `FK_lib_user_bookshelf_user` (`lib_user_id`),
   KEY `FK_lib_user_bookshelf_title` (`lib_title_id`),
+  KEY `relation` (`relation`),
   CONSTRAINT `FK_lib_user_bookshelf_title` FOREIGN KEY (`lib_title_id`) REFERENCES `lib_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_user_bookshelf_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3343980 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=3343981 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 <table name="lib_author_name_index" view="colnames">
 <left>22</left>
@@ -404,8 +408,8 @@
   `count` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`author1_id`,`author2_id`),
   KEY `FK_lib_author_similar_author2` (`author2_id`),
-  CONSTRAINT `FK_lib_author_similar_author2` FOREIGN KEY (`author2_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_lib_author_similar_autho1` FOREIGN KEY (`author1_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_lib_author_similar_autho1` FOREIGN KEY (`author1_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_lib_author_similar_author2` FOREIGN KEY (`author2_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
 </table>
 </tables>

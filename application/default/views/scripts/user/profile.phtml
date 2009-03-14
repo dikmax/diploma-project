@@ -16,7 +16,25 @@
         фото<br />
     </div>
     <div class="profile-stats">
-        Чего-то сделал... Еще чего-то... Ничего важного и интересного
+        <h1><?= $this->user->getLogin(); ?></h1>
+        <h4><?php
+            $parts = array();
+
+            if ($this->user->getRealName() !== '') {
+                $parts[] = $this->user->getRealName();
+            }
+            switch ($this->user->getSex()) {
+                case App_User::SEX_MALE:
+                    $parts[] = 'муж.';
+                    break;
+                case App_User::SEX_FEMALE:
+                    $parts[] = 'жен.';
+                    break;
+                default:
+            }
+
+            echo implode(', ', $parts);
+        ?></h4>
     </div>
     <div class="profile-actions">
         <ul>
@@ -40,16 +58,7 @@
             О себе.
         </div>
         <div class="body">
-            Тут должна быть какая-то инфа.<br />
-            Тут должна быть какая-то инфа.<br />
-            Тут должна быть какая-то инфа.<br />
-            Тут должна быть какая-то инфа.<br />
-            Тут должна быть какая-то инфа.<br />
-            Тут должна быть какая-то инфа.<br />
-            Тут должна быть какая-то инфа.<br />
-            Тут должна быть какая-то инфа.<br />
-            Тут должна быть какая-то инфа.<br />
-            Тут должна быть какая-то инфа.<br />
+            <?= App_Markup::render($this->user->getAbout()); ?>
         </div>
     </div>
     <div class="profile-info">
