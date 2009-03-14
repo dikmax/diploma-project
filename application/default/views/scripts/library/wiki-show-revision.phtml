@@ -20,7 +20,7 @@
 <p><small><?= $this->revision->getMdate(); ?></small>: <?= $this->profileLink($this->revision->getAuthor()); ?></p>
 
 <p>
-<?= $this->revision->getContent(); ?>
+<?= App_Markup::render($this->revision->getContent()); ?>
 </p>
 
 <p>

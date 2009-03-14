@@ -53,7 +53,7 @@ else: // Title
 <?php endif;?>
 
 <?php if ($this->frontDescription != ''): ?>
-<p><?= $this->frontDescription; ?></p>
+<p><?= App_Markup::render($this->frontDescription); ?></p>
 <p>
     <a href="<?= $this->libraryUrl('wiki'); ?>">
         Читать далее...

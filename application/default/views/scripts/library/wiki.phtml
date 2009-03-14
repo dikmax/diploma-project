@@ -21,9 +21,7 @@
 <?php endif; ?>
 
 
-<p>
-<?= $this->text; ?>
-</p>
+<?= App_Markup::render($this->text); ?>
 
 <?php if ($this->isAllowed('wiki', 'edit')): ?>
     <a href="<?= $this->libraryUrl('wiki-edit'); ?>">Редактировать</a>
