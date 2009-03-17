@@ -165,6 +165,9 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
                 $rename   = $this->getFilter('Rename');
                 if ($rename !== null) {
                     $filename = $rename->getNewName($directory . $content['name']);
+                    $this->_files[$file]['destination'] = dirname($filename);
+                    $this->_files[$file]['name']        = basename($filename);
+
                     $key      = array_search('Rename', $this->_files[$file]['filters']);
                     unset($this->_files[$file]['filters'][$key]);
                 }

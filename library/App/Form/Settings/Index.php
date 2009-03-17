@@ -84,10 +84,13 @@ class App_Form_Settings_Index extends App_Form_Table
             new Zend_Validate_File_Extension(array('jpg', 'png', 'gif')),
             new Zend_Validate_File_Size(524288)
         ));
-        $this->_userpic->addFilter(new Zend_Filter_File_Rename(array(
-            'target' => $this->_temporaryFileName,
-            'overwrite' => true
-        )));
+        $this->_userpic->addFilters(array(
+            new Zend_Filter_File_Rename(array(
+                'target' => $this->_temporaryFileName,
+                'overwrite' => true
+            )),
+            new App_Filter_File_ImageThumbnail()
+        ));
 
 
         $this->_removeUserpic = new Zend_Form_Element_Checkbox('remove_userpic', array(

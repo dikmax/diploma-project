@@ -61,10 +61,6 @@ class SettingsController extends Zend_Controller_Action
                 if ($form->userpic->isUploaded()) {
                     $form->userpic->receive();
                     $location = $form->userpic->getFilename();
-                    $form->userpic->setValue($location);
-
-                    var_dump($location);
-                    var_dump($form->userpic->isFiltered());
                 }
 
                 $this->_user->setRealName($form->getValue('real_name'));
@@ -72,6 +68,8 @@ class SettingsController extends Zend_Controller_Action
                 $this->_user->setAbout($form->getValue('about'));
 
                 $this->_user->write();
+
+                $this->view->saveDone = true;
             }
         }
 
