@@ -104,8 +104,12 @@ blockquote {
     width: 100%;
 }
 
-.login form table td.label {
+form table td.label {
     text-align: right;
+}
+
+form table td.label.bottom {
+    vertical-align: bottom;
 }
 
 .main-container {

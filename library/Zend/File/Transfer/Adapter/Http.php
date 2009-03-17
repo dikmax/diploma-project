@@ -31,6 +31,9 @@ require_once 'Zend/File/Transfer/Adapter/Abstract.php';
  */
 class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstract
 {
+    protected static $_callbackApc            = 'apc_fetch';
+    protected static $_callbackUploadProgress = 'uploadprogress_get_info';
+
     /**
      * Constructor for Http File Transfers
      *
@@ -61,8 +64,36 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     public function setValidators(array $validators, $files = null)
     {
         $this->clearValidators();
-        $this->addValidator('Upload', false, $this->_files);
         return $this->addValidators($validators, $files);
+    }
+
+    /**
+     * Remove an individual validator
+     *
+     * @param  string $name
+     * @return Zend_File_Transfer_Adapter_Abstract
+     */
+    public function removeValidator($name)
+    {
+        if ($name == 'Upload') {
+            return $this;
+        }
+
+        return parent::removeValidator($name);
+    }
+
+    /**
+     * Remove an individual validator
+     *
+     * @param  string $name
+     * @return Zend_File_Transfer_Adapter_Abstract
+     */
+    public function clearValidators()
+    {
+        parent::clearValidators();
+        $this->addValidator('Upload', false, $this->_files);
+
+        return $this;
     }
 
     /**
@@ -79,6 +110,33 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     }
 
     /**
+     * Checks if the files are valid
+     *
+     * @param  string|array $files (Optional) Files to check
+     * @return boolean True if all checks are valid
+     */
+    public function isValid($files = null)
+    {
+        // Workaround for a PHP error returning empty $_FILES when form data exceeds php settings
+        if (empty($this->_files) && ($_SERVER['CONTENT_LENGTH'] > 0)) {
+            if (is_array($files)) {
+                $files = current($files);
+            }
+
+            $temp = array($files => array(
+                'name'  => $files,
+                'error' => 1));
+            $validator = $this->_validators['Zend_Validate_File_Upload'];
+            $validator->setFiles($temp)
+                      ->isValid($files, null);
+            $this->_messages += $validator->getMessages();
+            return false;
+        }
+
+        return parent::isValid($files);
+    }
+
+    /**
      * Receive the file from the client (Upload)
      *
      * @param  string|array $files (Optional) Files to receive
@@ -86,6 +144,10 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
      */
     public function receive($files = null)
     {
+        if ($this->isReceived($files)) {
+            return true;
+        }
+
         if (!$this->isValid($files)) {
             return false;
         }
@@ -99,8 +161,16 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
                     $directory = $destination . DIRECTORY_SEPARATOR;
                 }
 
+                $filename = $directory . $content['name'];
+                $rename   = $this->getFilter('Rename');
+                if ($rename !== null) {
+                    $filename = $rename->getNewName($directory . $content['name']);
+                    $key      = array_search('Rename', $this->_files[$file]['filters']);
+                    unset($this->_files[$file]['filters'][$key]);
+                }
+
                 // Should never return false when it's tested by the upload validator
-                if (!move_uploaded_file($content['tmp_name'], ($directory . $content['name']))) {
+                if (!move_uploaded_file($content['tmp_name'], $filename)) {
                     if ($content['options']['ignoreNoFile']) {
                         $this->_files[$file]['received'] = true;
                         $this->_files[$file]['filtered'] = true;
@@ -148,7 +218,11 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
      */
     public function isReceived($files = null)
     {
-        $files = $this->_getFiles($files);
+        $files = $this->_getFiles($files, false, true);
+        if (empty($files)) {
+            return false;
+        }
+
         foreach ($files as $content) {
             if ($content['received'] !== true) {
                 return false;
@@ -166,7 +240,11 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
      */
     public function isFiltered($files = null)
     {
-        $files = $this->_getFiles($files);
+        $files = $this->_getFiles($files, false, true);
+        if (empty($files)) {
+            return false;
+        }
+
         foreach ($files as $content) {
             if ($content['filtered'] !== true) {
                 return false;
@@ -184,7 +262,11 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
      */
     public function isUploaded($files = null)
     {
-        $files = $this->_getFiles($files);
+        $files = $this->_getFiles($files, false, true);
+        if (empty($files)) {
+            return false;
+        }
+
         foreach ($files as $file) {
             if (empty($file['name'])) {
                 return false;
@@ -197,14 +279,120 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     /**
      * Returns the actual progress of file up-/downloads
      *
-     * @return string Returns the state
-     * @return int
-     * @throws Zend_File_Transfer_Exception Not implemented
+     * @param  string $id The upload to get the progress for
+     * @return array|null
      */
-    public function getProgress()
+    public static function getProgress($id = null)
     {
-        require_once 'Zend/File/Transfer/Exception.php';
-        throw new Zend_File_Transfer_Exception('Method not implemented');
+        if (!function_exists('apc_fetch') and !function_exists('uploadprogress_get_info')) {
+            require_once 'Zend/File/Transfer/Exception.php';
+            throw new Zend_File_Transfer_Exception('Wether APC nor uploadprogress extension installed');
+        }
+
+        $status = array(
+            'total'    => 0,
+            'current'  => 0,
+            'rate'     => 0,
+            'message'  => '',
+            'done'     => false
+        );
+
+        if (is_array($id)) {
+            if (isset($id['progress'])) {
+                $adapter = $id['progress'];
+            }
+
+            $session = 'Zend_File_Transfer_Adapter_Http_ProgressBar';
+            if (isset($id['session'])) {
+                $session = $id['session'];
+            }
+
+            if (isset($id['id'])) {
+                $id = $id['id'];
+            } else {
+                unset($id);
+            }
+        }
+
+        if (!empty($id) && (($id instanceof Zend_ProgressBar_Adapter) || ($id instanceof Zend_ProgressBar))) {
+            $adapter = $id;
+            unset($id);
+        }
+
+        if (empty($id)) {
+            if (!isset($_GET['progress_key'])) {
+                $status['message'] = 'No upload in progress';
+                $status['done']    = true;
+            } else {
+                $id = $_GET['progress_key'];
+            }
+        }
+
+        if (!empty($id)) {
+            if (self::isApcAvailable()) {
+                $status = call_user_func(self::$_callbackApc, 'upload_' . $id) + $status;
+            } else if (self::isUploadProgressAvailable()) {
+                $status = call_user_func(self::$_callbackUploadProgress, $id) + $status;
+                $status['total']   = $status['bytes_total'];
+                $status['current'] = $status['bytes_uploaded'];
+                $status['rate']    = $status['speed_average'];
+                if ($status['total'] == $status['current']) {
+                    $status['done'] = true;
+                }
+            }
+
+            if (!$status) {
+                $status = array('message' => 'Failure while retrieving the upload progress');
+            } else if (!empty($status['cancel_upload'])) {
+                $status['done']    = true;
+                $status['message'] = 'The upload has been canceled';
+            } else {
+                $status['message'] = self::_toByteString($status['current']) . " / " . self::_toByteString($status['total']);
+            }
+
+            $status['id'] = $id;
+        }
+
+        if (isset($adapter) && isset($status['id'])) {
+            if ($adapter instanceof Zend_ProgressBar_Adapter) {
+                require_once 'Zend/ProgressBar.php';
+                $adapter = new Zend_ProgressBar($adapter, 0, $status['total'], $session);
+            }
+
+            if (!($adapter instanceof Zend_ProgressBar)) {
+                require_once 'Zend/File/Transfer/Exception.php';
+                throw new Zend_File_Transfer_Exception('Unknown Adapter given');
+            }
+
+            $adapter->update($status['current'], $status['message']);
+            if ($status['done']) {
+                $adapter->finish();
+            }
+
+            $status['progress'] = $adapter;
+        }
+
+        return $status;
+    }
+
+    /**
+     * Checks the APC extension for progress information
+     *
+     * @return boolean
+     */
+    public static function isApcAvailable()
+    {
+        return (bool) ini_get('apc.enabled') && (bool) ini_get('apc.rfc1867') && is_callable(self::$_callbackApc);
+    }
+
+    /**
+     * Checks the UploadProgress extension for progress information
+     *
+     * @return boolean
+     */
+    public static function isUploadProgressAvailable()
+    {
+        return is_callable(self::$_callbackUploadProgress);
     }
 
     /**
@@ -225,6 +413,8 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
                         $result[$form . '_' . $number . '_']['validated'] = false;
                         $result[$form . '_' . $number . '_']['received']  = false;
                         $result[$form . '_' . $number . '_']['filtered']  = false;
+                        $result[$form]['multifiles'][$number] = $form . '_' . $number . '_';
+                        $result[$form]['name'] = $form;
                     }
                 }
             } else {

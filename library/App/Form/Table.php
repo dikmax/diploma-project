@@ -85,7 +85,8 @@ abstract class App_Form_Table extends Zend_Form
             new App_Form_Decorator_Label(array(
                 'tag' => 'td',
                 'tagClass' => 'label',
-                'requiredSuffix' => ':'
+                'requiredSuffix' => '<b>*</b>:',
+                'optionalSuffix' => ':'
             )),
             array(
                 'decorator' => array('tr' => 'HtmlTag'),
