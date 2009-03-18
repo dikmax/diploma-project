@@ -88,13 +88,14 @@
 <left>652</left>
 <top>687</top>
 <width>145</width>
-<height>223</height>
+<height>237</height>
 <sql_create_table>CREATE TABLE `lib_user` (
   `lib_user_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `login` varchar(255) NOT NULL COMMENT 'User login',
   `password` varchar(32) NOT NULL COMMENT 'MD5 of user password',
   `email` varchar(32) NOT NULL COMMENT 'User''s email',
   `real_name` varchar(100) NOT NULL COMMENT 'User''s real name',
+  `userpic` tinyint(3) unsigned NOT NULL default '0' COMMENT '0 - not uploaded, 1 - exists',
   `sex` tinyint(3) unsigned NOT NULL default '0' COMMENT '0 - Undefined, 1 - Male, 2 - Female',
   `about` text NOT NULL COMMENT 'About info',
   `registration_date` datetime NOT NULL COMMENT 'User registration date',

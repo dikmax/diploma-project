@@ -49,18 +49,14 @@ class SettingsController extends Zend_Controller_Action
     {
         require_once 'App/Form/Settings/Index.php';
         $form = new App_Form_Settings_Index($this->view->url());
-        $form->setDefaults(array(
-            'userpic' => '/images/default_user.png',
-            'real_name' => $this->_user->getRealName(),
-            'sex' => $this->_user->getSex(),
-            'about' => $this->_user->getAbout()
-        ));
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($_POST)) {
-                if ($form->userpic->isUploaded()) {
+                if ($form->getValue('remove_userpic')) {
+                    $this->_user->setUserpic(false);
+                } else if ($form->userpic->isUploaded()) {
                     $form->userpic->receive();
-                    $location = $form->userpic->getFilename();
+                    $this->_user->setUserpic(true);
                 }
 
                 $this->_user->setRealName($form->getValue('real_name'));
@@ -72,6 +68,14 @@ class SettingsController extends Zend_Controller_Action
                 $this->view->saveDone = true;
             }
         }
+
+        $form->setDefaults(array(
+            'userpic' => $this->_user->getUserpicUrl(),
+            'remove_userpic' => false,
+            'real_name' => $this->_user->getRealName(),
+            'sex' => $this->_user->getSex(),
+            'about' => $this->_user->getAbout()
+        ));
 
         $this->view->form = $form;
     }

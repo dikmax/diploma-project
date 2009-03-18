@@ -8,13 +8,7 @@
  * @version    $Id$
  */
 ?>
-    <div class="photo-placeholder">
-        Здесь<br />
-        могло<br />
-        быть<br />
-        ваше<br />
-        фото<br />
-    </div>
+    <img class="profile-userpic" src="<?= $this->user->getUserpicUrl(); ?>" />
     <div class="profile-stats">
         <h1><?= $this->user->getLogin(); ?></h1>
         <h4><?php
@@ -52,7 +46,7 @@
         <div class="header">
             <?php if ($this->isAllowed("profile", "edit")): ?>
             <div class="edit">
-                [редактировать]
+                <a href="<?= $this->url(array('controller' => 'settings', 'action' => 'index')); ?>">[редактировать]</a>
             </div>
             <?php endif; ?>
             О себе.

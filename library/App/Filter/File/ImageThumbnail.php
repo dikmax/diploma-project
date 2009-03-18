@@ -18,16 +18,50 @@ require_once 'Zend/Filter/Interface.php';
  */
 class App_Filter_File_ImageThumbnail implements Zend_Filter_Interface
 {
-    public function __contruct()
+    /**
+     * Thumbnail width
+     * @var int
+     */
+    protected $_width;
+
+    /**
+     * Thumbnail height
+     * @var int
+     */
+    protected $_height;
+
+    /**
+     * Thumbnail path
+     * @var string
+     */
+    protected $_target;
+
+    public function __construct($options)
     {
-        /*
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (!is_array($options)) {
             require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception('Invalid options argument provided to filter');
         }
-        */
+
+        if (!array_key_exists('width', $options)) {
+            require_once 'Zend/Filter/Exception.php';
+            throw new Zend_Filter_Exception('Thumbnail width not defined');
+        }
+        if (!array_key_exists('height', $options)) {
+            require_once 'Zend/Filter/Exception.php';
+            throw new Zend_Filter_Exception('Thumbnail width not defined');
+        }
+        if (!array_key_exists('target', $options)) {
+            require_once 'Zend/Filter/Exception.php';
+            throw new Zend_Filter_Exception('Thumbnail width not defined');
+        }
+        $this->_width = $options['width'];
+
+        $this->_height = $options['width'];
+
+        $this->_target = $options['target'];
     }
 
     /**
@@ -55,9 +89,9 @@ class App_Filter_File_ImageThumbnail implements Zend_Filter_Interface
         // TODO write image processing classes
 
         $thumbnail = new Thumbnail(file_get_contents($value));
-        $thumbnail->resize(100, 100);
-        $thumbnail->save($value . ".jpg");
+        $thumbnail->resize($this->_width, $this->_height);
+        $thumbnail->save($this->_target);
 
-        return $value . ".jpg";
+        return $this->_target;
     }
 }

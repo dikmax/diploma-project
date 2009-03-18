@@ -82,6 +82,27 @@ class App_User implements Zend_Acl_Role_Interface
     protected $_about;
 
     /**
+     * Userpic uploaded
+     *
+     * @var boolean
+     */
+    protected $_userpic;
+
+    /**
+     * Path to userpic
+     *
+     * @var string
+     */
+    protected $_userpicUrl;
+
+    /**
+     * Url to userpic
+     *
+     * @var string
+     */
+    protected $_userpicPath;
+
+    /**
      * User registration date
      *
      * @var App_Date
@@ -170,9 +191,10 @@ class App_User implements Zend_Acl_Role_Interface
      *   <li><code>login</code>: user login (<b>string</b>)</li>
      *   <li><code>password</code>: user password (<b>string</b>)</li>
      *   <li><code>email</code>: user email (<b>string</b>)</li>
-     *   <li><code>real_name</code>: real name (<b>string</>)</li>
+     *   <li><code>real_name</code>: real name (<b>string</b>)</li>
      *   <li><code>sex</code>: sex (<b>int</b>)</li>
      *   <li><code>about</code>: about (<b>string</b>)</li>
+     *   <li><code>userpic</code>: is userpic uploaded (<b>boolean</b>)</li>
      *   <li><code>registration_date</code>: user registration date
      *       (<b>int|string|array|App_Date</b>)</li>
      *   <li><code>login_date</code>: user last login date
@@ -225,6 +247,13 @@ class App_User implements Zend_Acl_Role_Interface
         $this->_about = isset($construct['about'])
                       ? $construct['about']
                       : '';
+
+        // Userpic
+        $this->_userpic = isset($construct['userpic'])
+                        ? (boolean)$construct['userpic']
+                        : false;
+        $this->_userpicPath = null;
+        $this->_userpicUrl = null;
 
         // Registration date
         if (isset($construct['registration_date'])) {
@@ -330,7 +359,8 @@ class App_User implements Zend_Acl_Role_Interface
             $userTable->update(array(
                 'real_name' => $this->_realName,
                 'sex' => $this->_sex,
-                'about' => $this->_about
+                'about' => $this->_about,
+                'userpic' => $this->_userpic
             ), $userTable->getAdapter()->quoteInto('lib_user_id = ?', $this->_libUserId));
         }
     }
@@ -475,6 +505,66 @@ class App_User implements Zend_Acl_Role_Interface
     public function setAbout($about)
     {
         $this->_about = $about;
+    }
+
+    /**
+     * Returns is userpic uploaded
+     *
+     * @return boolean
+     */
+    public function getUserpic()
+    {
+        return $this->_userpic;
+    }
+
+    /**
+     * Sets userpic state
+     *
+     * @param boolean $userpic
+     */
+    public function setUserpic($userpic)
+    {
+        $this->_userpic = $userpic;
+        $this->_userpicUrl = null;
+    }
+
+    /**
+     * Returns path to userpic.
+     *
+     * It always return returns path where userpic should be, doesn't matter uploaded or not
+     *
+     * @return string
+     */
+    public function getUserpicPath()
+    {
+        if ($this->_userpicPath === null) {
+            $hi = $this->_libUserId >> 10;
+            $lo = $this->_libUserId & 1023;
+            $this->_userpicPath = Zend_Registry::get('publicPath')
+                . '/images/userpic/' . $hi . '/' . $lo . '.jpg';
+        }
+
+        return $this->_userpicPath;
+    }
+
+    /**
+     * Returns userpic url
+     *
+     * @return string
+     */
+    public function getUserpicUrl()
+    {
+        if ($this->_userpicUrl === null) {
+            if ($this->_userpic) {
+                $hi = $this->_libUserId >> 10;
+                $lo = $this->_libUserId & 1023;
+                $this->_userpicUrl = '/images/userpic/' . $hi . '/' . $lo . '.jpg';
+            } else {
+                $this->_userpicUrl = '/images/default_user.png';
+            }
+        }
+
+        return $this->_userpicUrl;
     }
 
     /**

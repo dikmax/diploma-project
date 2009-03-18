@@ -68,7 +68,9 @@ class App_Form_Settings_Index extends App_Form_Table
      */
     public function __destruct()
     {
-        unlink($this->_temporaryFileName);
+        if (file_exists($this->_temporaryFileName)) {
+            unlink($this->_temporaryFileName);
+        }
     }
 
     protected function initForm()
@@ -82,6 +84,11 @@ class App_Form_Settings_Index extends App_Form_Table
 
     protected function initElements()
     {
+        $sessionUser = App_User_Factory::getSessionUser();
+        if ($sessionUser === null) {
+            throw new App_Exception('Not logged in');
+        }
+
         $this->_temporaryFileName = tempnam(Zend_Registry::get('publicPath') . '/images/userpic/tmp', 'userpic');
         $this->_userpic = new Zend_Form_Element_File('userpic', array(
             'required' => false,
@@ -90,16 +97,19 @@ class App_Form_Settings_Index extends App_Form_Table
         $this->_userpic->addValidators(array(
             new Zend_Validate_File_IsImage(),
             new Zend_Validate_File_Extension(array('jpg', 'png', 'gif')),
-            new Zend_Validate_File_Size(524288)
+            new Zend_Validate_File_Size(1048576) // 1M
         ));
         $this->_userpic->addFilters(array(
             new Zend_Filter_File_Rename(array(
                 'target' => $this->_temporaryFileName,
                 'overwrite' => true
             )),
-            new App_Filter_File_ImageThumbnail()
+            new App_Filter_File_ImageThumbnail(array(
+                'width' => 200,
+                'height' => 200,
+                'target' => $sessionUser->getUserpicPath()
+            ))
         ));
-
 
         $this->_removeUserpic = new Zend_Form_Element_Checkbox('remove_userpic', array(
             'label' => 'Удалить картинку'

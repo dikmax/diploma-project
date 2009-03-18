@@ -140,17 +140,13 @@ form table td.label.bottom {
     color: #f00;
 }
 
-.photo-placeholder {
+img.profile-userpic {
     float: left;
     position: relative;
     clear: none;
-    width: 200px;
-    height: 150px;
     border: 1px solid black;
-    text-align: center;
     margin-right: 10px;
     margin-bottom: 10px;
-    background: white;
 }
 
 .photo-image {
