@@ -63,6 +63,14 @@ class App_Form_Settings_Index extends App_Form_Table
      */
     protected $_submit;
 
+    /**
+     * Delete temporary files
+     */
+    public function __destruct()
+    {
+        unlink($this->_temporaryFileName);
+    }
+
     protected function initForm()
     {
         //if ($this->getAction() === '') {
