@@ -49,6 +49,7 @@ class App_Db_Table_User extends App_Db_Table_Abstract
      */
     protected $_dependentTables = array(
         'App_Db_Table_AuthorHasTag',
+        'App_Db_Table_AuthorImageMark',
         'App_Db_Table_TextRevision',
         'App_Db_Table_TitleHasTag',
         'App_Db_Table_UserBookshelf',

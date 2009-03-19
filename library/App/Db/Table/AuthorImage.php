@@ -43,4 +43,11 @@ class App_Db_Table_AuthorImage extends App_Db_Table_Abstract
             'refColumns'        => 'lib_author_id'
         )
     );
+    
+    /**
+     * Dependent tables
+     */
+    protected $_dependentTables = array(
+        'App_Db_Table_AuthorImageMark'
+    );   
 }
