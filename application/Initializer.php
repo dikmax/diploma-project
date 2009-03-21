@@ -92,6 +92,8 @@ class Initializer extends Zend_Controller_Plugin_Abstract
             $root = realpath(dirname(__FILE__) . '/../');
         }
         $this->_root = $root;
+        Zend_Registry::set('rootPath', $root);
+        Zend_Registry::set('tempPath', $root . '/tmp');
         if (!$this->_envConsole) {
             Zend_Registry::set('publicPath', $root . '/public');
         }

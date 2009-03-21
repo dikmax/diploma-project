@@ -153,11 +153,14 @@ img.profile-userpic {
     float: left;
     position: relative;
     clear: none;
-    border: 1px solid black;
     text-align: center;
     margin-right: 10px;
     margin-bottom: 10px;
     background: white;
+}
+
+.photo-image img {
+    border: 1px solid black;
 }
 
 .cover-border-left {

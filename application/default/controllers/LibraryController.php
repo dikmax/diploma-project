@@ -530,4 +530,25 @@ class LibraryController extends Zend_Controller_Action
     {
         $this->_topMenu->selectItem('books');
     }
+
+    /**
+     * Image upload action
+     */
+    public function imageUploadAction()
+    {
+        require_once 'App/Form/Library/ImageUpload.php';
+        $form = new App_Form_Library_ImageUpload();
+
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+                if ($form->upload_image->isUploaded()) {
+                    $form->upload_image->receive();
+                }
+
+                $this->view->saveDone = true;
+            }
+        }
+
+        $this->view->form = $form;
+    }
 }

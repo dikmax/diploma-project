@@ -21,6 +21,8 @@ require_once 'Zend/Form/Decorator/ViewHelper.php';
  */
 abstract class App_Form_Table extends Zend_Form
 {
+    protected $_noStarOnRequired = false;
+
     /**
      * @var string
      */
@@ -85,7 +87,7 @@ abstract class App_Form_Table extends Zend_Form
             new App_Form_Decorator_Label(array(
                 'tag' => 'td',
                 'tagClass' => 'label',
-                'requiredSuffix' => '*:',
+                'requiredSuffix' => $this->_noStarOnRequired ? ':' : '*:',
                 'optionalSuffix' => ':'
             )),
             array(
@@ -114,5 +116,27 @@ abstract class App_Form_Table extends Zend_Form
     {
         $this->_containerClass = $containerClass;
         return $this;
+    }
+
+    /**
+     * Sets no star on required field
+     *
+     * @param boolean $value
+     * @return App_Form_Table
+     */
+    public function setNoStarOnRequired($value)
+    {
+        $this->_noStarOnRequired = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns no star on required field option
+     * @return boolean
+     */
+    public function getNoStarOnRequired()
+    {
+        return $this->_noStarOnRequired;
     }
 }

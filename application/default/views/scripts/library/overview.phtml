@@ -13,7 +13,8 @@ if ($this->type == 1): // Author
     if ($this->frontImage === false):
 ?>
         <div class="photo-image">
-            <img src="/images/default_author.png" />
+            <img src="/images/default_author.png" /><br />
+            <a href="<?= $this->url(array('action' => 'image-upload')); ?>">Загрузить фотографию</a>
         </div>
     <?php else: ?>
         <div class="photo-image">

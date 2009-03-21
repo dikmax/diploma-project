@@ -8,8 +8,11 @@
  * @version    $Id$
  */
 
+require_once 'App/Filter/File/ImageThumbnail.php';
+require_once 'App/Form/Decorator/Label.php';
 require_once 'App/Form/Table.php';
 require_once 'Zend/Filter/File/Rename.php';
+require_once 'Zend/Form/Decorator/Abstract.php';
 require_once 'Zend/Form/Decorator/HtmlTag.php';
 require_once 'Zend/Form/Element/Checkbox.php';
 require_once 'Zend/Form/Element/File.php';
@@ -73,15 +76,22 @@ class App_Form_Settings_Index extends App_Form_Table
         }
     }
 
+    /**
+     * Initializes Form
+     *
+     * @see library/App/Form/App_Form_Table#initForm()
+     */
     protected function initForm()
     {
-        //if ($this->getAction() === '') {
-        //    $this->setAction('/settings');
-        //}
         $this->setMethod('post')
              ->setAttrib('enctype', 'multipart/form-data');
     }
 
+    /**
+     * Initilizes form elements
+     *
+     * @see library/App/Form/App_Form_Table#initElements()
+     */
     protected function initElements()
     {
         $sessionUser = App_User_Factory::getSessionUser();
@@ -89,7 +99,7 @@ class App_Form_Settings_Index extends App_Form_Table
             throw new App_Exception('Not logged in');
         }
 
-        $this->_temporaryFileName = tempnam(Zend_Registry::get('publicPath') . '/images/userpic/tmp', 'userpic');
+        $this->_temporaryFileName = tempnam(Zend_Registry::get('tempPath'), 'userpic');
         $this->_userpic = new Zend_Form_Element_File('userpic', array(
             'required' => false,
             'label' => 'Картинка'
