@@ -8,7 +8,7 @@
  * @version    $Id$
  */
 
-require 'Zend/Validate/Abstract.php';
+require_once 'Zend/Validate/Abstract.php';
 
 /**
  * User not exists validator
