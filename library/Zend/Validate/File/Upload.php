@@ -174,7 +174,6 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
 
                 case 1:
                     $this->_throw($file, self::INI_SIZE);
-                    debug_print_backtrace();
                     break;
 
                 case 2:
