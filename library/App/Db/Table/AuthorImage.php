@@ -49,5 +49,37 @@ class App_Db_Table_AuthorImage extends App_Db_Table_Abstract
      */
     protected $_dependentTables = array(
         'App_Db_Table_AuthorImageMark'
-    );   
+    ); 
+
+    /**
+     * Returns all authors images
+     * 
+     * @param int $authorId
+     * @return array
+     */
+    public function findImagesByAuthor($authorId)
+    {
+    	$select = 'SELECT * '
+         		. 'FROM ' . $this->_name . ' '
+    		    . 'WHERE lib_author_id = :lib_author_id';
+   		return $this->_db->fetchAll($select, 
+   			array(':lib_author_id' => $authorId));
+    }
+    
+    /**
+     * Returns authors front image
+     * 
+     * @param int $authorId
+     * @return array
+     */
+    public function getFrontImage($authorId)
+    {
+    	$select = 'SELECT * '
+    	        . 'FROM ' . $this->name . ' '
+    	        . 'WHERE lib_author_id = :lib_author_id '
+    	        . 'ORDER BY rating DESC '
+    	        . 'LIMIT 1';
+    	return $this->_db->fetchRow($select,
+    		array(':lib_author_id' => $authorId));
+    }
 }

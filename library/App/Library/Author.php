@@ -81,6 +81,13 @@ class App_Library_Author
     protected $_frontImage;
 
     /**
+     * Author images
+     * 
+     * @var App_Library_Author_Images
+     */
+    protected $_images;
+    
+    /**
      * Titles written by author
      *
      * @var array
@@ -139,6 +146,8 @@ class App_Library_Author
         // Lazy init stuff
         $this->_frontImage = null;
 
+        $this->_images = null;
+        
         $this->_titles = null;
 
         self::$instancesCount++;
@@ -427,6 +436,22 @@ class App_Library_Author
         return $this->_frontImage;
     }
 
+    /**
+     * Returns author images
+     * 
+     * @return App_Library_Author_Images
+     */
+    public function getImages()
+    {
+    	if ($this->_images === null) {
+    		$this->_images = new App_Library_Author_Images(array(
+    			'author' => $this
+    		));
+    	}
+    	
+    	return $this->_images;
+    }
+    
     /**
      * Returns all titles written by author
      *

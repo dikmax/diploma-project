@@ -41,7 +41,9 @@ class App_Form_Auth_Login extends App_Form_Table
             $this->setAction('/auth/login');
         }
         $this->setMethod('post')
-             ->setContainerClass('login');
+             ->setContainerClass('login')
+             ->setNoStarOnRequired(true);
+             
     }
 
     /**

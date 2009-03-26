@@ -70,10 +70,31 @@ CREATE TABLE `lib_author_image` (
   `lib_author_id` int(10) unsigned NOT NULL,
   `path` varchar(255) NOT NULL,
   `image_date` datetime NOT NULL,
+  `positive` int(10) unsigned NOT NULL default '0' COMMENT 'Count of positive voices',
+  `negative` int(10) unsigned NOT NULL default '0' COMMENT 'Count of negative voices',
+  `rating` double unsigned NOT NULL default '1' COMMENT 'Rating',
+  `abuse` int(10) unsigned NOT NULL default '0' COMMENT 'Count of abuses',
   PRIMARY KEY  (`lib_author_image_id`),
   KEY `FK_lib_author_image_author` (`lib_author_id`),
+  KEY `rating` (`rating`),
   CONSTRAINT `FK_lib_author_image_author` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+/*Table structure for table `lib_author_image_mark` */
+
+DROP TABLE IF EXISTS `lib_author_image_mark`;
+
+CREATE TABLE `lib_author_image_mark` (
+  `lib_author_image_id` int(10) unsigned NOT NULL,
+  `lib_user_id` int(10) unsigned NOT NULL,
+  `positive` tinyint(3) unsigned NOT NULL default '0',
+  `negative` tinyint(3) unsigned NOT NULL default '0',
+  `abuse` tinyint(3) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`lib_author_image_id`,`lib_user_id`),
+  KEY `FK_lib_author_image_mark_user` (`lib_user_id`),
+  CONSTRAINT `FK_lib_author_image_mark_image` FOREIGN KEY (`lib_author_image_id`) REFERENCES `lib_author_image` (`lib_author_image_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_lib_author_image_mark_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Table structure for table `lib_author_name` */
 
@@ -101,6 +122,21 @@ CREATE TABLE `lib_author_name_index` (
   KEY `lib_author_name_word` (`word`(10)),
   CONSTRAINT `FK_lib_author_name_index` FOREIGN KEY (`lib_author_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+/*Table structure for table `lib_author_similar` */
+
+DROP TABLE IF EXISTS `lib_author_similar`;
+
+CREATE TABLE `lib_author_similar` (
+  `author1_id` int(10) unsigned NOT NULL,
+  `author2_id` int(10) unsigned NOT NULL,
+  `avg` float NOT NULL,
+  `count` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`author1_id`,`author2_id`),
+  KEY `FK_lib_author_similar_author2` (`author2_id`),
+  CONSTRAINT `FK_lib_author_similar_autho1` FOREIGN KEY (`author1_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_lib_author_similar_author2` FOREIGN KEY (`author2_id`) REFERENCES `lib_author` (`lib_author_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Table structure for table `lib_channel` */
 
@@ -225,7 +261,7 @@ CREATE TABLE `lib_text_revision` (
   CONSTRAINT `FK_lib_text_revision` FOREIGN KEY (`lib_text_revision_content_id`) REFERENCES `lib_text_revision_content` (`lib_text_revision_content_id`),
   CONSTRAINT `FK_lib_text_revision_text` FOREIGN KEY (`lib_text_id`) REFERENCES `lib_text` (`lib_text_id`),
   CONSTRAINT `FK_lib_text_revision_user` FOREIGN KEY (`author_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55710 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions';
+) ENGINE=InnoDB AUTO_INCREMENT=55715 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Text revisions';
 
 /*Table structure for table `lib_text_revision_content` */
 
@@ -235,7 +271,7 @@ CREATE TABLE `lib_text_revision_content` (
   `lib_text_revision_content_id` int(10) unsigned NOT NULL auto_increment COMMENT 'ID',
   `content` longtext NOT NULL COMMENT 'Revision content',
   PRIMARY KEY  (`lib_text_revision_content_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55715 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data';
+) ENGINE=InnoDB AUTO_INCREMENT=55720 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='Revision text data';
 
 /*Table structure for table `lib_title` */
 
@@ -295,6 +331,10 @@ CREATE TABLE `lib_user` (
   `login` varchar(255) NOT NULL COMMENT 'User login',
   `password` varchar(32) NOT NULL COMMENT 'MD5 of user password',
   `email` varchar(32) NOT NULL COMMENT 'User''s email',
+  `real_name` varchar(100) NOT NULL COMMENT 'User''s real name',
+  `sex` tinyint(3) unsigned NOT NULL default '0' COMMENT '0 - Undefined, 1 - Male, 2 - Female',
+  `about` text NOT NULL COMMENT 'About info',
+  `userpic` tinyint(3) unsigned NOT NULL default '0' COMMENT '0 - not uploaded, 1 - exists',
   `registration_date` datetime NOT NULL COMMENT 'User registration date',
   `login_date` datetime NOT NULL COMMENT 'User last login date',
   `login_ip` varchar(15) NOT NULL default '0.0.0.0' COMMENT 'User last login IP',
@@ -314,13 +354,14 @@ CREATE TABLE `lib_user_bookshelf` (
   `lib_user_bookshelf_id` bigint(20) unsigned NOT NULL auto_increment COMMENT 'ID',
   `lib_user_id` int(10) unsigned NOT NULL COMMENT 'User ID',
   `lib_title_id` int(10) unsigned NOT NULL COMMENT 'Title ID',
-  `relation` int(11) NOT NULL COMMENT 'Don''t know yet',
+  `relation` smallint(6) NOT NULL COMMENT 'Mark or suggestion or smth else',
   PRIMARY KEY  (`lib_user_bookshelf_id`),
   KEY `FK_lib_user_bookshelf_user` (`lib_user_id`),
   KEY `FK_lib_user_bookshelf_title` (`lib_title_id`),
+  KEY `relation` (`relation`),
   CONSTRAINT `FK_lib_user_bookshelf_title` FOREIGN KEY (`lib_title_id`) REFERENCES `lib_title` (`lib_title_id`),
   CONSTRAINT `FK_lib_user_bookshelf_user` FOREIGN KEY (`lib_user_id`) REFERENCES `lib_user` (`lib_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3343980 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3343981 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Table structure for table `lib_user_friendship` */
 

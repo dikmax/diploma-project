@@ -536,6 +536,16 @@ class LibraryController extends Zend_Controller_Action
      */
     public function imageUploadAction()
     {
+        if ($this->_type === self::AUTHOR_PAGE) {
+            $this->initAuthorAndTitle();
+            if ($this->_error) {
+                return;
+            }
+        } else {
+            $this->_redirect($this->_helper->url->url());
+        }
+        $this->view->type = $this->_type;
+    	
         require_once 'App/Form/Library/ImageUpload.php';
         $form = new App_Form_Library_ImageUpload();
 
@@ -543,6 +553,10 @@ class LibraryController extends Zend_Controller_Action
             if ($form->isValid($_POST)) {
                 if ($form->upload_image->isUploaded()) {
                     $form->upload_image->receive();
+                    
+                    $this->_author->getImages()->addImage(
+                    	$form->upload_image->getFilename()
+                    );
                 }
 
                 $this->view->saveDone = true;
