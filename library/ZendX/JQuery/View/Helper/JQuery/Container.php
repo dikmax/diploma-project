@@ -17,8 +17,13 @@
  * @subpackage  View
  * @copyright   Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: Container.php 14114 2009-02-19 17:35:26Z beberlei $
+ * @version     $Id: Container.php 15040 2009-04-20 21:13:48Z beberlei $
  */
+
+/**
+ * @see ZendX_JQuery
+ */
+require_once "ZendX/JQuery.php";
 
 /**
  * jQuery View Helper. Transports all jQuery stack and render information across all views.
@@ -92,7 +97,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      *
      * @var String
      */
-    protected $_version = "1.2.6";
+    protected $_version = ZendX_JQuery::DEFAULT_JQUERY_VERSION;
 
     /**
      * Default Render Mode (all parts)
@@ -121,7 +126,14 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      *
      * @var String
      */
-    protected $_uiVersion = "1.5.2";
+    protected $_uiVersion = ZendX_JQuery::DEFAULT_UI_VERSION;
+
+    /**
+     * Load CDN Path from SSL or Non-SSL?
+     *
+     * @var boolean
+     */
+    protected $_loadSslCdnPath = false;
 
     /**
      * View Instance
@@ -175,29 +187,62 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     }
 
     /**
-     * Use CDN, using version specified. Currently supported
-     * by Googles Ajax Library API are: 1.2.3, 1.2.6
+     * Set the version of the jQuery library used.
      *
-     * @param  string $version
+     * @param string $version
      * @return ZendX_JQuery_View_Helper_JQuery_Container
      */
-    public function setCdnVersion($version = null)
+    public function setVersion($version)
     {
-        $this->enable();
-        if (preg_match('/^[1-9]\.[0-9](\.[0-9])?$/', $version)) {
+        if (is_string($version) && preg_match('/^[1-9]\.[0-9](\.[0-9])?$/', $version)) {
             $this->_version = $version;
         }
         return $this;
     }
 
     /**
+     * Get the version used with the jQuery library
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->_version;
+    }
+
+    /**
+     * Use CDN, using version specified. Currently supported
+     * by Googles Ajax Library API are: 1.2.3, 1.2.6
+     *
+     * @deprecated As of version 1.8, use {@link setVersion()} instead.
+     * @param  string $version
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
+    public function setCdnVersion($version = null)
+    {
+        return $this->setVersion($version);
+    }
+
+    /**
      * Get CDN version
      *
+     * @deprecated As of version 1.8, use {@link getVersion()} instead.
      * @return string
      */
     public function getCdnVersion()
     {
-        return $this->_version;
+        return $this->getVersion();
+    }
+
+    /**
+     * Set Use SSL on CDN Flag
+     *
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
+    public function setCdnSsl($flag)
+    {
+        $this->_loadSslCdnPath = $flag;
+        return $this;
     }
 
     /**
@@ -218,7 +263,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function setLocalPath($path)
     {
-        $this->enable();
         $this->_jqueryLibraryPath = (string) $path;
         return $this;
     }
@@ -257,29 +301,50 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     }
 
     /**
-     * Set jQuery UI CDN Version
-     *
-     * @param String $version
+     * Set jQuery UI version used.
+     * 
+     * @param  string $version
      * @return ZendX_JQuery_View_Helper_JQuery_Container
      */
-    public function setUiCdnVersion($version="1.5.2")
+    public function setUiVersion($version)
     {
-    	$this->uiEnable();
     	if (preg_match('/^[1-9]\.[0-9](\.[0-9])?$/', $version)) {
-    		$this->_uiPath = null;
     		$this->_uiVersion = $version;
     	}
     	return $this;
     }
 
     /**
+     * Get jQuery UI Version used.
+     *
+     * @return string
+     */
+    public function getUiVersion()
+    {
+        return $this->_uiVersion;
+    }
+
+    /**
+     * Set jQuery UI CDN Version
+     *
+     * @deprecated As of 1.8 use {@link setUiVersion()}
+     * @param String $version
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
+    public function setUiCdnVersion($version="1.5.2")
+    {
+        return $this->setUiVersion($version);
+    }
+
+    /**
      * Return jQuery UI CDN Version
      *
+     * @deprecated As of 1.8 use {@link getUiVersion()}
      * @return String
      */
     public function getUiCdnVersion()
     {
-    	return $this->_uiVersion;
+        return $this->getUiVersion();
     }
 
     /**
@@ -290,7 +355,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function setUiLocalPath($path)
     {
-    	$this->uiEnable();
     	$this->_uiPath = (string) $path;
     	return $this;
     }
@@ -316,15 +380,12 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     }
 
     /**
-     * Is the jQuery Ui enabled and loaded from local scope?
+     * Is the jQuery Ui loaded from local scope?
      *
      * @return boolean
      */
     public function useUiLocal()
     {
-    	if($this->uiIsEnabled() == false) {
-    		return false;
-    	}
     	return (null===$this->_uiPath ? false : true);
     }
 
@@ -335,9 +396,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function useUiCdn()
     {
-    	if($this->uiIsEnabled() == false) {
-    		return false;
-    	}
     	return !$this->useUiLocal();
     }
 
@@ -550,6 +608,17 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         return $this->_onLoadActions;
     }
 
+    /**
+     * Clear the onLoadActions stack.
+     *
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
+    public function clearOnLoadActions()
+    {
+        $this->_onLoadActions = array();
+        return $this;
+    }
+
 	/**
 	 * Set which parts of the jQuery enviroment should be rendered.
 	 *
@@ -652,7 +721,8 @@ class ZendX_JQuery_View_Helper_JQuery_Container
 
 	        if($this->uiIsEnabled()) {
 	        	if($this->useUiCdn()) {
-					$uiPath = sprintf('http://ajax.googleapis.com/ajax/libs/jqueryui/%s/jquery-ui.min.js', $this->getUiCdnVersion());
+                    $baseUri = $this->_getJQueryLibraryBaseCdnUri();
+					$uiPath = sprintf('%s%s/jquery-ui.min.js', $baseUri, $this->getUiCdnVersion());
 	        	} else if($this->useUiLocal()) {
 	        		$uiPath = $this->getUiPath();
 	        	}
@@ -720,6 +790,18 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         return $html;
     }
 
+    /**
+     * @return string
+     */
+    protected function _getJQueryLibraryBaseCdnUri()
+    {
+        if($this->_loadSslCdnPath == true) {
+            $baseUri = ZendX_JQuery::CDN_BASE_GOOGLE_SSL;
+        } else {
+            $baseUri = ZendX_JQuery::CDN_BASE_GOOGLE;
+        }
+        return $baseUri;
+    }
 
 	/**
 	 * Internal function that constructs the include path of the jQuery library.
@@ -731,7 +813,8 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         if($this->_jqueryLibraryPath != null) {
             $source = $this->_jqueryLibraryPath;
         } else {
-            $source = ZendX_JQuery::CDN_BASE_GOOGLE . $this->getCdnVersion() .
+            $baseUri = $this->_getJQueryLibraryBaseCdnUri();
+            $source = $baseUri . $this->getCdnVersion() .
             	ZendX_JQuery::CDN_JQUERY_PATH_GOOGLE;
         }
 
