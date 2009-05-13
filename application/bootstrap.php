@@ -6,8 +6,9 @@ $paths = array(
 set_include_path(implode(PATH_SEPARATOR, $paths));
 
 // Set up autoload.
-require_once "Zend/Loader.php";
-Zend_Loader::registerAutoload();
+require_once "Zend/Loader/Autoloader.php";
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->registerNamespace('App_');
 
 // Set plugin caching
 $classFileIncCache = dirname(__FILE__) .  '/../cache/pluginLoaderCache.php';
