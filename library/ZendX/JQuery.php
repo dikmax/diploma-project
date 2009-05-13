@@ -17,7 +17,7 @@
  * @subpackage  View
  * @copyright   Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license     http://framework.zend.com/license/new-bsd     New BSD License
- * @version     $Id: JQuery.php 15040 2009-04-20 21:13:48Z beberlei $
+ * @version     $Id: JQuery.php 15479 2009-05-10 09:09:32Z beberlei $
  */
 
 /**
@@ -53,13 +53,23 @@ class ZendX_JQuery
      * @see http://code.google.com/apis/ajaxlibs/documentation/index.html#jquery
      * @const string Base path to CDN
      */
-    const CDN_BASE_GOOGLE = 'http://ajax.googleapis.com/ajax/libs/jquery/';
+    const CDN_BASE_GOOGLE = 'http://ajax.googleapis.com/ajax/libs/';
 
     /**
      * @see http://code.google.com/apis/ajaxlibs/documentation/index.html#jquery
      * @const string Base path to CDN
      */
-    const CDN_BASE_GOOGLE_SSL = 'https://ajax.googleapis.com/ajax/libs/jquery/';
+    const CDN_BASE_GOOGLE_SSL = 'https://ajax.googleapis.com/ajax/libs/';
+
+    /**
+     * @const string
+     */
+    const CDN_SUBFOLDER_JQUERY = 'jquery/';
+
+    /**
+     * @const string
+     */
+    const CDN_SUBFOLDER_JQUERYUI = 'jqueryui/';
 
     /**
      * Always uses compressed version, because this is assumed to be the use case
