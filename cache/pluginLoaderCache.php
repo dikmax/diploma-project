@@ -1,0 +1,19 @@
+<?php
+include_once 'Zend/View/Helper/HeadTitle.php';
+include_once 'ZendX/JQuery/View/Helper/JQuery.php';
+include_once 'Zend/Filter/Word/CamelCaseToDash.php';
+include_once 'Zend/Filter/StringToLower.php';
+include_once 'Zend/View/Helper/HeadMeta.php';
+include_once 'Zend/View/Helper/HeadLink.php';
+include_once 'Zend/View/Helper/HeadScript.php';
+include_once 'Zend/View/Helper/Action.php';
+include_once 'Zend/Controller/Action/Helper/Url.php';
+include_once 'Zend/Form/Decorator/Form.php';
+include_once 'Zend/View/Helper/FormText.php';
+include_once 'Zend/View/Helper/FormLabel.php';
+include_once 'Zend/View/Helper/FormPassword.php';
+include_once 'Zend/View/Helper/FormSubmit.php';
+include_once 'Zend/View/Helper/Form.php';
+include_once '/home/dikmax/workspace/librarian/application/default/views/helpers/TopMenu.php';
+include_once 'Zend/View/Helper/Layout.php';
+include_once 'Zend/View/Helper/InlineScript.php';
